@@ -67,5 +67,30 @@ namespace IQCar
             gridPlayer.Placement = solution[index];
             return true;
         }
+
+        private void editToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Debug.Assert(gridPlayer.Visible != gridDesign.Visible);
+
+            if (gridDesign.Visible)
+            {
+                Placement p = gridDesign.ValidatePlacement();
+                if (p == null)
+                    return;
+
+                gridPlayer.Placement = placement = p;
+                solution = null;
+                gridDesign.Visible = false;
+                gridPlayer.Visible = true;
+                this.Text = this.ProductName;
+            }
+            else
+            {
+                gridDesign.Placement = new Placement();
+                gridPlayer.Visible = false;
+                gridDesign.Visible = true;
+                this.Text = this.ProductName + " - Designing";
+            }
+        }
     }
 }

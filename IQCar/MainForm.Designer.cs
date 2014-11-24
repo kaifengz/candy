@@ -31,14 +31,10 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.gameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hintToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.gridPlayer = new IQCar.GridPlayer();
             this.gridDesign = new IQCar.GridDesigner();
+            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -54,7 +50,8 @@
             // gameToolStripMenuItem
             // 
             this.gameToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.hintToolStripMenuItem});
+            this.hintToolStripMenuItem,
+            this.editToolStripMenuItem});
             this.gameToolStripMenuItem.Name = "gameToolStripMenuItem";
             this.gameToolStripMenuItem.Size = new System.Drawing.Size(80, 31);
             this.gameToolStripMenuItem.Text = "&Game";
@@ -68,48 +65,41 @@
             this.hintToolStripMenuItem.Visible = false;
             this.hintToolStripMenuItem.Click += new System.EventHandler(this.hintToolStripMenuItem_Click);
             // 
-            // splitContainer1
-            // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 35);
-            this.splitContainer1.Name = "splitContainer1";
-            // 
-            // splitContainer1.Panel1
-            // 
-            this.splitContainer1.Panel1.Controls.Add(this.gridPlayer);
-            // 
-            // splitContainer1.Panel2
-            // 
-            this.splitContainer1.Panel2.Controls.Add(this.gridDesign);
-            this.splitContainer1.Size = new System.Drawing.Size(431, 337);
-            this.splitContainer1.SplitterDistance = 143;
-            this.splitContainer1.TabIndex = 2;
-            // 
             // gridPlayer
             // 
             this.gridPlayer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridPlayer.Location = new System.Drawing.Point(0, 0);
+            this.gridPlayer.Location = new System.Drawing.Point(0, 35);
             this.gridPlayer.Name = "gridPlayer";
             this.gridPlayer.Placement = null;
-            this.gridPlayer.Size = new System.Drawing.Size(143, 337);
+            this.gridPlayer.Size = new System.Drawing.Size(431, 337);
             this.gridPlayer.TabIndex = 0;
             this.gridPlayer.PlacementChanged += new IQCar.GridPlayer.PlacementChangedEventHandler(this.gridPlayer_PlacementChanged);
             // 
             // gridDesign
             // 
             this.gridDesign.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridDesign.Location = new System.Drawing.Point(0, 0);
+            this.gridDesign.Location = new System.Drawing.Point(0, 35);
             this.gridDesign.Name = "gridDesign";
             this.gridDesign.Placement = null;
-            this.gridDesign.Size = new System.Drawing.Size(284, 337);
+            this.gridDesign.Size = new System.Drawing.Size(431, 337);
             this.gridDesign.TabIndex = 0;
+            this.gridDesign.Visible = false;
+            // 
+            // editToolStripMenuItem
+            // 
+            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+            this.editToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F2;
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(233, 32);
+            this.editToolStripMenuItem.Text = "&Edit";
+            this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(431, 372);
-            this.Controls.Add(this.splitContainer1);
+            this.Controls.Add(this.gridPlayer);
+            this.Controls.Add(this.gridDesign);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
@@ -117,10 +107,6 @@
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -133,6 +119,6 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem gameToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hintToolStripMenuItem;
-        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
     }
 }

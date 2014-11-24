@@ -44,7 +44,6 @@ namespace IQCar
         private Car DraggingCar = null;
         private Point MouseDownPosition;
 
-        private int FocusRadius;
         private Coord focusing = new Coord(0, 0);
         private bool ShowFocus = false;
 
@@ -141,14 +140,6 @@ namespace IQCar
             placement.RemoveCar(focusing);
 
             return offset > 0 ? Math.Min(offset, GridSize * steps) : Math.Max(offset, GridSize * steps);
-        }
-
-        protected override void OnSizeChanged(EventArgs e)
-        {
-            base.OnSizeChanged(e);
-
-            FocusRadius = GridSize / 3;
-            Invalidate();
         }
 
         protected override bool IsInputKey(Keys keyData)

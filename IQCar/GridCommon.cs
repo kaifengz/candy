@@ -23,6 +23,7 @@ namespace IQCar
         protected int YMargin { get; private set; }
         protected int CarMargin { get; private set; }
         protected int CellMargin { get; private set; }
+        protected int FocusRadius { get; private set; }
 
         protected override void OnSizeChanged(EventArgs e)
         {
@@ -33,6 +34,9 @@ namespace IQCar
             YMargin = (Size.Height - GridSize * Placement.Size) / 2;
             CarMargin = GridSize / 20;
             CellMargin = CarMargin * 2;
+            FocusRadius = GridSize / 3;
+
+            Invalidate();
         }
 
         protected void DrawBackground(Graphics graphics)
