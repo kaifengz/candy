@@ -20,6 +20,10 @@ namespace IQCar
             DoubleBuffered = true;
         }
 
+        public delegate void DesignCompletedEventHandler(object sender, EventArgs e);
+        public event DesignCompletedEventHandler DesignCompleted;
+        public event DesignCompletedEventHandler DesignCancelled;
+
         private Placement placement;
         public Placement Placement
         {
@@ -34,28 +38,9 @@ namespace IQCar
             }
         }
 
-        public Placement ValidatePlacement()
+        private bool ValidatePlacement()
         {
-            if (placement == null)
-                return null;
-
-            Coord? king = null;
-            foreach (var car_coord in placement.GetCars())
-            {
-                Car car = car_coord.Item1;
-                Coord coord = car_coord.Item2;
-                if (car.Direction == Placement.Direction.Horizontal && car.Length == 2 && coord.y == 3)
-                {
-                    king = coord;
-                    break;
-                }
-            }
-
-            if (king == null)
-                return null;
-
-            placement.SetKing(king.Value.x, king.Value.y);
-            return new Placement(placement);
+            return placement != null && placement.ProbeKing().Item1 != null;
         }
 
         private readonly Color[] PredefinedColors = new Color[]
@@ -82,6 +67,21 @@ namespace IQCar
 
         private bool Dragging = false;
         private Coord DraggingFrom;
+
+        protected override void OnSizeChanged(EventArgs e)
+        {
+            base.OnSizeChanged(e);
+
+            int button_size = this.Height / 6;
+            Font button_font = new Font(buttonOK.Font.FontFamily, button_size / 6, FontStyle.Bold);
+            int button_margin = 10;
+            int button_x = XMargin + GridSize * Placement.Size + button_margin;
+
+            buttonOK.Size = buttonCancel.Size = new Size(button_size, button_size);
+            buttonOK.Location = new Point(button_x, Height / 2 - button_size - button_margin);
+            buttonCancel.Location = new Point(button_x, Height / 2 + button_margin);
+            buttonOK.Font = buttonCancel.Font = button_font;
+        }
 
         protected override void OnPaint(PaintEventArgs e)
         {
@@ -297,6 +297,18 @@ namespace IQCar
                 usedColors.Add(v.Item1.Color);
 
             return usedColors;
+        }
+
+        private void buttonOK_Click(object sender, EventArgs e)
+        {
+            if (ValidatePlacement() && DesignCompleted != null)
+                DesignCompleted(this, EventArgs.Empty);
+        }
+
+        private void buttonCancel_Click(object sender, EventArgs e)
+        {
+            if (DesignCancelled != null)
+                DesignCancelled(this, EventArgs.Empty);
         }
     }
 }

@@ -30,17 +30,22 @@
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.gameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.restartLevelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.hiddenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hintToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gridPlayer = new IQCar.GridPlayer();
             this.gridDesign = new IQCar.GridDesigner();
-            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.gameToolStripMenuItem});
+            this.gameToolStripMenuItem,
+            this.hiddenToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(431, 35);
@@ -50,11 +55,35 @@
             // gameToolStripMenuItem
             // 
             this.gameToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.hintToolStripMenuItem,
-            this.editToolStripMenuItem});
+            this.restartLevelToolStripMenuItem,
+            this.toolStripSeparator1});
             this.gameToolStripMenuItem.Name = "gameToolStripMenuItem";
             this.gameToolStripMenuItem.Size = new System.Drawing.Size(80, 31);
             this.gameToolStripMenuItem.Text = "&Game";
+            // 
+            // restartLevelToolStripMenuItem
+            // 
+            this.restartLevelToolStripMenuItem.Name = "restartLevelToolStripMenuItem";
+            this.restartLevelToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F3;
+            this.restartLevelToolStripMenuItem.Size = new System.Drawing.Size(239, 32);
+            this.restartLevelToolStripMenuItem.Text = "&Restart Level";
+            this.restartLevelToolStripMenuItem.Click += new System.EventHandler(this.restartLevelToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(236, 6);
+            // 
+            // hiddenToolStripMenuItem
+            // 
+            this.hiddenToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.hintToolStripMenuItem,
+            this.editToolStripMenuItem,
+            this.saveToolStripMenuItem});
+            this.hiddenToolStripMenuItem.Name = "hiddenToolStripMenuItem";
+            this.hiddenToolStripMenuItem.Size = new System.Drawing.Size(93, 31);
+            this.hiddenToolStripMenuItem.Text = "&Hidden";
+            this.hiddenToolStripMenuItem.Visible = false;
             // 
             // hintToolStripMenuItem
             // 
@@ -62,8 +91,23 @@
             this.hintToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Right)));
             this.hintToolStripMenuItem.Size = new System.Drawing.Size(233, 32);
             this.hintToolStripMenuItem.Text = "&Hint";
-            this.hintToolStripMenuItem.Visible = false;
             this.hintToolStripMenuItem.Click += new System.EventHandler(this.hintToolStripMenuItem_Click);
+            // 
+            // editToolStripMenuItem
+            // 
+            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+            this.editToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F2;
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(233, 32);
+            this.editToolStripMenuItem.Text = "&Edit";
+            this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
+            // 
+            // saveToolStripMenuItem
+            // 
+            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(233, 32);
+            this.saveToolStripMenuItem.Text = "&Save";
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // gridPlayer
             // 
@@ -84,14 +128,8 @@
             this.gridDesign.Size = new System.Drawing.Size(431, 337);
             this.gridDesign.TabIndex = 0;
             this.gridDesign.Visible = false;
-            // 
-            // editToolStripMenuItem
-            // 
-            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F2;
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(233, 32);
-            this.editToolStripMenuItem.Text = "&Edit";
-            this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
+            this.gridDesign.DesignCompleted += new IQCar.GridDesigner.DesignCompletedEventHandler(this.gridDesign_DesignCompleted);
+            this.gridDesign.DesignCancelled += new IQCar.GridDesigner.DesignCompletedEventHandler(this.gridDesign_DesignCancelled);
             // 
             // MainForm
             // 
@@ -120,5 +158,9 @@
         private System.Windows.Forms.ToolStripMenuItem gameToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hintToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem hiddenToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem restartLevelToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
     }
 }

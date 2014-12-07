@@ -17,11 +17,13 @@ namespace IQCar
         {
             InitializeComponent();
 
+            placement = level_start = Placement.Generate();
             gridPlayer.Placement = placement;
             gridDesign.Placement = new Placement();
         }
 
-        private Placement placement = Placement.Generate();
+        private Placement placement;
+        private Placement level_start;
         private List<Placement> solution;
         private int index;
 
@@ -71,26 +73,56 @@ namespace IQCar
         private void editToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Debug.Assert(gridPlayer.Visible != gridDesign.Visible);
+            Debug.Assert(gridPlayer.Visible == editToolStripMenuItem.Enabled);
 
-            if (gridDesign.Visible)
-            {
-                Placement p = gridDesign.ValidatePlacement();
-                if (p == null)
-                    return;
-
-                gridPlayer.Placement = placement = p;
-                solution = null;
-                gridDesign.Visible = false;
-                gridPlayer.Visible = true;
-                this.Text = this.ProductName;
-            }
-            else
+            if (gridPlayer.Visible)
             {
                 gridDesign.Placement = new Placement();
                 gridPlayer.Visible = false;
                 gridDesign.Visible = true;
+                editToolStripMenuItem.Enabled = false;
                 this.Text = this.ProductName + " - Designing";
             }
+        }
+
+        private void gridDesign_DesignCompleted(object sender, EventArgs args)
+        {
+            DesignCompleted(true);
+        }
+
+        private void gridDesign_DesignCancelled(object sender, EventArgs args)
+        {
+            DesignCompleted(false);
+        }
+
+        private void DesignCompleted(bool completed)
+        {
+            Debug.Assert(gridPlayer.Visible != gridDesign.Visible);
+            Debug.Assert(gridPlayer.Visible == editToolStripMenuItem.Enabled);
+
+            if (gridDesign.Visible)
+            {
+                if (completed)
+                {
+                    gridPlayer.Placement = placement = level_start = gridDesign.Placement;
+                    solution = null;
+                }
+                gridPlayer.Visible = true;
+                gridDesign.Visible = false;
+                editToolStripMenuItem.Enabled = true;
+                this.Text = this.ProductName;
+            }
+        }
+
+        private void restartLevelToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            gridPlayer.Placement = placement = level_start;
+            solution = null;
+        }
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

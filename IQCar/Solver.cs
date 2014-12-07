@@ -420,6 +420,23 @@ namespace IQCar
             return car;
         }
 
+        public Tuple<Car, Coord> ProbeKing()
+        {
+            king = 0;
+            foreach (var car_coord in GetCars())
+            {
+                Car car = car_coord.Item1;
+                Coord coord = car_coord.Item2;
+                if (car.Direction == Placement.Direction.Horizontal && car.Length == 2 && coord.y == 3)
+                {
+                    SetKing(coord.x, coord.y);
+                    return GetKing();
+                }
+            }
+
+            return new Tuple<Car, Coord>(null, new Coord());
+        }
+
         public bool SetKing(int x, int y)
         {
             if (x < 0 || x >= Size || y < 0 || y >= Size)
@@ -445,7 +462,14 @@ namespace IQCar
 
         public string GetDebugString()
         {
-            string colors = "ABCDEFGHIJKLMN";
+            return ToString(null).Replace(';', '\n');
+        }
+
+        public string ToString(Dictionary<char, Color> color_map)
+        {
+            string colors = "ABCDEFGHIJKLMNOPQRST";
+            Debug.Assert(Size * Size <= colors.Length * 2);
+
             int idx = 0;
             Dictionary<int, char> mapping = new Dictionary<int, char>();
             List<string> lines = new List<string>();
@@ -465,12 +489,86 @@ namespace IQCar
                         ++idx;
                         mapping[board[pos]] = c;
                         line[x] = c;
+                        if (color_map != null)
+                            color_map[c] = cars[pos].Color;
                     }
                 }
                 lines.Add(new string(line));
             }
             lines.Reverse();
-            return string.Join("\n", lines);
+            return string.Join(";", lines);
+        }
+
+        public class ParseError : Exception
+        {
+            public ParseError(string msg)
+                : base(msg)
+            {
+            }
+        }
+
+        public static Placement FromString(string s, Dictionary<char, Color> colors)
+        {
+            Debug.Assert(s != null && colors != null);
+
+            if (s.Length != Size * Size + Size - 1)
+                throw new ParseError(string.Format("Excepted length %d, got %d", Size * Size + Size - 1, s.Length));
+
+            Dictionary<char, Tuple<Car, Coord>> map = new Dictionary<char, Tuple<Car, Coord>>();
+            for (int y = 0; y < Size; ++y)
+            {
+                for (int x = 0; x < Size; ++x)
+                {
+                    char c = s[y * (Size + 1) + x];
+                    if (!map.ContainsKey(c))
+                        map[c] = new Tuple<Car, Coord>(null, new Coord(x, y));
+                    else
+                    {
+                        Tuple<Car, Coord> car_coord = map[c];
+                        Car car = car_coord.Item1;
+                        Coord coord = car_coord.Item2;
+                        if (x != coord.x && y != coord.y)
+                            throw new ParseError(string.Format("Car %c malformed.", c));
+                        int distance = Math.Abs(x - coord.x) + Math.Abs(y - coord.y);
+
+                        Direction dir = x == coord.x ? Direction.Vertical : Direction.Horizontal;
+                        if (car == null)
+                        {
+                            if (distance != 1)
+                                throw new ParseError(string.Format("Car %c malformed.", c));
+                            if (!colors.ContainsKey(c))
+                                throw new ParseError(string.Format("Car %c has no color assigned", c));
+
+                            car = new Car(colors[c], dir, 2);
+                        }
+                        else
+                        {
+                            if (dir == car.Direction && distance == car.Length + 1)
+                                car.Length += 1;
+                            else
+                                throw new ParseError(string.Format("Car %c malformed.", c));
+                        }
+                    }
+                }
+            }
+
+            Placement placement = new Placement();
+            foreach (Tuple<Car, Coord> car_coord in map.Values)
+            {
+                Car car = car_coord.Item1;
+                Coord coord = car_coord.Item2;
+                if (car == null)
+                    throw new ParseError("Car length == 1");
+                if (car.Length > 3)
+                    throw new ParseError(string.Format("Car length == %d", car.Length));
+
+                if (!placement.Place(coord.x, coord.y, car))
+                    throw new ParseError("Internal error");
+            }
+
+            if (placement.ProbeKing().Item1 == null)
+                throw new ParseError("King is not found");
+            return placement;
         }
     }
 }

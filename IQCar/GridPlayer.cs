@@ -21,7 +21,7 @@ namespace IQCar
             this.DoubleBuffered = true;
         }
 
-        public delegate void PlacementChangedEventHandler(object sender, EventArgs args);
+        public delegate void PlacementChangedEventHandler(object sender, EventArgs e);
         public event PlacementChangedEventHandler PlacementChanged;
 
         private Placement placement;
