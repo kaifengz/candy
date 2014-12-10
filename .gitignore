@@ -1,3 +1,10 @@
 *.suo
 bin/
 obj/
+
+# For KfSaver
+Debug/
+Release/
+ipch/
+mysaver.log
+MySaver.sdf
