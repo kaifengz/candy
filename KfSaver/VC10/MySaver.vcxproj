@@ -1,0 +1,200 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{34DEB6A5-6AC8-4D8C-96A3-F6D0CE3A480E}</ProjectGuid>
+    <RootNamespace>MySaver</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration)\</IntDir>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.scr</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..;..\Utility;..\ZkfGraphic;..\Gawk;..\SpecialEffect;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>START_LOG;START_ASSERT;DEBUG_MODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeader>Create</PrecompiledHeader>
+      <AssemblerOutput>
+      </AssemblerOutput>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <MinimalRebuild>true</MinimalRebuild>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>opengl32.lib;glu32.lib;scrnsave.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..;..\Utility;..\ZkfGraphic;..\Gawk;..\SpecialEffect;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>opengl32.lib;glu32.lib;scrnsave.lib;comctl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)$(ProjectName)$(TargetExt)</OutputFile>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\MySaver.cpp" />
+    <ClCompile Include="..\SpecialEffect\BumperEffect\BumperAI.cpp" />
+    <ClCompile Include="..\SpecialEffect\HypocycloidEffect\HypocycloidEffect.cpp" />
+    <ClCompile Include="..\SpecialEffect\HypocycloidEffect\HypocycloridWidget.cpp" />
+    <ClCompile Include="..\SpecialEffect\OthelloEffect\OthelloBoard.cpp" />
+    <ClCompile Include="..\SpecialEffect\OthelloEffect\OthelloSearchNode.cpp" />
+    <ClCompile Include="..\StdAfx.cpp" />
+    <ClCompile Include="..\SpecialEffect\EffectFactory.cpp" />
+    <ClCompile Include="..\SpecialEffect\EffectRegister.cpp" />
+    <ClCompile Include="..\SpecialEffect\SpecialEffect.cpp" />
+    <ClCompile Include="..\SpecialEffect\ChevyEffect\ChevyEffect.cpp" />
+    <ClCompile Include="..\SpecialEffect\ChevyEffect\ChevyScene.cpp" />
+    <ClCompile Include="..\SpecialEffect\FiveEffect\FiveEffect.cpp" />
+    <ClCompile Include="..\SpecialEffect\GLEffect\GLEffect.cpp" />
+    <ClCompile Include="..\SpecialEffect\GLEffect\3dMazeEffect\3dMaze.cpp" />
+    <ClCompile Include="..\SpecialEffect\GLEffect\3dMazeEffect\3dMazeAI.cpp" />
+    <ClCompile Include="..\SpecialEffect\GLEffect\3dMazeEffect\3dMazeEffect.cpp" />
+    <ClCompile Include="..\SpecialEffect\GLEffect\3BodyEffect\3BodyEffect.cpp" />
+    <ClCompile Include="..\SpecialEffect\GLEffect\3BodyEffect\3BodyScene.cpp" />
+    <ClCompile Include="..\SpecialEffect\OthelloEffect\Othello.cpp" />
+    <ClCompile Include="..\SpecialEffect\OthelloEffect\OthelloEffect.cpp" />
+    <ClCompile Include="..\SpecialEffect\CornerEffect.cpp" />
+    <ClCompile Include="..\SpecialEffect\MagnifierEffect.cpp" />
+    <ClCompile Include="..\SpecialEffect\SnakeEffect.cpp" />
+    <ClCompile Include="..\SpecialEffect\BumperEffect\BumperEffect.cpp" />
+    <ClCompile Include="..\SpecialEffect\BumperEffect\BumperScene.cpp" />
+    <ClCompile Include="..\SpecialEffect\BlockEffect\BlockAI.cpp" />
+    <ClCompile Include="..\SpecialEffect\BlockEffect\BlockBase.cpp" />
+    <ClCompile Include="..\SpecialEffect\BlockEffect\BlockEffect.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)%(Filename)1.obj</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)%(Filename)1.xdc</XMLDocumentationFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(Filename)1.obj</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(Filename)1.xdc</XMLDocumentationFileName>
+    </ClCompile>
+    <ClCompile Include="..\SpecialEffect\BlockEffect\BlockScene.cpp" />
+    <ClCompile Include="..\SpecialEffect\PurlerEffect\PurlerEffect.cpp" />
+    <ClCompile Include="..\SpecialEffect\PurlerEffect\PurlerObject.cpp" />
+    <ClCompile Include="..\SpecialEffect\PurlerEffect\PurlerScene.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\resource.h" />
+    <ClInclude Include="..\SpecialEffect\BumperEffect\BumperAI.h" />
+    <ClInclude Include="..\SpecialEffect\HypocycloidEffect\HypocycloidEffect.h" />
+    <ClInclude Include="..\SpecialEffect\HypocycloidEffect\HypocycloridWidget.h" />
+    <ClInclude Include="..\SpecialEffect\OthelloEffect\OthelloBoard.h" />
+    <ClInclude Include="..\SpecialEffect\OthelloEffect\OthelloSearchNode.h" />
+    <ClInclude Include="..\StdAfx.h" />
+    <ClInclude Include="..\SpecialEffect\GLEffect\3BodyEffect\3BodyEffect.h" />
+    <ClInclude Include="..\SpecialEffect\GLEffect\3BodyEffect\3BodyScene.h" />
+    <ClInclude Include="..\SpecialEffect\GLEffect\3dMazeEffect\3dMaze.h" />
+    <ClInclude Include="..\SpecialEffect\GLEffect\3dMazeEffect\3dMazeAI.h" />
+    <ClInclude Include="..\SpecialEffect\GLEffect\3dMazeEffect\3dMazeEffect.h" />
+    <ClInclude Include="..\SpecialEffect\BlockEffect\BlockAI.h" />
+    <ClInclude Include="..\SpecialEffect\BlockEffect\BlockBase.h" />
+    <ClInclude Include="..\SpecialEffect\BlockEffect\BlockEffect.h" />
+    <ClInclude Include="..\SpecialEffect\BlockEffect\BlockScene.h" />
+    <ClInclude Include="..\SpecialEffect\BumperEffect\BumperEffect.h" />
+    <ClInclude Include="..\SpecialEffect\BumperEffect\BumperScene.h" />
+    <ClInclude Include="..\SpecialEffect\ChevyEffect\ChevyEffect.h" />
+    <ClInclude Include="..\SpecialEffect\ChevyEffect\ChevyScene.h" />
+    <ClInclude Include="..\SpecialEffect\CornerEffect.h" />
+    <ClInclude Include="..\SpecialEffect\EffectFactory.h" />
+    <ClInclude Include="..\SpecialEffect\EffectRegister.h" />
+    <ClInclude Include="..\SpecialEffect\FiveEffect\FiveEffect.h" />
+    <ClInclude Include="..\SpecialEffect\GLEffect\GLEffect.h" />
+    <ClInclude Include="..\SpecialEffect\MagnifierEffect.h" />
+    <ClInclude Include="..\SpecialEffect\OthelloEffect\Othello.h" />
+    <ClInclude Include="..\SpecialEffect\OthelloEffect\OthelloEffect.h" />
+    <ClInclude Include="..\SpecialEffect\PurlerEffect\PurlerEffect.h" />
+    <ClInclude Include="..\SpecialEffect\PurlerEffect\PurlerObject.h" />
+    <ClInclude Include="..\SpecialEffect\PurlerEffect\PurlerScene.h" />
+    <ClInclude Include="..\SpecialEffect\SnakeEffect.h" />
+    <ClInclude Include="..\SpecialEffect\SpecialEffect.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\image\3dMaze-crosspoint.bmp" />
+    <None Include="..\image\3dMaze-wall.bmp" />
+    <None Include="..\image\block.bmp" />
+    <None Include="..\res\five.dat" />
+    <None Include="..\res\MySaver.ico" />
+    <None Include="..\image\snake.bmp" />
+    <None Include="..\SpecialEffect\FiveEffect\five.txt" />
+    <None Include="..\SpecialEffect\FiveEffect\res-converter.bat" />
+    <None Include="..\SpecialEffect\FiveEffect\res-converter.py" />
+    <None Include="MySaver.log" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\MySaver.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Gawk\Gawk.vcxproj">
+      <Project>{0e24e912-d6e2-4641-a0c9-5fbe85ae318f}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="Utility\Utility.vcxproj">
+      <Project>{5f321287-9fec-47c9-8cb4-156133b4861e}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="ZkfGraphics\ZkfGraphics.vcxproj">
+      <Project>{959596ab-a1ef-4b64-a671-739f23157c88}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

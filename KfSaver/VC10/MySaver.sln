@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MySaver", "MySaver.vcxproj", "{34DEB6A5-6AC8-4D8C-96A3-F6D0CE3A480E}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Utility", "Utility\Utility.vcxproj", "{5F321287-9FEC-47C9-8CB4-156133B4861E}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Gawk", "Gawk\Gawk.vcxproj", "{0E24E912-D6E2-4641-A0C9-5FBE85AE318F}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ZkfGraphics", "ZkfGraphics\ZkfGraphics.vcxproj", "{959596AB-A1EF-4B64-A671-739F23157C88}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{34DEB6A5-6AC8-4D8C-96A3-F6D0CE3A480E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{34DEB6A5-6AC8-4D8C-96A3-F6D0CE3A480E}.Debug|Win32.Build.0 = Debug|Win32
+		{34DEB6A5-6AC8-4D8C-96A3-F6D0CE3A480E}.Release|Win32.ActiveCfg = Release|Win32
+		{34DEB6A5-6AC8-4D8C-96A3-F6D0CE3A480E}.Release|Win32.Build.0 = Release|Win32
+		{5F321287-9FEC-47C9-8CB4-156133B4861E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{5F321287-9FEC-47C9-8CB4-156133B4861E}.Debug|Win32.Build.0 = Debug|Win32
+		{5F321287-9FEC-47C9-8CB4-156133B4861E}.Release|Win32.ActiveCfg = Release|Win32
+		{5F321287-9FEC-47C9-8CB4-156133B4861E}.Release|Win32.Build.0 = Release|Win32
+		{0E24E912-D6E2-4641-A0C9-5FBE85AE318F}.Debug|Win32.ActiveCfg = Debug|Win32
+		{0E24E912-D6E2-4641-A0C9-5FBE85AE318F}.Debug|Win32.Build.0 = Debug|Win32
+		{0E24E912-D6E2-4641-A0C9-5FBE85AE318F}.Release|Win32.ActiveCfg = Release|Win32
+		{0E24E912-D6E2-4641-A0C9-5FBE85AE318F}.Release|Win32.Build.0 = Release|Win32
+		{959596AB-A1EF-4B64-A671-739F23157C88}.Debug|Win32.ActiveCfg = Debug|Win32
+		{959596AB-A1EF-4B64-A671-739F23157C88}.Debug|Win32.Build.0 = Debug|Win32
+		{959596AB-A1EF-4B64-A671-739F23157C88}.Release|Win32.ActiveCfg = Release|Win32
+		{959596AB-A1EF-4B64-A671-739F23157C88}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

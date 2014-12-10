@@ -1,0 +1,298 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+    <Filter Include="SpecialEffect Files">
+      <UniqueIdentifier>{6ca7a80b-98c8-481c-90d5-5191c7a5ca0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SpecialEffect Files\Effects">
+      <UniqueIdentifier>{03dbb870-8a70-4222-a40e-461e0dad9103}</UniqueIdentifier>
+      <Extensions>
+      </Extensions>
+    </Filter>
+    <Filter Include="SpecialEffect Files\Effects\Chevy">
+      <UniqueIdentifier>{630112c6-b6bd-45ef-8a87-19cfa817d4ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SpecialEffect Files\Effects\Five">
+      <UniqueIdentifier>{48e65540-e05d-4235-b782-2b29b0b56f58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SpecialEffect Files\Effects\OpenGL Effects">
+      <UniqueIdentifier>{81823f01-589d-418f-84f7-8cd1d1ea4382}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SpecialEffect Files\Effects\OpenGL Effects\3dMaze">
+      <UniqueIdentifier>{85641fc8-1064-442a-9592-837f1313a574}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SpecialEffect Files\Effects\OpenGL Effects\3Body">
+      <UniqueIdentifier>{76021df5-6875-4be1-8271-3fc6e3e60a42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SpecialEffect Files\Effects\Othello">
+      <UniqueIdentifier>{8c64225b-0897-452c-8094-1733ec87d658}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SpecialEffect Files\Effects\zz-Others">
+      <UniqueIdentifier>{03d226f6-17ff-423f-86ca-d3addc0df55c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SpecialEffect Files\Effects\Bumper">
+      <UniqueIdentifier>{05fb7522-4e57-4f04-bc4e-b186fa495c23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SpecialEffect Files\Effects\Block">
+      <UniqueIdentifier>{1f976d56-976f-4f02-9425-52787b185cbe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SpecialEffect Files\Effects\Hypocycloid">
+      <UniqueIdentifier>{d5831484-e74d-4061-b5e2-2a430ed50d9f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SpecialEffect Files\Basic">
+      <UniqueIdentifier>{46b92bd6-631f-4317-b54e-1891c47c390b}</UniqueIdentifier>
+      <Extensions>
+      </Extensions>
+    </Filter>
+    <Filter Include="SpecialEffect Files\Effects\Purler">
+      <UniqueIdentifier>{855f8967-1473-4b50-a15d-6eb8c4e1e600}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\MySaver.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\StdAfx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SpecialEffect\ChevyEffect\ChevyEffect.cpp">
+      <Filter>SpecialEffect Files\Effects\Chevy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SpecialEffect\ChevyEffect\ChevyScene.cpp">
+      <Filter>SpecialEffect Files\Effects\Chevy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SpecialEffect\FiveEffect\FiveEffect.cpp">
+      <Filter>SpecialEffect Files\Effects\Five</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SpecialEffect\GLEffect\GLEffect.cpp">
+      <Filter>SpecialEffect Files\Effects\OpenGL Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SpecialEffect\GLEffect\3dMazeEffect\3dMaze.cpp">
+      <Filter>SpecialEffect Files\Effects\OpenGL Effects\3dMaze</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SpecialEffect\GLEffect\3dMazeEffect\3dMazeAI.cpp">
+      <Filter>SpecialEffect Files\Effects\OpenGL Effects\3dMaze</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SpecialEffect\GLEffect\3dMazeEffect\3dMazeEffect.cpp">
+      <Filter>SpecialEffect Files\Effects\OpenGL Effects\3dMaze</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SpecialEffect\GLEffect\3BodyEffect\3BodyEffect.cpp">
+      <Filter>SpecialEffect Files\Effects\OpenGL Effects\3Body</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SpecialEffect\GLEffect\3BodyEffect\3BodyScene.cpp">
+      <Filter>SpecialEffect Files\Effects\OpenGL Effects\3Body</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SpecialEffect\OthelloEffect\Othello.cpp">
+      <Filter>SpecialEffect Files\Effects\Othello</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SpecialEffect\OthelloEffect\OthelloEffect.cpp">
+      <Filter>SpecialEffect Files\Effects\Othello</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SpecialEffect\CornerEffect.cpp">
+      <Filter>SpecialEffect Files\Effects\zz-Others</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SpecialEffect\MagnifierEffect.cpp">
+      <Filter>SpecialEffect Files\Effects\zz-Others</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SpecialEffect\SnakeEffect.cpp">
+      <Filter>SpecialEffect Files\Effects\zz-Others</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SpecialEffect\BumperEffect\BumperEffect.cpp">
+      <Filter>SpecialEffect Files\Effects\Bumper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SpecialEffect\BumperEffect\BumperScene.cpp">
+      <Filter>SpecialEffect Files\Effects\Bumper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SpecialEffect\BlockEffect\BlockAI.cpp">
+      <Filter>SpecialEffect Files\Effects\Block</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SpecialEffect\BlockEffect\BlockBase.cpp">
+      <Filter>SpecialEffect Files\Effects\Block</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SpecialEffect\BlockEffect\BlockEffect.cpp">
+      <Filter>SpecialEffect Files\Effects\Block</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SpecialEffect\BlockEffect\BlockScene.cpp">
+      <Filter>SpecialEffect Files\Effects\Block</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SpecialEffect\PurlerEffect\PurlerEffect.cpp">
+      <Filter>SpecialEffect Files\Effects\Purler</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SpecialEffect\PurlerEffect\PurlerObject.cpp">
+      <Filter>SpecialEffect Files\Effects\Purler</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SpecialEffect\PurlerEffect\PurlerScene.cpp">
+      <Filter>SpecialEffect Files\Effects\Purler</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SpecialEffect\HypocycloidEffect\HypocycloidEffect.cpp">
+      <Filter>SpecialEffect Files\Effects\Hypocycloid</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SpecialEffect\HypocycloidEffect\HypocycloridWidget.cpp">
+      <Filter>SpecialEffect Files\Effects\Hypocycloid</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SpecialEffect\BumperEffect\BumperAI.cpp">
+      <Filter>SpecialEffect Files\Effects\Bumper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SpecialEffect\EffectFactory.cpp">
+      <Filter>SpecialEffect Files\Basic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SpecialEffect\SpecialEffect.cpp">
+      <Filter>SpecialEffect Files\Basic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SpecialEffect\EffectRegister.cpp">
+      <Filter>SpecialEffect Files\Basic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SpecialEffect\OthelloEffect\OthelloBoard.cpp">
+      <Filter>SpecialEffect Files\Effects\Othello</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SpecialEffect\OthelloEffect\OthelloSearchNode.cpp">
+      <Filter>SpecialEffect Files\Effects\Othello</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\StdAfx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SpecialEffect\EffectFactory.h">
+      <Filter>SpecialEffect Files\Basic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SpecialEffect\EffectRegister.h">
+      <Filter>SpecialEffect Files\Basic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SpecialEffect\SpecialEffect.h">
+      <Filter>SpecialEffect Files\Basic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SpecialEffect\BumperEffect\BumperAI.h">
+      <Filter>SpecialEffect Files\Effects\Bumper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SpecialEffect\BumperEffect\BumperEffect.h">
+      <Filter>SpecialEffect Files\Effects\Bumper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SpecialEffect\BumperEffect\BumperScene.h">
+      <Filter>SpecialEffect Files\Effects\Bumper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SpecialEffect\ChevyEffect\ChevyEffect.h">
+      <Filter>SpecialEffect Files\Effects\Chevy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SpecialEffect\ChevyEffect\ChevyScene.h">
+      <Filter>SpecialEffect Files\Effects\Chevy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SpecialEffect\GLEffect\3BodyEffect\3BodyEffect.h">
+      <Filter>SpecialEffect Files\Effects\OpenGL Effects\3Body</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SpecialEffect\GLEffect\3BodyEffect\3BodyScene.h">
+      <Filter>SpecialEffect Files\Effects\OpenGL Effects\3Body</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SpecialEffect\GLEffect\3dMazeEffect\3dMaze.h">
+      <Filter>SpecialEffect Files\Effects\OpenGL Effects\3dMaze</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SpecialEffect\GLEffect\3dMazeEffect\3dMazeEffect.h">
+      <Filter>SpecialEffect Files\Effects\OpenGL Effects\3dMaze</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SpecialEffect\GLEffect\3dMazeEffect\3dMazeAI.h">
+      <Filter>SpecialEffect Files\Effects\OpenGL Effects\3dMaze</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SpecialEffect\BlockEffect\BlockAI.h">
+      <Filter>SpecialEffect Files\Effects\Block</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SpecialEffect\BlockEffect\BlockScene.h">
+      <Filter>SpecialEffect Files\Effects\Block</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SpecialEffect\BlockEffect\BlockBase.h">
+      <Filter>SpecialEffect Files\Effects\Block</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SpecialEffect\BlockEffect\BlockEffect.h">
+      <Filter>SpecialEffect Files\Effects\Block</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SpecialEffect\CornerEffect.h">
+      <Filter>SpecialEffect Files\Effects\zz-Others</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SpecialEffect\FiveEffect\FiveEffect.h">
+      <Filter>SpecialEffect Files\Effects\Five</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SpecialEffect\GLEffect\GLEffect.h">
+      <Filter>SpecialEffect Files\Effects\OpenGL Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SpecialEffect\MagnifierEffect.h">
+      <Filter>SpecialEffect Files\Effects\zz-Others</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SpecialEffect\OthelloEffect\Othello.h">
+      <Filter>SpecialEffect Files\Effects\Othello</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SpecialEffect\OthelloEffect\OthelloEffect.h">
+      <Filter>SpecialEffect Files\Effects\Othello</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SpecialEffect\HypocycloidEffect\HypocycloidEffect.h">
+      <Filter>SpecialEffect Files\Effects\Hypocycloid</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SpecialEffect\HypocycloidEffect\HypocycloridWidget.h">
+      <Filter>SpecialEffect Files\Effects\Hypocycloid</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SpecialEffect\PurlerEffect\PurlerEffect.h">
+      <Filter>SpecialEffect Files\Effects\Purler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SpecialEffect\PurlerEffect\PurlerObject.h">
+      <Filter>SpecialEffect Files\Effects\Purler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SpecialEffect\PurlerEffect\PurlerScene.h">
+      <Filter>SpecialEffect Files\Effects\Purler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SpecialEffect\SnakeEffect.h">
+      <Filter>SpecialEffect Files\Effects\zz-Others</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SpecialEffect\OthelloEffect\OthelloBoard.h">
+      <Filter>SpecialEffect Files\Effects\Othello</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SpecialEffect\OthelloEffect\OthelloSearchNode.h">
+      <Filter>SpecialEffect Files\Effects\Othello</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\image\3dMaze-crosspoint.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\image\3dMaze-wall.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\image\block.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\res\five.dat">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\res\MySaver.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\image\snake.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\SpecialEffect\FiveEffect\five.txt">
+      <Filter>SpecialEffect Files\Effects\Five</Filter>
+    </None>
+    <None Include="..\SpecialEffect\FiveEffect\res-converter.bat">
+      <Filter>SpecialEffect Files\Effects\Five</Filter>
+    </None>
+    <None Include="..\SpecialEffect\FiveEffect\res-converter.py">
+      <Filter>SpecialEffect Files\Effects\Five</Filter>
+    </None>
+    <None Include="MySaver.log" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\MySaver.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>
