@@ -7,4 +7,6 @@ Debug/
 Release/
 ipch/
 mysaver.log
-MySaver.sdf
+*.opensdf
+*.sdf
+*.user

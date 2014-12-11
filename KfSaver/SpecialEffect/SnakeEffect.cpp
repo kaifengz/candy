@@ -19,9 +19,9 @@ REGISTER_EFFECT(CSnakeEffect);
 #define TRY_NUM						256
 
 #define MAX_WIDTH					48
-#define MAX_HEIGHT					36
+#define MAX_HEIGHT					48
 #define MIN_WIDTH					36
-#define MIN_HEIGHT					27
+#define MIN_HEIGHT					20
 
 #define SNAKE_IMAGE_SIZE			24
 
@@ -53,13 +53,22 @@ const char* CSnakeEffect::GetEffectName() const
 BOOL CSnakeEffect::Initialize(HDC hDC, BOOL)
 {
 	{	// map size
-		do
+		for (int i=0; ; ++i)
 		{
 			m_nWidth = random(MAX_WIDTH, MIN_WIDTH);
 			m_nSquareSize = GetWndWidth() / m_nWidth;
 			m_nHeight = GetWndHeight() / m_nSquareSize;
+			if (m_nHeight >= MIN_HEIGHT && m_nHeight < MAX_HEIGHT)
+				break;
+
+			LOG("Width %d, height %d; choosing another ...", m_nWidth, m_nHeight);
+			if (i >= 100)
+			{
+				LOG("Give up...");
+				return FALSE;
+			}
 		}
-		while(m_nHeight < MIN_HEIGHT || m_nHeight >= MAX_HEIGHT);
+		LOG("Width %d, height %d; Okay!", m_nWidth, m_nHeight);
 
 		m_xMargin = (GetWndWidth() - m_nWidth*m_nSquareSize) / 2;
 		m_yMargin = (GetWndHeight() - m_nHeight*m_nSquareSize) / 2;

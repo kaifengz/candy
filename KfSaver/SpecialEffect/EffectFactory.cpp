@@ -6,6 +6,10 @@
 #include "EffectFactory.h"
 #include "EffectRegister.h"
 
+#ifdef DEBUG_MODE
+bool CEffectFactory::m_testMode = true;
+#endif
+
 CSpecialEffect* CEffectFactory::CreateEffect(
 		HWND hWnd,
 		HBITMAP hBmpBkgnd)
@@ -16,13 +20,16 @@ CSpecialEffect* CEffectFactory::CreateEffect(
 	CSpecialEffect *pEffect = NULL;
 
 #ifdef DEBUG_MODE
-	creator = EffectRegistry::GetCreatorForTest();
-	if (creator != NULL)
+	if (m_testMode)
 	{
-		pEffect = creator(hWnd, hBmpBkgnd);
-		if(pEffect != NULL)
-			LOG("Create %s for special test", pEffect->GetEffectName());
-		return pEffect;
+		creator = EffectRegistry::GetCreatorForTest();
+		if (creator != NULL)
+		{
+			pEffect = creator(hWnd, hBmpBkgnd);
+			if (pEffect != NULL)
+				LOG("Create %s for special test", pEffect->GetEffectName());
+			return pEffect;
+		}
 	}
 #endif
 
@@ -52,3 +59,11 @@ void CEffectFactory::DeleteEffect(CSpecialEffect *&pEffect)
 		pEffect = NULL;
 	}
 }
+
+#ifdef DEBUG_MODE
+bool CEffectFactory::ToggleTestMode()
+{
+	m_testMode = !m_testMode;
+	return m_testMode;
+}
+#endif

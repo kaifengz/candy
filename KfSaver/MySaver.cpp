@@ -171,6 +171,14 @@ BOOL IsMagicKey(char cKey)
 		return TRUE;
 	}
 
+#ifdef DEBUG_MODE
+	if (cKey == '0')
+	{
+		CEffectFactory::ToggleTestMode();
+		return TRUE;
+	}
+#endif
+
 	return FALSE;
 }
 
