@@ -16,6 +16,10 @@ protected:
 	virtual BOOL OnTimer(HDC);
 	virtual BOOL MagicHong(HDC);
 
+protected:
+	void RandomMove();
+	static void CopyAndStretch(HDC hDCDest, HDC hDCSrc, int x, int y, int w, int h);
+
 private:
 	int m_x, m_y;
 	int m_vx, m_vy;

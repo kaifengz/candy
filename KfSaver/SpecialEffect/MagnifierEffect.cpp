@@ -9,6 +9,7 @@ REGISTER_EFFECT(CMagnifierEffect);
 
 #define MAX_VELOCITY			7 // 9 // 
 #define FRAME_COUNT				MAX_FRAME_NUM // 100 // 
+#define STRETCH_COEFF			1.3
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -46,62 +47,14 @@ BOOL CMagnifierEffect::Initialize(HDC hDC, BOOL)
 
 BOOL CMagnifierEffect::OnTimer(HDC hDC)
 {
-	if(GetFrameCount() != 0)
-	{
-		// 计算当前位置
-		m_vx += random(2, -1);
-		m_vy += random(2, -1);
-
-		if(m_vx < -MAX_VELOCITY)
-			m_vx = -MAX_VELOCITY;
-		else if(m_vx > MAX_VELOCITY)
-			m_vx = MAX_VELOCITY;
-
-		if(m_vy < -MAX_VELOCITY)
-			m_vy = -MAX_VELOCITY;
-		else if(m_vy > MAX_VELOCITY)
-			m_vy = MAX_VELOCITY;
-
-		m_x += m_vx;
-		m_y += m_vy;
-
-		if(m_x < m_nRadius)
-		{
-			m_x = m_nRadius;
-			m_vx = 0;
-		}
-		else if(m_x > GetWndWidth() - m_nRadius)
-		{
-			m_x = GetWndWidth() - m_nRadius;
-			m_vx = 0;
-		}
-
-		if(m_y < m_nRadius)
-		{
-			m_y = m_nRadius;
-			m_vy = 0;
-		}
-		else if(m_y > GetWndHeight() - m_nRadius)
-		{
-			m_y = GetWndHeight() - m_nRadius;
-			m_vy = 0;
-		}
-	}
+	if (GetFrameCount() != 0)
+		RandomMove();
 
 	// 复制桌面图像
 	HDC hDCMem = CreateCompatibleDC(hDC);
 	HBITMAP hOldBmp = (HBITMAP)SelectObject(hDCMem, GetBkgndBmp());
 
-	BitBlt(
-		hDC,
-		m_x - m_nRadius,
-		m_y - m_nRadius,
-		2 * m_nRadius,
-		2 * m_nRadius,
-		hDCMem,
-		m_x - m_nRadius,
-		m_y - m_nRadius,
-		SRCCOPY);
+	CopyAndStretch(hDC, hDCMem, m_x - m_nRadius, m_y - m_nRadius, 2 * m_nRadius, 2 * m_nRadius);
 
 	// 将放大的图样修剪成圆形
 	HBITMAP hBitmap = CreateCompatibleBitmap(hDCMem,
@@ -131,62 +84,14 @@ BOOL CMagnifierEffect::OnTimer(HDC hDC)
 
 BOOL CMagnifierEffect::MagicHong(HDC hDC)
 {
-	if(GetFrameCount() != 0)
-    {
-        // 非第一次，计算当前位置
-		m_vx += random(2, -1);
-		m_vy += random(2, -1);
-
-		if(m_vx < -MAX_VELOCITY)
-			m_vx = -MAX_VELOCITY;
-		else if(m_vx > MAX_VELOCITY)
-			m_vx = MAX_VELOCITY;
-
-		if(m_vy < -MAX_VELOCITY)
-			m_vy = -MAX_VELOCITY;
-		else if(m_vy > MAX_VELOCITY)
-			m_vy = MAX_VELOCITY;
-
-		m_x += m_vx;
-		m_y += m_vy;
-
-		if(m_x < m_nRadius)
-		{
-			m_x = m_nRadius;
-			m_vx = 0;
-		}
-		else if(m_x > GetWndWidth() - m_nRadius)
-		{
-			m_x = GetWndWidth() - m_nRadius;
-			m_vx = 0;
-		}
-
-		if(m_y < m_nRadius)
-		{
-			m_y = m_nRadius;
-			m_vy = 0;
-		}
-		else if(m_y > GetWndHeight() - m_nRadius)
-		{
-			m_y = GetWndHeight() - m_nRadius;
-			m_vy = 0;
-		}
-	}
+	if (GetFrameCount() != 0)
+		RandomMove();
 
 	// 复制桌面图像
 	HDC hDCMem = CreateCompatibleDC(hDC);
 	HBITMAP hOldBmp = (HBITMAP)SelectObject(hDCMem, GetBkgndBmp());
 
-	BitBlt(
-		hDC,
-		m_x - m_nRadius,
-		m_y - m_nRadius,
-		2 * m_nRadius,
-		3 * m_nRadius,
-		hDCMem,
-		m_x - m_nRadius,
-		m_y - m_nRadius,
-		SRCCOPY);
+	CopyAndStretch(hDC, hDCMem, m_x - m_nRadius, m_y - m_nRadius, 2 * m_nRadius, 3 * m_nRadius);
 
 	// 将放大的图样修剪成心形
 	HBITMAP hBitmap = CreateCompatibleBitmap(hDCMem,
@@ -227,4 +132,54 @@ BOOL CMagnifierEffect::MagicHong(HDC hDC)
 	DeleteObject(hBitmap);
 
 	return GetFrameCount() < FRAME_COUNT;
+}
+
+void CMagnifierEffect::RandomMove()
+{
+	m_vx += random(2, -1);
+	m_vy += random(2, -1);
+
+	if (m_vx < -MAX_VELOCITY)
+		m_vx = -MAX_VELOCITY;
+	else if (m_vx > MAX_VELOCITY)
+		m_vx = MAX_VELOCITY;
+
+	if (m_vy < -MAX_VELOCITY)
+		m_vy = -MAX_VELOCITY;
+	else if (m_vy > MAX_VELOCITY)
+		m_vy = MAX_VELOCITY;
+
+	m_x += m_vx;
+	m_y += m_vy;
+
+	if (m_x < m_nRadius)
+	{
+		m_x = m_nRadius;
+		m_vx = 0;
+	}
+	else if (m_x > GetWndWidth() - m_nRadius)
+	{
+		m_x = GetWndWidth() - m_nRadius;
+		m_vx = 0;
+	}
+
+	if (m_y < m_nRadius)
+	{
+		m_y = m_nRadius;
+		m_vy = 0;
+	}
+	else if (m_y > GetWndHeight() - m_nRadius)
+	{
+		m_y = GetWndHeight() - m_nRadius;
+		m_vy = 0;
+	}
+}
+
+void CMagnifierEffect::CopyAndStretch(HDC hDCDest, HDC hDCSrc, int x, int y, int w, int h)
+{
+	int wf = Round(w / STRETCH_COEFF);
+	int hf = Round(h / STRETCH_COEFF);
+	int xf = x + w / 2 - wf / 2;
+	int yf = y + h / 2 - hf / 2;
+	StretchBlt(hDCDest, x, y, w, h, hDCSrc, xf, yf, wf, hf, SRCCOPY);
 }
