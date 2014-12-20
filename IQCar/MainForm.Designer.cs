@@ -29,50 +29,28 @@
         private void InitializeComponent()
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.gameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.restartLevelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.hiddenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hintToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.levelToolStripTextBox = new System.Windows.Forms.ToolStripTextBox();
             this.gridPlayer = new IQCar.GridPlayer();
             this.gridDesign = new IQCar.GridDesigner();
+            this.restartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.gameToolStripMenuItem,
+            this.restartToolStripMenuItem,
+            this.levelToolStripTextBox,
             this.hiddenToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(431, 35);
+            this.menuStrip1.Size = new System.Drawing.Size(431, 37);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
-            // 
-            // gameToolStripMenuItem
-            // 
-            this.gameToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.restartLevelToolStripMenuItem,
-            this.toolStripSeparator1});
-            this.gameToolStripMenuItem.Name = "gameToolStripMenuItem";
-            this.gameToolStripMenuItem.Size = new System.Drawing.Size(80, 31);
-            this.gameToolStripMenuItem.Text = "&Game";
-            // 
-            // restartLevelToolStripMenuItem
-            // 
-            this.restartLevelToolStripMenuItem.Name = "restartLevelToolStripMenuItem";
-            this.restartLevelToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F3;
-            this.restartLevelToolStripMenuItem.Size = new System.Drawing.Size(239, 32);
-            this.restartLevelToolStripMenuItem.Text = "&Restart Level";
-            this.restartLevelToolStripMenuItem.Click += new System.EventHandler(this.restartLevelToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(236, 6);
             // 
             // hiddenToolStripMenuItem
             // 
@@ -81,7 +59,7 @@
             this.editToolStripMenuItem,
             this.saveToolStripMenuItem});
             this.hiddenToolStripMenuItem.Name = "hiddenToolStripMenuItem";
-            this.hiddenToolStripMenuItem.Size = new System.Drawing.Size(93, 31);
+            this.hiddenToolStripMenuItem.Size = new System.Drawing.Size(93, 33);
             this.hiddenToolStripMenuItem.Text = "&Hidden";
             this.hiddenToolStripMenuItem.Visible = false;
             // 
@@ -109,27 +87,41 @@
             this.saveToolStripMenuItem.Text = "&Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
+            // levelToolStripTextBox
+            // 
+            this.levelToolStripTextBox.AcceptsReturn = true;
+            this.levelToolStripTextBox.Name = "levelToolStripTextBox";
+            this.levelToolStripTextBox.Size = new System.Drawing.Size(100, 33);
+            this.levelToolStripTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.levelToolStripTextBox_KeyDown);
+            // 
             // gridPlayer
             // 
             this.gridPlayer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridPlayer.Location = new System.Drawing.Point(0, 35);
+            this.gridPlayer.Location = new System.Drawing.Point(0, 37);
             this.gridPlayer.Name = "gridPlayer";
             this.gridPlayer.Placement = null;
-            this.gridPlayer.Size = new System.Drawing.Size(431, 337);
+            this.gridPlayer.Size = new System.Drawing.Size(431, 335);
             this.gridPlayer.TabIndex = 0;
             this.gridPlayer.PlacementChanged += new IQCar.GridPlayer.PlacementChangedEventHandler(this.gridPlayer_PlacementChanged);
             // 
             // gridDesign
             // 
             this.gridDesign.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridDesign.Location = new System.Drawing.Point(0, 35);
+            this.gridDesign.Location = new System.Drawing.Point(0, 37);
             this.gridDesign.Name = "gridDesign";
             this.gridDesign.Placement = null;
-            this.gridDesign.Size = new System.Drawing.Size(431, 337);
+            this.gridDesign.Size = new System.Drawing.Size(431, 335);
             this.gridDesign.TabIndex = 0;
             this.gridDesign.Visible = false;
             this.gridDesign.DesignCompleted += new IQCar.GridDesigner.DesignCompletedEventHandler(this.gridDesign_DesignCompleted);
             this.gridDesign.DesignCancelled += new IQCar.GridDesigner.DesignCompletedEventHandler(this.gridDesign_DesignCancelled);
+            // 
+            // restartToolStripMenuItem
+            // 
+            this.restartToolStripMenuItem.Name = "restartToolStripMenuItem";
+            this.restartToolStripMenuItem.Size = new System.Drawing.Size(90, 33);
+            this.restartToolStripMenuItem.Text = "&Restart";
+            this.restartToolStripMenuItem.Click += new System.EventHandler(this.restartToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -155,12 +147,11 @@
         private IQCar.GridPlayer gridPlayer;
         private IQCar.GridDesigner gridDesign;
         private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem gameToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hintToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hiddenToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem restartLevelToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripTextBox levelToolStripTextBox;
+        private System.Windows.Forms.ToolStripMenuItem restartToolStripMenuItem;
     }
 }

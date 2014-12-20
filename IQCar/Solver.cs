@@ -507,20 +507,22 @@ namespace IQCar
             }
         }
 
-        public static Placement FromString(string s, Dictionary<char, Color> colors)
+        public static Placement FromString(string s, Dictionary<char, Color> color_map)
         {
-            Debug.Assert(s != null && colors != null);
+            Debug.Assert(s != null && color_map != null);
 
             if (s.Length != Size * Size + Size - 1)
-                throw new ParseError(string.Format("Excepted length %d, got %d", Size * Size + Size - 1, s.Length));
+                throw new ParseError(string.Format("Excepted length {0}, got {1}", Size * Size + Size - 1, s.Length));
 
             Dictionary<char, Tuple<Car, Coord>> map = new Dictionary<char, Tuple<Car, Coord>>();
             for (int y = 0; y < Size; ++y)
             {
                 for (int x = 0; x < Size; ++x)
                 {
-                    char c = s[y * (Size + 1) + x];
-                    if (!map.ContainsKey(c))
+                    char c = s[(Size - 1 - y) * (Size + 1) + x];
+                    if (c == '.')
+                        continue;
+                    else if (!map.ContainsKey(c))
                         map[c] = new Tuple<Car, Coord>(null, new Coord(x, y));
                     else
                     {
@@ -528,25 +530,26 @@ namespace IQCar
                         Car car = car_coord.Item1;
                         Coord coord = car_coord.Item2;
                         if (x != coord.x && y != coord.y)
-                            throw new ParseError(string.Format("Car %c malformed.", c));
+                            throw new ParseError(string.Format("Car {0} malformed: coord.", c));
                         int distance = Math.Abs(x - coord.x) + Math.Abs(y - coord.y);
 
                         Direction dir = x == coord.x ? Direction.Vertical : Direction.Horizontal;
                         if (car == null)
                         {
                             if (distance != 1)
-                                throw new ParseError(string.Format("Car %c malformed.", c));
-                            if (!colors.ContainsKey(c))
-                                throw new ParseError(string.Format("Car %c has no color assigned", c));
+                                throw new ParseError(string.Format("Car {0} malformed: distance.", c));
+                            if (!color_map.ContainsKey(c))
+                                throw new ParseError(string.Format("Car {0} has no color assigned", c));
 
-                            car = new Car(colors[c], dir, 2);
+                            car = new Car(color_map[c], dir, 2);
+                            map[c] = new Tuple<Car, Coord>(car, coord);
                         }
                         else
                         {
-                            if (dir == car.Direction && distance == car.Length + 1)
+                            if (dir == car.Direction && distance == car.Length)
                                 car.Length += 1;
                             else
-                                throw new ParseError(string.Format("Car %c malformed.", c));
+                                throw new ParseError(string.Format("Car {0} malformed: mismatch.", c));
                         }
                     }
                 }

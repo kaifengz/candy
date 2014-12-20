@@ -4,6 +4,8 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,15 +19,40 @@ namespace IQCar
         {
             InitializeComponent();
 
-            placement = level_start = Placement.Generate();
-            gridPlayer.Placement = placement;
+#if DEBUG
+            LoadFromDesktopFile();
+#endif
+
+            LoadFromEmbeddedResource();
+
+            Placement init;
+            if (PuzzleLibrary.Instance.Count == 0)
+            {
+                init = Placement.Generate();
+                levelToolStripTextBox.Enabled = false;
+            }
+            else
+            {
+                var first = PuzzleLibrary.Instance.First.Value;
+                levelToolStripTextBox.Text = first.Key;
+                init = first.Value;
+
+                gridDesign.RefreshPuzzleList();
+            }
+
+            gridPlayer.Placement = placement = level_start = init;
             gridDesign.Placement = new Placement();
+
+#if DEBUG
+            hiddenToolStripMenuItem.Visible = true;
+#endif
         }
 
         private Placement placement;
         private Placement level_start;
         private List<Placement> solution;
         private int index;
+        private const string puzzles_xml = "puzzles.xml";
 
         private void hintToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -114,7 +141,7 @@ namespace IQCar
             }
         }
 
-        private void restartLevelToolStripMenuItem_Click(object sender, EventArgs e)
+        private void restartToolStripMenuItem_Click(object sender, EventArgs e)
         {
             gridPlayer.Placement = placement = level_start;
             solution = null;
@@ -122,7 +149,80 @@ namespace IQCar
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+#if DEBUG
+            SaveFileDialog dlg = new SaveFileDialog();
+            dlg.FileName = puzzles_xml;
+            if (dlg.ShowDialog() != DialogResult.OK)
+                return;
+            PuzzleLibrary.Instance.SavePuzzles(dlg.FileName);
+#endif
         }
+
+        private void levelToolStripTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Up || e.KeyCode == Keys.Down)
+            {
+                string level = levelToolStripTextBox.Text;
+                var new_level = (e.KeyCode == Keys.Up ?
+                    PuzzleLibrary.Instance.Previous(level) : PuzzleLibrary.Instance.Next(level));
+                if (new_level != null)
+                {
+                    levelToolStripTextBox.Text = new_level.Value.Key;
+                    e.Handled = true;
+                    ApplyPuzzle();
+                }
+            }
+            else if (e.KeyCode == Keys.Enter && ApplyPuzzle())
+            {
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+            }
+        }
+
+        private bool ApplyPuzzle()
+        {
+            string name = levelToolStripTextBox.Text;
+            Placement placement = PuzzleLibrary.Instance.GetPuzzle(name);
+            if (placement == null)
+                return false;
+
+            gridPlayer.Placement = this.placement = level_start = placement;
+            solution = null;
+            return true;
+        }
+
+        private void LoadFromEmbeddedResource()
+        {
+            try
+            {
+                byte[] puzzles_xml_gz = IQCar.Properties.Resources.puzzles_xml_gz;
+                using (Stream stream_gz = new MemoryStream(puzzles_xml_gz))
+                {
+                    using (Stream stream = new GZipStream(stream_gz, CompressionMode.Decompress))
+                    {
+                        PuzzleLibrary.Instance.LoadPuzzles(stream);
+                    }
+                }
+            }
+            catch
+            {
+            }
+        }
+
+#if DEBUG
+        private void LoadFromDesktopFile()
+        {
+            string desktop = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+            string filename = Path.Combine(desktop, puzzles_xml);
+            try
+            {
+                if (File.Exists(filename))
+                    PuzzleLibrary.Instance.LoadPuzzles(filename);
+            }
+            catch
+            {
+            }
+        }
+#endif
     }
 }

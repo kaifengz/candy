@@ -38,6 +38,19 @@ namespace IQCar
             }
         }
 
+        public void RefreshPuzzleList()
+        {
+#if DEBUG
+            comboBoxPuzzles.Items.Clear();
+            foreach (var pair in PuzzleLibrary.Instance.EnumPuzzles())
+            {
+                comboBoxPuzzles.Items.Add(pair.Key);
+            }
+#endif
+        }
+
+        private Coord? Focusing = null;
+
         private bool ValidatePlacement()
         {
             return placement != null && placement.ProbeKing().Item1 != null;
@@ -72,15 +85,27 @@ namespace IQCar
         {
             base.OnSizeChanged(e);
 
+            if (this.Size.IsEmpty)
+                return;
+
             int button_size = this.Height / 6;
             Font button_font = new Font(buttonOK.Font.FontFamily, button_size / 6, FontStyle.Bold);
             int button_margin = 10;
             int button_x = XMargin + GridSize * Placement.Size + button_margin;
 
-            buttonOK.Size = buttonCancel.Size = new Size(button_size, button_size);
-            buttonOK.Location = new Point(button_x, Height / 2 - button_size - button_margin);
-            buttonCancel.Location = new Point(button_x, Height / 2 + button_margin);
-            buttonOK.Font = buttonCancel.Font = button_font;
+            buttonOK.Size = buttonCancel.Size = buttonAdd.Size = new Size(button_size, button_size);
+            buttonOK.Font = buttonCancel.Font = buttonAdd.Font = button_font;
+            buttonCancel.Location = new Point(button_x, Height - button_size - button_margin);
+            buttonOK.Location = new Point(button_x, buttonCancel.Top - button_size - button_margin);
+            buttonAdd.Location = new Point(button_x, buttonOK.Top - button_size - button_margin);
+
+            comboBoxPuzzles.Size = new Size(button_size, buttonAdd.Top - button_margin * 2);
+            comboBoxPuzzles.Location = new Point(button_x, button_margin);
+
+#if !DEBUG
+            comboBoxPuzzles.Visible = false;
+            buttonSave.Visible = false;
+#endif
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -100,6 +125,9 @@ namespace IQCar
 
             if (Dragging)
                 DrawDragging(e.Graphics);
+
+            if (Focusing != null)
+                DrawFocusCircle(e.Graphics, placement, Focusing.Value);
         }
 
         private void DrawDragging(Graphics graphics)
@@ -207,25 +235,24 @@ namespace IQCar
 
         private void OnRightMouseDown(MouseEventArgs e)
         {
+            Focusing = null;
+
             if (placement == null)
                 return;
 
             Coord? coord = ScreenToCoord(e.Location);
-            if (coord == null)
-                return;
+            if (coord != null)
+            {
+                var car_coord = placement.GetCar(coord.Value);
+                if (car_coord.Item1 != null)
+                    Focusing = car_coord.Item2;
+            }
 
-            var car_coord = Placement.GetCar(coord.Value);
-            Car car = car_coord.Item1;
-            if (car == null)
-                return;
-
-            ColorDialog dlg = new ColorDialog();
-            dlg.Color = car.Color;
-            if (dlg.ShowDialog() != DialogResult.OK)
-                return;
-
-            car.Color = dlg.Color;
+            editColorToolStripMenuItem.Enabled = (Focusing != null);
+            removeToolStripMenuItem.Enabled = (Focusing != null);
             Invalidate();
+
+            contextMenuStrip1.Show(this, e.Location);
         }
 
         protected override void OnMouseMove(MouseEventArgs e)
@@ -309,6 +336,73 @@ namespace IQCar
         {
             if (DesignCancelled != null)
                 DesignCancelled(this, EventArgs.Empty);
+        }
+
+        private void buttonSave_Click(object sender, EventArgs e)
+        {
+            if (!ValidatePlacement())
+                return;
+
+            string name = comboBoxPuzzles.Text;
+            if (name == null)
+                return;
+
+            if (PuzzleLibrary.Instance.GetPuzzle(name) != null)
+            {
+                if (MessageBox.Show(string.Format("Overwrite {0}?", name), ProductName, MessageBoxButtons.YesNo,
+                            MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) != DialogResult.Yes)
+                    return;
+            }
+
+            PuzzleLibrary.Instance.SetPuzzle(name, new Placement(placement));
+            comboBoxPuzzles.Items.Add(name);
+        }
+
+        private void comboBoxPuzzles_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string name = comboBoxPuzzles.SelectedItem.ToString();
+            Placement p = PuzzleLibrary.Instance.GetPuzzle(name);
+            Debug.Assert(p != null);
+            this.Placement = p;
+        }
+
+        private void editColorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Debug.Assert(placement != null);
+            Debug.Assert(Focusing != null);
+
+            var car_coord = placement.GetCar(Focusing.Value);
+            Car car = car_coord.Item1;
+            Debug.Assert(car != null);
+
+            ColorDialog dlg = new ColorDialog();
+            dlg.Color = car.Color;
+            if (dlg.ShowDialog() == DialogResult.OK)
+                car.Color = dlg.Color;
+            Focusing = null;
+            Invalidate();
+        }
+
+        private void removeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Debug.Assert(placement != null);
+            Debug.Assert(Focusing != null);
+
+            var car_coord = placement.GetCar(Focusing.Value);
+            Car car = car_coord.Item1;
+            Debug.Assert(car != null);
+
+            placement.RemoveCar(car_coord.Item2);
+            Focusing = null;
+            Invalidate();
+        }
+
+        private void removeAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Debug.Assert(placement != null);
+
+            placement = new Placement();
+            Invalidate();
         }
     }
 }

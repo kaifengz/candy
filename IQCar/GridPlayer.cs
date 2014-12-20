@@ -65,8 +65,8 @@ namespace IQCar
 
             if (Dragging != null)
                 DrawDraggingCar(e.Graphics, placement);
-            else
-                DrawFocusCircle(e.Graphics, placement);
+            else if (ShowFocus)
+                DrawFocusCircle(e.Graphics, placement, focusing);
         }
 
         private void DrawDraggingCar(Graphics graphics, Placement placement)
@@ -102,27 +102,6 @@ namespace IQCar
                         x - FocusRadius, y - FocusRadius,
                         FocusRadius * 2, FocusRadius * 2);
                 }
-            }
-        }
-
-        private void DrawFocusCircle(Graphics graphics, Placement placement)
-        {
-            if (!ShowFocus)
-                return;
-
-            using (Pen pen = new Pen(Color.Gray, 2))
-            {
-                Car focused = placement.GetCar(focusing).Item1;
-                Coord size = (focused == null ? new Coord(1, 1) :
-                    (focused.Direction == IQCar.Placement.Direction.Horizontal ?
-                    new Coord(focused.Length, 1) : new Coord(1, focused.Length)));
-                Rectangle rect = CoordToScreen(focusing.x, focusing.y, size.x, size.y);
-                int x = rect.Left + rect.Width / 2;
-                int y = rect.Top + rect.Height / 2;
-
-                graphics.DrawEllipse(pen,
-                    x - FocusRadius, y - FocusRadius,
-                    FocusRadius * 2, FocusRadius * 2);
             }
         }
 
