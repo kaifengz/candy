@@ -60,14 +60,14 @@ namespace IQCar
                         if (elem.Name != "Puzzle")
                             continue;
 
-                        string name = elem.GetAttribute("name");
+                        int level = int.Parse(elem.GetAttribute("level"));
                         string placement_str = elem.GetAttribute("placement");
                         string color_map_str = elem.GetAttribute("color-map");
 
                         Dictionary<char, Color> color_map = ColorMapFromString(color_map_str);
                         Placement placement = Placement.FromString(placement_str, color_map);
                         if (placement != null)
-                            SetPuzzle(name, placement);
+                            SetPuzzle(level, placement);
                     }
                     catch (Exception exc)
                     {
@@ -100,7 +100,7 @@ namespace IQCar
 
             foreach (var vpuzzle in puzzles)
             {
-                string name = vpuzzle.Key;
+                int level = vpuzzle.Key;
                 Placement placement = vpuzzle.Value;
 
                 Dictionary<char, Color> color_map = new Dictionary<char, Color>();
@@ -108,7 +108,7 @@ namespace IQCar
                 string color_map_str = ColorMapToString(color_map);
 
                 XmlElement puzzle = doc.CreateElement("Puzzle");
-                puzzle.SetAttribute("name", name);
+                puzzle.SetAttribute("level", level.ToString());
                 puzzle.SetAttribute("placement", placement_str);
                 puzzle.SetAttribute("color-map", color_map_str);
                 root.AppendChild(puzzle);
@@ -117,18 +117,18 @@ namespace IQCar
             doc.Save(stream);
         }
 
-        public Placement GetPuzzle(string name)
+        public Placement GetPuzzle(int level)
         {
             Placement placement;
-            return puzzles.TryGetValue(name, out placement) ? placement : null;
+            return puzzles.TryGetValue(level, out placement) ? placement : null;
         }
 
-        public void SetPuzzle(string name, Placement placement)
+        public void SetPuzzle(int level, Placement placement)
         {
-            puzzles[name] = placement;
+            puzzles[level] = placement;
         }
 
-        public IEnumerable<KeyValuePair<string, Placement>> EnumPuzzles()
+        public IEnumerable<KeyValuePair<int, Placement>> EnumPuzzles()
         {
             return puzzles.AsEnumerable();
         }
@@ -141,7 +141,7 @@ namespace IQCar
             }
         }
 
-        public KeyValuePair<string, Placement>? First
+        public KeyValuePair<int, Placement>? First
         {
             get
             {
@@ -151,28 +151,34 @@ namespace IQCar
             }
         }
 
-        public KeyValuePair<string, Placement>? Next(string name)
+        public KeyValuePair<int, Placement>? Next(int level)
         {
-            var next = puzzles.FirstOrDefault(delegate(KeyValuePair<string, Placement> pair)
+            try
             {
-                return string.Compare(pair.Key, name) > 0;
-            });
-
-            if (next.Key != null)
-                return next;
-            return null;
+                return puzzles.First(delegate(KeyValuePair<int, Placement> pair)
+                {
+                    return pair.Key > level;
+                });
+            }
+            catch (InvalidOperationException)
+            {
+                return null;
+            }
         }
 
-        public KeyValuePair<string, Placement>? Previous(string name)
+        public KeyValuePair<int, Placement>? Previous(int level)
         {
-            var prev = puzzles.LastOrDefault(delegate(KeyValuePair<string, Placement> pair)
+            try
             {
-                return string.Compare(pair.Key, name) < 0;
-            });
-
-            if (prev.Key != null)
-                return prev;
-            return null;
+                return puzzles.Last(delegate(KeyValuePair<int, Placement> pair)
+                {
+                    return pair.Key < level;
+                });
+            }
+            catch (InvalidOperationException)
+            {
+                return null;
+            }
         }
 
         private static string ColorMapToString(Dictionary<char, Color> color_map)
@@ -204,6 +210,6 @@ namespace IQCar
             return color_map.Count > 0 ? color_map : null;
         }
 
-        private SortedDictionary<string, Placement> puzzles = new SortedDictionary<string, Placement>();
+        private SortedDictionary<int, Placement> puzzles = new SortedDictionary<int, Placement>();
     }
 }

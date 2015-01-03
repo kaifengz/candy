@@ -34,7 +34,7 @@ namespace IQCar
             else
             {
                 var first = PuzzleLibrary.Instance.First.Value;
-                levelToolStripTextBox.Text = first.Key;
+                levelToolStripTextBox.Text = first.Key.ToString();
                 init = first.Value;
 
                 gridDesign.RefreshPuzzleList();
@@ -162,12 +162,14 @@ namespace IQCar
         {
             if (e.KeyCode == Keys.Up || e.KeyCode == Keys.Down)
             {
-                string level = levelToolStripTextBox.Text;
+                int level = 0;
+                if (!int.TryParse(levelToolStripTextBox.Text, out level))
+                    return;
                 var new_level = (e.KeyCode == Keys.Up ?
                     PuzzleLibrary.Instance.Previous(level) : PuzzleLibrary.Instance.Next(level));
                 if (new_level != null)
                 {
-                    levelToolStripTextBox.Text = new_level.Value.Key;
+                    levelToolStripTextBox.Text = new_level.Value.Key.ToString();
                     e.Handled = true;
                     ApplyPuzzle();
                 }
@@ -181,8 +183,10 @@ namespace IQCar
 
         private bool ApplyPuzzle()
         {
-            string name = levelToolStripTextBox.Text;
-            Placement placement = PuzzleLibrary.Instance.GetPuzzle(name);
+            int level = 0;
+            if (!int.TryParse(levelToolStripTextBox.Text, out level))
+                return false;
+            Placement placement = PuzzleLibrary.Instance.GetPuzzle(level);
             if (placement == null)
                 return false;
 

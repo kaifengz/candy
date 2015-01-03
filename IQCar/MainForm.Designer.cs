@@ -29,14 +29,14 @@
         private void InitializeComponent()
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.restartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.levelToolStripTextBox = new System.Windows.Forms.ToolStripTextBox();
             this.hiddenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hintToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.levelToolStripTextBox = new System.Windows.Forms.ToolStripTextBox();
             this.gridPlayer = new IQCar.GridPlayer();
             this.gridDesign = new IQCar.GridDesigner();
-            this.restartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -51,6 +51,20 @@
             this.menuStrip1.Size = new System.Drawing.Size(431, 37);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
+            // 
+            // restartToolStripMenuItem
+            // 
+            this.restartToolStripMenuItem.Name = "restartToolStripMenuItem";
+            this.restartToolStripMenuItem.Size = new System.Drawing.Size(90, 33);
+            this.restartToolStripMenuItem.Text = "&Restart";
+            this.restartToolStripMenuItem.Click += new System.EventHandler(this.restartToolStripMenuItem_Click);
+            // 
+            // levelToolStripTextBox
+            // 
+            this.levelToolStripTextBox.AcceptsReturn = true;
+            this.levelToolStripTextBox.Name = "levelToolStripTextBox";
+            this.levelToolStripTextBox.Size = new System.Drawing.Size(100, 33);
+            this.levelToolStripTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.levelToolStripTextBox_KeyDown);
             // 
             // hiddenToolStripMenuItem
             // 
@@ -87,13 +101,6 @@
             this.saveToolStripMenuItem.Text = "&Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
-            // levelToolStripTextBox
-            // 
-            this.levelToolStripTextBox.AcceptsReturn = true;
-            this.levelToolStripTextBox.Name = "levelToolStripTextBox";
-            this.levelToolStripTextBox.Size = new System.Drawing.Size(100, 33);
-            this.levelToolStripTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.levelToolStripTextBox_KeyDown);
-            // 
             // gridPlayer
             // 
             this.gridPlayer.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -115,13 +122,6 @@
             this.gridDesign.Visible = false;
             this.gridDesign.DesignCompleted += new IQCar.GridDesigner.DesignCompletedEventHandler(this.gridDesign_DesignCompleted);
             this.gridDesign.DesignCancelled += new IQCar.GridDesigner.DesignCompletedEventHandler(this.gridDesign_DesignCancelled);
-            // 
-            // restartToolStripMenuItem
-            // 
-            this.restartToolStripMenuItem.Name = "restartToolStripMenuItem";
-            this.restartToolStripMenuItem.Size = new System.Drawing.Size(90, 33);
-            this.restartToolStripMenuItem.Text = "&Restart";
-            this.restartToolStripMenuItem.Click += new System.EventHandler(this.restartToolStripMenuItem_Click);
             // 
             // MainForm
             // 

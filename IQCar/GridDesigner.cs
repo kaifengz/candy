@@ -104,7 +104,7 @@ namespace IQCar
 
 #if !DEBUG
             comboBoxPuzzles.Visible = false;
-            buttonSave.Visible = false;
+            buttonAdd.Visible = false;
 #endif
         }
 
@@ -343,25 +343,27 @@ namespace IQCar
             if (!ValidatePlacement())
                 return;
 
-            string name = comboBoxPuzzles.Text;
-            if (name == null)
+            int level = 0;
+            if (!int.TryParse(comboBoxPuzzles.Text, out level))
                 return;
 
-            if (PuzzleLibrary.Instance.GetPuzzle(name) != null)
+            if (PuzzleLibrary.Instance.GetPuzzle(level) != null)
             {
-                if (MessageBox.Show(string.Format("Overwrite {0}?", name), ProductName, MessageBoxButtons.YesNo,
+                if (MessageBox.Show(string.Format("Overwrite {0}?", level), ProductName, MessageBoxButtons.YesNo,
                             MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) != DialogResult.Yes)
                     return;
             }
 
-            PuzzleLibrary.Instance.SetPuzzle(name, new Placement(placement));
-            comboBoxPuzzles.Items.Add(name);
+            PuzzleLibrary.Instance.SetPuzzle(level, new Placement(placement));
+            comboBoxPuzzles.Items.Add(level);
         }
 
         private void comboBoxPuzzles_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string name = comboBoxPuzzles.SelectedItem.ToString();
-            Placement p = PuzzleLibrary.Instance.GetPuzzle(name);
+            int level = 0;
+            if (!int.TryParse(comboBoxPuzzles.SelectedItem.ToString(), out level))
+                return;
+            Placement p = PuzzleLibrary.Instance.GetPuzzle(level);
             Debug.Assert(p != null);
             this.Placement = p;
         }
