@@ -231,17 +231,21 @@ namespace IQCar
             {
                 case Keys.Left:
                     new_focus.x -= 1;
+                    new_focus.y += (focused_size.y - 1) / 2;
                     break;
 
                 case Keys.Right:
                     new_focus.x += focused_size.x;
+                    new_focus.y += (focused_size.y - 1) / 2;
                     break;
 
                 case Keys.Up:
+                    new_focus.x += (focused_size.x - 1) / 2;
                     new_focus.y += focused_size.y;
                     break;
 
                 case Keys.Down:
+                    new_focus.x += (focused_size.x - 1) / 2;
                     new_focus.y -= 1;
                     break;
 

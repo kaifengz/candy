@@ -57,7 +57,17 @@ namespace IQCar
         private void hintToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (solution == null)
-                solvePlacement();
+            {
+                try
+                {
+                    this.Cursor = Cursors.WaitCursor;
+                    solvePlacement();
+                }
+                finally
+                {
+                    this.Cursor = this.DefaultCursor;
+                }
+            }
             if (solution != null)
                 SolutionMove(+1);
         }
