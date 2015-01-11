@@ -50,11 +50,7 @@ namespace IQCar
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
-
-            using (Brush brush = new SolidBrush(this.BackColor))
-            {
-                e.Graphics.FillRectangle(brush, this.ClientRectangle);
-            }
+            DrawBackground(e.Graphics);
 
             Placement placement = (this.Dragging ?? this.placement);
             if (placement == null)

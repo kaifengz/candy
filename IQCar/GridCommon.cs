@@ -18,23 +18,27 @@ namespace IQCar
             InitializeComponent();
         }
 
+        private const double BoundaryWeight = 0.1;
+
         protected int GridSize { get; private set; }
         protected int XMargin { get; private set; }
         protected int YMargin { get; private set; }
         protected int CarMargin { get; private set; }
         protected int CellMargin { get; private set; }
         protected int FocusRadius { get; private set; }
+        protected int BoundarySize { get; private set; }
 
         protected override void OnSizeChanged(EventArgs e)
         {
             base.OnSizeChanged(e);
 
-            GridSize = Math.Min(Size.Width, Size.Height) / Placement.Size;
+            GridSize = (int)Math.Round(Math.Min(Size.Width, Size.Height) / (Placement.Size + BoundaryWeight * 2));
             XMargin = (Size.Width - GridSize * Placement.Size) / 2;
             YMargin = (Size.Height - GridSize * Placement.Size) / 2;
             CarMargin = GridSize / 20;
             CellMargin = CarMargin * 2;
             FocusRadius = GridSize / 3;
+            BoundarySize = (int)Math.Round(GridSize * BoundaryWeight);
 
             Invalidate();
         }
@@ -44,6 +48,27 @@ namespace IQCar
             using (Brush brush = new SolidBrush(this.BackColor))
             {
                 graphics.FillRectangle(brush, this.ClientRectangle);
+            }
+
+            using (Brush brush = new SolidBrush(Color.DarkGray))
+            {
+                int BoardSize = GridSize * Placement.Size;
+
+                // left boundary
+                graphics.FillRectangle(brush, XMargin - BoundarySize, YMargin - BoundarySize,
+                    BoundarySize, BoardSize + BoundarySize * 2);
+                // top boundary
+                graphics.FillRectangle(brush, XMargin - BoundarySize, YMargin - BoundarySize,
+                    BoardSize + BoundarySize * 2, BoundarySize);
+                // bottom boundary
+                graphics.FillRectangle(brush, XMargin - BoundarySize, YMargin + BoardSize,
+                    BoardSize + BoundarySize * 2, BoundarySize);
+                // top part of right boundary
+                graphics.FillRectangle(brush, XMargin + BoardSize, YMargin - BoundarySize,
+                    BoundarySize, GridSize * 2 + BoundarySize);
+                // bottom part of right boundary
+                graphics.FillRectangle(brush, XMargin + BoardSize, YMargin + GridSize * 3,
+                    BoundarySize, GridSize * 3 + BoundarySize);
             }
         }
         

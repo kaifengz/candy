@@ -91,7 +91,7 @@ namespace IQCar
             int button_size = this.Height / 6;
             Font button_font = new Font(buttonOK.Font.FontFamily, button_size / 6, FontStyle.Bold);
             int button_margin = 10;
-            int button_x = XMargin + GridSize * Placement.Size + button_margin;
+            int button_x = XMargin + GridSize * Placement.Size + BoundarySize + button_margin;
 
             buttonOK.Size = buttonCancel.Size = buttonAdd.Size = new Size(button_size, button_size);
             buttonOK.Font = buttonCancel.Font = buttonAdd.Font = button_font;
@@ -111,11 +111,7 @@ namespace IQCar
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
-
-            using (Brush brush = new SolidBrush(this.BackColor))
-            {
-                e.Graphics.FillRectangle(brush, this.ClientRectangle);
-            }
+            DrawBackground(e.Graphics);
 
             if (placement == null)
                 return;
