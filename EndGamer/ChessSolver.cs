@@ -7,7 +7,7 @@ namespace endgamer
 {
     class ChessSolver
     {
-        public void test()
+        public static ChessBoard init_test()
         {
             ChessBoard board = new ChessBoard();
 
@@ -36,7 +36,7 @@ namespace endgamer
             board.SetPiece(6, 10, new ChessPiece_King(ChessPieceColor.Black));
             board.SetPiece(1, 1, new ChessPiece_Pawn(ChessPieceColor.Black));
 
-            Solve_Checkmate(board, ChessPieceColor.Red);
+            return board;
         }
 
         public void Solve_Checkmate(ChessBoard board, ChessPieceColor first)
