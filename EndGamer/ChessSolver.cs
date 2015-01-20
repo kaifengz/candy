@@ -2,11 +2,24 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Diagnostics;
 
 namespace endgamer
 {
     class ChessSolver
     {
+#if DEBUG
+        public event EventHandler Visit;
+        public class VisitEventArgs : EventArgs
+        {
+            public ChessBoard Board { get; private set; }
+            public VisitEventArgs(ChessBoard board)
+            {
+                Board = board;
+            }
+        }
+#endif
+
         public static ChessBoard init_test()
         {
             ChessBoard board = new ChessBoard();
@@ -39,21 +52,32 @@ namespace endgamer
             return board;
         }
 
-        public void Solve_Checkmate(ChessBoard board, ChessPieceColor first)
+        public SearchNode Solve_Checkmate(ChessBoard board, ChessPieceColor first, ChessPieceColor attacker)
         {
             SearchNode root = new SearchNode(board);
-            SearchNode final = Solve_Checkmate(root, first, true, 1);
-            if (final != null)
+            SearchNode final = Solve_Checkmate(root, first, first == attacker);
+            if (final == null || final.Parent == null)
+                return null;
+
+            SearchNode parent = final.Parent;
+            while (parent.Parent != null)
             {
-                var p = final.Parent;
+                final = parent;
+                parent = final.Parent;
             }
+            return final;
         }
 
-        protected SearchNode Solve_Checkmate(SearchNode node, ChessPieceColor color, bool attacking, int depth)
+        protected SearchNode Solve_Checkmate(SearchNode node, ChessPieceColor color, bool attacking)
         {
             ChessPieceColor my_color = color;
             ChessPieceColor enemy_color = (color == ChessPieceColor.Red ? ChessPieceColor.Black : ChessPieceColor.Red);
             SearchNode final = null;
+
+#if DEBUG
+            if (Visit != null)
+                Visit(this, new VisitEventArgs(node.Board));
+#endif
 
             foreach (Tuple<Position, ChessPiece> tup in node.Board.Pieces(my_color))
             {
@@ -66,12 +90,17 @@ namespace endgamer
                     if (!new_board.MovePiece(from, to, piece))
                         continue;
 
+#if DEBUG
+                    if (Visit != null)
+                        Visit(this, new VisitEventArgs(new_board));
+#endif
+
                     if (attacking)
                     {
                         if (new_board.IsCheckmateAgainst(enemy_color, enemy_color))
                         {
                             SearchNode next = new SearchNode(new_board, node);
-                            final = Solve_Checkmate(next, enemy_color, !attacking, depth + 1);
+                            final = Solve_Checkmate(next, enemy_color, !attacking);
                             if (final != null)
                                 return final;
                         }
@@ -81,7 +110,7 @@ namespace endgamer
                         if (!new_board.IsCheckmateAgainst(my_color, enemy_color))
                         {
                             SearchNode next = new SearchNode(new_board, node);
-                            SearchNode last = Solve_Checkmate(next, enemy_color, !attacking, depth + 1);
+                            SearchNode last = Solve_Checkmate(next, enemy_color, !attacking);
                             if (last == null)
                                 return null;
                             if (final == null || final.Depth < last.Depth)
@@ -97,17 +126,17 @@ namespace endgamer
                 return final ?? node;
         }
 
-        protected class SearchNode
+        public class SearchNode
         {
-            public ChessBoard Board; // { get; private set; }
-            public SearchNode Parent; // { get; private set; }
+            public ChessBoard Board { get; private set; }
+            public SearchNode Parent { get; private set; }
             public int Depth { get; private set; }
 
             public SearchNode(ChessBoard board, SearchNode parent = null)
             {
                 Board = board;
                 Parent = parent;
-                Depth = parent == null ? 1 : parent.Depth + 1;
+                Depth = parent == null ? 0 : parent.Depth + 1;
             }
         }
     }

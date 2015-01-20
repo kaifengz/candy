@@ -16,6 +16,7 @@ namespace endgamer
         public EndGamer()
         {
             InitializeComponent();
+            this.DoubleBuffered = true;
 
             board = ChessSolver.init_test();
         }
@@ -110,6 +111,21 @@ namespace endgamer
                         }
                     }
                 }
+            }
+        }
+
+        private ChessPieceColor next_color = ChessPieceColor.Red;
+        private void searchToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ChessSolver solver = new ChessSolver();
+            // solver.Visit += solver_Visit;
+            // ChessBoard init = this.board;
+            ChessSolver.SearchNode next = solver.Solve_Checkmate(this.board, next_color, ChessPieceColor.Red);
+            if (next != null)
+            {
+                this.board = next.Board;
+                Invalidate();
+                next_color = (next_color == ChessPieceColor.Red ? ChessPieceColor.Black : ChessPieceColor.Red);
             }
         }
     }
