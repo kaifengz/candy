@@ -1,0 +1,44 @@
+void main()
+{
+	int a=10000,b,c=2800,d,e,[2801]f,g,h;
+	while(b != c)
+	{
+		f[b] = 2000;
+		b += 1;
+	}
+
+	while(1)
+	{
+		d = 0;
+		g = c*2;
+		if(g == 0)
+			break;
+		b = c;
+		while(1)
+		{
+			d += f[b]*a;
+			g -= 1;
+			f[b] = d%g;
+			d /= g;
+			g -= 1;
+			b -= 1;
+			if(b == 0)
+				break;
+			d *= b;
+		}
+		c -= 14;
+		h = e+d/a;
+		if(h < 1000)
+		{
+			if(h > 99)
+				output "0";
+			else if(h > 9)
+				output "00";
+			else
+				output "000";
+		}
+		output h;
+		e = d%a;
+	}
+	output '\n';
+}

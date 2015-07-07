@@ -1,0 +1,83 @@
+void FirstPermutation(int []p, int n);
+int NextPermutation(int []p, int n);
+
+void main()
+{
+	output "本程序按字典顺序生成并输出1,2,3…n的所有排列\n";
+
+	int [10]p;
+	int i,n;
+
+	while(1)
+	{
+		output "请输入n（2≤n≤10）: ";
+		input n;
+		if(n>=2 && n<=10)
+			break;
+		output "输入错误！\n";
+	}
+
+	FirstPermutation([]p,n);
+	do
+	{
+		i=0;
+		while(i<n)
+		{
+			output p[i], ' ';
+			i += 1;
+		}
+		output '\n';
+	}
+	while(NextPermutation([]p,n));
+}
+
+void FirstPermutation(int []p, int n)
+{
+	int i=0;
+	while(i<n)
+	{
+		p[i] = i;
+		i += 1;
+	}
+}
+
+int NextPermutation(int []p, int n)
+{
+	int i,j,jm,t;
+
+	//step 1
+	i = n-1;
+	while(i>0 && p[i-1]>p[i])
+		i -= 1;
+	if(i<=0)
+		return 0;
+
+	//step 2
+	jm = i;
+	j = jm+1;
+	while(j<n)
+	{
+		if(p[j]>p[i-1] && p[j]<p[jm])
+			jm=j;
+		j += 1;
+	}
+
+	//step 3
+	t = p[i-1];
+	p[i-1] = p[jm];
+	p[jm] = t;
+
+	//step 4
+	j = n-1;
+	while(j>i)
+	{
+		t = p[i];
+		p[i] = p[j];
+		p[j] = t;
+
+		i += 1;
+		j -= 1;
+	}
+
+	return 1;
+}

@@ -1,0 +1,29 @@
+void move(int from, int to, int buffer, int n)
+{
+	if(n == 1)
+	{
+		output "move from ", from, " to ", to, "\n";
+	}
+	else
+	{
+		move(from, buffer, to, n-1);
+		move(from, to, buffer, 1);
+		move(buffer, to, from, n-1);
+	}
+}
+
+void main()
+{
+	output "本程序显示n(1≤n≤10)层hanio塔的移动过程\n";
+	int n;
+	while(1)
+	{
+		output "请输入n的值 ";
+		input n;
+		if(n>=1 && n<=10)
+			break;
+		output "输入错误！\n";
+	}
+	move(1,3,2,n);
+	output "\n移动成功\n";
+}

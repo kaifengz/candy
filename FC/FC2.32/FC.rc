@@ -1,0 +1,655 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Chinese (P.R.C.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+#ifdef _WIN32
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
+#pragma code_page(936)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)\r\n"
+    "#ifdef _WIN32\r\n"
+    "LANGUAGE 4, 2\r\n"
+    "#pragma code_page(936)\r\n"
+    "#endif //_WIN32\r\n"
+    "#include ""res\\FC.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""l.chs\\afxres.rc""          // Standard components\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON    DISCARDABLE     "res\\FC.ico"
+IDR_FCTYPE              ICON    DISCARDABLE     "res\\FCTYPE.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDR_MAINFRAME           BITMAP  MOVEABLE PURE   "res\\Toolbar.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Toolbar
+//
+
+IDR_MAINFRAME TOOLBAR DISCARDABLE  16, 16
+BEGIN
+    BUTTON      ID_FILE_NEW
+    BUTTON      ID_FILE_OPEN
+    BUTTON      ID_FILE_SAVE
+    SEPARATOR
+    BUTTON      ID_EDIT_UNDO
+    BUTTON      ID_EDIT_CUT
+    BUTTON      ID_EDIT_COPY
+    BUTTON      ID_EDIT_PASTE
+    BUTTON      ID_EDIT_CLEAR
+    SEPARATOR
+    BUTTON      ID_COMPILE_COMPILE
+    BUTTON      ID_COMPILE_INTERPRET
+    BUTTON      ID_COMPILE_EXECUTE
+    BUTTON      ID_COMPILE_TRANSLATE
+    SEPARATOR
+    BUTTON      ID_OPTION
+    BUTTON      ID_COMPILE_REPORT_ERROR
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MAINFRAME MENU PRELOAD DISCARDABLE 
+BEGIN
+    POPUP "文件(&F)"
+    BEGIN
+        MENUITEM "新建(&N)\tCtrl+N",            ID_FILE_NEW
+        MENUITEM "打开(&O)...\tCtrl+O",         ID_FILE_OPEN
+        MENUITEM "保存(&S)\tCtrl+S",            ID_FILE_SAVE
+        MENUITEM "另存为(&A)...",               ID_FILE_SAVE_AS
+        MENUITEM SEPARATOR
+        MENUITEM "最近文件",                    ID_FILE_MRU_FILE1, GRAYED
+        MENUITEM SEPARATOR
+        MENUITEM "退出(&X)",                    ID_APP_EXIT
+    END
+    POPUP "编辑(&E)"
+    BEGIN
+        MENUITEM "撤消(&U)\tCtrl+Z",            ID_EDIT_UNDO
+        MENUITEM SEPARATOR
+        MENUITEM "剪切(&T)\tCtrl+X",            ID_EDIT_CUT
+        MENUITEM "复制(&C)\tCtrl+C",            ID_EDIT_COPY
+        MENUITEM "粘贴(&P)\tCtrl+V",            ID_EDIT_PASTE
+        MENUITEM "删除(&D)\tDelete",            ID_EDIT_CLEAR
+        MENUITEM SEPARATOR
+        MENUITEM "全选(&A)\tCtrl+A",            ID_EDIT_SELECT_ALL
+        MENUITEM SEPARATOR
+        MENUITEM "查找(&F)\tCtrl+F",            ID_EDIT_FIND
+        MENUITEM "替换(&H)\tCtrl+H",            ID_EDIT_REPLACE
+    END
+    POPUP "查看(&V)"
+    BEGIN
+        MENUITEM "工具栏(&T)",                  ID_VIEW_TOOLBAR
+        MENUITEM "状态栏(&S)",                  ID_VIEW_STATUS_BAR
+    END
+    POPUP "编译(&C)"
+    BEGIN
+        MENUITEM "编译(&C)\tF7",                ID_COMPILE_COMPILE
+        MENUITEM "重新编译(&R)",                ID_COMPILE_REBUILD
+        MENUITEM SEPARATOR
+        MENUITEM "解释执行(&I)\tF5",            ID_COMPILE_INTERPRET
+        MENUITEM "执行(&E)\tCtrl+F5",           ID_COMPILE_EXECUTE
+        MENUITEM SEPARATOR
+        MENUITEM "翻译为C++(&T)...\tCtrl+T",    ID_COMPILE_TRANSLATE
+        MENUITEM SEPARATOR
+        MENUITEM "选项(&O)",                    ID_OPTION
+    END
+    POPUP "帮助(&H)"
+    BEGIN
+        MENUITEM "FC 2.32 语法(&G)...",         ID_HELP_GRAMMAR
+        MENUITEM "FC 2.32 说明(&I)...",         ID_HELP_GLOBAL
+        MENUITEM SEPARATOR
+        POPUP "程序示例(&E)"
+        BEGIN
+            MENUITEM "&1 HelloWorld",               ID_EXAMPLE_HELLOWORLD
+            MENUITEM "&2 Permutation",              ID_EXAMPLE_PERMUTATION
+            MENUITEM "&3 Prime",                    ID_EXAMPLE_PRIME
+            MENUITEM "&4 PI",                       ID_EXAMPLE_PI
+            MENUITEM "&5 Hanio",                    ID_EXAMPLE_HANIO
+            MENUITEM "&6 Fibonacci",                ID_EXAMPLE_FIBONACCI
+        END
+        MENUITEM SEPARATOR
+        MENUITEM "关于 FC 2.32(&A)...",         ID_APP_ABOUT
+    END
+END
+
+IDR_INTERPRET_DLG MENU DISCARDABLE 
+BEGIN
+    MENUITEM "执行(&R)",                    ID_INTERPRET
+    MENUITEM "保存结果(&S)",                ID_SAVE_OUTPUT
+    POPUP "输出精度(&P)"
+    BEGIN
+        MENUITEM "&1.  0位小数",                ID_PRESICION_0
+        MENUITEM "&2.  6位小数",                ID_PRECISION_6
+        MENUITEM "&3. 15位小数",                ID_PRECISION_15
+    END
+    MENUITEM "关闭(&X)",                    ID_EXIT_DLG
+END
+
+IDR_TEXT_DLG MENU DISCARDABLE 
+BEGIN
+    MENUITEM "保存(&S)",                    ID_SAVE_TEXT
+    MENUITEM "关闭(&X)",                    ID_EXIT_DLG
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDR_MAINFRAME ACCELERATORS PRELOAD MOVEABLE PURE 
+BEGIN
+    "A",            ID_EDIT_SELECT_ALL,     VIRTKEY, CONTROL, NOINVERT
+    "C",            ID_EDIT_COPY,           VIRTKEY, CONTROL, NOINVERT
+    "F",            ID_EDIT_FIND,           VIRTKEY, CONTROL, NOINVERT
+    "H",            ID_EDIT_REPLACE,        VIRTKEY, CONTROL, NOINVERT
+    "N",            ID_FILE_NEW,            VIRTKEY, CONTROL, NOINVERT
+    "O",            ID_FILE_OPEN,           VIRTKEY, CONTROL, NOINVERT
+    "P",            ID_COMPILE_REPORT_ERROR, VIRTKEY, CONTROL, NOINVERT
+    "S",            ID_FILE_SAVE,           VIRTKEY, CONTROL, NOINVERT
+    "T",            ID_COMPILE_TRANSLATE,   VIRTKEY, CONTROL, NOINVERT
+    "V",            ID_EDIT_PASTE,          VIRTKEY, CONTROL, NOINVERT
+    VK_F5,          ID_COMPILE_INTERPRET,   VIRTKEY, NOINVERT
+    VK_F5,          ID_COMPILE_EXECUTE,     VIRTKEY, CONTROL, NOINVERT
+    VK_F7,          ID_COMPILE_COMPILE,     VIRTKEY, NOINVERT
+    "X",            ID_EDIT_CUT,            VIRTKEY, CONTROL, NOINVERT
+    "Z",            ID_EDIT_UNDO,           VIRTKEY, CONTROL, NOINVERT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOG DISCARDABLE  0, 0, 235, 55
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "关于 FC"
+FONT 9, "宋体"
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,11,17,20,20
+    LTEXT           "FC 2.32 版",IDC_STATIC,40,10,119,8,SS_NOPREFIX
+    LTEXT           "版权所有 朱凯峰 2004.02",IDC_STATIC,40,25,119,8
+    DEFPUSHBUTTON   "确定",IDOK,178,7,50,14,WS_GROUP
+END
+
+IDD_ERROR_REPORT_DLG DIALOGEX 0, 0, 255, 99
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "FC 语法语义错误报告"
+FONT 9, "宋体", 0, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "跳过错误(&Y)",IDOK,135,80,55,14
+    PUSHBUTTON      "结束编译(&N)",IDCANCEL,195,80,55,14
+    LTEXT           "",IDC_STATIC_LINE_NUMBER,5,5,245,10
+    EDITTEXT        IDC_LINE_STRING,15,20,235,12,ES_AUTOHSCROLL | 
+                    ES_READONLY | NOT WS_BORDER,WS_EX_STATICEDGE
+    LTEXT           "存在语法或语义错误：",IDC_STATIC,5,35,245,10
+    LTEXT           "",IDC_STATIC_ERROR_MESSAGE,15,50,235,10,SS_SUNKEN
+    LTEXT           "是否继续编译？",IDC_STATIC,5,65,245,10
+    CONTROL         "跳过所有语法语义错误(&A)",IDC_IGNORE_ALL_ERROR,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,5,80,108,15
+END
+
+IDD_TRANSLATE_DLG DIALOG DISCARDABLE  0, 0, 307, 150
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "FC 翻译为C++选项"
+FONT 9, "宋体"
+BEGIN
+    LTEXT           "目标文件：",IDC_STATIC,5,10,41,8
+    EDITTEXT        IDC_OBJECT_FILE,50,5,220,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "浏览",IDC_BROWSE,270,5,30,14
+    GROUPBOX        "格式选项",IDC_STATIC,5,25,145,50
+    CONTROL         "运算符前后加入一个空格",IDC_INSERT_SPACE,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,15,40,130,10
+    CONTROL         "函数间保留一行空行",IDC_EMPTY_LINE,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,15,55,130,10
+    GROUPBOX        "缩进",IDC_STATIC,155,25,145,50
+    CONTROL         "用Tab缩进",IDC_TAB_BACK,"Button",BS_AUTORADIOBUTTON | 
+                    WS_GROUP,165,40,52,10
+    CONTROL         "用空格缩进",IDC_SPACE_BACK,"Button",BS_AUTORADIOBUTTON,
+                    165,55,56,10
+    COMBOBOX        IDC_BACK_NUMBER,225,53,48,97,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    GROUPBOX        "其它",IDC_STATIC,5,80,295,45
+    CONTROL         "添加翻译说明注释",IDC_KEEP_COMMENT,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,15,95,130,10
+    CONTROL         "增加输出精度控制",IDC_OUT_PRECISION,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,165,95,130,10
+    CONTROL         "统计程序运行时间",IDC_RUN_TIME,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,15,110,130,10
+    CONTROL         "程序结束前等待用户响应",IDC_WAIT_END,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,165,110,130,10
+    PUSHBUTTON      "缺省设定",IDC_DEFAULT_SET,45,130,50,14
+    DEFPUSHBUTTON   "确定",IDOK,128,130,50,14
+    PUSHBUTTON      "取消",IDCANCEL,210,130,50,14
+END
+
+IDD_OPTION_DLG DIALOG DISCARDABLE  0, 0, 245, 235
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "FC 选项"
+FONT 9, "宋体"
+BEGIN
+    DEFPUSHBUTTON   "确定",IDOK,100,215,50,14
+    PUSHBUTTON      "取消",IDCANCEL,185,215,50,14
+    GROUPBOX        "编译选项",IDC_STATIC,5,5,115,60
+    CONTROL         "源代码中允许有空语句",IDC_ALLOW_EMPTY_STATEMENT,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,15,21,100,10
+    CONTROL         "自动进行强制类型转换",IDC_AUTO_CHANGE_TYPE,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,15,35,100,10
+    CONTROL         "禁止隐式类型转换",IDC_DISABLE_CHANGE_TYPE,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,15,51,100,10
+    GROUPBOX        "库函数",IDC_STATIC,125,5,115,60
+    CONTROL         "导入数学库",IDC_INCLUDE_MATH,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,135,20,100,10
+    CONTROL         "导入字符串库",IDC_INCLUDE_STRING,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,135,35,100,10
+    CONTROL         "导入数组库",IDC_INCLUDE_ARRAY,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,135,50,100,10
+    GROUPBOX        "生成中间代码文件",IDC_STATIC,5,70,115,45
+    CONTROL         "二进制文件",IDC_GENERATE_BINARY,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,15,85,100,10
+    CONTROL         "文本文件",IDC_GENERATE_TEXT,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,15,100,100,10
+    GROUPBOX        "其他",IDC_STATIC,125,70,115,45
+    CONTROL         "报告语法语义错误",IDC_REPORT_ERROR,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,135,85,100,10
+    CONTROL         "优化中间代码",IDC_JUMP_OPTIMIZE,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,135,100,100,10
+    GROUPBOX        "解释执行选项",IDC_STATIC,5,120,235,90
+    LTEXT           "浮点数输出精度：",IDC_STATIC,15,135,65,8
+    EDITTEXT        IDC_PRECISION,85,130,40,14,ES_AUTOHSCROLL | ES_NUMBER
+    CONTROL         "统计解释执行运行时间",IDC_OUTPUT_RUNTIME,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,15,150,115,10
+    CONTROL         "输入回显",IDC_OUTPUT_INPUT,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,135,150,100,10
+    CONTROL         "输出到文件",IDC_FILE_OUTPUT,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,15,165,56,10
+    LTEXT           "",IDC_OUTPUT_FILE,75,165,160,8
+    CONTROL         "不对可能的死循环提出警告",IDC_IGNORE_CIRCLE_NOEND,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,15,180,220,10
+    LTEXT           "解释执行时申请内存(K字节)",IDC_STATIC,15,195,101,8
+    COMBOBOX        IDC_MEMORY_APPLY,120,190,48,63,CBS_DROPDOWN | WS_VSCROLL | 
+                    WS_TABSTOP
+    PUSHBUTTON      "缺省设定",IDC_DEFAULT_OPTION,15,215,50,14
+END
+
+IDD_INTERPRET_DLG DIALOGEX 0, 0, 335, 325
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "FC 解释执行"
+MENU IDR_INTERPRET_DLG
+FONT 9, "宋体", 0, 0, 0x1
+BEGIN
+    EDITTEXT        IDC_OUTPUT,0,0,335,325,ES_MULTILINE | ES_AUTOVSCROLL | 
+                    ES_READONLY | ES_WANTRETURN | NOT WS_BORDER | WS_VSCROLL,
+                    WS_EX_STATICEDGE
+END
+
+IDD_INPUT_DLG DIALOG DISCARDABLE  0, 0, 187, 39
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "FC 输入"
+FONT 9, "宋体"
+BEGIN
+    LTEXT           "",IDC_INFORMATION,0,0,185,8
+    EDITTEXT        IDC_INPUT,0,10,185,14,ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "确定",IDOK,25,25,55,14
+    PUSHBUTTON      "中止解释执行",IDCANCEL,110,25,55,14
+END
+
+
+#ifndef _MAC
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "080404b0"
+        BEGIN
+            VALUE "Comments", "\0"
+            VALUE "CompanyName", "朱凯峰\0"
+            VALUE "FileDescription", "FC 2.32 - FC编程语言编译器\0"
+            VALUE "FileVersion", "1, 0, 0, 1\0"
+            VALUE "InternalName", "FC\0"
+            VALUE "LegalCopyright", "版权所有 朱凯峰 2004.02\0"
+            VALUE "LegalTrademarks", "\0"
+            VALUE "OriginalFilename", "FC.EXE\0"
+            VALUE "PrivateBuild", "\0"
+            VALUE "ProductName", "FC\0"
+            VALUE "ProductVersion", "1, 0, 0, 1\0"
+            VALUE "SpecialBuild", "\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x804, 1200
+    END
+END
+
+#endif    // !_MAC
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 228
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 48
+    END
+
+    IDD_TRANSLATE_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 300
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 143
+    END
+
+    IDD_INTERPRET_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 328
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 318
+    END
+
+    IDD_INPUT_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 180
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 32
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog Info
+//
+
+IDD_TRANSLATE_DLG DLGINIT
+BEGIN
+    IDC_BACK_NUMBER, 0x403, 7, 0
+0xbbb2, 0xf5cb, 0xf8bd, "\000" 
+    IDC_BACK_NUMBER, 0x403, 2, 0
+0x0031, 
+    IDC_BACK_NUMBER, 0x403, 2, 0
+0x0032, 
+    IDC_BACK_NUMBER, 0x403, 2, 0
+0x0033, 
+    IDC_BACK_NUMBER, 0x403, 2, 0
+0x0034, 
+    IDC_BACK_NUMBER, 0x403, 2, 0
+0x0035, 
+    IDC_BACK_NUMBER, 0x403, 2, 0
+0x0036, 
+    IDC_BACK_NUMBER, 0x403, 2, 0
+0x0037, 
+    IDC_BACK_NUMBER, 0x403, 2, 0
+0x0038, 
+    0
+END
+
+IDD_OPTION_DLG DLGINIT
+BEGIN
+    IDC_MEMORY_APPLY, 0x403, 2, 0
+0x0034, 
+    IDC_MEMORY_APPLY, 0x403, 2, 0
+0x0038, 
+    IDC_MEMORY_APPLY, 0x403, 3, 0
+0x3631, "\000" 
+    IDC_MEMORY_APPLY, 0x403, 3, 0
+0x3233, "\000" 
+    IDC_MEMORY_APPLY, 0x403, 3, 0
+0x3436, "\000" 
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXT
+//
+
+IDR_TEXT_GLOBAL         TEXT    DISCARDABLE     "res\\global.txt"
+IDR_TEXT_GRAMMAR        TEXT    DISCARDABLE     "res\\grammar.txt"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// EXE
+//
+
+IDR_EXE_FCR             EXE     DISCARDABLE     "..\\FCR\\Release\\FCR.exe"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// FC
+//
+
+IDR_FC_HELLOWORLD       FC      DISCARDABLE     "..\\source\\HelloWorld.fc"
+IDR_FC_PERMUTATION      FC      DISCARDABLE     "..\\source\\Permutation.fc"
+IDR_FC_PRIME            FC      DISCARDABLE     "..\\source\\Prime.fc"
+IDR_FC_PI               FC      DISCARDABLE     "..\\source\\PI.fc"
+IDR_FC_HANIO            FC      DISCARDABLE     "..\\source\\Hanio.fc"
+IDR_FC_FIBONACCI        FC      DISCARDABLE     "..\\source\\Fibonacci.fc"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE PRELOAD DISCARDABLE 
+BEGIN
+    IDR_MAINFRAME           "FC\n\nFC\nFC Source File (*.fc)\n.fc\nFC.Document\nFC Source File"
+END
+
+STRINGTABLE PRELOAD DISCARDABLE 
+BEGIN
+    AFX_IDS_APP_TITLE       "FC"
+    AFX_IDS_IDLEMESSAGE     "就绪"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_INDICATOR_EXT        "扩展名"
+    ID_INDICATOR_CAPS       "大写"
+    ID_INDICATOR_NUM        "数字"
+    ID_INDICATOR_SCRL       "滚动"
+    ID_INDICATOR_OVR        "改写"
+    ID_INDICATOR_REC        "记录"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_FILE_NEW             "建立新文档\n新建 Ctrl+N"
+    ID_FILE_OPEN            "打开一个现有文档\n打开 Ctrl+O"
+    ID_FILE_CLOSE           "关闭活动文档\n关闭"
+    ID_FILE_SAVE            "保存活动文档\n保存 Ctrl+S"
+    ID_FILE_SAVE_AS         "将活动文档以一个新文件名保存\n另存为"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_APP_ABOUT            "显示程序信息，版本号和版权\n关于"
+    ID_APP_EXIT             "退出应用程序；提示保存文档\n退出"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_FILE_MRU_FILE1       "打开该文档"
+    ID_FILE_MRU_FILE2       "打开该文档"
+    ID_FILE_MRU_FILE3       "打开该文档"
+    ID_FILE_MRU_FILE4       "打开该文档"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_EDIT_CLEAR           "删除被选对象\n删除 Delete"
+    ID_EDIT_CLEAR_ALL       "全部删除\n全部删除"
+    ID_EDIT_COPY            "复制被选对象并将其置于剪贴板上\n复制 Ctrl+C"
+    ID_EDIT_CUT             "剪切被选对象并将其置于剪贴板上\n剪切 Ctrl+X"
+    ID_EDIT_PASTE           "插入剪贴板内容\n粘贴 Ctrl+V"
+    ID_EDIT_SELECT_ALL      "选择整个文档\n选择全部 Ctrl+A"
+    ID_EDIT_UNDO            "撤消最后一步操作\n撤消 Ctrl+Z"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_VIEW_TOOLBAR         "显示或隐藏工具栏\n显隐工具栏"
+    ID_VIEW_STATUS_BAR      "显示或隐藏状态栏\n显隐状态栏"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    AFX_IDS_SCSIZE          "改变窗口大小"
+    AFX_IDS_SCMOVE          "改变窗口位置"
+    AFX_IDS_SCMINIMIZE      "将窗口缩小成图标"
+    AFX_IDS_SCMAXIMIZE      "把窗口放大到最大尺寸"
+    AFX_IDS_SCNEXTWINDOW    "切换到下一个文档窗口"
+    AFX_IDS_SCPREVWINDOW    "切换到先前的文档窗口"
+    AFX_IDS_SCCLOSE         "关闭活动的窗口并提示保存所有文档"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    AFX_IDS_SCRESTORE       "把窗口恢复到正常大小"
+    AFX_IDS_SCTASKLIST      "激活任务表"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_COMPILE_COMPILE      "编译该程序\n编译 F7"
+    ID_COMPILE_INTERPRET    "解释执行该程序\n解释执行 F5"
+    ID_COMPILE_TRANSLATE    "将程序翻译为C++\n翻译为C++ Ctrl+T"
+    ID_COMPILE_REPORT_ERROR "在编译的过程中报告检查到的语法语义错误\n报告语法语义错误 Ctrl+P"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_OPTION               "设置选项\n选项"
+    ID_HELP_GRAMMAR         "显示 FC 2.32 语法\nFC 2.32 语法"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_HELP_GLOBAL          "显示 FC 2.32 说明\nFC 2.32 说明"
+    ID_COMPILE_EXECUTE      "执行该程序\n执行 Ctrl+F5"
+    ID_COMPILE_REBUILD      "重新编译该程序\n重新编译"
+    ID_EXAMPLE_HELLOWORLD   "经典的程序示例，在屏幕上输出“Hello world”"
+    ID_EXAMPLE_PERMUTATION  "循环示例，按字典顺序生成并输出1,2,3…n的所有排列"
+    ID_EXAMPLE_PRIME        "循环示例，判断一个正整数是否是一个素数"
+    ID_EXAMPLE_EXPRESSION   "计算算术表达式的值"
+    ID_EXAMPLE_PI           "循环示例，计算并输出圆周率小数点后800位数字"
+    ID_EXAMPLE_HANIO        "递归示例，显示n层hanio塔的移动过程"
+    ID_EXAMPLE_FIBONACCI    "递归示例，计算并输出Fibonacci数列"
+END
+
+#endif    // Chinese (P.R.C.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+#ifdef _WIN32
+LANGUAGE 4, 2
+#pragma code_page(936)
+#endif //_WIN32
+#include "res\FC.rc2"  // non-Microsoft Visual C++ edited resources
+#include "l.chs\afxres.rc"          // Standard components
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

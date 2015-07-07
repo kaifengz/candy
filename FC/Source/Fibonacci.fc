@@ -1,0 +1,45 @@
+// 本程序用递归方法计算并输出Fibonacci数列的前30项，
+// 如采用递推的方法，执行速度将快得多
+
+int Fibonacci(int n)
+{
+	if(n==1 || n==2)
+		return 1;
+	return Fibonacci(n-1)+Fibonacci(n-2);
+}
+
+void main()
+{
+	output "本程序计算并输出Fibonacci数列的前30项\n";
+
+	int i=1;
+	while(i<=30)
+	{
+		output "Fibonacci[", i, "] = ", Fibonacci(i), "\n";
+		i += 1;
+	}
+}
+
+/*	采用递推的方法实现如：
+void main()
+{
+	int i;
+	int [30]f;
+
+	f[0] = 1;
+	f[1] = 1;
+	i = 2;
+	while(i<30)
+	{
+		f[i] = f[i-1]+f[i-2];
+		i += 1;
+	}
+
+	i = 0;
+	while(i<30)
+	{
+		output "Fibonacci[", i+1, "] = ", f[i], "\n";
+		i += 1;
+	}
+}
+//*/

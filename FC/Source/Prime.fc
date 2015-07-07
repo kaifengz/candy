@@ -1,0 +1,43 @@
+void main()
+{
+	output "本程序判断一个正整数是否是一个素数\n";
+
+	int i,t,p;
+
+	while(1)
+	{
+		output "请输入一个正整数: ";
+		input p;
+		if(p>0)
+			break;
+		output "输入错误!\n";
+	}
+
+	if(p == 1)
+	{
+		output "1既非素数又非合数!\n";
+		exit;
+	}
+
+	if(p%2 == 0)
+	{
+		output p, "不是一个素数，它的最小质因子是：2\n";
+		exit;
+	}
+	i=3;
+	t = 1+int(sqrt(p));
+	while(i<=t)
+	{
+		if(p%i == 0)
+			break;
+		i += 1;
+	}
+	if(i<=t)
+	{
+		output p, "不是一个素数，它的最小质因子是：", i, '\n';
+	}
+	else
+	{
+		output p, "是一个素数!\n";
+	}
+}

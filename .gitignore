@@ -10,3 +10,12 @@ mysaver.log
 *.opensdf
 *.sdf
 *.user
+
+# For FC
+*.APS
+*.clw
+*.dep
+*.ncb
+*.opt
+*.plg
+
