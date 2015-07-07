@@ -10,7 +10,7 @@
 #endif // _MSC_VER > 1000
 
 #include "FC-define.h"
-#include <fstream.h>
+#include <fstream>
 
 class CFCView : public CEditView
 {
@@ -179,7 +179,7 @@ private://解释执行参数/////////////////////////////////////////////////////////
 	int m_nPrecision;			//输出精度
 	int m_nMemoryApply;			//申请的虚内存量
 private://翻译选项参数/////////////////////////////////////////////////////////
-	ofstream m_fout;		//文件输出
+	std::ofstream m_fout;		//文件输出
 	int m_nLevel;			//缩进级别
 	BOOL m_bMainFunction;	//是否是主函数
 

@@ -159,7 +159,8 @@ void CFCOptionDlg::OnKillfocusMemoryApply()
 {
 	CString old=m_strMemoryApply;
 	UpdateData(TRUE);
-	for(int i=m_strMemoryApply.GetLength()-1;i>=0;i--)
+	int i;
+	for(i=m_strMemoryApply.GetLength()-1;i>=0;i--)
 		if(m_strMemoryApply[i]<'0' || m_strMemoryApply>'9')
 		{
 			MessageBox("请填入正确的申请内存！","FC",MB_OK|MB_ICONEXCLAMATION);

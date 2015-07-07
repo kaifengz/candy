@@ -12,7 +12,8 @@ static char THIS_FILE[] = __FILE__;
 CString GetFileName(CString strFileTitle)
 {
 	CString strFileName;
-	for(int i=strFileTitle.GetLength()-1;i>=0;i--)
+	int i;
+	for(i=strFileTitle.GetLength()-1;i>=0;i--)
 		if(strFileTitle[i]=='.' || strFileTitle[i]=='\\' || strFileTitle[i]=='/')
 			break;
 	if(i<0 || strFileTitle[i]=='\\' || strFileTitle[i]=='/')

@@ -251,7 +251,8 @@ ZIT CFCView::GetIdentType(CString ident)
 	if(ident=="")
 		return IT_NULL;
 	const ZFunction *pFunction=m_pFunction[m_nCurFunction];
-	for(int i=pFunction->nIdent-1;i>=0;i--)
+	int i;
+	for(i=pFunction->nIdent-1;i>=0;i--)
 		if(ident==pFunction->pIdent[i]->name)
 		{
 			if(pFunction->pIdent[i]->level==pFunction->CurLevel)
@@ -290,7 +291,8 @@ int CFCView::GetIdentAddress(CString ident)
 	if(ident=="")
 		return 0;
 	const ZFunction *pFunction=m_pFunction[m_nCurFunction];
-	for(int i=pFunction->nIdent-1;i>=0;i--)
+	int i;
+	for(i=pFunction->nIdent-1;i>=0;i--)
 		if(ident==pFunction->pIdent[i]->name)
 			return pFunction->pIdent[i]->nAddress;
 	for(i=0;i<pFunction->nParam;i++)

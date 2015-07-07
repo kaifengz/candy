@@ -5,7 +5,7 @@
 #include "FC.h"
 #include "FCInterpretDlg.h"
 
-#include <fstream.h>
+#include <fstream>
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -108,7 +108,7 @@ void CFCInterpretDlg::OnSaveOutput()
 		"文本文件 (*.txt)|*.txt|所有文件 (*.*)|*.*||");
 	if(dlg.DoModal()!=IDOK)
 		return;
-	ofstream fout(dlg.GetFileName(),ios::out);
+	std::ofstream fout(dlg.GetFileName(),std::ios::out);
 	fout.write(m_lpszOutput, m_nOutputLength);
 	fout.close();
 }

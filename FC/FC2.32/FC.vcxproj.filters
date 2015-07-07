@@ -1,0 +1,196 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Main Source Files">
+      <UniqueIdentifier>{e88aa373-9503-4902-b22b-0b733dac5e2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main Header Files">
+      <UniqueIdentifier>{8bd297da-f905-4c5c-8e41-cc92a00e9036}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Text Files">
+      <UniqueIdentifier>{a48b6772-6cf1-4adc-a5f4-092570c89124}</UniqueIdentifier>
+      <Extensions>txt</Extensions>
+    </Filter>
+    <Filter Include="Other Files">
+      <UniqueIdentifier>{95383e02-1d0b-4987-838f-cc9d5a643c89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Other Files\Source Files">
+      <UniqueIdentifier>{895601ac-7f2a-407e-857e-bc2430c24768}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;rc;def;r;odl;idl;hpj;bat</Extensions>
+    </Filter>
+    <Filter Include="Other Files\Header Files">
+      <UniqueIdentifier>{8d97d503-90a5-43b0-ab7e-8c7edf5bc841}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl</Extensions>
+    </Filter>
+    <Filter Include="Other Files\Resource Files">
+      <UniqueIdentifier>{5dc03061-1bfe-4248-a6c8-076dd97a6242}</UniqueIdentifier>
+      <Extensions>ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
+    <Filter Include="Other Files\Extern Resource Files">
+      <UniqueIdentifier>{1a661213-0e74-4e73-a2da-ad132c27305f}</UniqueIdentifier>
+      <Extensions>exe;txt;fc</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="basic.cpp">
+      <Filter>Main Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FC-Compile.cpp">
+      <Filter>Main Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FC-GenerateFiles.cpp">
+      <Filter>Main Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FC-Interpret.cpp">
+      <Filter>Main Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FC-MenuMessage.cpp">
+      <Filter>Main Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FC-Morphology.cpp">
+      <Filter>Main Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FC-Options.cpp">
+      <Filter>Main Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FC-Translate.cpp">
+      <Filter>Main Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FCErrorReportDlg.cpp">
+      <Filter>Main Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FCInputDlg.cpp">
+      <Filter>Main Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FCInterpretDlg.cpp">
+      <Filter>Main Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FCOptionDlg.cpp">
+      <Filter>Main Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FCTranslateDlg.cpp">
+      <Filter>Main Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FCView.cpp">
+      <Filter>Main Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FC.cpp">
+      <Filter>Other Files\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FCDoc.cpp">
+      <Filter>Other Files\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MainFrm.cpp">
+      <Filter>Other Files\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StdAfx.cpp">
+      <Filter>Other Files\Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="basic.h">
+      <Filter>Main Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FC-define.h">
+      <Filter>Main Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FCErrorReportDlg.h">
+      <Filter>Main Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FCInputDlg.h">
+      <Filter>Main Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FCInterpretDlg.h">
+      <Filter>Main Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FCOptionDlg.h">
+      <Filter>Main Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FCTranslateDlg.h">
+      <Filter>Main Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FCView.h">
+      <Filter>Main Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common.h">
+      <Filter>Other Files\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FC.h">
+      <Filter>Other Files\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FCDoc.h">
+      <Filter>Other Files\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MainFrm.h">
+      <Filter>Other Files\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Other Files\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StdAfx.h">
+      <Filter>Other Files\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\..\Program Files\Microsoft Visual Studio\VC98\Include\BASETSD.H">
+      <Filter>Other Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt">
+      <Filter>Text Files</Filter>
+    </Text>
+    <Text Include="syntax.txt">
+      <Filter>Text Files</Filter>
+    </Text>
+    <Text Include="res\global.txt">
+      <Filter>Other Files\Extern Resource Files</Filter>
+    </Text>
+    <Text Include="res\grammar.txt">
+      <Filter>Other Files\Extern Resource Files</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="FC.rc">
+      <Filter>Other Files\Source Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\FC.ico">
+      <Filter>Other Files\Resource Files</Filter>
+    </Image>
+    <Image Include="res\FCTYPE.ico">
+      <Filter>Other Files\Resource Files</Filter>
+    </Image>
+    <Image Include="res\Toolbar.bmp">
+      <Filter>Other Files\Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="res\FC.rc2">
+      <Filter>Other Files\Resource Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\FCR\Release\FCR.exe">
+      <Filter>Other Files\Extern Resource Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\Source\Fibonacci.fc">
+      <Filter>Other Files\Extern Resource Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\source\Hanio.fc">
+      <Filter>Other Files\Extern Resource Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\source\HelloWorld.fc">
+      <Filter>Other Files\Extern Resource Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\source\Permutation.fc">
+      <Filter>Other Files\Extern Resource Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\source\PI.fc">
+      <Filter>Other Files\Extern Resource Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\source\Prime.fc">
+      <Filter>Other Files\Extern Resource Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="FC.reg">
+      <Filter>Other Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+</Project>

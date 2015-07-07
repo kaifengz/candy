@@ -5,8 +5,8 @@
 #include "FCView.h"
 
 #include "basic.h"
-#include <fstream.h>
-#include <iomanip.h>
+#include <fstream>
+#include <iomanip>
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -16,7 +16,7 @@ static char THIS_FILE[] = __FILE__;
 
 BOOL CFCView::Translate()
 {
-	m_fout.open(m_strCppFile,ios::out);
+	m_fout.open(m_strCppFile,std::ios::out);
 #ifndef _DEBUG
 	tm t_current;
 	_getsystime(&t_current);

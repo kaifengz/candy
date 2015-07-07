@@ -1,4 +1,4 @@
-// FCView.cpp : implementation of the CFCView class
+ï»¿// FCView.cpp : implementation of the CFCView class
 //
 
 #include "stdafx.h"
@@ -44,23 +44,23 @@ END_MESSAGE_MAP()
 
 CFCView::CFCView()
 {
-	//¿âº¯Êý°üº¬Óë·ñ±êÖ¾
+	//åº“å‡½æ•°åŒ…å«ä¸Žå¦æ ‡å¿—
 	m_bIncludeMath=TRUE;
 	m_bIncludeString=TRUE;
 	m_bIncludeArray=TRUE;
-	//Éú³ÉÖÐ¼ä´úÂëÎÄ¼þ²ÎÊý
+	//ç”Ÿæˆä¸­é—´ä»£ç æ–‡ä»¶å‚æ•°
 	m_bGenerateBinary=TRUE;
 #ifdef _DEBUG
 	m_bGenerateText=TRUE;
 #else
 	m_bGenerateText=FALSE;
 #endif
-	//±àÒëÑ¡Ïî²ÎÊý
+	//ç¼–è¯‘é€‰é¡¹å‚æ•°
 	m_bAutoChangeType=FALSE;
 	m_bDisableChangeType=FALSE;
 	m_bAllowEmptyStatement=FALSE;
 	m_bJumpOptimize=TRUE;
-	//´Ê·¨·ÖÎö²ÎÊý
+	//è¯æ³•åˆ†æžå‚æ•°
 	m_char='\0';
 	m_iCharCount=0;
 	m_int=0;
@@ -71,7 +71,7 @@ CFCView::CFCView()
 	m_string="";
 	m_comment="";
 	m_element=E_NULL;
-	//Óï·¨·ÖÎö²ÎÊý
+	//è¯­æ³•åˆ†æžå‚æ•°
 	m_iErrorCount=0;
 	m_bIgnoreError=FALSE;
 	m_bCompiled=FALSE;
@@ -88,7 +88,7 @@ CFCView::CFCView()
 	m_nTrue=-1;
 	m_nFalse=-1;
 	m_nCase=-1;
-	//½âÊÍÖ´ÐÐ²ÎÊý
+	//è§£é‡Šæ‰§è¡Œå‚æ•°
 	m_bCalcRuntime=TRUE;
 	m_bFileOutput=FALSE;
 	m_bIgnoreCircleNoend=FALSE;
@@ -96,8 +96,8 @@ CFCView::CFCView()
 	m_strOutputFile="";
 	m_nPrecision=6;
 	m_nMemoryApply=16;
-	//·­ÒëÑ¡Ïî²ÎÊý
-//	m_fout=NULL;//²»ÄÜ³õÊ¼»¯ÎªNULL£¬·ñÔò¸Ã±äÁ¿ºó±ß½«ÎÞ·¨Ê¹ÓÃ
+	//ç¿»è¯‘é€‰é¡¹å‚æ•°
+//	m_fout=NULL;//ä¸èƒ½åˆå§‹åŒ–ä¸ºNULLï¼Œå¦åˆ™è¯¥å˜é‡åŽè¾¹å°†æ— æ³•ä½¿ç”¨
 	m_nLevel=0;
 	m_bMainFunction=FALSE;
 	m_iBackChoice=0;
@@ -176,15 +176,15 @@ void CFCView::OnInitialUpdate()
 {
 	CEditView::OnInitialUpdate();
 
-	//ÉèÖÃ×ÖÌå
+	//è®¾ç½®å­—ä½“
 	CFont fixedsys;
 	fixedsys.CreateStockObject(SYSTEM_FIXED_FONT);
 	SetFont(&fixedsys,FALSE);
-	//ÉèÖÃtab
+	//è®¾ç½®tab
 	LOGFONT lf;
 	fixedsys.GetLogFont(&lf);
 	SetTabStops(2*lf.lfWidth);
-	//ÉèÖÃ±ß½ç¿Õ°×
+	//è®¾ç½®è¾¹ç•Œç©ºç™½
 	GetEditCtrl().SetMargins(2,2);
 }
 
@@ -217,7 +217,7 @@ void CFCView::OnExample(CString strTitle, UINT nIDExample)
 {
 	if(GetDocument()->IsModified())
 	{
-		if(IDYES==MessageBox("½«¸Ä¶¯±£´æµ½¡°" + GetDocument()->GetTitle() + "¡± £¿", "FC", MB_YESNO|MB_ICONQUESTION))
+		if(IDYES==MessageBox("å°†æ”¹åŠ¨ä¿å­˜åˆ°â€œ" + GetDocument()->GetTitle() + "â€ ï¼Ÿ", "FC", MB_YESNO|MB_ICONQUESTION))
 		{
 			SendMessage(WM_COMMAND, ID_FILE_SAVE, 0);
 			if(GetDocument()->IsModified())

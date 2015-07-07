@@ -5,7 +5,7 @@
 #include "FCView.h"
 
 #include "basic.h"
-#include <iomanip.h>
+#include <iomanip>
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -15,7 +15,7 @@ static char THIS_FILE[] = __FILE__;
 
 void CFCView::GenerateBinaryFile(CString strFile,CString strTitle)
 {
-	ofstream fout(strFile,ios::out|ios::binary);
+	std::ofstream fout(strFile, std::ios::out | std::ios::binary);
 
 	char buf[5]="FCR ";
 	buf[3]=char(23);//°æ±¾2.3
@@ -28,7 +28,7 @@ void CFCView::GenerateBinaryFile(CString strFile,CString strTitle)
 	for(i=0;i<m_nCode;i++)
 	{
 		ch=unsigned char(m_pCode[i].op);
-		fout.write(&ch,1);
+		fout.write((const char*)&ch,1);
 		switch(m_pCode[i].op)
 		{
 		case OP_OUTPUTS:
@@ -105,7 +105,7 @@ void CFCView::GenerateBinaryFile(CString strFile,CString strTitle)
 
 void CFCView::GenerateTextFile(CString strFile,CString strTitle)
 {
-	ofstream fout(strFile);
+	std::ofstream fout(strFile);
 #ifndef _DEBUG
 	tm t;
 	_getsystime(&t);
@@ -130,10 +130,10 @@ void CFCView::GenerateTextFile(CString strFile,CString strTitle)
 					break;
 			fout<<"-----    "<<m_pFunction[j]->name<<"    -----\n";
 		}
-		fout.setf(ios::right,ios::adjustfield);
-		fout<<setw(5)<<i<<" :  ";
-		fout.setf(ios::left,ios::adjustfield);
-		fout<<setw(15);
+		fout.setf(std::ios::right, std::ios::adjustfield);
+		fout<<std::setw(5)<<i<<" :  ";
+		fout.setf(std::ios::left, std::ios::adjustfield);
+		fout<<std::setw(15);
 		switch(pCode[i].op)
 		{
 		case OP_C2D:
@@ -565,7 +565,7 @@ void CFCView::GenerateExeFile(CString strExeFile,CString strFCRFile,CString strT
 	SaveResToFile(strExeFile,IDR_EXE_FCR, "EXE");
 
 	CFile fin(strFCRFile, CFile::modeRead);
-	const int length = fin.GetLength();
+	const int length = (int)fin.GetLength();
 
 	LPSTR lpszFCR = new char[length];
 	fin.Read(lpszFCR, length);

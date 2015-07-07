@@ -11,7 +11,7 @@
 // CFCInterpretDlg dialog
 
 #include "FC-define.h"
-#include <fstream.h>
+#include <fstream>
 
 class CFCInterpretDlg : public CDialog
 {
@@ -55,7 +55,7 @@ private://中间代码参数/////////////////////////////////////////////////////////
 	const ZCode *m_pCode;
 	int m_nCode;
 private://解释执行参数/////////////////////////////////////////////////////////
-	ofstream m_fout;			//文件输出
+	std::ofstream m_fout;		//文件输出
 	BOOL m_bCalcRuntime;		//是否统计运行时间
 	BOOL m_bFileOutput;			//是否输出到文件
 	BOOL m_bFixedPrecision;		//是否固定输出精度

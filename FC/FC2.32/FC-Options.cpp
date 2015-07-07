@@ -5,7 +5,7 @@
 #include "FCView.h"
 
 #include "basic.h"
-#include <fstream.h>
+#include <fstream>
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -81,7 +81,7 @@ ZOption GetOption(const char szOpt[]);
 
 void CFCView::ReadOptions()
 {
-	ifstream fin(GetIniFilePath(), ios::in|ios::nocreate);
+	std::ifstream fin(GetIniFilePath(), std::ios::in | std::ios::_Nocreate);
 	if(!fin)
 		return;
 
@@ -139,56 +139,56 @@ void CFCView::ReadOptions()
 
 void CFCView::SaveOptions()
 {
-	ofstream fout(GetIniFilePath());
+	std::ofstream fout(GetIniFilePath());
 
 	//compile
 	fout<<"[compile]\n";
-	fout<<"empty\t\t= "<< (m_bAllowEmptyStatement?1:0) <<endl;
-	fout<<"auto\t\t= "<< 0 <<endl;
-	fout<<"never\t\t= "<< 0 <<endl;
-	fout<<endl;
+	fout<<"empty\t\t= "<< (m_bAllowEmptyStatement?1:0) <<std::endl;
+	fout<<"auto\t\t= "<< 0 <<std::endl;
+	fout<<"never\t\t= "<< 0 <<std::endl;
+	fout<<std::endl;
 
 	//library
 	fout<<"[library]\n";
-	fout<<"math\t\t= "<< (m_bIncludeMath?1:0) <<endl;
-	fout<<"string\t\t= "<< (m_bIncludeString?1:0) <<endl;
-	fout<<"array\t\t= "<< (m_bIncludeArray?1:0) <<endl;
-	fout<<endl;
+	fout<<"math\t\t= "<< (m_bIncludeMath?1:0) <<std::endl;
+	fout<<"string\t\t= "<< (m_bIncludeString?1:0) <<std::endl;
+	fout<<"array\t\t= "<< (m_bIncludeArray?1:0) <<std::endl;
+	fout<<std::endl;
 
 	//intermidiate
 	fout<<"[intermidiate]\n";
-	fout<<"binary\t\t= "<< (m_bGenerateBinary?1:0) <<endl;
-	fout<<"text\t\t= "<< (m_bGenerateText?1:0) <<endl;
-	fout<<endl;
+	fout<<"binary\t\t= "<< (m_bGenerateBinary?1:0) <<std::endl;
+	fout<<"text\t\t= "<< (m_bGenerateText?1:0) <<std::endl;
+	fout<<std::endl;
 
 	//others
 	fout<<"[others]\n";
-	fout<<"report\t\t= "<< (m_bIgnoreError?0:1) <<endl;
-	fout<<"optimize\t= "<< (m_bJumpOptimize?1:0) <<endl;
-	fout<<endl;
+	fout<<"report\t\t= "<< (m_bIgnoreError?0:1) <<std::endl;
+	fout<<"optimize\t= "<< (m_bJumpOptimize?1:0) <<std::endl;
+	fout<<std::endl;
 
 	//interpret
 	fout<<"[interpret]\n";
-	fout<<"precision\t= "<< m_nPrecision <<endl;
-	fout<<"time\t\t= "<< (m_bCalcRuntime?1:0) <<endl;
-	fout<<"show\t\t= "<< (m_bOutputInput?1:0) <<endl;
-	fout<<"fileoutput\t= "<< (m_bFileOutput?1:0) <<endl;
+	fout<<"precision\t= "<< m_nPrecision <<std::endl;
+	fout<<"time\t\t= "<< (m_bCalcRuntime?1:0) <<std::endl;
+	fout<<"show\t\t= "<< (m_bOutputInput?1:0) <<std::endl;
+	fout<<"fileoutput\t= "<< (m_bFileOutput?1:0) <<std::endl;
 	if(m_bFileOutput)
-		fout<<"file\t\t= "<< m_strOutputFile <<endl;
-	fout<<"warning\t\t= "<< (m_bIgnoreCircleNoend?0:1) <<endl;
-	fout<<"memory\t\t= "<< m_nMemoryApply <<endl;
-	fout<<endl;
+		fout<<"file\t\t= "<< m_strOutputFile <<std::endl;
+	fout<<"warning\t\t= "<< (m_bIgnoreCircleNoend?0:1) <<std::endl;
+	fout<<"memory\t\t= "<< m_nMemoryApply <<std::endl;
+	fout<<std::endl;
 
 	//translate
 	fout<<"[translate]\n";
-	fout<<"addspace\t= "<< (m_bInsertSpace?1:0) <<endl;
-	fout<<"emptyline\t= "<< (m_bEmptyLine?1:0) <<endl;
-	fout<<"spaceindent\t= "<< m_iBackChoice <<endl;
-	fout<<"indent\t\t= "<< m_iBackNumber <<endl;
-	fout<<"comment\t\t= "<< (m_bKeepComment?1:0) <<endl;
-	fout<<"addprecision\t= "<< (m_bOutPrecision?1:0) <<endl;
-	fout<<"addtime\t\t= "<< (m_bRunTime?1:0) <<endl;
-	fout<<"wait\t\t= "<< (m_bWaitEnd?1:0) <<endl;
+	fout<<"addspace\t= "<< (m_bInsertSpace?1:0) <<std::endl;
+	fout<<"emptyline\t= "<< (m_bEmptyLine?1:0) <<std::endl;
+	fout<<"spaceindent\t= "<< m_iBackChoice <<std::endl;
+	fout<<"indent\t\t= "<< m_iBackNumber <<std::endl;
+	fout<<"comment\t\t= "<< (m_bKeepComment?1:0) <<std::endl;
+	fout<<"addprecision\t= "<< (m_bOutPrecision?1:0) <<std::endl;
+	fout<<"addtime\t\t= "<< (m_bRunTime?1:0) <<std::endl;
+	fout<<"wait\t\t= "<< (m_bWaitEnd?1:0) <<std::endl;
 
 	fout.close();
 }

@@ -1162,11 +1162,11 @@ void CFCInterpretDlg::InitInterpretOutput()
 
 	if(m_bFileOutput)
 	{
-		m_fout.open(m_strOutputFile,ios::out);
+		m_fout.open(m_strOutputFile, std::ios::out);
 		if(m_fout)
 		{
 			m_fout.precision(m_nPrecision);
-			m_fout.setf(ios::fixed);
+			m_fout.setf(std::ios::fixed);
 		}
 		else
 		{
