@@ -1,0 +1,97 @@
+#pragma once
+
+///////////////////////////////////////////////////////////////////////////////
+//// 客户区
+///////////////////////////////////////////////////////////////////////////////
+
+#define CLIENT_WIDTH		800
+#define CLIENT_HEIGHT		600
+
+///////////////////////////////////////////////////////////////////////////////
+//// 纸牌
+///////////////////////////////////////////////////////////////////////////////
+
+#define CARD_EACH			12		// 每个玩家的牌数
+#define PLAYER_NUM			4		// 万家个数
+
+#define INTERVAL_H			15		// 牌水平间隔
+#define INTERVAL_V			18		// 牌垂直间隔
+
+#define CARD_WIDTH			71
+#define CARD_HEIGHT			96
+
+#define CARD_POPUP			INTERVAL_V
+
+#define LEFT_EAST			(CLIENT_WIDTH -CARD_WIDTH -20)
+#define LEFT_NORTH			((CLIENT_WIDTH -(CARD_EACH-1)*INTERVAL_H-CARD_WIDTH )/2)
+#define LEFT_WEST			20
+#define LEFT_SOUTH			LEFT_NORTH
+#define TOP_EAST			((CLIENT_HEIGHT-(CARD_EACH-1)*INTERVAL_V-CARD_HEIGHT)/2)
+#define TOP_NORTH			20
+#define TOP_WEST			TOP_EAST
+#define TOP_SOUTH			(CLIENT_HEIGHT-CARD_HEIGHT-20)
+
+#define LIST_NUM			4		// 花色的种数
+#define LIST_EACH			13		// 每种花色牌的数目
+#define CENTER_CARD			6		// 
+#define CARD_NUM			(LIST_EACH*LIST_NUM)
+
+#define LEFT_LIST			((CLIENT_WIDTH-(LIST_NUM-1)*INTERVAL_H-LIST_NUM*CARD_WIDTH)/2)
+#define TOP_LIST			((CLIENT_HEIGHT-(LIST_EACH-1)*INTERVAL_V-CARD_HEIGHT)/2)
+
+///////////////////////////////////////////////////////////////////////////////
+//// 令牌
+///////////////////////////////////////////////////////////////////////////////
+
+#define TOKEN_WIDTH			50
+#define TOKEN_HEIGHT		50
+
+#define INTERVAL_TOKEN		20
+
+#define LEFT_EAST_TOKEN		(LEFT_EAST+(CARD_WIDTH-TOKEN_WIDTH)/2)
+#define LEFT_NORTH_TOKEN	(LEFT_NORTH-TOKEN_WIDTH-INTERVAL_TOKEN)
+#define LEFT_WEST_TOKEN		(LEFT_WEST+(CARD_WIDTH-TOKEN_WIDTH)/2)
+#define LEFT_SOUTH_TOKEN	(LEFT_SOUTH+(CARD_EACH-1)*INTERVAL_H+CARD_WIDTH+INTERVAL_TOKEN)
+#define TOP_EAST_TOKEN		(TOP_EAST-TOKEN_HEIGHT-INTERVAL_TOKEN)
+#define TOP_NORTH_TOKEN		(TOP_NORTH+(CARD_HEIGHT-TOKEN_HEIGHT)/2)
+#define TOP_WEST_TOKEN		(TOP_WEST+(CARD_EACH-1)*INTERVAL_V+CARD_HEIGHT+INTERVAL_TOKEN)
+#define TOP_SOUTH_TOKEN		(TOP_SOUTH+(CARD_HEIGHT-TOKEN_HEIGHT)/2)
+
+///////////////////////////////////////////////////////////////////////////////
+//// 计时器
+///////////////////////////////////////////////////////////////////////////////
+
+#define IDT_DISPATCH		17333	// 发牌计时器
+#define TIMESLICE_DISPATCH	60		// 发牌的延迟时间
+
+#define IDT_CLEAN_UP		17334	// 整理牌计时器id
+#define TIMESLICE_CLEAN_UP	200		// 整理牌的延迟时间
+
+#define IDT_SEND_CARD		17335	// 出牌计时器id
+#define TIMESLICE_LOW		1000	// 低速
+#define TIMESLICE_MID		600		// 中速
+#define TIMESLICE_HIGH		400		// 高速
+#define TIMESLICE_WAIT		100		// 无牌可出的等待时间
+
+#define IDT_SENDING_DRAW	17336	// 画牌计时器id
+#define TIMESLICE_DRAW		10		// 画牌的延迟时间
+#define SENDING_DRAW_NUM	8		// 画牌次数
+
+#define IDT_TOKEN_SENDING	17337	// 传送令牌计时器id
+#define TIMESLICE_TOKEN		10		// 画令牌的延迟时间
+#define TOKEN_DRAW_NUM		8		// 画令牌次数
+
+///////////////////////////////////////////////////////////////////////////////
+//// 其它
+///////////////////////////////////////////////////////////////////////////////
+
+#define APP_TITLE			"接龙"
+
+#define ID_EAST				0
+#define ID_NORTH			1
+#define ID_WEST				2
+#define ID_SOUTH			3
+
+#define AI_EASY				0
+#define AI_NORMAL			1
+#define AI_HARD				2

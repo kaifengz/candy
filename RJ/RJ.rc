@@ -1,0 +1,443 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Chinese (P.R.C.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+#ifdef _WIN32
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
+#pragma code_page(936)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)\r\n"
+    "#ifdef _WIN32\r\n"
+    "LANGUAGE 4, 2\r\n"
+    "#pragma code_page(936)\r\n"
+    "#endif //_WIN32\r\n"
+    "#include ""res\\RJ.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""l.chs\\afxres.rc""          // Standard components\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON    DISCARDABLE     "res\\RJ.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MAINFRAME MENU PRELOAD DISCARDABLE 
+BEGIN
+    POPUP "游戏(&G)"
+    BEGIN
+        MENUITEM "新游戏(&N)\tF2",              ID_NEW_GAME
+        MENUITEM "结束(&T)",                    ID_TERMINATE_GAME
+        MENUITEM SEPARATOR
+        MENUITEM "出牌(&E)\tSpace",             ID_SEND
+        MENUITEM "电脑托管(&A)\tA",             ID_PLAYER_AUTO
+        MENUITEM SEPARATOR
+        POPUP "游戏速度(&V)"
+        BEGIN
+            MENUITEM "低速(&L)",                    ID_SPEED_LOW
+            MENUITEM "中速(&M)",                    ID_SPEED_MID
+            MENUITEM "高速(&H)",                    ID_SPEED_HIGH
+        END
+        POPUP "游戏难度(&D)"
+        BEGIN
+            MENUITEM "初级(&E)",                    ID_DEGREE_EASY
+            MENUITEM "普通(&N)",                    ID_DEGREE_NORMAL
+            MENUITEM "高级(&H)",                    ID_DEGREE_HARD
+        END
+        MENUITEM "显示动画(&M)\tM",             ID_ANIMAL
+        MENUITEM SEPARATOR
+        MENUITEM "提示(&H)\tH",                 ID_HINT
+        MENUITEM "当前得分(&S)...\tS",          ID_SCORE
+        MENUITEM SEPARATOR
+        MENUITEM "退出(&X)",                    ID_APP_EXIT
+    END
+    POPUP "帮助(&H)"
+    BEGIN
+        MENUITEM "帮助主题(&H)",                ID_HELP_INDEX
+        MENUITEM SEPARATOR
+        MENUITEM "关于接龙(&A)...",             ID_APP_ABOUT
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDR_MAINFRAME ACCELERATORS PRELOAD MOVEABLE PURE 
+BEGIN
+    "-",            ID_SPEED_DOWN,          ASCII,  NOINVERT
+    "=",            ID_SPEED_UP,            ASCII,  NOINVERT
+    "A",            ID_PLAYER_AUTO,         VIRTKEY, NOINVERT
+    "H",            ID_HINT,                VIRTKEY, NOINVERT
+    "M",            ID_ANIMAL,              VIRTKEY, NOINVERT
+    "S",            ID_SCORE,               VIRTKEY, NOINVERT
+    VK_F12,         ID_SHOW_COMPUTER_CARD,  VIRTKEY, NOINVERT
+    VK_F2,          ID_NEW_GAME,            VIRTKEY, NOINVERT
+    VK_SPACE,       ID_SEND,                VIRTKEY, NOINVERT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOG DISCARDABLE  0, 0, 235, 55
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "关于接龙"
+FONT 9, "宋体"
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,11,17,20,20
+    LTEXT           "接龙 2.0",IDC_STATIC,40,10,119,8,SS_NOPREFIX
+    LTEXT           "版权所有 朱凯峰 2004.10",IDC_STATIC,40,25,119,8
+    DEFPUSHBUTTON   "确定",IDOK,178,7,50,14,WS_GROUP
+END
+
+IDD_SCORE_DLG DIALOG DISCARDABLE  0, 0, 202, 135
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "当前得分"
+FONT 9, "宋体"
+BEGIN
+    DEFPUSHBUTTON   "确定",IDOK,35,115,50,14
+    PUSHBUTTON      "重新计分",IDC_RESCORE,120,115,50,14
+    GROUPBOX        "",IDC_STATIC,5,0,190,95
+    ICON            IDR_MAINFRAME,IDC_STATIC,15,10,20,20
+    CTEXT           "下家",IDC_STATIC,45,35,20,8
+    CTEXT           "对家",IDC_STATIC,45,50,20,8
+    CTEXT           "上家",IDC_STATIC,45,65,20,8
+    CTEXT           "您",IDC_STATIC,45,80,20,8
+    RTEXT           "当前得分",IDC_STATIC,80,20,40,8
+    RTEXT           "最后一局得分",IDC_STATIC,130,20,55,8
+    RTEXT           "0",IDC_STATIC_EAST_T,80,35,40,8
+    RTEXT           "0",IDC_STATIC_EAST_C,145,35,40,8
+    RTEXT           "0",IDC_STATIC_NORTH_T,80,50,40,8
+    RTEXT           "0",IDC_STATIC_NORTH_C,145,50,40,8
+    RTEXT           "0",IDC_STATIC_WEST_T,80,65,40,8
+    RTEXT           "0",IDC_STATIC_WEST_C,145,65,40,8
+    RTEXT           "0",IDC_STATIC_SOUTH_T,80,80,40,8
+    RTEXT           "0",IDC_STATIC_SOUTH_C,145,80,40,8
+    LTEXT           "",IDC_STATIC_RANK_INFO,45,100,145,8
+END
+
+
+#ifndef _MAC
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "080404b0"
+        BEGIN
+            VALUE "Comments", "\0"
+            VALUE "CompanyName", "\0"
+            VALUE "FileDescription", "接龙\0"
+            VALUE "FileVersion", "1, 0, 0, 1\0"
+            VALUE "InternalName", "接龙\0"
+            VALUE "LegalCopyright", "版权所有 朱凯峰 2004.10\0"
+            VALUE "LegalTrademarks", "\0"
+            VALUE "OriginalFilename", "RJ.EXE\0"
+            VALUE "PrivateBuild", "\0"
+            VALUE "ProductName", "接龙\0"
+            VALUE "ProductVersion", "1, 0, 0, 1\0"
+            VALUE "SpecialBuild", "\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x804, 1200
+    END
+END
+
+#endif    // !_MAC
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 228
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 48
+    END
+
+    IDD_SCORE_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 195
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 128
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_CARD_01             BITMAP  DISCARDABLE     "res\\card01.bmp"
+IDB_CARD_02             BITMAP  DISCARDABLE     "res\\card02.bmp"
+IDB_CARD_03             BITMAP  DISCARDABLE     "res\\card03.bmp"
+IDB_CARD_04             BITMAP  DISCARDABLE     "res\\card04.bmp"
+IDB_CARD_05             BITMAP  DISCARDABLE     "res\\card05.bmp"
+IDB_CARD_06             BITMAP  DISCARDABLE     "res\\card06.bmp"
+IDB_CARD_07             BITMAP  DISCARDABLE     "res\\card07.bmp"
+IDB_CARD_08             BITMAP  DISCARDABLE     "res\\card08.bmp"
+IDB_CARD_09             BITMAP  DISCARDABLE     "res\\card09.bmp"
+IDB_CARD_10             BITMAP  DISCARDABLE     "res\\card10.bmp"
+IDB_CARD_11             BITMAP  DISCARDABLE     "res\\card11.bmp"
+IDB_CARD_12             BITMAP  DISCARDABLE     "res\\card12.bmp"
+IDB_CARD_13             BITMAP  DISCARDABLE     "res\\card13.bmp"
+IDB_CARD_14             BITMAP  DISCARDABLE     "res\\card14.bmp"
+IDB_CARD_15             BITMAP  DISCARDABLE     "res\\card15.bmp"
+IDB_CARD_16             BITMAP  DISCARDABLE     "res\\card16.bmp"
+IDB_CARD_17             BITMAP  DISCARDABLE     "res\\card17.bmp"
+IDB_CARD_18             BITMAP  DISCARDABLE     "res\\card18.bmp"
+IDB_CARD_19             BITMAP  DISCARDABLE     "res\\card19.bmp"
+IDB_CARD_20             BITMAP  DISCARDABLE     "res\\card20.bmp"
+IDB_CARD_21             BITMAP  DISCARDABLE     "res\\card21.bmp"
+IDB_CARD_22             BITMAP  DISCARDABLE     "res\\card22.bmp"
+IDB_CARD_23             BITMAP  DISCARDABLE     "res\\card23.bmp"
+IDB_CARD_24             BITMAP  DISCARDABLE     "res\\card24.bmp"
+IDB_CARD_25             BITMAP  DISCARDABLE     "res\\card25.bmp"
+IDB_CARD_26             BITMAP  DISCARDABLE     "res\\card26.bmp"
+IDB_CARD_27             BITMAP  DISCARDABLE     "res\\card27.bmp"
+IDB_CARD_28             BITMAP  DISCARDABLE     "res\\card28.bmp"
+IDB_CARD_29             BITMAP  DISCARDABLE     "res\\card29.bmp"
+IDB_CARD_30             BITMAP  DISCARDABLE     "res\\card30.bmp"
+IDB_CARD_31             BITMAP  DISCARDABLE     "res\\card31.bmp"
+IDB_CARD_32             BITMAP  DISCARDABLE     "res\\card32.bmp"
+IDB_CARD_33             BITMAP  DISCARDABLE     "res\\card33.bmp"
+IDB_CARD_34             BITMAP  DISCARDABLE     "res\\card34.bmp"
+IDB_CARD_35             BITMAP  DISCARDABLE     "res\\card35.bmp"
+IDB_CARD_36             BITMAP  DISCARDABLE     "res\\card36.bmp"
+IDB_CARD_37             BITMAP  DISCARDABLE     "res\\card37.bmp"
+IDB_CARD_38             BITMAP  DISCARDABLE     "res\\card38.bmp"
+IDB_CARD_39             BITMAP  DISCARDABLE     "res\\card39.bmp"
+IDB_CARD_40             BITMAP  DISCARDABLE     "res\\card40.bmp"
+IDB_CARD_41             BITMAP  DISCARDABLE     "res\\card41.bmp"
+IDB_CARD_42             BITMAP  DISCARDABLE     "res\\card42.bmp"
+IDB_CARD_43             BITMAP  DISCARDABLE     "res\\card43.bmp"
+IDB_CARD_44             BITMAP  DISCARDABLE     "res\\card44.bmp"
+IDB_CARD_45             BITMAP  DISCARDABLE     "res\\card45.bmp"
+IDB_CARD_46             BITMAP  DISCARDABLE     "res\\card46.bmp"
+IDB_CARD_47             BITMAP  DISCARDABLE     "res\\card47.bmp"
+IDB_CARD_48             BITMAP  DISCARDABLE     "res\\card48.bmp"
+IDB_CARD_49             BITMAP  DISCARDABLE     "res\\card49.bmp"
+IDB_CARD_50             BITMAP  DISCARDABLE     "res\\card50.bmp"
+IDB_CARD_51             BITMAP  DISCARDABLE     "res\\card51.bmp"
+IDB_CARD_52             BITMAP  DISCARDABLE     "res\\card52.bmp"
+IDB_BACKGROUND          BITMAP  DISCARDABLE     "res\\felt.bmp"
+IDB_CARD_BACK           BITMAP  DISCARDABLE     "res\\CardBack.bmp"
+IDB_CARD_SHAPE          BITMAP  DISCARDABLE     "res\\CardShape.bmp"
+IDB_TOKEN               BITMAP  DISCARDABLE     "res\\token.bmp"
+IDB_TOKEN_SHAPE         BITMAP  DISCARDABLE     "res\\TokenShape.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE PRELOAD DISCARDABLE 
+BEGIN
+    IDR_MAINFRAME           "接龙"
+END
+
+STRINGTABLE PRELOAD DISCARDABLE 
+BEGIN
+    AFX_IDS_APP_TITLE       "接龙"
+    AFX_IDS_IDLEMESSAGE     "就绪"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_APP_ABOUT            "显示程序信息，版本号和版权"
+    ID_APP_EXIT             "退出本程序"
+    ID_HELP_INDEX           "打开帮助文件"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    AFX_IDS_SCSIZE          "改变窗口大小"
+    AFX_IDS_SCMOVE          "改变窗口位置"
+    AFX_IDS_SCMINIMIZE      "将窗口缩小成图标"
+    AFX_IDS_SCMAXIMIZE      "把窗口放大到最大尺寸"
+    AFX_IDS_SCNEXTWINDOW    "切换到下一个文档窗口"
+    AFX_IDS_SCPREVWINDOW    "切换到先前的文档窗口"
+    AFX_IDS_SCCLOSE         "退出本程序"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    AFX_IDS_SCRESTORE       "把窗口恢复到正常大小"
+    AFX_IDS_SCTASKLIST      "激活任务表"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_PLAYER_EAST         "下家"
+    IDS_PLAYER_NORTH        "对家"
+    IDS_PLAYER_WEST         "上家"
+    IDS_PLAYER_SOUTH        "您"
+    IDS_PLAYER_THINKING     "等待%s出牌"
+    IDS_PLEASE_SEND_CARD    "请出牌"
+    IDS_SUIT_0              "方片"
+    IDS_SUIT_1              "草花"
+    IDS_SUIT_2              "红桃"
+    IDS_SUIT_3              "黑桃"
+    IDS_MUST_SEND_45        "必须先出黑桃七"
+    IDS_CANNOT_SEND_CARD    "该牌无法打出"
+    IDS_PLAYER_SELECT       "等待%s从其上家的牌中选择一张牌"
+    IDS_PLEASE_SELECT_CARD  "请从上家的牌中选择一张牌"
+    IDS_OUT_INFO            "%s打出%s%s"
+    IDS_VALUE_1             "Ａ"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_VALUE_2             "二"
+    IDS_VALUE_3             "三"
+    IDS_VALUE_4             "四"
+    IDS_VALUE_5             "五"
+    IDS_VALUE_6             "六"
+    IDS_VALUE_7             "七"
+    IDS_VALUE_8             "八"
+    IDS_VALUE_9             "九"
+    IDS_VALUE_10            "十"
+    IDS_VALUE_11            "Ｊ"
+    IDS_VALUE_12            "Ｑ"
+    IDS_VALUE_13            "Ｋ"
+    IDS_IT_IS_YOUR_TURN     "轮到%s出牌"
+    IDS_SELECT_OVER         "%s从其上家处得到一张牌"
+    IDS_EAST_SELECT_OVER    "下家拿走了您一张%s%s"
+    IDS_PLAYER_SELECT_OVER  "您从上家处得到一张%s%s"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_DISPATCHING         "发牌"
+    IDS_REMAIN_CARD_FORMAT  "%s: %d"
+    IDS_USER_CARD_FORMAT    "%s: %d [%s]"
+    IDS_RANK_1              "冠军"
+    IDS_RANK_2              "亚军"
+    IDS_RANK_3              "季军"
+    IDS_RANK_4              "垫底"
+    IDS_RANK_ALL_THE_SAME   "----"
+    IDS_RANK_INFO           "您当前的排名是：%s"
+    IDS_ASSERT_ERROR        "Hi guy, we get a big error here.\n\nFile: %s\nLine %d\n"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_NEW_GAME             "开始新游戏，重新计分"
+    ID_TERMINATE_GAME       "结束当前游戏"
+    ID_SEND                 "打出当前选择的牌"
+    ID_PLAYER_AUTO          "让电脑帮你出牌"
+    ID_ANIMAL               "开启或者关闭动画"
+    ID_HINT                 "提示哪些牌可以打出"
+    ID_SCORE                "当前的得分记录"
+END
+
+#endif    // Chinese (P.R.C.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+#ifdef _WIN32
+LANGUAGE 4, 2
+#pragma code_page(936)
+#endif //_WIN32
+#include "res\RJ.rc2"  // non-Microsoft Visual C++ edited resources
+#include "l.chs\afxres.rc"          // Standard components
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

@@ -1,0 +1,150 @@
+// ChildView.h : CChildView 类的接口
+//
+
+
+#pragma once
+
+#include "defines.h"
+
+// CChildView 窗口
+
+class CChildView : public CWnd
+{
+// 构造
+public:
+	CChildView();
+
+// 重写
+protected:
+	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
+
+// 实现
+public:
+	virtual ~CChildView();
+
+	// 生成的消息映射函数
+protected:
+	afx_msg void OnPaint();
+	DECLARE_MESSAGE_MAP()
+
+private:
+	struct ZCardList
+	{
+		int first;	// first <= last
+		int last;	// first <= last
+	};
+	enum ZGameStatus
+	{
+		GS_PRESTART,		// 还没开始
+		GS_DISPATCH,		// 发牌
+		GS_CLEAN_UP,		// 玩家和电脑整理牌
+		GS_THINKING,		// 等待玩家或电脑出牌
+		GS_SENDING,			// 出牌
+		GS_TOKEN_SENDING,	// 传送令牌
+		GS_END,				// 排局结束
+	};
+private:
+	void InitAll();
+	void DrawAll(CPaintDC *pDC);
+	void DrawCard(CDC *pDC, CBitmap *pBmp, int x, int y);
+	void DrawToken(CDC *pDC, int x, int y);
+	void FitCardBitmap(CBitmap *pBmp);
+
+	void Shuffle();						// 洗牌
+	void CleanUp();						// 整理牌
+	int GetCardIndex(CPoint point);		// 获取鼠标点下的牌
+	void SendCard(int iCard);			// 玩家或电脑出牌(iCard为牌在其手中的索引)
+	BOOL CheckSend(int iPlayer);		// 检查玩家或电脑是否有牌可出
+	BOOL CanSend(int iCard);			// 检查该牌数否可打出
+	BOOL IsGameOver();					// 检查是否一局结束
+	void ProcessGameOver();				// 处理一局结束
+	BOOL TokenClick(CPoint point);		// 检查点是否在令牌区域内
+	void GetSendingCardPos(int index);	// 获取正打出的牌的起始位置
+	CPoint GetTokenPos(int iPlayer);	// 获取令牌的左上角坐标
+
+	void CardDispatched();				// 发牌结束后的处理
+	void CardCleanUped();				// 牌整理结束后的处理
+	void CardSended();					// 出牌结束，开始下一位的出牌
+	void TokenSended();					// 令牌传送结束后的处理
+
+	void Invalidate();					// 刷新屏幕
+
+private: // AI
+	int ComputerSend();									// 电脑智能
+	int AIRandom(int iPlayer,const BOOL bCanSend[]);	// 随机选择一张可以打出的牌(初级难度)
+	int AINormal(int iPlayer,const BOOL bCanSend[]);	// (中级难度)
+	int AIHard(int iPlayer,const BOOL bCanSend[]);		// (高级难度)
+private:
+	BOOL m_bRedraw;
+	CBitmap *m_pBitmap;
+	CRect m_rcClick;	// 接受鼠标消息的矩形
+
+	CBitmap m_bmpCard[CARD_NUM];
+	CBitmap m_bmpCardBack;
+	CBitmap m_bmpCardSharp;
+	CBitmap m_bmpToken;
+	CBitmap m_bmpTokenSharp;
+	CBitmap m_bmpBackground;
+
+	int m_iCard[PLAYER_NUM][CARD_EACH];
+	ZCardList m_CardList[LIST_NUM];
+
+	ZGameStatus m_gs;
+
+	int m_iPopup;		// 弹出的牌
+	int m_iSpecialShow; // 全显示的牌
+	int m_iTurn;
+	int m_nTimeslice;	// 出牌周期
+
+	BOOL m_bShowAnimal;
+	BOOL m_bPlayerAuto;			// 是否电脑托管玩家的牌
+
+	CPoint m_ptSendingCard[2];
+	int m_nSendingDrawCount;
+	int m_iSendingCard;
+	int m_nDispatchCount;
+	CPoint m_ptSendingToken[2];
+	int m_nTokenSendingCount;
+	BOOL m_bCleanUped;
+
+	int m_nScore[PLAYER_NUM];		// 得分
+	int m_nCurScore[PLAYER_NUM];	// 当前牌局得分
+
+	int m_nAI;
+
+	BOOL m_bShowComputerCard;	// 是否正面显示电脑的牌
+public:
+	afx_msg void OnNewGame();
+	afx_msg void OnRButtonDown(UINT nFlags, CPoint point);
+	afx_msg void OnRButtonUp(UINT nFlags, CPoint point);
+	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
+	afx_msg void OnLButtonDblClk(UINT nFlags, CPoint point);
+	afx_msg void OnTimer(UINT nIDEvent);
+	afx_msg void OnSpeedHigh();
+	afx_msg void OnSpeedLow();
+	afx_msg void OnSpeedMid();
+	afx_msg void OnUpdateSpeedLow(CCmdUI *pCmdUI);
+	afx_msg void OnUpdateSpeedMid(CCmdUI *pCmdUI);
+	afx_msg void OnUpdateSpeedHigh(CCmdUI *pCmdUI);
+	afx_msg void OnScores();
+	afx_msg void OnHint();
+	afx_msg void OnUpdateHint(CCmdUI *pCmdUI);
+	afx_msg void OnShowAnimal();
+	afx_msg void OnUpdateShowAnimal(CCmdUI *pCmdUI);
+	afx_msg void OnAiEasy();
+	afx_msg void OnAiNormal();
+	afx_msg void OnAiHard();
+	afx_msg void OnUpdateAiEasy(CCmdUI *pCmdUI);
+	afx_msg void OnUpdateAiHard(CCmdUI *pCmdUI);
+	afx_msg void OnUpdateAiNormal(CCmdUI *pCmdUI);
+	afx_msg void OnShowComputerCard();
+	afx_msg void OnSendCard();
+	afx_msg void OnUpdateSendCard(CCmdUI *pCmdUI);
+	afx_msg void OnPopupNext();
+	afx_msg void OnPopupPrev();
+	afx_msg void OnPlayerAuto();
+	afx_msg void OnUpdatePlayerAuto(CCmdUI *pCmdUI);
+	afx_msg void OnEndGame();
+	afx_msg void OnUpdateEndGame(CCmdUI *pCmdUI);
+	afx_msg void OnHelpIndex();
+};

@@ -1,0 +1,1076 @@
+// ChildView.cpp : CChildView 类的实现
+//
+
+#include "stdafx.h"
+#include "RJ.h"
+#include "ChildView.h"
+#include "ScoresDlg.h"
+#include ".\childview.h"
+
+#ifdef _DEBUG
+#define new DEBUG_NEW
+#endif
+
+// CChildView
+
+CChildView::CChildView()
+{
+	m_pBitmap = NULL;
+	m_iPopup = -1;
+	m_iSpecialShow = -1;
+	m_nTimeslice = TIMESLICE_MID;
+
+	m_bShowAnimal = TRUE;
+	m_bPlayerAuto = FALSE;
+
+	m_gs = GS_PRESTART;
+
+	for(int i=0; i<4; i++)
+	{
+		m_nScore[i] = 0;
+		m_nCurScore[i] = 0;
+	}
+
+	m_nAI = AI_NORMAL;
+
+	m_bShowComputerCard = FALSE;
+}
+
+CChildView::~CChildView()
+{
+}
+
+
+BEGIN_MESSAGE_MAP(CChildView, CWnd)
+	ON_WM_PAINT()
+	ON_COMMAND(ID_NEW_GAME, OnNewGame)
+	ON_WM_RBUTTONDOWN()
+	ON_WM_RBUTTONUP()
+	ON_WM_LBUTTONDOWN()
+	ON_WM_LBUTTONDBLCLK()
+	ON_WM_TIMER()
+	ON_COMMAND(ID_SPEED_HIGH, OnSpeedHigh)
+	ON_COMMAND(ID_SPEED_LOW, OnSpeedLow)
+	ON_COMMAND(ID_SPEED_MID, OnSpeedMid)
+	ON_UPDATE_COMMAND_UI(ID_SPEED_LOW, OnUpdateSpeedLow)
+	ON_UPDATE_COMMAND_UI(ID_SPEED_MID, OnUpdateSpeedMid)
+	ON_UPDATE_COMMAND_UI(ID_SPEED_HIGH, OnUpdateSpeedHigh)
+	ON_COMMAND(ID_SCORES, OnScores)
+	ON_COMMAND(ID_HINT, OnHint)
+	ON_UPDATE_COMMAND_UI(ID_HINT, OnUpdateHint)
+	ON_COMMAND(ID_SHOW_ANIMAL, OnShowAnimal)
+	ON_UPDATE_COMMAND_UI(ID_SHOW_ANIMAL, OnUpdateShowAnimal)
+	ON_COMMAND(ID_AI_EASY, OnAiEasy)
+	ON_COMMAND(ID_AI_NORMAL, OnAiNormal)
+	ON_COMMAND(ID_AI_HARD, OnAiHard)
+	ON_UPDATE_COMMAND_UI(ID_AI_EASY, OnUpdateAiEasy)
+	ON_UPDATE_COMMAND_UI(ID_AI_HARD, OnUpdateAiHard)
+	ON_UPDATE_COMMAND_UI(ID_AI_NORMAL, OnUpdateAiNormal)
+	ON_COMMAND(ID_SHOW_COMPUTER_CARD, OnShowComputerCard)
+	ON_COMMAND(ID_SEND_CARD, OnSendCard)
+	ON_UPDATE_COMMAND_UI(ID_SEND_CARD, OnUpdateSendCard)
+	ON_COMMAND(ID_POPUP_NEXT, OnPopupNext)
+	ON_COMMAND(ID_POPUP_PREV, OnPopupPrev)
+	ON_COMMAND(ID_PLAYER_AUTO, OnPlayerAuto)
+	ON_UPDATE_COMMAND_UI(ID_PLAYER_AUTO, OnUpdatePlayerAuto)
+	ON_COMMAND(ID_END_GAME, OnEndGame)
+	ON_UPDATE_COMMAND_UI(ID_END_GAME, OnUpdateEndGame)
+	ON_COMMAND(ID_HELP_INDEX, OnHelpIndex)
+END_MESSAGE_MAP()
+
+
+
+// CChildView 消息处理程序
+
+BOOL CChildView::PreCreateWindow(CREATESTRUCT& cs) 
+{
+	if (!CWnd::PreCreateWindow(cs))
+		return FALSE;
+
+	cs.dwExStyle |= WS_EX_CLIENTEDGE;
+	cs.style &= ~WS_BORDER;
+	cs.lpszClass = AfxRegisterWndClass(
+		CS_HREDRAW|CS_VREDRAW|CS_DBLCLKS,
+		::LoadCursor(NULL, IDC_ARROW),
+		reinterpret_cast<HBRUSH>(COLOR_WINDOW+1),
+		NULL);
+
+	return TRUE;
+}
+
+void CChildView::OnPaint() 
+{
+	CPaintDC dc(this); // 用于绘制的设备上下文
+
+	// save old objects
+	CBrush *pOldBrush = (CBrush *)dc.SelectStockObject(NULL_BRUSH);
+	CPen *pOldPen = (CPen *)dc.SelectStockObject(NULL_PEN);
+
+	DrawAll(&dc);
+
+	// store old objects
+	dc.SelectObject(pOldBrush);
+	dc.SelectObject(pOldPen);
+	
+	// 不要为绘制消息而调用 CWnd::OnPaint()
+}
+
+void CChildView::DrawAll(CPaintDC *pDC) 
+{
+	if(m_pBitmap==NULL)
+	{
+		InitAll();
+
+		m_pBitmap = new CBitmap();
+		m_pBitmap->CreateCompatibleBitmap(pDC, CLIENT_WIDTH, CLIENT_HEIGHT);
+
+		m_bRedraw = TRUE;
+	}
+
+	CDC dcMem;
+	dcMem.CreateCompatibleDC(pDC);
+	dcMem.SelectObject(m_pBitmap);
+
+	if(m_bRedraw)
+	{
+		dcMem.SelectStockObject(NULL_PEN);
+
+		CBrush brushBG(&m_bmpBackground);
+		dcMem.SelectObject(&brushBG);
+		dcMem.Rectangle(0, 0, CLIENT_WIDTH, CLIENT_HEIGHT);
+
+		// draw cards /////////////////////////////////////////////////////////
+		const int nCard = ((m_gs==GS_DISPATCH)?m_nDispatchCount:CARD_EACH);
+		// east
+		for(int i=0; i<nCard; i++)
+		{
+			if(m_iCard[ID_EAST][i]>=0)
+			{
+				DrawCard(
+					&dcMem,
+					m_bShowComputerCard?(&m_bmpCard[m_iCard[ID_EAST][i]]):(&m_bmpCardBack),
+					LEFT_EAST,
+					TOP_EAST+i*INTERVAL_V);
+			}
+		}
+
+		// north
+		for(int i=0; i<nCard; i++)
+		{
+			if(m_iCard[ID_NORTH][i]>=0)
+			{
+				DrawCard(
+					&dcMem,
+					m_bShowComputerCard?(&m_bmpCard[m_iCard[ID_NORTH][i]]):(&m_bmpCardBack),
+					LEFT_NORTH+i*INTERVAL_H,
+					TOP_NORTH);
+			}
+		}
+
+		// west
+		for(int i=0; i<nCard; i++)
+		{
+			if(m_iCard[ID_WEST][i]>=0)
+			{
+				DrawCard(
+					&dcMem,
+					m_bShowComputerCard?(&m_bmpCard[m_iCard[ID_WEST][i]]):(&m_bmpCardBack),
+					LEFT_WEST,
+					TOP_WEST+i*INTERVAL_V);
+			}
+		}
+
+		// south
+		for(int i=0; i<nCard; i++)
+		{
+			if(i==m_iPopup)
+			{
+				DrawCard(
+					&dcMem,
+					(m_gs==GS_CLEAN_UP) ? (&m_bmpCardBack) : (&m_bmpCard[m_iCard[ID_SOUTH][i]]),
+					LEFT_SOUTH+i*INTERVAL_H,
+					TOP_SOUTH-CARD_POPUP);
+			}
+			else if(m_iCard[ID_SOUTH][i]>=0)
+			{
+				DrawCard(
+					&dcMem,
+					(m_gs==GS_CLEAN_UP) ? (&m_bmpCardBack) : (&m_bmpCard[m_iCard[ID_SOUTH][i]]),
+					LEFT_SOUTH+i*INTERVAL_H,
+					TOP_SOUTH);
+			}
+		}
+
+		// special show
+		if(m_iSpecialShow>=0)
+		{
+			DrawCard(
+				&dcMem,
+				&m_bmpCard[m_iCard[ID_SOUTH][m_iSpecialShow]],
+				LEFT_SOUTH+m_iSpecialShow*INTERVAL_H,
+				(m_iSpecialShow==m_iPopup?TOP_SOUTH-CARD_POPUP:TOP_SOUTH) );
+		}
+
+		// card lists
+		for(int i=0; i<LIST_NUM; i++)
+		{
+			if(m_CardList[i].first<0)
+				continue;
+			for(int j=m_CardList[i].first; j<=m_CardList[i].last; j++)
+			{
+				DrawCard(
+					&dcMem,
+					&m_bmpCard[j],
+					LEFT_LIST+(INTERVAL_H+CARD_WIDTH)*i,
+					TOP_LIST+INTERVAL_V*(j%LIST_EACH) );
+			}
+		}
+
+		// token
+		if(m_bShowAnimal && m_gs==GS_TOKEN_SENDING) // 令牌传送中
+		{
+			int x =
+				(m_ptSendingToken[1].x*m_nTokenSendingCount +
+				 m_ptSendingToken[0].x*(TOKEN_DRAW_NUM-m_nTokenSendingCount) )/TOKEN_DRAW_NUM;
+			int y =
+				(m_ptSendingToken[1].y*m_nTokenSendingCount +
+				 m_ptSendingToken[0].y*(TOKEN_DRAW_NUM-m_nTokenSendingCount) )/TOKEN_DRAW_NUM;
+			DrawToken(&dcMem, x, y);
+		}
+		else if(m_gs!=GS_PRESTART && m_gs!=GS_END) // 正常显示令牌
+		{
+			CPoint ptToken = GetTokenPos(m_iTurn);
+			DrawToken(&dcMem, ptToken.x, ptToken.y);
+		}
+
+		// sending card
+		if(m_bShowAnimal && m_gs==GS_SENDING)
+		{
+			int x =
+				(m_ptSendingCard[1].x*m_nSendingDrawCount +
+				 m_ptSendingCard[0].x*(SENDING_DRAW_NUM-m_nSendingDrawCount) )/SENDING_DRAW_NUM;
+			int y =
+				(m_ptSendingCard[1].y*m_nSendingDrawCount +
+				m_ptSendingCard[0].y*(SENDING_DRAW_NUM-m_nSendingDrawCount) )/SENDING_DRAW_NUM;
+			DrawCard(
+				&dcMem,
+				&m_bmpCard[m_iSendingCard],
+				x,
+				y );
+		}
+	}
+
+	pDC->BitBlt(0, 0, CLIENT_WIDTH, CLIENT_HEIGHT, &dcMem, 0, 0, SRCCOPY);
+}
+
+void CChildView::InitAll() 
+{
+	m_rcClick = CRect(
+		LEFT_SOUTH,
+		TOP_SOUTH-CARD_POPUP,
+		LEFT_SOUTH+(CARD_EACH-1)*INTERVAL_H+CARD_WIDTH,
+		TOP_SOUTH+CARD_HEIGHT);
+
+	m_bmpCardSharp.LoadBitmap(IDB_CARD_SHARP);	// 此位图必须先于其他位图导入
+	for(int i=0; i<CARD_NUM; i++)
+	{
+		m_bmpCard[i].LoadBitmap(IDB_CARD01+i);
+		FitCardBitmap(&m_bmpCard[i]);
+	}
+	m_bmpCardBack.LoadBitmap(IDB_CARDBACK);
+	FitCardBitmap(&m_bmpCardBack);
+	m_bmpToken.LoadBitmap(IDB_TOKEN);
+	m_bmpTokenSharp.LoadBitmap(IDB_TOKEN_SHARP);
+	m_bmpBackground.LoadBitmap(IDB_FELT);
+
+	for(int i=0; i<PLAYER_NUM; i++)
+	{
+		for(int j=0; j<CARD_EACH; j++)
+		{
+			m_iCard[i][j] = -1;
+		}
+	}
+
+	for(int i=0; i<LIST_NUM; i++)
+	{
+		m_CardList[i].first = -1;
+		m_CardList[i].last	= -1;
+	}
+}
+
+void CChildView::DrawCard(CDC *pDC, CBitmap *pBmp, int x, int y) 
+{
+	CDC dcMem;
+	dcMem.CreateCompatibleDC(pDC);
+	dcMem.SelectObject(&m_bmpCardSharp);
+	pDC->BitBlt(x, y, CARD_WIDTH, CARD_HEIGHT, &dcMem, 0, 0, SRCAND);
+
+	dcMem.SelectObject(pBmp);
+	pDC->BitBlt(x, y, CARD_WIDTH, CARD_HEIGHT, &dcMem, 0, 0, SRCPAINT);
+}
+
+void CChildView::Shuffle() 
+{
+	CTime time = CTime::GetCurrentTime();
+	srand((UINT)time.GetTime());
+
+	BOOL bSelected[CARD_NUM];
+	int i,t;
+
+	for(i=0; i<CARD_NUM; i++)
+		bSelected[i] = FALSE;
+
+	for(i=0; i<LIST_NUM; i++)
+		bSelected[LIST_EACH*i+CENTER_CARD] = TRUE;
+
+	for(i=0; i<CARD_NUM-4;)
+	{
+		t = rand()%CARD_NUM;
+		if(!bSelected[t])
+		{
+			m_iCard[i/CARD_EACH][i%CARD_EACH] = t;
+			bSelected[t] = TRUE;
+			i++;
+		}
+	}
+}
+
+void CChildView::CleanUp() 
+{
+	for(int i=0; i<PLAYER_NUM; i++)
+	{
+		// 对每个人的牌进行排序
+		int j,k,t,jm;
+		for(j=0; j<CARD_EACH; j++)
+		{
+			jm = j;
+			for(k=j+1; k<CARD_EACH; k++)
+				if(m_iCard[i][k]<m_iCard[i][jm])
+					jm = k;
+			if(jm != j)
+			{
+				t = m_iCard[i][j];
+				m_iCard[i][j] = m_iCard[i][jm];
+				m_iCard[i][jm] = t;
+			}
+		}
+	}
+}
+
+void CChildView::OnNewGame()
+{
+	Shuffle();
+	m_iSpecialShow = -1;
+	m_iPopup = -1;
+	m_iTurn = ID_SOUTH;
+
+	for(int i=0; i<LIST_NUM; i++)
+	{
+		m_CardList[i].first = i*LIST_EACH+CENTER_CARD;
+		m_CardList[i].last	= i*LIST_EACH+CENTER_CARD;
+	}
+
+	KillTimer(IDT_SEND_CARD);
+	KillTimer(IDT_DISPATCH);
+	KillTimer(IDT_SENDING_DRAW);
+	KillTimer(IDT_TOKEN_SENDING);
+
+	if(m_bShowAnimal)
+	{
+		m_gs = GS_DISPATCH;
+		m_nDispatchCount = 0;
+		SetTimer(IDT_DISPATCH, TIMESLICE_DISPATCH, NULL);
+		Invalidate();
+	}
+	else
+	{
+		CardDispatched();
+	}
+}
+
+int CChildView::GetCardIndex(CPoint point)
+{
+	// 是否在点击区
+	if(!m_rcClick.PtInRect(point))
+		return -1;
+
+	CRect rect;
+	for(int i=CARD_EACH-1; i>=0; i--)
+	{
+		if(m_iCard[ID_SOUTH][i]<0)
+			continue;
+
+		rect = CRect(
+			LEFT_SOUTH+i*INTERVAL_H,
+			(i==m_iPopup?TOP_SOUTH-CARD_POPUP:TOP_SOUTH),
+			LEFT_SOUTH+i*INTERVAL_H+CARD_WIDTH,
+			(i==m_iPopup?TOP_SOUTH-CARD_POPUP:TOP_SOUTH)+CARD_HEIGHT);
+		if(rect.PtInRect(point))
+			return i;
+	}
+
+	return -1;
+}
+
+BOOL CChildView::TokenClick(CPoint point)
+{
+	CRect rect(
+		LEFT_SOUTH_TOKEN,
+		TOP_SOUTH_TOKEN,
+		LEFT_SOUTH_TOKEN+TOKEN_WIDTH,
+		TOP_SOUTH_TOKEN+TOKEN_HEIGHT);
+
+	return rect.PtInRect(point);
+}
+
+void CChildView::OnRButtonDown(UINT nFlags, CPoint point)
+{
+	if(m_gs==GS_PRESTART || m_gs==GS_END)
+	{
+		CWnd::OnRButtonDown(nFlags, point);
+		return;
+	}
+
+	int index = GetCardIndex(point);
+	if(index>=0)
+	{
+		m_iSpecialShow = index;
+		SetCapture();
+		Invalidate();
+	}
+
+	CWnd::OnRButtonDown(nFlags, point);
+}
+
+void CChildView::OnRButtonUp(UINT nFlags, CPoint point)
+{
+	if(m_iSpecialShow>=0)
+	{
+		m_iSpecialShow = -1;
+		ReleaseCapture();
+		Invalidate();
+	}
+
+	CWnd::OnRButtonUp(nFlags, point);
+}
+
+void CChildView::OnLButtonDown(UINT nFlags, CPoint point)
+{
+	if(m_gs==GS_PRESTART || m_gs==GS_END)
+	{
+		goto Finish;
+	}
+
+	// 点击牌
+	int index = GetCardIndex(point);
+	if(index>=0)
+	{
+		if(m_iPopup==index)
+		{
+			m_iPopup = -1;
+			Invalidate();
+			goto Finish;
+		}
+		else if(m_iPopup<0)
+		{
+			m_iPopup = index;
+			Invalidate();
+			goto Finish;
+		}
+	}
+
+	// 点击令牌，提示
+	if(m_iTurn==ID_SOUTH && TokenClick(point))
+	{
+		OnHint();
+		goto Finish;
+	}
+
+Finish:
+	CWnd::OnLButtonDown(nFlags, point);
+}
+
+void CChildView::OnLButtonDblClk(UINT nFlags, CPoint point)
+{
+	if(m_gs!=GS_THINKING || m_iTurn!=ID_SOUTH || m_bPlayerAuto)
+	{
+		CWnd::OnLButtonDblClk(nFlags, point);
+		return;
+	}
+
+	int index = GetCardIndex(point);
+	if(index>=0)
+	{
+		if(m_iPopup<0 || m_iPopup==index)
+		{
+			m_iPopup = index;
+			int iCard = m_iCard[ID_SOUTH][index];
+			int iList = iCard/LIST_EACH;
+			if( iCard==m_CardList[iList].first-1 ||
+				iCard==m_CardList[iList].last+1)
+			{
+				SendCard(index);
+			}
+			else
+			{
+				Invalidate();
+			}
+		}
+	}
+
+	CWnd::OnLButtonDblClk(nFlags, point);
+}
+
+void CChildView::SendCard(int index)
+{
+	if(index>=0)// 该牌能出
+	{
+		GetSendingCardPos(index);
+
+		m_iSendingCard = m_iCard[m_iTurn][index];
+		m_iCard[m_iTurn][index] = -1;
+		if(m_iTurn==ID_SOUTH)
+		{
+			m_iPopup = -1;
+			m_iSpecialShow = -1;
+		}
+
+		if(m_bShowAnimal)
+		{
+			m_nSendingDrawCount = 0;
+			m_gs = GS_SENDING;
+			SetTimer(IDT_SENDING_DRAW, TIMESLICE_DRAW, NULL);
+		}
+		else
+		{
+			int iList = m_iSendingCard/LIST_EACH; // 花色
+			if(m_iSendingCard==m_CardList[iList].first-1)
+				m_CardList[iList].first--;
+			else if(m_iSendingCard==m_CardList[iList].last+1)
+				m_CardList[iList].last++;
+
+			CardSended();
+		}
+	}
+	else // 该方无牌可出
+	{
+		CardSended();
+	}
+}
+
+void CChildView::CardSended()
+{
+	if(IsGameOver()) // 出牌后该方胜出
+	{
+		ProcessGameOver();
+		Invalidate();
+
+		if(m_bPlayerAuto) // 电脑托管
+		{
+			PostMessage(WM_COMMAND, ID_NEW_GAME, 0);
+		}
+		else
+		{
+			OnScores();
+			PostMessage(WM_COMMAND, ID_NEW_GAME, 0);
+		}
+	}
+	else // 该方没有赢牌，继续打牌
+	{
+		if(m_bShowAnimal)
+		{
+			m_ptSendingToken[0] = GetTokenPos(m_iTurn);
+			m_ptSendingToken[1] = GetTokenPos((m_iTurn+1)%PLAYER_NUM);
+
+			m_nTokenSendingCount = 0;
+			m_gs = GS_TOKEN_SENDING;
+			SetTimer(IDT_TOKEN_SENDING, TIMESLICE_TOKEN, NULL);
+		}
+		else
+		{
+			TokenSended();
+		}
+	}
+}
+
+void CChildView::OnTimer(UINT nIDEvent)
+{
+	switch(nIDEvent)
+	{
+	case IDT_SEND_CARD:
+	{
+		KillTimer(nIDEvent);
+		if(!CheckSend(m_iTurn)) // 无牌可出，下一位
+			SendCard(-1);
+		else
+			SendCard(ComputerSend());
+		break;
+	}
+	case IDT_SENDING_DRAW:
+		if(m_nSendingDrawCount >= SENDING_DRAW_NUM)
+		{
+			KillTimer(nIDEvent);
+
+			int iList = m_iSendingCard/LIST_EACH; // 花色
+			if(m_iSendingCard==m_CardList[iList].first-1)
+				m_CardList[iList].first--;
+			else if(m_iSendingCard==m_CardList[iList].last+1)
+				m_CardList[iList].last++;
+
+			Invalidate();
+
+			CardSended();
+		}
+		else
+		{
+			m_nSendingDrawCount++;
+			Invalidate();
+		}
+		break;
+	case IDT_DISPATCH:
+		if(m_nDispatchCount >= CARD_EACH)
+		{
+			KillTimer(nIDEvent);
+
+			CardDispatched();
+		}
+		else
+		{
+			m_nDispatchCount++;
+			Invalidate();
+		}
+		break;
+	case IDT_TOKEN_SENDING:
+		if(m_nTokenSendingCount >= TOKEN_DRAW_NUM)
+		{
+			KillTimer(nIDEvent);
+
+			TokenSended();
+		}
+		else
+		{
+			m_nTokenSendingCount++;
+			Invalidate();
+		}
+		break;
+	case IDT_CLEAN_UP:
+		if(m_bCleanUped)
+		{
+			KillTimer(nIDEvent);
+		}
+		else
+		{
+			CardCleanUped();
+			m_bCleanUped = TRUE;
+		}
+		break;
+	}
+
+	CWnd::OnTimer(nIDEvent);
+}
+
+BOOL CChildView::CheckSend(int iPlayer)
+{
+	int i,iList;
+	for(i=0; i<CARD_EACH; i++)
+	{
+		if(m_iCard[iPlayer][i]>=0)
+		{
+			iList = m_iCard[iPlayer][i]/LIST_EACH;
+			if( m_iCard[iPlayer][i]==m_CardList[iList].first-1 ||
+				m_iCard[iPlayer][i]==m_CardList[iList].last+1)
+			{
+				return TRUE;
+			}
+		}
+	}
+	return FALSE;
+}
+
+BOOL CChildView::IsGameOver() 
+{
+	int i,j;
+
+	for(i=0; i<PLAYER_NUM; i++)
+	{
+		for(j=0; j<CARD_EACH && m_iCard[i][j]<0; j++)
+			;
+		if(j>=CARD_EACH)
+			return TRUE;
+	}
+	return FALSE;
+}
+
+void CChildView::ProcessGameOver()
+{
+	m_gs = GS_END;
+	m_iSpecialShow = -1;
+	m_iPopup = -1;
+
+	int send[PLAYER_NUM];
+
+	for(int i=0; i<PLAYER_NUM; i++) // 统计每个人所打出的牌
+	{
+		send[i] = 0;
+		for(int j=0; j<CARD_EACH; j++)
+			if(m_iCard[i][j]<0)
+				send[i]++;
+	}
+
+	for(int i=0; i<PLAYER_NUM; i++)
+	{
+		m_nCurScore[i] = send[i]*(send[i]+1)/2;
+		m_nScore[i] += m_nCurScore[i];
+	}
+}
+
+void CChildView::Invalidate()
+{
+	m_bRedraw = TRUE;
+	CWnd::Invalidate(FALSE);
+}
+
+void CChildView::OnSpeedLow()
+{
+	m_nTimeslice = TIMESLICE_LOW;
+}
+
+void CChildView::OnSpeedMid()
+{
+	m_nTimeslice = TIMESLICE_MID;
+}
+
+void CChildView::OnSpeedHigh()
+{
+	m_nTimeslice = TIMESLICE_HIGH;
+}
+
+void CChildView::OnAiEasy()
+{
+	m_nAI = AI_EASY;
+}
+
+void CChildView::OnAiNormal()
+{
+	m_nAI = AI_NORMAL;
+}
+
+void CChildView::OnAiHard()
+{
+	m_nAI = AI_HARD;
+}
+
+void CChildView::OnShowComputerCard()
+{
+	m_bShowComputerCard = !m_bShowComputerCard;
+	Invalidate();
+}
+
+void CChildView::OnScores()
+{
+	BOOL bDispatch		= KillTimer(IDT_DISPATCH);
+	BOOL bCleanUp		= KillTimer(IDT_CLEAN_UP);
+	BOOL bSendCard		= KillTimer(IDT_SEND_CARD);
+	BOOL bSendingDraw	= KillTimer(IDT_SENDING_DRAW);
+	BOOL bTokenSending	= KillTimer(IDT_TOKEN_SENDING);
+
+	CScoresDlg dlg;
+	dlg.DoModal(m_nScore, m_nCurScore);
+
+	if(bDispatch)
+		SetTimer(IDT_DISPATCH, TIMESLICE_DISPATCH, NULL);
+	if(bCleanUp)
+		SetTimer(IDT_CLEAN_UP, TIMESLICE_CLEAN_UP, NULL);
+	if(bSendCard)
+		SetTimer(IDT_SEND_CARD, m_nTimeslice, NULL);
+	if(bSendingDraw)
+		SetTimer(IDT_SENDING_DRAW, TIMESLICE_DRAW, NULL);
+	if(bTokenSending)
+		SetTimer(IDT_TOKEN_SENDING, TIMESLICE_TOKEN, NULL);
+}
+
+void CChildView::OnHint()
+{
+	if(!CheckSend(ID_SOUTH))
+		return;
+	int i,iList;
+	for(i=m_iPopup+1; i<CARD_EACH; i++)
+	{
+		if(m_iCard[ID_SOUTH][i]>=0)
+		{
+			iList = m_iCard[ID_SOUTH][i]/LIST_EACH;
+			if( m_iCard[ID_SOUTH][i]==m_CardList[iList].first-1 ||
+				m_iCard[ID_SOUTH][i]==m_CardList[iList].last+1)
+			{
+				m_iPopup = i;
+				Invalidate();
+				return;
+			}
+		}
+	}
+	for(i=0; /**/ ; i++)
+	{
+		if(m_iCard[ID_SOUTH][i]>=0)
+		{
+			iList = m_iCard[ID_SOUTH][i]/LIST_EACH;
+			if( m_iCard[ID_SOUTH][i]==m_CardList[iList].first-1 ||
+				m_iCard[ID_SOUTH][i]==m_CardList[iList].last+1)
+			{
+				m_iPopup = i;
+				Invalidate();
+				return;
+			}
+		}
+	}
+}
+
+void CChildView::GetSendingCardPos(int index)
+{
+	const int iCard = m_iCard[m_iTurn][index];
+	const int iList = iCard/LIST_EACH;
+
+	switch(m_iTurn)
+	{
+	case ID_EAST:
+		m_ptSendingCard[0].x = LEFT_EAST;
+		m_ptSendingCard[0].y = TOP_EAST+INTERVAL_V*index;
+		break;
+	case ID_NORTH:
+		m_ptSendingCard[0].x = LEFT_NORTH+INTERVAL_H*index;
+		m_ptSendingCard[0].y = TOP_NORTH;
+		break;
+	case ID_WEST:
+		m_ptSendingCard[0].x = LEFT_WEST;
+		m_ptSendingCard[0].y = TOP_WEST+INTERVAL_V*index;
+		break;
+	case ID_SOUTH:
+		m_ptSendingCard[0].x = LEFT_SOUTH+INTERVAL_H*index;
+		m_ptSendingCard[0].y = TOP_SOUTH;
+		break;
+	}
+
+	m_ptSendingCard[1].x = LEFT_LIST+iList*(INTERVAL_H+CARD_WIDTH);
+	m_ptSendingCard[1].y = TOP_LIST+(iCard%LIST_EACH)*INTERVAL_V;
+}
+
+void CChildView::OnShowAnimal()
+{
+	m_bShowAnimal = !m_bShowAnimal;
+}
+
+void CChildView::CardDispatched()
+{
+	if(m_bShowAnimal)
+	{
+		m_gs = GS_CLEAN_UP;
+		Invalidate();
+		m_bCleanUped = FALSE;
+		SetTimer(IDT_CLEAN_UP, TIMESLICE_CLEAN_UP, NULL);
+	}
+	else
+	{
+		CardCleanUped();
+	}
+}
+
+void CChildView::OnUpdateHint(CCmdUI *pCmdUI)
+{
+	pCmdUI->Enable(m_gs!=GS_PRESTART && m_gs!=GS_END);
+}
+
+void CChildView::OnUpdateShowAnimal(CCmdUI *pCmdUI)
+{
+	pCmdUI->SetCheck(m_bShowAnimal);
+}
+
+void CChildView::OnUpdateSpeedHigh(CCmdUI *pCmdUI)
+{
+	pCmdUI->SetRadio(m_nTimeslice==TIMESLICE_HIGH);
+}
+
+void CChildView::OnUpdateSpeedLow(CCmdUI *pCmdUI)
+{
+	pCmdUI->SetRadio(m_nTimeslice==TIMESLICE_LOW);
+}
+
+void CChildView::OnUpdateSpeedMid(CCmdUI *pCmdUI)
+{
+	pCmdUI->SetRadio(m_nTimeslice==TIMESLICE_MID);
+}
+
+void CChildView::OnUpdateAiEasy(CCmdUI *pCmdUI)
+{
+	pCmdUI->SetRadio(m_nAI==AI_EASY);
+}
+
+void CChildView::OnUpdateAiNormal(CCmdUI *pCmdUI)
+{
+	pCmdUI->SetRadio(m_nAI==AI_NORMAL);
+}
+
+void CChildView::OnUpdateAiHard(CCmdUI *pCmdUI)
+{
+	pCmdUI->SetRadio(m_nAI==AI_HARD);
+}
+
+void CChildView::OnSendCard()
+{
+	if(!m_bPlayerAuto && m_iTurn==ID_SOUTH && m_gs==GS_THINKING && m_iPopup>=0 && CanSend(m_iCard[ID_SOUTH][m_iPopup]))
+	{
+		SendCard(m_iPopup);
+	}
+}
+
+void CChildView::OnUpdateSendCard(CCmdUI *pCmdUI)
+{
+	pCmdUI->Enable(!m_bPlayerAuto && m_iTurn==ID_SOUTH && m_iPopup>=0 && CanSend(m_iCard[ID_SOUTH][m_iPopup]));
+}
+
+BOOL CChildView::CanSend(int iCard)
+{
+	int iList = iCard/LIST_EACH;
+	return (iCard==m_CardList[iList].first-1 || iCard==m_CardList[iList].last+1);
+}
+
+void CChildView::OnPopupNext()
+{
+	int i;
+	if(m_iPopup<0)
+		i = 0;
+	else
+		i = m_iPopup+1;
+	for(; i<CARD_EACH; i++)
+		if(m_iCard[ID_SOUTH][i]>=0)
+			break;
+	if(i<CARD_EACH)
+		m_iPopup = i;
+	else
+		m_iPopup = -1;
+	Invalidate();
+}
+
+void CChildView::OnPopupPrev()
+{
+	int i;
+	if(m_iPopup<0)
+		i = CARD_EACH-1;
+	else
+		i = m_iPopup-1;
+	for(; i>=0; i--)
+		if(m_iCard[ID_SOUTH][i]>=0)
+			break;
+	if(i>=0)
+		m_iPopup = i;
+	else
+		m_iPopup = -1;
+	Invalidate();
+}
+
+void CChildView::OnPlayerAuto()
+{
+	m_bPlayerAuto = !m_bPlayerAuto;
+
+	if(m_gs==GS_THINKING && m_iTurn==ID_SOUTH)
+	{
+		SendCard(ComputerSend());
+	}
+}
+
+void CChildView::OnUpdatePlayerAuto(CCmdUI *pCmdUI)
+{
+	pCmdUI->SetCheck(m_bPlayerAuto);
+}
+
+void CChildView::TokenSended()
+{
+	m_gs = GS_THINKING;
+	m_iTurn = (m_iTurn+1)%4;
+	if(!CheckSend(m_iTurn)) // 下一家无牌可出，让其等待一段时间
+	{
+		SetTimer(IDT_SEND_CARD, TIMESLICE_WAIT, NULL);
+	}
+	else // 下一家有牌可出
+	{
+		// 轮到玩家且已经托管 或 轮到电脑
+		if((m_iTurn==ID_SOUTH && m_bPlayerAuto) || m_iTurn!=ID_SOUTH)
+			SetTimer(IDT_SEND_CARD, m_nTimeslice, NULL);
+	}
+	Invalidate();
+}
+
+CPoint CChildView::GetTokenPos(int iPlayer)
+{
+	CPoint point;
+	switch(iPlayer)
+	{
+	case ID_EAST:	point = CPoint(LEFT_EAST_TOKEN, TOP_EAST_TOKEN);	break;
+	case ID_NORTH:	point = CPoint(LEFT_NORTH_TOKEN, TOP_NORTH_TOKEN);	break;
+	case ID_WEST:	point = CPoint(LEFT_WEST_TOKEN, TOP_WEST_TOKEN);	break;
+	case ID_SOUTH:	point = CPoint(LEFT_SOUTH_TOKEN, TOP_SOUTH_TOKEN);	break;
+	}
+	return point;
+}
+
+void CChildView::DrawToken(CDC *pDC, int x, int y)
+{
+	CDC dcMem;
+	dcMem.CreateCompatibleDC(pDC);
+	dcMem.SelectObject(&m_bmpTokenSharp);
+	pDC->BitBlt(x, y, TOKEN_WIDTH, TOKEN_HEIGHT, &dcMem, 0, 0, SRCAND);
+
+	dcMem.SelectObject(&m_bmpToken);
+	pDC->BitBlt(x, y, TOKEN_WIDTH, TOKEN_HEIGHT, &dcMem, 0, 0, SRCPAINT);
+}
+
+void CChildView::FitCardBitmap(CBitmap *pBmp)
+{
+	CDC dc;
+	dc.CreateCompatibleDC(NULL);
+	dc.SelectObject(pBmp);
+
+	CDC dc2;
+	dc2.CreateCompatibleDC(&dc);
+	dc2.SelectObject(&m_bmpCardSharp);
+
+	dc.BitBlt(0, 0, CARD_WIDTH, CARD_HEIGHT, &dc2, 0, 0, DSTINVERT);	//dest = (NOT dest)
+	dc.BitBlt(0, 0, CARD_WIDTH, CARD_HEIGHT, &dc2, 0, 0, NOTSRCERASE);	//dest = (NOT src) AND (NOT dest)
+}
+
+void CChildView::CardCleanUped()
+{
+	m_gs = GS_THINKING;
+	CleanUp();
+	Invalidate();
+
+	if(m_bPlayerAuto) // 电脑托管
+	{
+		SendCard(ComputerSend());
+	}
+	else // 非电脑托管
+	{
+		// 如果玩家没有牌可出，让下一位出牌
+		if(!CheckSend(ID_SOUTH))
+			SendCard(-1);
+	}
+}
+
+void CChildView::OnEndGame()
+{
+	KillTimer(IDT_DISPATCH);
+	KillTimer(IDT_CLEAN_UP);
+	KillTimer(IDT_SEND_CARD);
+	KillTimer(IDT_SENDING_DRAW);
+	KillTimer(IDT_TOKEN_SENDING);
+
+	m_gs = GS_END;
+}
+
+void CChildView::OnUpdateEndGame(CCmdUI *pCmdUI)
+{
+	pCmdUI->Enable(m_gs!=GS_PRESTART && m_gs!=GS_END);
+}
+
+void CChildView::OnHelpIndex()
+{
+	MessageBox("No HELP now!", APP_TITLE, MB_OK|MB_ICONINFORMATION);
+}
