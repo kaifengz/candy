@@ -47,165 +47,165 @@ END_MESSAGE_MAP()
 // CFCErrorReportDlg message handlers
 int CFCErrorReportDlg::DoModal(int iLine,CString strLine,ZET et)
 {
-	m_strLineNumber.Format("Ô´´úÂëµÚ %d ÐÐ£º",iLine);
+	m_strLineNumber.Format("æºä»£ç ç¬¬ %d è¡Œï¼š",iLine);
 	m_strLineString=strLine;
 	switch(et)
 	{
 	case ET_DEFINEDFUNCTION:
-		m_msg="º¯ÊýÒÑ¾­¶¨Òå£¡";
+		m_msg="å‡½æ•°å·²ç»å®šä¹‰ï¼";
 		break;
 	case ET_DEFINEDIDENT:
-		m_msg="±êÊ¶·ûÒÑ¾­¶¨Òå£¡";
+		m_msg="æ ‡è¯†ç¬¦å·²ç»å®šä¹‰ï¼";
 		break;
 	case ET_DIFPARAMNUM:
-		m_msg="º¯Êý²ÎÊýÊýÄ¿ÓëÔ¤¶¨ÒåÊ±²»ÏàÍ¬£¡";
+		m_msg="å‡½æ•°å‚æ•°æ•°ç›®ä¸Žé¢„å®šä¹‰æ—¶ä¸ç›¸åŒï¼";
 		break;
 	case ET_DIFPARAMTYPE:
-		m_msg="º¯Êý²ÎÊýÀàÐÍÓëÔ¤¶¨ÒåÊ±²»ÏàÍ¬£¡";
+		m_msg="å‡½æ•°å‚æ•°ç±»åž‹ä¸Žé¢„å®šä¹‰æ—¶ä¸ç›¸åŒï¼";
 		break;
 	case ET_DIFRETURNTYPE:
-		m_msg="º¯Êý·µ»ØÀàÐÍÓëÔ¤¶¨ÒåÊ±²»ÏàÍ¬£¡";
+		m_msg="å‡½æ•°è¿”å›žç±»åž‹ä¸Žé¢„å®šä¹‰æ—¶ä¸ç›¸åŒï¼";
 		break;
 	case ET_DONOWHILE:
-		m_msg="do-whileÑ­»·Óï¾äÈ±ÉÙwhile£¡";
+		m_msg="do-whileå¾ªçŽ¯è¯­å¥ç¼ºå°‘whileï¼";
 		break;
 	case ET_DOUBLEMOD:
-		m_msg="¸¡µãÊý²Î¼ÓÇóÄ£ÔËËã£¡";
+		m_msg="æµ®ç‚¹æ•°å‚åŠ æ±‚æ¨¡è¿ç®—ï¼";
 		break;
 	case ET_DOUBLESUB:
-		m_msg="ÊµÊý£¨»òÊµÊý±í´ïÊ½£©×÷ÎªÊý×éÏÂ±ê£¡";
+		m_msg="å®žæ•°ï¼ˆæˆ–å®žæ•°è¡¨è¾¾å¼ï¼‰ä½œä¸ºæ•°ç»„ä¸‹æ ‡ï¼";
 		break;
 	case ET_DOUBLESWITCH:
-		m_msg="¸¡µãÊýÓÃÓÚÑ¡ÔñÓï¾ä£¡";
+		m_msg="æµ®ç‚¹æ•°ç”¨äºŽé€‰æ‹©è¯­å¥ï¼";
 		break;
 	case ET_EMPTYSTATE:
-		m_msg="²»ÄÜÓÐ¿ÕÓï¾ä£¡";
+		m_msg="ä¸èƒ½æœ‰ç©ºè¯­å¥ï¼";
 		break;
 	case ET_FUNCTIONUS:
-		m_msg="´æÔÚÃ»ÓÐÊµÏÖµÄº¯Êý£¡";
+		m_msg="å­˜åœ¨æ²¡æœ‰å®žçŽ°çš„å‡½æ•°ï¼";
 		break;
 	case ET_INPUTNACARRAY:
-		m_msg="ÎÞ·¨ÊäÈë·Ç×Ö·ûÊý×é£¡";
+		m_msg="æ— æ³•è¾“å…¥éžå­—ç¬¦æ•°ç»„ï¼";
 		break;
 	case ET_LONGSTR2ARRAY:
-		m_msg="ÓÃÓÚ³õÊ¼»¯×Ö·ûÊý×éµÄ×Ö·û´®Ì«³¤£¡";
+		m_msg="ç”¨äºŽåˆå§‹åŒ–å­—ç¬¦æ•°ç»„çš„å­—ç¬¦ä¸²å¤ªé•¿ï¼";
 		break;
 	case ET_MISSBEGIN:
-		m_msg="È±ÉÙÀ¨ºÅ¡°{¡±£¡";
+		m_msg="ç¼ºå°‘æ‹¬å·â€œ{â€ï¼";
 		break;
 	case ET_MISSCOLON:
-		m_msg="È±ÉÙÃ°ºÅ¡°:¡±£¡";
+		m_msg="ç¼ºå°‘å†’å·â€œ:â€ï¼";
 		break;
 	case ET_MISSCOMMA:
-		m_msg="È±ÉÙ¶ººÅ¡°,¡±£¡";
+		m_msg="ç¼ºå°‘é€—å·â€œ,â€ï¼";
 		break;
 	case ET_MISSEND:
-		m_msg="È±ÉÙÀ¨ºÅ¡°}¡±£¡";
+		m_msg="ç¼ºå°‘æ‹¬å·â€œ}â€ï¼";
 		break;
 	case ET_MISSIDENT:
-		m_msg="È±ÉÙ±êÊ¶·û£¡";
+		m_msg="ç¼ºå°‘æ ‡è¯†ç¬¦ï¼";
 		break;
 	case ET_MISSLPAREN:
-		m_msg="È±ÉÙÀ¨ºÅ¡°(¡±£¡";
+		m_msg="ç¼ºå°‘æ‹¬å·â€œ(â€ï¼";
 		break;
 	case ET_MISSLSUB:
-		m_msg="È±ÉÙ×óÀ¨ºÅ¡°[¡±£¡";
+		m_msg="ç¼ºå°‘å·¦æ‹¬å·â€œ[â€ï¼";
 		break;
 	case ET_MISSRPAREN:
-		m_msg="È±ÉÙÓÒÀ¨ºÅ¡°)¡±£¡";
+		m_msg="ç¼ºå°‘å³æ‹¬å·â€œ)â€ï¼";
 		break;
 	case ET_MISSRSUB:
-		m_msg="È±ÉÙÓÒÀ¨ºÅ¡°]¡±£¡";
+		m_msg="ç¼ºå°‘å³æ‹¬å·â€œ]â€ï¼";
 		break;
 	case ET_MISSSEMICOLON:
-		m_msg="È±ÉÙ·ÖºÅ¡°;¡±£¡";
+		m_msg="ç¼ºå°‘åˆ†å·â€œ;â€ï¼";
 		break;
 	case ET_MUSTCHANGETYPE:
-		m_msg="±ØÐë½øÐÐÇ¿ÖÆÀàÐÍ×ª»»£¡";
+		m_msg="å¿…é¡»è¿›è¡Œå¼ºåˆ¶ç±»åž‹è½¬æ¢ï¼";
 		break;
 	case ET_MUSTRETURNVALUE:
-		m_msg="·µ»ØÀàÐÍ·Çvoidº¯Êý±ØÐëÓÐ·µ»ØÖµ£¡";
+		m_msg="è¿”å›žç±»åž‹éžvoidå‡½æ•°å¿…é¡»æœ‰è¿”å›žå€¼ï¼";
 		break;
 	case ET_NOARRIDENTARR:
-		m_msg="°Ñ²»ÊÇÊý×éµÄ±êÊ¶·û×÷ÎªÊý×é²Ù×÷£¡";
+		m_msg="æŠŠä¸æ˜¯æ•°ç»„çš„æ ‡è¯†ç¬¦ä½œä¸ºæ•°ç»„æ“ä½œï¼";
 		break;
 	case ET_NOMAIN:
-		m_msg="ÕÒ²»µ½mainº¯Êý£¡";
+		m_msg="æ‰¾ä¸åˆ°mainå‡½æ•°ï¼";
 		break;
 	case ET_NOVOIDMAIN:
-		m_msg="mainº¯Êý·µ»ØÀàÐÍ²»ÊÇvoid£¡";
+		m_msg="mainå‡½æ•°è¿”å›žç±»åž‹ä¸æ˜¯voidï¼";
 		break;
 	case ET_PARAMMAIN:
-		m_msg="mainº¯Êý´øÓÐ²ÎÊý£¡";
+		m_msg="mainå‡½æ•°å¸¦æœ‰å‚æ•°ï¼";
 		break;
 	case ET_OUTPUTNCARRAY:
-		m_msg="Êä³öµÄÊý×é²»ÊÇ×Ö·ûÊý×é£¡";
+		m_msg="è¾“å‡ºçš„æ•°ç»„ä¸æ˜¯å­—ç¬¦æ•°ç»„ï¼";
 		break;
 	case ET_SOURCENOEND:
-		m_msg="Ô´´úÂëÒì³£½áÊø£¡";
+		m_msg="æºä»£ç å¼‚å¸¸ç»“æŸï¼";
 		break;
 	case ET_STRINGNOEND:
-		m_msg="×Ö·û´®Òì³£½áÊø£¡";
+		m_msg="å­—ç¬¦ä¸²å¼‚å¸¸ç»“æŸï¼";
 		break;
 	case ET_UNKNOWNARRAYSIZE:
-		m_msg="Î´ÖªµÄÊý×é³¤¶È£¡";
+		m_msg="æœªçŸ¥çš„æ•°ç»„é•¿åº¦ï¼";
 		break;
 	case ET_UNKNOWNERROR:
-		m_msg="Î´ÖªµÄÓï·¨ÓïÒå´íÎó£¡";
+		m_msg="æœªçŸ¥çš„è¯­æ³•è¯­ä¹‰é”™è¯¯ï¼";
 		break;
 	case ET_UNKNOWNFUNCDEF:
-		m_msg="Î´ÖªµÄº¯Êý¶¨ÒåÐÎÊ½£¡";
+		m_msg="æœªçŸ¥çš„å‡½æ•°å®šä¹‰å½¢å¼ï¼";
 		break;
 	case ET_UNKNOWNIDENT:
-		m_msg="Î´¶¨ÒåµÄ±êÊ¶·û£¡";
+		m_msg="æœªå®šä¹‰çš„æ ‡è¯†ç¬¦ï¼";
 		break;
 	case ET_UNKNOWNOP:
-		m_msg="Î´ÖªµÄ²Ù×÷£¡";
+		m_msg="æœªçŸ¥çš„æ“ä½œï¼";
 		break;
 	case ET_UNKNOWNSTATE:
-		m_msg="Î´ÖªµÄÓï¾äÐÎÊ½£¡";
+		m_msg="æœªçŸ¥çš„è¯­å¥å½¢å¼ï¼";
 		break;
 	case ET_UNKNOWNSYSCHAR:
-		m_msg="Î´ÖªµÄ×ªÒå×Ö·û£¡";
+		m_msg="æœªçŸ¥çš„è½¬ä¹‰å­—ç¬¦ï¼";
 		break;
 	case ET_UNKNOWNTOKEN:
-		m_msg="·Ç·¨·ûºÅ£¡";
+		m_msg="éžæ³•ç¬¦å·ï¼";
 		break;
 	case ET_VOIDIDENT:
-		m_msg="±êÊ¶·ûÀàÐÍ²»ÄÜÎª¡°void¡±£¡";
+		m_msg="æ ‡è¯†ç¬¦ç±»åž‹ä¸èƒ½ä¸ºâ€œvoidâ€ï¼";
 		break;
 	case ET_VOIDINEXPRESSION:
-		m_msg="±í´ïÊ½ÖÐµ÷ÓÃÁË·µ»ØÀàÐÍÎªvoidµÄº¯Êý£¡";
+		m_msg="è¡¨è¾¾å¼ä¸­è°ƒç”¨äº†è¿”å›žç±»åž‹ä¸ºvoidçš„å‡½æ•°ï¼";
 		break;
 	case ET_VOIDRETURNVALUE:
-		m_msg="·µ»ØÀàÐÍÎªvoidµÄº¯Êý²»ÄÜÓÐ·µ»ØÖµ£¡";
+		m_msg="è¿”å›žç±»åž‹ä¸ºvoidçš„å‡½æ•°ä¸èƒ½æœ‰è¿”å›žå€¼ï¼";
 		break;
 	case ET_WRONGBREAK:
-		m_msg="´íÎóµÄbreakÓï¾ä£¡";
+		m_msg="é”™è¯¯çš„breakè¯­å¥ï¼";
 		break;
 	case ET_WRONGCHARACTER:
-		m_msg="´íÎóµÄ×Ö·û±íÊ¾£¡";
+		m_msg="é”™è¯¯çš„å­—ç¬¦è¡¨ç¤ºï¼";
 		break;
 	case ET_WRONGCONTINUE:
-		m_msg="´íÎóµÄcontinueÓï¾ä£¡";
+		m_msg="é”™è¯¯çš„continueè¯­å¥ï¼";
 		break;
 	case ET_WRONGIDENTTYPE:
-		m_msg="´íÎóµÄ±äÁ¿ÀàÐÍ£¡";
+		m_msg="é”™è¯¯çš„å˜é‡ç±»åž‹ï¼";
 		break;
 	case ET_WRONGINIT:
-		m_msg="´íÎóµÄ±äÁ¿»òÊý×é³õÊ¼»¯£¡";
+		m_msg="é”™è¯¯çš„å˜é‡æˆ–æ•°ç»„åˆå§‹åŒ–ï¼";
 		break;
 	case ET_WRONGPARAMNUM:
-		m_msg="º¯Êýµ÷ÓÃÊ±²ÎÊýÊýÄ¿²»ÕýÈ·£¡";
+		m_msg="å‡½æ•°è°ƒç”¨æ—¶å‚æ•°æ•°ç›®ä¸æ­£ç¡®ï¼";
 		break;
 	case ET_WRONGPARAMTYPE:
-		m_msg="º¯Êýµ÷ÓÃÊ±²ÎÊýÀàÐÍ²»ÕýÈ·£¡";
+		m_msg="å‡½æ•°è°ƒç”¨æ—¶å‚æ•°ç±»åž‹ä¸æ­£ç¡®ï¼";
 		break;
 	case ET_WRONGRETURNTYPE:
-		m_msg="´íÎóµÄº¯Êý·µ»ØÀàÐÍ£¡";
+		m_msg="é”™è¯¯çš„å‡½æ•°è¿”å›žç±»åž‹ï¼";
 		break;
 	default:
-		m_msg="Î´ÖªµÄÓï·¨»òÓïÒå´íÎó£¡";
+		m_msg="æœªçŸ¥çš„è¯­æ³•æˆ–è¯­ä¹‰é”™è¯¯ï¼";
 		break;
 	}
 	MessageBeep(1);

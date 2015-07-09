@@ -3,18 +3,18 @@ int NextPermutation(int []p, int n);
 
 void main()
 {
-	output "±¾³ÌÐò°´×ÖµäË³ÐòÉú³É²¢Êä³ö1,2,3¡­nµÄËùÓÐÅÅÁÐ\n";
+	output "æœ¬ç¨‹åºæŒ‰å­—å…¸é¡ºåºç”Ÿæˆå¹¶è¾“å‡º1,2,3â€¦nçš„æ‰€æœ‰æŽ’åˆ—\n";
 
 	int [10]p;
 	int i,n;
 
 	while(1)
 	{
-		output "ÇëÊäÈën£¨2¡Ün¡Ü10£©: ";
+		output "è¯·è¾“å…¥nï¼ˆ2â‰¤nâ‰¤10ï¼‰: ";
 		input n;
 		if(n>=2 && n<=10)
 			break;
-		output "ÊäÈë´íÎó£¡\n";
+		output "è¾“å…¥é”™è¯¯ï¼\n";
 	}
 
 	FirstPermutation([]p,n);

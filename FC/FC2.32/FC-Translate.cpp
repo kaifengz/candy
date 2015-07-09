@@ -22,17 +22,17 @@ BOOL CFCView::Translate()
 	_getsystime(&t_current);
 	m_fout.fill('0');
 	m_fout<<"// "<<m_strCppFile<<'\n';
-	m_fout<<"// FC2.32 ÓÚ "<<t_current.tm_year+1900<<"Äê"<<setw(2)<<t_current.tm_mon+1;
-	m_fout<<"ÔÂ"<<setw(2)<<t_current.tm_mday<<"ÈÕ"<<setw(2)<<t_current.tm_hour<<':';
+	m_fout<<"// FC2.32 äº "<<t_current.tm_year+1900<<"å¹´"<<setw(2)<<t_current.tm_mon+1;
+	m_fout<<"æœˆ"<<setw(2)<<t_current.tm_mday<<"æ—¥"<<setw(2)<<t_current.tm_hour<<':';
 	m_fout<<setw(2)<<t_current.tm_min<<"\n";
-	m_fout<<"// ·­Òë "<<GetDocument()->GetPathName()<<" ²úÉú\n";
-	m_fout<<"// °æÈ¨ËùÓĞ Öì¿­·å 2004.02\n";
+	m_fout<<"// ç¿»è¯‘ "<<GetDocument()->GetPathName()<<" äº§ç”Ÿ\n";
+	m_fout<<"// ç‰ˆæƒæ‰€æœ‰ æœ±å‡¯å³° 2004.02\n";
 	m_fout<<"\n";
 #endif
 	if(m_bKeepComment)
 	{
-		m_fout<<"// ÓÉÓÚÓïÑÔµÄ²îÒì£¬FC2.32 ²¢Ã»ÓĞ·­ÒëÈ«²¿µÄFC¿âº¯Êı£¬\n";
-		m_fout<<"// ÖîÈçabs,downsortÖ®Àà£¬Çë×ÔĞĞÊµÏÖÕâĞ©º¯Êı¡£\n";
+		m_fout<<"// ç”±äºè¯­è¨€çš„å·®å¼‚ï¼ŒFC2.32 å¹¶æ²¡æœ‰ç¿»è¯‘å…¨éƒ¨çš„FCåº“å‡½æ•°ï¼Œ\n";
+		m_fout<<"// è¯¸å¦‚abs,downsortä¹‹ç±»ï¼Œè¯·è‡ªè¡Œå®ç°è¿™äº›å‡½æ•°ã€‚\n";
 		m_fout<<'\n';
 	}
 	m_fout<<"#include <iostream.h>\n";
@@ -45,9 +45,9 @@ BOOL CFCView::Translate()
 		m_fout<<"\n";
 		if(m_bKeepComment)
 		{
-			m_fout<<"// ÏÂ±ßÁ½¸öÈ«¾Ö±äÁ¿ÓÃÒÔÍ³¼Æ³ÌĞòÔËĞĞÊ±¼ä\n";
-			m_fout<<"// Èômainº¯ÊıÖĞÊ¹ÓÃÁËreturnÓï¾ä»ò³ÌĞòÖĞµ÷ÓÃÁËexit()º¯Êı£¬½«ÎŞ·¨Í³¼Æ³ÌĞòÔËĞĞÊ±¼ä\n";
-			m_fout<<"// Èç¹û²»ĞèÒªÍ³¼Æ³ÌĞòÔËĞĞÊ±¼ä£¬ÇëÉ¾³ıÏÂÒ»ĞĞ£¬²¢É¾³ı³ÌĞòÖĞÊ¹ÓÃÁËÕâÁ½¸ö±äÁ¿µÄËùÓĞÓï¾ä\n";
+			m_fout<<"// ä¸‹è¾¹ä¸¤ä¸ªå…¨å±€å˜é‡ç”¨ä»¥ç»Ÿè®¡ç¨‹åºè¿è¡Œæ—¶é—´\n";
+			m_fout<<"// è‹¥mainå‡½æ•°ä¸­ä½¿ç”¨äº†returnè¯­å¥æˆ–ç¨‹åºä¸­è°ƒç”¨äº†exit()å‡½æ•°ï¼Œå°†æ— æ³•ç»Ÿè®¡ç¨‹åºè¿è¡Œæ—¶é—´\n";
+			m_fout<<"// å¦‚æœä¸éœ€è¦ç»Ÿè®¡ç¨‹åºè¿è¡Œæ—¶é—´ï¼Œè¯·åˆ é™¤ä¸‹ä¸€è¡Œï¼Œå¹¶åˆ é™¤ç¨‹åºä¸­ä½¿ç”¨äº†è¿™ä¸¤ä¸ªå˜é‡çš„æ‰€æœ‰è¯­å¥\n";
 		}
 		m_fout<<"clock_t tStart,tElapse;\n";
 	}
@@ -55,14 +55,14 @@ BOOL CFCView::Translate()
 	if(!m_bEmptyLine)
 		m_fout<<"\n";
 
-	m_char='\0';			//µ±Ç°×Ö·û
-	m_iCharCount=0;			//Ô´´úÂë×Ö·û¼ÆÊı
-	m_int=0;				//µ±Ç°ÕûÊı
-	m_double=0.0;			//µ±Ç°ÊµÊı
-	m_ident="";				//µ±Ç°±êÊ¶·û
-	m_string="";			//µ±Ç°×Ö·û´®
-	m_comment="";			//µ±Ç°×¢ÊÍ
-	m_element=E_NULL;		//µ±Ç°µ¥´Ê
+	m_char='\0';			//å½“å‰å­—ç¬¦
+	m_iCharCount=0;			//æºä»£ç å­—ç¬¦è®¡æ•°
+	m_int=0;				//å½“å‰æ•´æ•°
+	m_double=0.0;			//å½“å‰å®æ•°
+	m_ident="";				//å½“å‰æ ‡è¯†ç¬¦
+	m_string="";			//å½“å‰å­—ç¬¦ä¸²
+	m_comment="";			//å½“å‰æ³¨é‡Š
+	m_element=E_NULL;		//å½“å‰å•è¯
 	m_nLevel=0;
 
 	GetElement();
@@ -116,17 +116,17 @@ void CFCView::TrsDefine()
 	}
 	while(1)
 	{
-		GetElement();//»ñÈ¡±êÊ¶·û»ò[
+		GetElement();//è·å–æ ‡è¯†ç¬¦æˆ–[
 		if(m_element==E_LSUB)
 		{
 			bArray=TRUE;
-			GetElement();//»ñÈ¡Êı×é³¤¶È
+			GetElement();//è·å–æ•°ç»„é•¿åº¦
 			if(m_element==E_INUMBER)
 				nLength=m_int;
 			else
 				nLength=int(m_char);
-			GetElement();//»ñÈ¡]
-			GetElement();//»ñÈ¡±êÊ¶·û
+			GetElement();//è·å–]
+			GetElement();//è·å–æ ‡è¯†ç¬¦
 		}
 		else
 			bArray=FALSE;
@@ -138,7 +138,7 @@ void CFCView::TrsDefine()
 			else
 				m_fout<<"["<<nLength<<"]";
 		}
-		GetElement();//»ñÈ¡=,;
+		GetElement();//è·å–=,;
 		OutOperator("=");
 		if(m_element==E_BECOMES)
 		{
@@ -146,7 +146,7 @@ void CFCView::TrsDefine()
 			if(m_element==E_STRING)
 			{
 				m_fout<<'\"'<<DesysString(m_string)<<'\"';
-				GetElement();//»ñÈ¡,;
+				GetElement();//è·å–,;
 			}
 			else
 				TrsExpression();
@@ -187,7 +187,7 @@ void CFCView::TrsDoWhile()
 {
 	Indent();
 	m_fout<<"do\n";
-	GetElement();//»ñÈ¡do×ÓÓï¾äµÄµÚÒ»¸öµ¥´Ê
+	GetElement();//è·å–doå­è¯­å¥çš„ç¬¬ä¸€ä¸ªå•è¯
 	if(m_element==E_BEGIN)
 		TrsMultiStatement();
 	else
@@ -198,11 +198,11 @@ void CFCView::TrsDoWhile()
 	}
 	Indent();
 	m_fout<<"while(";
-	GetElement();//»ñÈ¡(
-	GetElement();//»ñÈ¡Ìõ¼şµÄµÚÒ»¸öµ¥´Ê
+	GetElement();//è·å–(
+	GetElement();//è·å–æ¡ä»¶çš„ç¬¬ä¸€ä¸ªå•è¯
 	TrsCondition();
 	m_fout<<");\n";
-	GetElement();//»ñÈ¡;
+	GetElement();//è·å–;
 	GetElement();
 }
 
@@ -238,39 +238,39 @@ void CFCView::TrsFactor()
 {
 	switch(m_element)
 	{
-	case E_CHARACTER://************×Ö·û
+	case E_CHARACTER://************å­—ç¬¦
 		m_fout<<'\''<<DesysString(m_char)<<'\'';
 		GetElement();
 		break;
-	case E_INUMBER://**************ÕûÊı
+	case E_INUMBER://**************æ•´æ•°
 		m_fout<<m_int;
 		GetElement();
 		break;
-	case E_DNUMBER://**************ÊµÊı
+	case E_DNUMBER://**************å®æ•°
 		m_fout<<m_double;
 		GetElement();
 		break;
 	case E_CHAR://char
 	case E_INT://int
-	case E_DOUBLE://*******Ç¿ÖÆÀàĞÍ×ª»»
+	case E_DOUBLE://*******å¼ºåˆ¶ç±»å‹è½¬æ¢
 		switch(m_element)
 		{
 		case E_CHAR:	m_fout<<"(char)";	break;
 		case E_INT:		m_fout<<"(int)";	break;
 		case E_DOUBLE:	m_fout<<"(double)";	break;
 		}
-		GetElement();//»ñÈ¡(
+		GetElement();//è·å–(
 		//no break here
-	case E_LPAREN://*****À¨ÆğÀ´µÄ±í´ïÊ½
+	case E_LPAREN://*****æ‹¬èµ·æ¥çš„è¡¨è¾¾å¼
 		m_fout<<"(";
-		GetElement();//»ñÈ¡±í´ïÊ½µÄµÚÒ»¸öµ¥´Ê
+		GetElement();//è·å–è¡¨è¾¾å¼çš„ç¬¬ä¸€ä¸ªå•è¯
 		TrsExpression();
 		m_fout<<")";
 		GetElement();
 		break;
-	case E_IDENT://**************±êÊ¶·û
+	case E_IDENT://**************æ ‡è¯†ç¬¦
 		m_fout<<m_ident;
-		GetElement();//»ñÈ¡[(»òÔËËã·û
+		GetElement();//è·å–[(æˆ–è¿ç®—ç¬¦
 		if(m_element==E_LSUB)
 		{
 			m_fout<<"[";
@@ -297,25 +297,25 @@ void CFCView::TrsFactor()
 	case E_SIN:
 	case E_SQRT:
 	case E_TG:
-	case E_TH://*********ÊıÑ§¿âº¯Êıµ÷ÓÃ
+	case E_TH://*********æ•°å­¦åº“å‡½æ•°è°ƒç”¨
 		TrsMathFunctionCall();
 		break;
-	case E_ABS://********** absº¯Êıµ÷ÓÃ
+	case E_ABS://********** abså‡½æ•°è°ƒç”¨
 		TrsAbsCall();
 		break;
-	case E_POW://********** powº¯Êıµ÷ÓÃ
+	case E_POW://********** powå‡½æ•°è°ƒç”¨
 		TrsPowCall();
 		break;
-	case E_STRCMP://**** strcmpº¯Êıµ÷ÓÃ
+	case E_STRCMP://**** strcmpå‡½æ•°è°ƒç”¨
 		TrsStrcmpCall();
 		break;
-	case E_STRLEN://**** strlenº¯Êıµ÷ÓÃ
+	case E_STRLEN://**** strlenå‡½æ•°è°ƒç”¨
 		TrsStrlenCall();
 		break;
 	case E_AVERAGE:
 	case E_MAX:
 	case E_MIN:
-	case E_SUM://******* Êı×é¿âº¯Êıµ÷ÓÃ
+	case E_SUM://******* æ•°ç»„åº“å‡½æ•°è°ƒç”¨
 		TrsArrayFunctionCall();
 		break;
 	}
@@ -323,19 +323,19 @@ void CFCView::TrsFactor()
 
 void CFCView::TrsFunction()
 {
-	switch(m_element)//·µ»ØÀàĞÍ
+	switch(m_element)//è¿”å›ç±»å‹
 	{
 	case E_VOID:	m_fout<<"void ";	break;
 	case E_CHAR:	m_fout<<"char ";	break;
 	case E_INT:		m_fout<<"int ";		break;
 	case E_DOUBLE:	m_fout<<"double ";	break;
 	}
-	GetElement();//»ñÈ¡º¯ÊıÃû
+	GetElement();//è·å–å‡½æ•°å
 	m_fout<<m_ident;
 	m_bMainFunction=(m_ident=="main");
-	GetElement();//»ñÈ¡(
+	GetElement();//è·å–(
 	m_fout<<"(";
-	GetElement();//»ñÈ¡) void»òµÚÒ»¸ö²ÎÊıµÄÀàĞÍ
+	GetElement();//è·å–) voidæˆ–ç¬¬ä¸€ä¸ªå‚æ•°çš„ç±»å‹
 	if(m_element==E_VOID)
 	{
 		m_fout<<"void";
@@ -352,27 +352,27 @@ void CFCView::TrsFunction()
 			case E_INT:		m_fout<<"int ";		break;
 			case E_DOUBLE:	m_fout<<"double ";	break;
 			}
-			GetElement();//»ñÈ¡²ÎÊıÃû»ò[
+			GetElement();//è·å–å‚æ•°åæˆ–[
 			if(m_element==E_LSUB)
 			{
 				bArray=TRUE;
-				GetElement();//»ñÈ¡]
-				GetElement();//»ñÈ¡²ÎÊıÃû
+				GetElement();//è·å–]
+				GetElement();//è·å–å‚æ•°å
 			}
 			else
 				bArray=FALSE;
 			m_fout<<m_ident;
 			if(bArray)
 				m_fout<<"[]";
-			GetElement();//»ñÈ¡,)
+			GetElement();//è·å–,)
 			if(m_element!=E_COMMA)
 				break;
 			m_fout<<",";
-			GetElement();//»ñÈ¡ÏÂÒ»¸ö²ÎÊıµÄÀàĞÍ
+			GetElement();//è·å–ä¸‹ä¸€ä¸ªå‚æ•°çš„ç±»å‹
 		}
 	}
 	m_fout<<")";
-	GetElement();//»ñÈ¡;{
+	GetElement();//è·å–;{
 	if(m_element==E_SEMICOLON)
 	{
 		m_fout<<";\n";
@@ -389,11 +389,11 @@ void CFCView::TrsIf()
 {
 	Indent();
 	m_fout<<"if(";
-	GetElement();//»ñÈ¡(
-	GetElement();//»ñÈ¡Ìõ¼şµÄµÚÒ»¸öµ¥´Ê
+	GetElement();//è·å–(
+	GetElement();//è·å–æ¡ä»¶çš„ç¬¬ä¸€ä¸ªå•è¯
 	TrsCondition();
 	m_fout<<")\n";
-	GetElement();//»ñÈ¡ifÖĞ×ÓÓï¾äµÄµÚÒ»¸öµ¥´Ê
+	GetElement();//è·å–ifä¸­å­è¯­å¥çš„ç¬¬ä¸€ä¸ªå•è¯
 	if(m_element==E_BEGIN)
 		TrsMultiStatement();
 	else
@@ -406,7 +406,7 @@ void CFCView::TrsIf()
 		return;
 	Indent();
 	m_fout<<"else\n";
-	GetElement();//»ñÈ¡elseÖĞ×ÓÓï¾äµÄµÚÒ»¸öµ¥´Ê
+	GetElement();//è·å–elseä¸­å­è¯­å¥çš„ç¬¬ä¸€ä¸ªå•è¯
 	if(m_element==E_BEGIN)
 		TrsMultiStatement();
 	else
@@ -430,11 +430,11 @@ void CFCView::TrsInput()
 	BOOL bNewLine=TRUE;
 	while(1)
 	{
-		GetElement();//»ñÈ¡±êÊ¶·û»ò[
-		if(m_element==E_LSUB)//ÊäÈë×Ö·û´®
+		GetElement();//è·å–æ ‡è¯†ç¬¦æˆ–[
+		if(m_element==E_LSUB)//è¾“å…¥å­—ç¬¦ä¸²
 		{
-			GetElement();//»ñÈ¡]
-			GetElement();//»ñÈ¡±êÊ¶·û
+			GetElement();//è·å–]
+			GetElement();//è·å–æ ‡è¯†ç¬¦
 			if(!bNewLine)
 				m_fout<<";\n";
 			Indent();
@@ -452,13 +452,13 @@ void CFCView::TrsInput()
 			}
 			OutOperator(">>");
 			m_fout<<m_ident;
-			GetElement();//»ñÈ¡,;[
+			GetElement();//è·å–,;[
 			if(m_element==E_LSUB)
 			{
 				m_fout<<"[";
 				TrsExpression();
 				m_fout<<"]";
-				GetElement();//»ñÈ¡,;
+				GetElement();//è·å–,;
 			}
 		}
 		if(m_element!=E_COMMA)
@@ -484,12 +484,12 @@ void CFCView::TrsJump()
 	{
 	case E_BREAK:
 		m_fout<<"break;\n";
-		GetElement();//»ñÈ¡;
+		GetElement();//è·å–;
 		GetElement();
 		break;
 	case E_CONTINUE:
 		m_fout<<"continue;\n";
-		GetElement();//»ñÈ¡;
+		GetElement();//è·å–;
 		GetElement();
 		break;
 	case E_EXIT:
@@ -525,8 +525,8 @@ void CFCView::TrsMultiStatement()
 			if(m_bKeepComment)
 			{
 				Indent();
-				m_fout<<"// ÏÂÒ»ĞĞÉèÖÃÊä³ö¾«¶È£¬Èç¹ûĞèÒª£¬¿ÉÒÔ½«À¨ºÅÄÚµÄ";
-				m_fout<<m_nPrecision<<"¸ÄÎª0µ½15µÄÈÎÒâÕûÊıÖµ\n";
+				m_fout<<"// ä¸‹ä¸€è¡Œè®¾ç½®è¾“å‡ºç²¾åº¦ï¼Œå¦‚æœéœ€è¦ï¼Œå¯ä»¥å°†æ‹¬å·å†…çš„";
+				m_fout<<m_nPrecision<<"æ”¹ä¸º0åˆ°15çš„ä»»æ„æ•´æ•°å€¼\n";
 			}
 			Indent();
 			m_fout<<"cout.precision("<<m_nPrecision<<");\n";
@@ -537,7 +537,7 @@ void CFCView::TrsMultiStatement()
 			if(m_bKeepComment)
 			{
 				Indent();
-				m_fout<<"// ÏÂÁ½ĞĞ³õÊ¼»¯³ÌĞòÔËĞĞ¼ÆÊ±\n";
+				m_fout<<"// ä¸‹ä¸¤è¡Œåˆå§‹åŒ–ç¨‹åºè¿è¡Œè®¡æ—¶\n";
 			}
 			Indent();
 			if(m_bInsertSpace)
@@ -551,7 +551,7 @@ void CFCView::TrsMultiStatement()
 				m_fout<<"::tElapse=0;\n";
 			m_fout<<"\n";
 		}
-		GetElement();//»ñÈ¡{ÄÚµÚÒ»¸öÓï¾äµÄµÚÒ»¸öµ¥´Ê
+		GetElement();//è·å–{å†…ç¬¬ä¸€ä¸ªè¯­å¥çš„ç¬¬ä¸€ä¸ªå•è¯
 		while(m_element!=E_END)
 			TrsStatement();
 		if(m_bRunTime)
@@ -560,13 +560,13 @@ void CFCView::TrsMultiStatement()
 			if(m_bKeepComment)
 			{
 				Indent();
-				m_fout<<"// Êä³ö³ÌĞòÓÃÊ±Í³¼Æ½á¹û\n";
+				m_fout<<"// è¾“å‡ºç¨‹åºç”¨æ—¶ç»Ÿè®¡ç»“æœ\n";
 			}
 			Indent();
 			if(m_bInsertSpace)
-				m_fout<<"cout << \"\\n³ÌĞòÖ´ĞĞÓÃÊ± \" << clock() + ::tElapse - ::tStart << \" ºÁÃë\\n\";\n";
+				m_fout<<"cout << \"\\nç¨‹åºæ‰§è¡Œç”¨æ—¶ \" << clock() + ::tElapse - ::tStart << \" æ¯«ç§’\\n\";\n";
 			else
-				m_fout<<"cout<<\"\\n³ÌĞòÖ´ĞĞÓÃÊ± \"<<clock()+::tElapse-::tStart<<\" ºÁÃë\\n\";\n";
+				m_fout<<"cout<<\"\\nç¨‹åºæ‰§è¡Œç”¨æ—¶ \"<<clock()+::tElapse-::tStart<<\" æ¯«ç§’\\n\";\n";
 		}
 		if(m_bWaitEnd)
 		{
@@ -574,9 +574,9 @@ void CFCView::TrsMultiStatement()
 			if(m_bKeepComment)
 			{
 				Indent();
-				m_fout<<"// ÏÂÈıĞĞµÄ×÷ÓÃÊÇÔÚ³ÌĞò½áÊøÇ°µÈ´ıÓÃ»§ÊäÈëÈÎÒâ×Ö·û£¬\n";
+				m_fout<<"// ä¸‹ä¸‰è¡Œçš„ä½œç”¨æ˜¯åœ¨ç¨‹åºç»“æŸå‰ç­‰å¾…ç”¨æˆ·è¾“å…¥ä»»æ„å­—ç¬¦ï¼Œ\n";
 				Indent();
-				m_fout<<"// ÒÔ·½±ãÓÃ»§²é¿´³ÌĞòÔËĞĞ½á¹û£¬Èç²»ĞèÒª£¬ÇëÉ¾³ıÖ®\n";
+				m_fout<<"// ä»¥æ–¹ä¾¿ç”¨æˆ·æŸ¥çœ‹ç¨‹åºè¿è¡Œç»“æœï¼Œå¦‚ä¸éœ€è¦ï¼Œè¯·åˆ é™¤ä¹‹\n";
 			}
 			Indent();
 			if(m_bInsertSpace)
@@ -611,18 +611,18 @@ void CFCView::TrsOutput()
 	while(1)
 	{
 		OutOperator("<<");
-		GetElement();//»ñÈ¡±í´ïÊ½µÄµÚÒ»¸öµ¥´Ê»ò×Ö·û´®»ò[
+		GetElement();//è·å–è¡¨è¾¾å¼çš„ç¬¬ä¸€ä¸ªå•è¯æˆ–å­—ç¬¦ä¸²æˆ–[
 		if(m_element==E_LSUB)
 		{
-			GetElement();//»ñÈ¡]
-			GetElement();//»ñÈ¡±êÊ¶·û
+			GetElement();//è·å–]
+			GetElement();//è·å–æ ‡è¯†ç¬¦
 			m_fout<<m_ident;
-			GetElement();//»ñÈ¡,;
+			GetElement();//è·å–,;
 		}
 		else if(m_element==E_STRING)
 		{
 			m_fout<<'\"'<<DesysString(m_string)<<'\"';
-			GetElement();//»ñÈ¡,;
+			GetElement();//è·å–,;
 		}
 		else
 			TrsExpression();
@@ -636,22 +636,22 @@ void CFCView::TrsOutput()
 void CFCView::TrsParameter()
 {
 	m_fout<<"(";
-	GetElement();//»ñÈ¡µÚÒ»¸ö²ÎÊıµÄµÚÒ»¸öµ¥´Ê
+	GetElement();//è·å–ç¬¬ä¸€ä¸ªå‚æ•°çš„ç¬¬ä¸€ä¸ªå•è¯
 	while(1)
 	{
-		if(m_element==E_LSUB)//Êı×éÎª²ÎÊı
+		if(m_element==E_LSUB)//æ•°ç»„ä¸ºå‚æ•°
 		{
-			GetElement();//»ñÈ¡]
-			GetElement();//»ñÈ¡Êı×é±êÊ¶·û
+			GetElement();//è·å–]
+			GetElement();//è·å–æ•°ç»„æ ‡è¯†ç¬¦
 			m_fout<<m_ident;
-			GetElement();//»ñÈ¡,)
+			GetElement();//è·å–,)
 		}
 		else
 			TrsExpression();
 		if(m_element==E_RPAREN)
 			break;
 		OutOperator(",");
-		GetElement();//»ñÈ¡ÏÂÒ»¸ö²ÎÊıµÄµÚÒ»¸öµ¥´Ê
+		GetElement();//è·å–ä¸‹ä¸€ä¸ªå‚æ•°çš„ç¬¬ä¸€ä¸ªå•è¯
 	}
 	m_fout<<")";
 	GetElement();
@@ -696,7 +696,7 @@ void CFCView::TrsStatement()
 	case E_IDENT:
 		Indent();
 		m_fout<<m_ident;
-		GetElement();//»ñÈ¡([=
+		GetElement();//è·å–([=
 		if(m_element==E_LPAREN)
 		{
 			TrsParameter();
@@ -707,7 +707,7 @@ void CFCView::TrsStatement()
 		if(m_element==E_LSUB)
 		{
 			m_fout<<"[";
-			GetElement();//»ñÈ¡ÏÂ±ê±í´ïÊ½µÄµÚÒ»¸öµ¥´Ê
+			GetElement();//è·å–ä¸‹æ ‡è¡¨è¾¾å¼çš„ç¬¬ä¸€ä¸ªå•è¯
 			TrsExpression();
 			m_fout<<"]";
 			GetElement();
@@ -726,18 +726,18 @@ void CFCView::TrsStatement()
 		m_fout<<";\n";
 		GetElement();
 		break;
-	case E_STRCPY://**************************** strcpyµ÷ÓÃ
+	case E_STRCPY://**************************** strcpyè°ƒç”¨
 		TrsStrcpyCall();
 		break;
 	case E_STRLWR:
-	case E_STRUPR://********************* strlwr struprµ÷ÓÃ
+	case E_STRUPR://********************* strlwr struprè°ƒç”¨
 		TrsStrlwruprCall();
 		break;
 	case E_DOWNSORT:
-	case E_UPSORT://******************* downsort upsortµ÷ÓÃ
+	case E_UPSORT://******************* downsort upsortè°ƒç”¨
 		TrsSortCall();
 		break;
-	case E_SEMICOLON://************************·ÖºÅ£¬¿ÕÓï¾ä
+	case E_SEMICOLON://************************åˆ†å·ï¼Œç©ºè¯­å¥
 		GetElement();
 		break;
 	}
@@ -764,7 +764,7 @@ void CFCView::TrsSubCondition()
 		case E_GREATEQUAL:	OutOperator(">=");	break;
 		default:return;
 		}
-		GetElement();//»ñÈ¡µÚ¶ş¸ö±í´ïÊ½µÄµÚÒ»¸öµ¥´Ê
+		GetElement();//è·å–ç¬¬äºŒä¸ªè¡¨è¾¾å¼çš„ç¬¬ä¸€ä¸ªå•è¯
 		TrsExpression();
 	}
 }
@@ -773,15 +773,15 @@ void CFCView::TrsSwitch()
 {
 	Indent();
 	m_fout<<"switch(";
-	GetElement();//»ñÈ¡(
-	GetElement();//»ñÈ¡Ìõ¼şµÄµÚÒ»¸öµ¥´Ê
+	GetElement();//è·å–(
+	GetElement();//è·å–æ¡ä»¶çš„ç¬¬ä¸€ä¸ªå•è¯
 	TrsExpression();
 	m_fout<<")\n";
-	GetElement();//»ñÈ¡{
+	GetElement();//è·å–{
 	Indent();
 	m_fout<<"{\n";
 	m_nLevel++;
-	GetElement();//»ñÈ¡case
+	GetElement();//è·å–case
 	BOOL bFirst=TRUE;
 	while(1)
 	{
@@ -798,12 +798,12 @@ void CFCView::TrsSwitch()
 			m_nLevel--;
 			Indent();
 			m_fout<<"case ";
-			GetElement();//»ñÈ¡caseºóµÄÕûÊı»ò×Ö·û
+			GetElement();//è·å–caseåçš„æ•´æ•°æˆ–å­—ç¬¦
 			if(m_element==E_INUMBER)
 				m_fout<<m_int;
 			else
 				m_fout<<'\''<<DesysString(m_char)<<'\'';
-			GetElement();//»ñÈ¡:
+			GetElement();//è·å–:
 			m_fout<<":\n";
 			m_nLevel++;
 			Indent();
@@ -823,7 +823,7 @@ void CFCView::TrsSwitch()
 			}
 			m_nLevel--;
 			Indent();
-			GetElement();//»ñÈ¡:
+			GetElement();//è·å–:
 			m_fout<<"default:\n";
 			m_nLevel++;
 			Indent();
@@ -878,8 +878,8 @@ void CFCView::TrsWhile()
 {
 	Indent();
 	m_fout<<"while(";
-	GetElement();//»ñÈ¡(
-	GetElement();//»ñÈ¡Ìõ¼şµÄµÚÒ»¸öµ¥´Ê
+	GetElement();//è·å–(
+	GetElement();//è·å–æ¡ä»¶çš„ç¬¬ä¸€ä¸ªå•è¯
 	TrsCondition();
 	m_fout<<")\n";
 	GetElement();
@@ -975,9 +975,9 @@ void CFCView::TrsMathFunctionCall()
 		m_fout<<"tanh";
 		break;
 	}
-	GetElement();//»ñÈ¡(
+	GetElement();//è·å–(
 	m_fout<<"(";
-	GetElement();//»ñÈ¡²ÎÊı±í´ïÊ½µÄµÚÒ»¸öµ¥´Ê
+	GetElement();//è·å–å‚æ•°è¡¨è¾¾å¼çš„ç¬¬ä¸€ä¸ªå•è¯
 	TrsExpression();
 	m_fout<<")";
 	GetElement();
@@ -985,7 +985,7 @@ void CFCView::TrsMathFunctionCall()
 
 void CFCView::TrsAbsCall()
 {
-	GetElement();//»ñÈ¡(
+	GetElement();//è·å–(
 	m_fout<<"abs(";
 	TrsExpression();
 	m_fout<<")";
@@ -994,7 +994,7 @@ void CFCView::TrsAbsCall()
 
 void CFCView::TrsPowCall()
 {
-	GetElement();//»ñÈ¡(
+	GetElement();//è·å–(
 	m_fout<<"pow(";
 	TrsExpression();
 	m_fout<<",";
@@ -1013,15 +1013,15 @@ void CFCView::TrsArrayFunctionCall()
 	case E_MIN:		m_fout<<"min";		break;
 	case E_SUM:		m_fout<<"sum";		break;
 	}
-	GetElement();//»ñÈ¡(
+	GetElement();//è·å–(
 	m_fout<<"(";
-	GetElement();//»ñÈ¡[
-	GetElement();//»ñÈ¡]
-	GetElement();//»ñÈ¡Êı×é±êÊ¶·û
+	GetElement();//è·å–[
+	GetElement();//è·å–]
+	GetElement();//è·å–æ•°ç»„æ ‡è¯†ç¬¦
 	m_fout<<m_ident;
-	GetElement();//»ñÈ¡,
+	GetElement();//è·å–,
 	m_fout<<",";
-	GetElement();//»ñÈ¡Êı×é³¤±í´ïÊ½µÄµÚÒ»¸öµ¥´Ê
+	GetElement();//è·å–æ•°ç»„é•¿è¡¨è¾¾å¼çš„ç¬¬ä¸€ä¸ªå•è¯
 	TrsExpression();
 	m_fout<<")";
 	GetElement();
@@ -1030,19 +1030,19 @@ void CFCView::TrsArrayFunctionCall()
 void CFCView::TrsStrcmpCall()
 {
 	m_fout<<"strcmp";
-	GetElement();//»ñÈ¡(
+	GetElement();//è·å–(
 	m_fout<<"(";
-	GetElement();//»ñÈ¡[
-	GetElement();//»ñÈ¡]
-	GetElement();//»ñÈ¡Êı×é±êÊ¶·û
+	GetElement();//è·å–[
+	GetElement();//è·å–]
+	GetElement();//è·å–æ•°ç»„æ ‡è¯†ç¬¦
 	m_fout<<m_ident;
-	GetElement();//»ñÈ¡,
+	GetElement();//è·å–,
 	m_fout<<",";
-	GetElement();//»ñÈ¡[
-	GetElement();//»ñÈ¡]
-	GetElement();//»ñÈ¡Êı×é±êÊ¶·û
+	GetElement();//è·å–[
+	GetElement();//è·å–]
+	GetElement();//è·å–æ•°ç»„æ ‡è¯†ç¬¦
 	m_fout<<m_ident;
-	GetElement();//»ñÈ¡)
+	GetElement();//è·å–)
 	m_fout<<")";
 	GetElement();
 }
@@ -1050,18 +1050,18 @@ void CFCView::TrsStrcmpCall()
 void CFCView::TrsStrlenCall()
 {
 	m_fout<<"strlen";
-	GetElement();//»ñÈ¡(
+	GetElement();//è·å–(
 	m_fout<<"(";
-	GetElement();//»ñÈ¡[»ò×Ö·û´®
+	GetElement();//è·å–[æˆ–å­—ç¬¦ä¸²
 	if(m_element==E_LSUB)
 	{
-		GetElement();//»ñÈ¡]
-		GetElement();//»ñÈ¡Êı×é±êÊ¶·û
+		GetElement();//è·å–]
+		GetElement();//è·å–æ•°ç»„æ ‡è¯†ç¬¦
 		m_fout<<m_ident;
 	}
 	else
 		m_fout<<'\"'<<DesysString(m_string)<<'\"';
-	GetElement();//»ñÈ¡)
+	GetElement();//è·å–)
 	m_fout<<")";
 	GetElement();
 }
@@ -1070,26 +1070,26 @@ void CFCView::TrsStrcpyCall()
 {
 	Indent();
 	m_fout<<"strcpy";
-	GetElement();//»ñÈ¡(
+	GetElement();//è·å–(
 	m_fout<<"(";
-	GetElement();//»ñÈ¡[
-	GetElement();//»ñÈ¡]
-	GetElement();//»ñÈ¡Êı×é±êÊ¶·û
+	GetElement();//è·å–[
+	GetElement();//è·å–]
+	GetElement();//è·å–æ•°ç»„æ ‡è¯†ç¬¦
 	m_fout<<m_ident;
-	GetElement();//»ñÈ¡,
+	GetElement();//è·å–,
 	m_fout<<",";
-	GetElement();//»ñÈ¡[»ò×Ö·û´®
+	GetElement();//è·å–[æˆ–å­—ç¬¦ä¸²
 	if(m_element==E_LSUB)
 	{
-		GetElement();//»ñÈ¡]
-		GetElement();//»ñÈ¡Êı×é±êÊ¶·û
+		GetElement();//è·å–]
+		GetElement();//è·å–æ•°ç»„æ ‡è¯†ç¬¦
 		m_fout<<m_ident;
 	}
 	else
 		m_fout<<'\"'<<DesysString(m_string)<<'\"';
-	GetElement();//»ñÈ¡)
+	GetElement();//è·å–)
 	m_fout<<")";
-	GetElement();//»ñÈ¡;
+	GetElement();//è·å–;
 	m_fout<<";\n";
 	GetElement();
 }
@@ -1101,15 +1101,15 @@ void CFCView::TrsStrlwruprCall()
 		m_fout<<"strlwr";
 	else
 		m_fout<<"strupr";
-	GetElement();//»ñÈ¡(
+	GetElement();//è·å–(
 	m_fout<<"(";
-	GetElement();//»ñÈ¡[
-	GetElement();//»ñÈ¡]
-	GetElement();//»ñÈ¡Êı×é±êÊ¶·û
+	GetElement();//è·å–[
+	GetElement();//è·å–]
+	GetElement();//è·å–æ•°ç»„æ ‡è¯†ç¬¦
 	m_fout<<m_ident;
-	GetElement();//»ñÈ¡)
+	GetElement();//è·å–)
 	m_fout<<")";
-	GetElement();//»ñÈ¡;
+	GetElement();//è·å–;
 	m_fout<<";\n";
 	GetElement();
 }
@@ -1121,18 +1121,18 @@ void CFCView::TrsSortCall()
 		m_fout<<"downsort";
 	else
 		m_fout<<"upsort";
-	GetElement();//»ñÈ¡(
+	GetElement();//è·å–(
 	m_fout<<"(";
-	GetElement();//»ñÈ¡[
-	GetElement();//»ñÈ¡]
-	GetElement();//»ñÈ¡Êı×é±êÊ¶·û
+	GetElement();//è·å–[
+	GetElement();//è·å–]
+	GetElement();//è·å–æ•°ç»„æ ‡è¯†ç¬¦
 	m_fout<<m_ident;
-	GetElement();//»ñÈ¡,
+	GetElement();//è·å–,
 	m_fout<<",";
-	GetElement();//»ñÈ¡Êı×é³¤±í´ïÊ½µÄµÚÒ»¸öµ¥´Ê
+	GetElement();//è·å–æ•°ç»„é•¿è¡¨è¾¾å¼çš„ç¬¬ä¸€ä¸ªå•è¯
 	TrsExpression();
 	m_fout<<")";
-	GetElement();//»ñÈ¡;
+	GetElement();//è·å–;
 	m_fout<<";\n";
 	GetElement();
 }

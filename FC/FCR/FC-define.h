@@ -8,109 +8,109 @@ typedef enum
 	IM_STRING,
 }ZInputMode,ZIM;
 
-//49¸öÁã²Ù×÷Êý²Ù×÷·û
-//77¸öµ¥ÕûÊý²Ù×÷Êý²Ù×÷·û
-// 1¸öµ¥×Ö·û²Ù×÷Êý²Ù×÷·û
-// 1¸öµ¥ÊµÊý²Ù×÷Êý²Ù×÷·û
-// 2¸ö×Ö·û´®µ¥²Ù×÷Êý²Ù×÷·û
-// 9¸öË«ÕûÊý²Ù×÷Êý²Ù×÷·û
-// 1¸öÕûÊý×Ö·û´®Ë«²Ù×÷Êý²Ù×÷·û
-//×Ü¹²140¸ö²Ù×÷·û
+//49ä¸ªé›¶æ“ä½œæ•°æ“ä½œç¬¦
+//77ä¸ªå•æ•´æ•°æ“ä½œæ•°æ“ä½œç¬¦
+// 1ä¸ªå•å­—ç¬¦æ“ä½œæ•°æ“ä½œç¬¦
+// 1ä¸ªå•å®žæ•°æ“ä½œæ•°æ“ä½œç¬¦
+// 2ä¸ªå­—ç¬¦ä¸²å•æ“ä½œæ•°æ“ä½œç¬¦
+// 9ä¸ªåŒæ•´æ•°æ“ä½œæ•°æ“ä½œç¬¦
+// 1ä¸ªæ•´æ•°å­—ç¬¦ä¸²åŒæ“ä½œæ•°æ“ä½œç¬¦
+//æ€»å…±140ä¸ªæ“ä½œç¬¦
 typedef enum
 {
-	OP_C2D,				//ÀàÐÍ×ª»» char => double	£¨sd.iNumberÎªµØÖ·Æ«ÒÆÁ¿£©
-	OP_C2I,				//ÀàÐÍ×ª»» char => int		£¨sd.iNumberÎªµØÖ·Æ«ÒÆÁ¿£©
-	OP_CALL,			//º¯Êýµ÷ÓÃ£¨sdÎªº¯ÊýµØÖ·£©
-	OP_CHANGESIGNALC,	//¸Ä±ä×Ö·û·ûºÅ
-	OP_CHANGESIGNALD,	//¸Ä±äÊµÊý·ûºÅ
-	OP_CHANGESIGNALI,	//¸Ä±äÕûÊý·ûºÅ
-	OP_COPYI,			//¸´ÖÆÕ»¶¥ÊýÖµ£¨ÕûÊý£©
-	OP_D2C,				//ÀàÐÍ×ª»» double => char	£¨sd.iNumberÎªµØÖ·Æ«ÒÆÁ¿£©
-	OP_D2I,				//ÀàÐÍ×ª»» double => int	£¨sd.iNumberÎªµØÖ·Æ«ÒÆÁ¿£©
-	OP_DELARRAYC,		//É¾³ýÒ»¸ö×Ö·ûÊý×é£¨sdÎªÊý×éµØÖ·£©
-	OP_DELARRAYD,		//É¾³ýÒ»¸öÊµÊýÊý×é£¨sdÎªÊý×éµØÖ·£©
-	OP_DELARRAYI,		//É¾³ýÒ»¸öÕûÊýÊý×é£¨sdÎªÊý×éµØÖ·£©
-	OP_DELETEC,			//É¾³ýÕ»¶¥×Ö·û
-	OP_DELETED,			//É¾³ýÕ»¶¥ÊµÊý
-	OP_DELETEI,			//É¾³ýÕ»¶¥ÕûÊý
-	OP_EQUALC,			//µÈÓÚ£¨sd.iNumberÎªÌõ¼þÂú×ãÊ±µÄÌø×ªµØÖ·£©
-	OP_EQUALD,			//µÈÓÚ£¨sd.iNumberÎªÌõ¼þÂú×ãÊ±µÄÌø×ªµØÖ·£©
-	OP_EQUALI,			//µÈÓÚ£¨sd.iNumberÎªÌõ¼þÂú×ãÊ±µÄÌø×ªµØÖ·£©
-	OP_EXIT,			//³ÌÐò½áÊø
-	OP_FUNCTIONSTART,	//º¯Êý¿ªÊ¼±êÖ¾£¨sd.iNumberÎª±äÁ¿²ÎÊýËùÐèµÄ×î´óÄÚ´æ£©
-	OP_GREATC,			//´óÓÚ£¨sd.iNumberÎªÌõ¼þÂú×ãÊ±µÄÌø×ªµØÖ·£©
-	OP_GREATD,			//´óÓÚ£¨sd.iNumberÎªÌõ¼þÂú×ãÊ±µÄÌø×ªµØÖ·£©
-	OP_GREATEQUALC,		//´óÓÚµÈÓÚ£¨sd.iNumberÎªÌõ¼þÂú×ãÊ±µÄÌø×ªµØÖ·£©
-	OP_GREATEQUALD,		//´óÓÚµÈÓÚ£¨sd.iNumberÎªÌõ¼þÂú×ãÊ±µÄÌø×ªµØÖ·£©
-	OP_GREATEQUALI,		//´óÓÚµÈÓÚ£¨sd.iNumberÎªÌõ¼þÂú×ãÊ±µÄÌø×ªµØÖ·£©
-	OP_GREATI,			//´óÓÚ£¨sd.iNumberÎªÌõ¼þÂú×ãÊ±µÄÌø×ªµØÖ·£©
-	OP_I2C,				//ÀàÐÍ×ª»» int => char	£¨sd.iNumberÎªµØÖ·Æ«ÒÆÁ¿£©
-	OP_I2D,				//ÀàÐÍ×ª»» int => double£¨sd.iNumberÎªµØÖ·Æ«ÒÆÁ¿£©
-	OP_INPUTARRAYC,		//ÊäÈë×Ö·ûÊý×éÖµ£¨sd.iNumberÎªÊý×éµØÖ·£¬ÏÂ±êÔÚÕ»¶¥£©
-	OP_INPUTARRAYD,		//ÊäÈëÊµÐÍÊý×éÖµ£¨sd.iNumberÎªÊý×éµØÖ·£¬ÏÂ±êÔÚÕ»¶¥£©
-	OP_INPUTARRAYI,		//ÊäÈëÕûÐÍÊý×éÖµ£¨sd.iNumberÎªÊý×éµØÖ·£¬ÏÂ±êÔÚÕ»¶¥£©
-	OP_INPUTC,			//ÊäÈë×Ö·û£¨sd.iNumberÎªµØÖ·£©
-	OP_INPUTCA,			//ÊäÈë×Ö·ûÊý×é£¨sd.iNumberÎªÊý×éµØÖ·£©
-	OP_INPUTD,			//ÊäÈëÊµÊý£¨sd.iNumberÎªµØÖ·£©
-	OP_INPUTI,			//ÊäÈëÕûÊý£¨sd.iNumberÎªµØÖ·£©
-	OP_JUMP,			//ÎÞÌõ¼þÌø×ª£¨sdÎªÌø×ªµØÖ·£©
-	OP_LESSC,			//Ð¡ÓÚ£¨sd.iNumberÎªÌõ¼þÂú×ãÊ±µÄÌø×ªµØÖ·£©
-	OP_LESSD,			//Ð¡ÓÚ£¨sd.iNumberÎªÌõ¼þÂú×ãÊ±µÄÌø×ªµØÖ·£©
-	OP_LESSEQUALC,		//Ð¡ÓÚµÈÓÚ£¨sd.iNumberÎªÌõ¼þÂú×ãÊ±µÄÌø×ªµØÖ·£©
-	OP_LESSEQUALD,		//Ð¡ÓÚµÈÓÚ£¨sd.iNumberÎªÌõ¼þÂú×ãÊ±µÄÌø×ªµØÖ·£©
-	OP_LESSEQUALI,		//Ð¡ÓÚµÈÓÚ£¨sd.iNumberÎªÌõ¼þÂú×ãÊ±µÄÌø×ªµØÖ·£©
-	OP_LESSI,			//Ð¡ÓÚ£¨sd.iNumberÎªÌõ¼þÂú×ãÊ±µÄÌø×ªµØÖ·£©
-	OP_LOADARRAY,		//µ¼ÈëÊý×éµØÖ·£¨sd.iNumberÎªÊý×éÍ·µØÖ·£©
-	OP_LOADARRAYC,		//µ¼Èë×Ö·ûÊý×éÖµ£¨sd.iNumberÎªÊý×éÍ·µØÖ·£¬ÏÂ±êÔÚÕ»¶¥
-	OP_LOADARRAYD,		//µ¼ÈëÊµÊýÊý×éÖµ£¨sd.iNumberÎªÊý×éÍ·µØÖ·£¬ÏÂ±êÔÚÕ»¶¥£©
-	OP_LOADARRAYI,		//µ¼ÈëÕûÊýÊý×éÖµ£¨sd.iNumberÎªÊý×éÍ·µØÖ·£¬ÏÂ±êÔÚÕ»¶¥£©
-	OP_LOADCONSTC,		//µ¼Èë×Ö·û³£Êý	£¨sdÎª²ÎÊý£©
-	OP_LOADCONSTD,		//µ¼ÈëÊµ³£Êý	£¨sdÎª²ÎÊý£©
-	OP_LOADCONSTI,		//µ¼ÈëÕû³£Êý	£¨sdÎª²ÎÊý£©
-	OP_LOADVARC,		//µ¼Èë×Ö·û£¨sd.iNumberÎªµØÖ·£©
-	OP_LOADVARD,		//µ¼ÈëÊµÊý£¨sd.iNumberÎªµØÖ·£©
-	OP_LOADVARI,		//µ¼ÈëÕûÊý£¨sd.iNumberÎªµØÖ·£©
-	OP_MINUSC,			//¼õ£¨×Ö·û£©
-	OP_MINUSD,			//¼õ£¨ÊµÊý£©
-	OP_MINUSI,			//¼õ£¨ÕûÊý£©
-	OP_MODC,			//Óà£¨×Ö·û£©
-	OP_MODI,			//Óà£¨ÕûÊý£©
-	OP_NEWARRAYC,		//ÉêÇëÒ»¸ö×Ö·ûÊý×é£¨sd.iNumberÎªÊý×éÍ·µØÖ·£¬sd.iNumber2Îª³¤¶È£©
-	OP_NEWARRAYD,		//ÉêÇëÒ»¸öÊµÊýÊý×é£¨sd.iNumberÎªÊý×éÍ·µØÖ·£¬sd.iNumber2Îª³¤¶È£©
-	OP_NEWARRAYI,		//ÉêÇëÒ»¸öÕûÊýÊý×é£¨sd.iNumberÎªÊý×éÍ·µØÖ·£¬sd.iNumber2Îª³¤¶È£©
-	OP_NOTEQUALC,		//²»µÈÓÚ£¨sd.iNumberÎªÌõ¼þÂú×ãÊ±µÄÌø×ªµØÖ·£©
-	OP_NOTEQUALD,		//²»µÈÓÚ£¨sd.iNumberÎªÌõ¼þÂú×ãÊ±µÄÌø×ªµØÖ·£©
-	OP_NOTEQUALI,		//²»µÈÓÚ£¨sd.iNumberÎªÌõ¼þÂú×ãÊ±µÄÌø×ªµØÖ·£©
-	OP_NULL,			//¿Õ²Ù×÷
-	OP_OUTPUTC,			//Êä³ö×Ö·û
-	OP_OUTPUTCA,		//Êä³ö×Ö·ûÊý×é£¨sdÎª×Ö·ûÊý×éµØÖ·£©
-	OP_OUTPUTD,			//Êä³öÊµÊý
-	OP_OUTPUTI,			//Êä³öÕûÊý
-	OP_OUTPUTS,			//Êä³ö×Ö·û´®£¨sdÎª×Ö·û´®ÊµµØÖ·£©
-	OP_PARAMTRANSA,		//Êý×é²ÎÊý´«µÝ£¨sd.iNumberÎªµØÖ·£¬sd.iNumber2ÎªÆ«ÒÆÁ¿£©
-	OP_PARAMTRANSC,		//×Ö·û²ÎÊý´«µÝ£¨sd.iNumberÎªµØÖ·£¬sd.iNumber2ÎªÆ«ÒÆÁ¿£©
-	OP_PARAMTRANSD,		//ÊµÊý²ÎÊý´«µÝ£¨sd.iNumberÎªµØÖ·£¬sd.iNumber2ÎªÆ«ÒÆÁ¿£©
-	OP_PARAMTRANSI,		//ÕûÊý²ÎÊý´«µÝ£¨sd.iNumberÎªµØÖ·£¬sd.iNumber2ÎªÆ«ÒÆÁ¿£©
-	OP_PLUSC,			//¼Ó£¨×Ö·û£©
-	OP_PLUSD,			//¼Ó£¨ÊµÊý£©
-	OP_PLUSI,			//¼Ó£¨ÕûÊý£©
-	OP_RETURN,			//void	º¯Êý·µ»Ø£¨sd.iNumberÎªÆ«ÒÆÁ¿£©
-	OP_RETURNC,			//char	º¯Êý·µ»Ø£¨sd.iNumberÎªÆ«ÒÆÁ¿£©
-	OP_RETURND,			//int	º¯Êý·µ»Ø£¨sd.iNumberÎªÆ«ÒÆÁ¿£©
-	OP_RETURNI,			//doubleº¯Êý·µ»Ø£¨sd.iNumberÎªÆ«ÒÆÁ¿£©
-	OP_SAVEARRAYC,		//´æ´¢×Ö·ûÊý×éÖµ£¨sd.iNumberÎªÊý×éµØÖ·£¬ÊýÖµÔÚÕ»¶¥£¬ÏÂ±êÔÚÕ»´Î¶¥£©
-	OP_SAVEARRAYD,		//´æ´¢ÊµÊýÊý×éÖµ£¨sd.iNumberÎªÊý×éµØÖ·£¬ÊýÖµÔÚÕ»¶¥£¬ÏÂ±êÔÚÕ»´Î¶¥£©
-	OP_SAVEARRAYI,		//´æ´¢ÕûÊýÊý×éÖµ£¨sd.iNumberÎªÊý×éµØÖ·£¬ÊýÖµÔÚÕ»¶¥£¬ÏÂ±êÔÚÕ»´Î¶¥£©
-	OP_SAVEC,			//±£´æ×Ö·û±äÁ¿£¨sdÎª±äÁ¿µØÖ·£©
-	OP_SAVED,			//±£´æÊµÊý±äÁ¿£¨sdÎª±äÁ¿µØÖ·£©
-	OP_SAVEI,			//±£´æÕûÊý±äÁ¿£¨sdÎª±äÁ¿µØÖ·£©
-	OP_SLASHC,			//³ý£¨×Ö·û£©
-	OP_SLASHD,			//³ý£¨ÊµÊý£©
-	OP_SLASHI,			//³ý£¨ÕûÊý£©
-	OP_TIMESC,			//³Ë£¨×Ö·û£©
-	OP_TIMESD,			//³Ë£¨ÊµÊý£©
-	OP_TIMESI,			//³Ë£¨ÕûÊý£©
-//////¿âº¯Êýµ÷ÓÃ²Ù×÷·û
+	OP_C2D,				//ç±»åž‹è½¬æ¢ char => double	ï¼ˆsd.iNumberä¸ºåœ°å€åç§»é‡ï¼‰
+	OP_C2I,				//ç±»åž‹è½¬æ¢ char => int		ï¼ˆsd.iNumberä¸ºåœ°å€åç§»é‡ï¼‰
+	OP_CALL,			//å‡½æ•°è°ƒç”¨ï¼ˆsdä¸ºå‡½æ•°åœ°å€ï¼‰
+	OP_CHANGESIGNALC,	//æ”¹å˜å­—ç¬¦ç¬¦å·
+	OP_CHANGESIGNALD,	//æ”¹å˜å®žæ•°ç¬¦å·
+	OP_CHANGESIGNALI,	//æ”¹å˜æ•´æ•°ç¬¦å·
+	OP_COPYI,			//å¤åˆ¶æ ˆé¡¶æ•°å€¼ï¼ˆæ•´æ•°ï¼‰
+	OP_D2C,				//ç±»åž‹è½¬æ¢ double => char	ï¼ˆsd.iNumberä¸ºåœ°å€åç§»é‡ï¼‰
+	OP_D2I,				//ç±»åž‹è½¬æ¢ double => int	ï¼ˆsd.iNumberä¸ºåœ°å€åç§»é‡ï¼‰
+	OP_DELARRAYC,		//åˆ é™¤ä¸€ä¸ªå­—ç¬¦æ•°ç»„ï¼ˆsdä¸ºæ•°ç»„åœ°å€ï¼‰
+	OP_DELARRAYD,		//åˆ é™¤ä¸€ä¸ªå®žæ•°æ•°ç»„ï¼ˆsdä¸ºæ•°ç»„åœ°å€ï¼‰
+	OP_DELARRAYI,		//åˆ é™¤ä¸€ä¸ªæ•´æ•°æ•°ç»„ï¼ˆsdä¸ºæ•°ç»„åœ°å€ï¼‰
+	OP_DELETEC,			//åˆ é™¤æ ˆé¡¶å­—ç¬¦
+	OP_DELETED,			//åˆ é™¤æ ˆé¡¶å®žæ•°
+	OP_DELETEI,			//åˆ é™¤æ ˆé¡¶æ•´æ•°
+	OP_EQUALC,			//ç­‰äºŽï¼ˆsd.iNumberä¸ºæ¡ä»¶æ»¡è¶³æ—¶çš„è·³è½¬åœ°å€ï¼‰
+	OP_EQUALD,			//ç­‰äºŽï¼ˆsd.iNumberä¸ºæ¡ä»¶æ»¡è¶³æ—¶çš„è·³è½¬åœ°å€ï¼‰
+	OP_EQUALI,			//ç­‰äºŽï¼ˆsd.iNumberä¸ºæ¡ä»¶æ»¡è¶³æ—¶çš„è·³è½¬åœ°å€ï¼‰
+	OP_EXIT,			//ç¨‹åºç»“æŸ
+	OP_FUNCTIONSTART,	//å‡½æ•°å¼€å§‹æ ‡å¿—ï¼ˆsd.iNumberä¸ºå˜é‡å‚æ•°æ‰€éœ€çš„æœ€å¤§å†…å­˜ï¼‰
+	OP_GREATC,			//å¤§äºŽï¼ˆsd.iNumberä¸ºæ¡ä»¶æ»¡è¶³æ—¶çš„è·³è½¬åœ°å€ï¼‰
+	OP_GREATD,			//å¤§äºŽï¼ˆsd.iNumberä¸ºæ¡ä»¶æ»¡è¶³æ—¶çš„è·³è½¬åœ°å€ï¼‰
+	OP_GREATEQUALC,		//å¤§äºŽç­‰äºŽï¼ˆsd.iNumberä¸ºæ¡ä»¶æ»¡è¶³æ—¶çš„è·³è½¬åœ°å€ï¼‰
+	OP_GREATEQUALD,		//å¤§äºŽç­‰äºŽï¼ˆsd.iNumberä¸ºæ¡ä»¶æ»¡è¶³æ—¶çš„è·³è½¬åœ°å€ï¼‰
+	OP_GREATEQUALI,		//å¤§äºŽç­‰äºŽï¼ˆsd.iNumberä¸ºæ¡ä»¶æ»¡è¶³æ—¶çš„è·³è½¬åœ°å€ï¼‰
+	OP_GREATI,			//å¤§äºŽï¼ˆsd.iNumberä¸ºæ¡ä»¶æ»¡è¶³æ—¶çš„è·³è½¬åœ°å€ï¼‰
+	OP_I2C,				//ç±»åž‹è½¬æ¢ int => char	ï¼ˆsd.iNumberä¸ºåœ°å€åç§»é‡ï¼‰
+	OP_I2D,				//ç±»åž‹è½¬æ¢ int => doubleï¼ˆsd.iNumberä¸ºåœ°å€åç§»é‡ï¼‰
+	OP_INPUTARRAYC,		//è¾“å…¥å­—ç¬¦æ•°ç»„å€¼ï¼ˆsd.iNumberä¸ºæ•°ç»„åœ°å€ï¼Œä¸‹æ ‡åœ¨æ ˆé¡¶ï¼‰
+	OP_INPUTARRAYD,		//è¾“å…¥å®žåž‹æ•°ç»„å€¼ï¼ˆsd.iNumberä¸ºæ•°ç»„åœ°å€ï¼Œä¸‹æ ‡åœ¨æ ˆé¡¶ï¼‰
+	OP_INPUTARRAYI,		//è¾“å…¥æ•´åž‹æ•°ç»„å€¼ï¼ˆsd.iNumberä¸ºæ•°ç»„åœ°å€ï¼Œä¸‹æ ‡åœ¨æ ˆé¡¶ï¼‰
+	OP_INPUTC,			//è¾“å…¥å­—ç¬¦ï¼ˆsd.iNumberä¸ºåœ°å€ï¼‰
+	OP_INPUTCA,			//è¾“å…¥å­—ç¬¦æ•°ç»„ï¼ˆsd.iNumberä¸ºæ•°ç»„åœ°å€ï¼‰
+	OP_INPUTD,			//è¾“å…¥å®žæ•°ï¼ˆsd.iNumberä¸ºåœ°å€ï¼‰
+	OP_INPUTI,			//è¾“å…¥æ•´æ•°ï¼ˆsd.iNumberä¸ºåœ°å€ï¼‰
+	OP_JUMP,			//æ— æ¡ä»¶è·³è½¬ï¼ˆsdä¸ºè·³è½¬åœ°å€ï¼‰
+	OP_LESSC,			//å°äºŽï¼ˆsd.iNumberä¸ºæ¡ä»¶æ»¡è¶³æ—¶çš„è·³è½¬åœ°å€ï¼‰
+	OP_LESSD,			//å°äºŽï¼ˆsd.iNumberä¸ºæ¡ä»¶æ»¡è¶³æ—¶çš„è·³è½¬åœ°å€ï¼‰
+	OP_LESSEQUALC,		//å°äºŽç­‰äºŽï¼ˆsd.iNumberä¸ºæ¡ä»¶æ»¡è¶³æ—¶çš„è·³è½¬åœ°å€ï¼‰
+	OP_LESSEQUALD,		//å°äºŽç­‰äºŽï¼ˆsd.iNumberä¸ºæ¡ä»¶æ»¡è¶³æ—¶çš„è·³è½¬åœ°å€ï¼‰
+	OP_LESSEQUALI,		//å°äºŽç­‰äºŽï¼ˆsd.iNumberä¸ºæ¡ä»¶æ»¡è¶³æ—¶çš„è·³è½¬åœ°å€ï¼‰
+	OP_LESSI,			//å°äºŽï¼ˆsd.iNumberä¸ºæ¡ä»¶æ»¡è¶³æ—¶çš„è·³è½¬åœ°å€ï¼‰
+	OP_LOADARRAY,		//å¯¼å…¥æ•°ç»„åœ°å€ï¼ˆsd.iNumberä¸ºæ•°ç»„å¤´åœ°å€ï¼‰
+	OP_LOADARRAYC,		//å¯¼å…¥å­—ç¬¦æ•°ç»„å€¼ï¼ˆsd.iNumberä¸ºæ•°ç»„å¤´åœ°å€ï¼Œä¸‹æ ‡åœ¨æ ˆé¡¶
+	OP_LOADARRAYD,		//å¯¼å…¥å®žæ•°æ•°ç»„å€¼ï¼ˆsd.iNumberä¸ºæ•°ç»„å¤´åœ°å€ï¼Œä¸‹æ ‡åœ¨æ ˆé¡¶ï¼‰
+	OP_LOADARRAYI,		//å¯¼å…¥æ•´æ•°æ•°ç»„å€¼ï¼ˆsd.iNumberä¸ºæ•°ç»„å¤´åœ°å€ï¼Œä¸‹æ ‡åœ¨æ ˆé¡¶ï¼‰
+	OP_LOADCONSTC,		//å¯¼å…¥å­—ç¬¦å¸¸æ•°	ï¼ˆsdä¸ºå‚æ•°ï¼‰
+	OP_LOADCONSTD,		//å¯¼å…¥å®žå¸¸æ•°	ï¼ˆsdä¸ºå‚æ•°ï¼‰
+	OP_LOADCONSTI,		//å¯¼å…¥æ•´å¸¸æ•°	ï¼ˆsdä¸ºå‚æ•°ï¼‰
+	OP_LOADVARC,		//å¯¼å…¥å­—ç¬¦ï¼ˆsd.iNumberä¸ºåœ°å€ï¼‰
+	OP_LOADVARD,		//å¯¼å…¥å®žæ•°ï¼ˆsd.iNumberä¸ºåœ°å€ï¼‰
+	OP_LOADVARI,		//å¯¼å…¥æ•´æ•°ï¼ˆsd.iNumberä¸ºåœ°å€ï¼‰
+	OP_MINUSC,			//å‡ï¼ˆå­—ç¬¦ï¼‰
+	OP_MINUSD,			//å‡ï¼ˆå®žæ•°ï¼‰
+	OP_MINUSI,			//å‡ï¼ˆæ•´æ•°ï¼‰
+	OP_MODC,			//ä½™ï¼ˆå­—ç¬¦ï¼‰
+	OP_MODI,			//ä½™ï¼ˆæ•´æ•°ï¼‰
+	OP_NEWARRAYC,		//ç”³è¯·ä¸€ä¸ªå­—ç¬¦æ•°ç»„ï¼ˆsd.iNumberä¸ºæ•°ç»„å¤´åœ°å€ï¼Œsd.iNumber2ä¸ºé•¿åº¦ï¼‰
+	OP_NEWARRAYD,		//ç”³è¯·ä¸€ä¸ªå®žæ•°æ•°ç»„ï¼ˆsd.iNumberä¸ºæ•°ç»„å¤´åœ°å€ï¼Œsd.iNumber2ä¸ºé•¿åº¦ï¼‰
+	OP_NEWARRAYI,		//ç”³è¯·ä¸€ä¸ªæ•´æ•°æ•°ç»„ï¼ˆsd.iNumberä¸ºæ•°ç»„å¤´åœ°å€ï¼Œsd.iNumber2ä¸ºé•¿åº¦ï¼‰
+	OP_NOTEQUALC,		//ä¸ç­‰äºŽï¼ˆsd.iNumberä¸ºæ¡ä»¶æ»¡è¶³æ—¶çš„è·³è½¬åœ°å€ï¼‰
+	OP_NOTEQUALD,		//ä¸ç­‰äºŽï¼ˆsd.iNumberä¸ºæ¡ä»¶æ»¡è¶³æ—¶çš„è·³è½¬åœ°å€ï¼‰
+	OP_NOTEQUALI,		//ä¸ç­‰äºŽï¼ˆsd.iNumberä¸ºæ¡ä»¶æ»¡è¶³æ—¶çš„è·³è½¬åœ°å€ï¼‰
+	OP_NULL,			//ç©ºæ“ä½œ
+	OP_OUTPUTC,			//è¾“å‡ºå­—ç¬¦
+	OP_OUTPUTCA,		//è¾“å‡ºå­—ç¬¦æ•°ç»„ï¼ˆsdä¸ºå­—ç¬¦æ•°ç»„åœ°å€ï¼‰
+	OP_OUTPUTD,			//è¾“å‡ºå®žæ•°
+	OP_OUTPUTI,			//è¾“å‡ºæ•´æ•°
+	OP_OUTPUTS,			//è¾“å‡ºå­—ç¬¦ä¸²ï¼ˆsdä¸ºå­—ç¬¦ä¸²å®žåœ°å€ï¼‰
+	OP_PARAMTRANSA,		//æ•°ç»„å‚æ•°ä¼ é€’ï¼ˆsd.iNumberä¸ºåœ°å€ï¼Œsd.iNumber2ä¸ºåç§»é‡ï¼‰
+	OP_PARAMTRANSC,		//å­—ç¬¦å‚æ•°ä¼ é€’ï¼ˆsd.iNumberä¸ºåœ°å€ï¼Œsd.iNumber2ä¸ºåç§»é‡ï¼‰
+	OP_PARAMTRANSD,		//å®žæ•°å‚æ•°ä¼ é€’ï¼ˆsd.iNumberä¸ºåœ°å€ï¼Œsd.iNumber2ä¸ºåç§»é‡ï¼‰
+	OP_PARAMTRANSI,		//æ•´æ•°å‚æ•°ä¼ é€’ï¼ˆsd.iNumberä¸ºåœ°å€ï¼Œsd.iNumber2ä¸ºåç§»é‡ï¼‰
+	OP_PLUSC,			//åŠ ï¼ˆå­—ç¬¦ï¼‰
+	OP_PLUSD,			//åŠ ï¼ˆå®žæ•°ï¼‰
+	OP_PLUSI,			//åŠ ï¼ˆæ•´æ•°ï¼‰
+	OP_RETURN,			//void	å‡½æ•°è¿”å›žï¼ˆsd.iNumberä¸ºåç§»é‡ï¼‰
+	OP_RETURNC,			//char	å‡½æ•°è¿”å›žï¼ˆsd.iNumberä¸ºåç§»é‡ï¼‰
+	OP_RETURND,			//int	å‡½æ•°è¿”å›žï¼ˆsd.iNumberä¸ºåç§»é‡ï¼‰
+	OP_RETURNI,			//doubleå‡½æ•°è¿”å›žï¼ˆsd.iNumberä¸ºåç§»é‡ï¼‰
+	OP_SAVEARRAYC,		//å­˜å‚¨å­—ç¬¦æ•°ç»„å€¼ï¼ˆsd.iNumberä¸ºæ•°ç»„åœ°å€ï¼Œæ•°å€¼åœ¨æ ˆé¡¶ï¼Œä¸‹æ ‡åœ¨æ ˆæ¬¡é¡¶ï¼‰
+	OP_SAVEARRAYD,		//å­˜å‚¨å®žæ•°æ•°ç»„å€¼ï¼ˆsd.iNumberä¸ºæ•°ç»„åœ°å€ï¼Œæ•°å€¼åœ¨æ ˆé¡¶ï¼Œä¸‹æ ‡åœ¨æ ˆæ¬¡é¡¶ï¼‰
+	OP_SAVEARRAYI,		//å­˜å‚¨æ•´æ•°æ•°ç»„å€¼ï¼ˆsd.iNumberä¸ºæ•°ç»„åœ°å€ï¼Œæ•°å€¼åœ¨æ ˆé¡¶ï¼Œä¸‹æ ‡åœ¨æ ˆæ¬¡é¡¶ï¼‰
+	OP_SAVEC,			//ä¿å­˜å­—ç¬¦å˜é‡ï¼ˆsdä¸ºå˜é‡åœ°å€ï¼‰
+	OP_SAVED,			//ä¿å­˜å®žæ•°å˜é‡ï¼ˆsdä¸ºå˜é‡åœ°å€ï¼‰
+	OP_SAVEI,			//ä¿å­˜æ•´æ•°å˜é‡ï¼ˆsdä¸ºå˜é‡åœ°å€ï¼‰
+	OP_SLASHC,			//é™¤ï¼ˆå­—ç¬¦ï¼‰
+	OP_SLASHD,			//é™¤ï¼ˆå®žæ•°ï¼‰
+	OP_SLASHI,			//é™¤ï¼ˆæ•´æ•°ï¼‰
+	OP_TIMESC,			//ä¹˜ï¼ˆå­—ç¬¦ï¼‰
+	OP_TIMESD,			//ä¹˜ï¼ˆå®žæ•°ï¼‰
+	OP_TIMESI,			//ä¹˜ï¼ˆæ•´æ•°ï¼‰
+//////åº“å‡½æ•°è°ƒç”¨æ“ä½œç¬¦
 	//math
 	OP_ABSC,			//char abs(char)
 	OP_ABSD,			//int abs(int)
@@ -170,21 +170,21 @@ typedef union
 	{
 		union
 		{
-			char cNumber;	//µ¥×Ö·û²Ù×÷Êý
-			char *string;	//µ¥×Ö·û´®Ö¸Õë²Ù×÷Êý
-			int iNumber;	//µ¥ÕûÊý²Ù×÷Êý »ò Ë«²Ù×÷ÊýµÄµÚÒ»²Ù×÷Êý
+			char cNumber;	//å•å­—ç¬¦æ“ä½œæ•°
+			char *string;	//å•å­—ç¬¦ä¸²æŒ‡é’ˆæ“ä½œæ•°
+			int iNumber;	//å•æ•´æ•°æ“ä½œæ•° æˆ– åŒæ“ä½œæ•°çš„ç¬¬ä¸€æ“ä½œæ•°
 		};
 		union
 		{
-			int iNumber2;	//Ë«ÕûÊý²Ù×÷ÊýµÄµÚ¶þ²Ù×÷Êý
-			char*string2;	//ÕûÊý¡¢×Ö·û´®Ö¸ÕëË«²Ù×÷ÊýµÄµÚ¶þ²Ù×÷Êý
+			int iNumber2;	//åŒæ•´æ•°æ“ä½œæ•°çš„ç¬¬äºŒæ“ä½œæ•°
+			char*string2;	//æ•´æ•°ã€å­—ç¬¦ä¸²æŒ‡é’ˆåŒæ“ä½œæ•°çš„ç¬¬äºŒæ“ä½œæ•°
 		};
 	};
-	double dNumber;			//µ¥ÊµÊý²Ù×÷Êý
+	double dNumber;			//å•å®žæ•°æ“ä½œæ•°
 }ZSecond;
 
 typedef struct
 {
-	ZOperator op;	//²Ù×÷·û
-	ZSecond sd;		//²Ù×÷Êý
+	ZOperator op;	//æ“ä½œç¬¦
+	ZSecond sd;		//æ“ä½œæ•°
 }ZCode;

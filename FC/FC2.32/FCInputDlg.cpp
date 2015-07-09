@@ -63,7 +63,7 @@ void CFCInputDlg::OnOK()
 			if(i==length)
 				break;
 		}
-		MessageBox("ÇëÊäÈëÒ»¸ö×Ö·û£¡","FC",MB_OK|MB_ICONINFORMATION);
+		MessageBox("è¯·è¾“å…¥ä¸€ä¸ªå­—ç¬¦ï¼","FC",MB_OK|MB_ICONINFORMATION);
 		GetDlgItem(IDC_INPUT)->SetFocus();
 		((CEdit*)GetDlgItem(IDC_INPUT))->SetSel(0,-1);
 		return;
@@ -96,7 +96,7 @@ void CFCInputDlg::OnOK()
 				break;
 			}
 		}
-		MessageBox("ÇëÊäÈëÒ»¸öÕûÊı£¡","FC",MB_OK|MB_ICONINFORMATION);
+		MessageBox("è¯·è¾“å…¥ä¸€ä¸ªæ•´æ•°ï¼","FC",MB_OK|MB_ICONINFORMATION);
 		GetDlgItem(IDC_INPUT)->SetFocus();
 		((CEdit*)GetDlgItem(IDC_INPUT))->SetSel(0,-1);
 		return;
@@ -144,7 +144,7 @@ void CFCInputDlg::OnOK()
 				break;
 			}
 		}
-		MessageBox("ÇëÊäÈëÒ»¸öÊµÊı£¡","FC",MB_OK|MB_ICONINFORMATION);
+		MessageBox("è¯·è¾“å…¥ä¸€ä¸ªå®æ•°ï¼","FC",MB_OK|MB_ICONINFORMATION);
 		GetDlgItem(IDC_INPUT)->SetFocus();
 		((CEdit*)GetDlgItem(IDC_INPUT))->SetSel(0,-1);
 		return;
@@ -158,7 +158,7 @@ void CFCInputDlg::OnOK()
 int CFCInputDlg::InputChar(char &c)
 {
 	m_im=IM_CHAR;
-	m_strInformation="ÇëÊäÈëÒ»¸ö×Ö·û£º";
+	m_strInformation="è¯·è¾“å…¥ä¸€ä¸ªå­—ç¬¦ï¼š";
 	int result=CDialog::DoModal();
 	c=m_cInput;
 	return result;
@@ -167,7 +167,7 @@ int CFCInputDlg::InputChar(char &c)
 int CFCInputDlg::InputInt(int &i)
 {
 	m_im=IM_INT;
-	m_strInformation="ÇëÊäÈëÒ»¸öÕûÊı£º";
+	m_strInformation="è¯·è¾“å…¥ä¸€ä¸ªæ•´æ•°ï¼š";
 	int result=CDialog::DoModal();
 	i=m_iInput;
 	return result;
@@ -176,7 +176,7 @@ int CFCInputDlg::InputInt(int &i)
 int CFCInputDlg::InputDouble(double &d)
 {
 	m_im=IM_DOUBLE;
-	m_strInformation="ÇëÊäÈëÒ»¸öÊµÊı£º";
+	m_strInformation="è¯·è¾“å…¥ä¸€ä¸ªå®æ•°ï¼š";
 	int result=CDialog::DoModal();
 	d=m_dInput;
 	return result;
@@ -185,7 +185,7 @@ int CFCInputDlg::InputDouble(double &d)
 int CFCInputDlg::InputString(CString &string)
 {
 	m_im=IM_STRING;
-	m_strInformation="ÇëÊäÈëÒ»ĞĞ×Ö·û´®£º";
+	m_strInformation="è¯·è¾“å…¥ä¸€è¡Œå­—ç¬¦ä¸²ï¼š";
 	int result=CDialog::DoModal();
 	string=m_strInput;
 	return result;

@@ -21,7 +21,7 @@ void CFCView::OnCompileCompile()
 
 	if(GetDocument()->IsModified())
 	{
-		MessageBox("�����ļ�ʧ�ܣ��޷��������", "FC", MB_OK|MB_ICONEXCLAMATION);
+		MessageBox("保存文件失败，无法编译程序！", "FC", MB_OK|MB_ICONEXCLAMATION);
 		return;
 	}
 
@@ -29,9 +29,9 @@ void CFCView::OnCompileCompile()
 	{
 		CString message;
 		if(m_iErrorCount>0)
-			message.Format("Դ�����з��� %d ���﷨�������������Դ���룡",m_iErrorCount);
+			message.Format("源代码中发现 %d 处语法语义错误，请修正源代码！",m_iErrorCount);
 		else
-			message="����ʱ��������������������ṩ����ϵ��";
+			message="编译时本程序发生错误，请与程序提供者联系！";
 		MessageBox(message,"FC",MB_OK|MB_ICONEXCLAMATION);
 		m_bCompiled=FALSE;
 	}
@@ -44,12 +44,12 @@ void CFCView::OnCompileCompile()
 		CString strFCRFile	= GetTempFCRFilePath();
 		if(strTitle!="")
 		{
-			GenerateBinaryFile(strFCRFile, strTitle);//���ɶ����ƿɽ���ִ���ļ�
-			if(m_bGenerateBinary)//���������ƿɽ���ִ���ļ�
+			GenerateBinaryFile(strFCRFile, strTitle);//生成二进制可解释执行文件
+			if(m_bGenerateBinary)//拷贝二进制可解释执行文件
 				::CopyFile(strFCRFile, strPath+".fcr", FALSE);
-			if(m_bGenerateText)//�����ı��ļ�
+			if(m_bGenerateText)//生成文本文件
 				GenerateTextFile(strPath+".txt", strTitle);
-			GenerateExeFile(strPath+".exe", strFCRFile, strTitle);//���ɿ�ִ���ļ�
+			GenerateExeFile(strPath+".exe", strFCRFile, strTitle);//生成可执行文件
 		}
 	}
 }
@@ -105,10 +105,10 @@ void CFCView::OnCompileTranslate()
 	m_bWaitEnd		= dlg.m_bWaitEnd;
 	m_strCppFile	= dlg.m_strObjectFile;
 
-	if(Translate()) // ����ɹ�
+	if(Translate()) // 翻译成功
 	{
 		MessageBox(
-			GetDocument()->GetPathName()+"\n\n�Ѿ��ɹ��ķ��뵽\n\n"+m_strCppFile,
+			GetDocument()->GetPathName()+"\n\n已经成功的翻译到\n\n"+m_strCppFile,
 			"FC",
 			MB_OK|MB_ICONINFORMATION);
 	}

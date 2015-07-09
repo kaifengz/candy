@@ -14,47 +14,47 @@ static char THIS_FILE[] = __FILE__;
 
 BOOL CFCView::GetElement(BOOL bWantFileEnd)
 {
-	BOOL bReportWrongToken=TRUE;//´Ë±ê¼ÇÓÃÓÚ±ÜÃâÁ¬ĞøµÄ±¨¸æ¡°·Ç·¨·ûºÅ¡±
+	BOOL bReportWrongToken=TRUE;//æ­¤æ ‡è®°ç”¨äºé¿å…è¿ç»­çš„æŠ¥å‘Šâ€œéæ³•ç¬¦å·â€
 RestartGetElement:
 	int &iCount=m_iCharCount;
-	while(1)//Ìø¹ı¿Õ¸ñ£¬tab£¬»Ø³µ·û£¬×¢ÊÍ
+	while(1)//è·³è¿‡ç©ºæ ¼ï¼Œtabï¼Œå›è½¦ç¬¦ï¼Œæ³¨é‡Š
 	{
-		if(iCount>=m_nSourceLength)//µ½´ïÔ´´úÂëÎ²
+		if(iCount>=m_nSourceLength)//åˆ°è¾¾æºä»£ç å°¾
 		{
 			m_element=E_FILEEND;
-			if(!bWantFileEnd)//Ô´´úÂë
+			if(!bWantFileEnd)//æºä»£ç 
 			{
 				ErrorReport(ET_SOURCENOEND);
 				return FALSE;
 			}
 			return TRUE;
 		}
-		if( m_source[iCount]==' '  || m_source[iCount]=='\t' || //¿Õ°××Ö·û
-			m_source[iCount]=='\r' || m_source[iCount]=='\n')	//»»ĞĞ×Ö·û
+		if( m_source[iCount]==' '  || m_source[iCount]=='\t' || //ç©ºç™½å­—ç¬¦
+			m_source[iCount]=='\r' || m_source[iCount]=='\n')	//æ¢è¡Œå­—ç¬¦
 				iCount++;
-		else if(m_source[iCount]=='/' && iCount+1<m_nSourceLength) //¿ÉÄÜÎª×¢ÊÍ
+		else if(m_source[iCount]=='/' && iCount+1<m_nSourceLength) //å¯èƒ½ä¸ºæ³¨é‡Š
 		{
-			if(m_source[iCount+1]=='/')//µ¥ĞĞ×¢ÊÍ
+			if(m_source[iCount+1]=='/')//å•è¡Œæ³¨é‡Š
 			{
 				m_comment="//";
 				for(iCount+=2;iCount<m_nSourceLength && m_source[iCount]!='\n';iCount++)
 					m_comment+=m_source[iCount];
-				if(iCount!=m_nSourceLength)//²¢Ã»µ½´ïÔ´ÎÄ¼şÎ²
+				if(iCount!=m_nSourceLength)//å¹¶æ²¡åˆ°è¾¾æºæ–‡ä»¶å°¾
 				{
 					m_comment+="\n";
 					iCount++;
 				}
 			}
-			else if(m_source[iCount+1]=='*')//¶àĞĞ×¢ÊÍ
+			else if(m_source[iCount+1]=='*')//å¤šè¡Œæ³¨é‡Š
 			{
 				m_comment="/*";
 				iCount+=2;
 				while(1)
 				{
-					if(iCount>=m_nSourceLength)//µ½´ïÎÄ¼şÎ²
+					if(iCount>=m_nSourceLength)//åˆ°è¾¾æ–‡ä»¶å°¾
 					{
 						m_element=E_FILEEND;
-						if(!bWantFileEnd)//Ô´´úÂë
+						if(!bWantFileEnd)//æºä»£ç 
 						{
 							ErrorReport(ET_SOURCENOEND);
 							return FALSE;
@@ -63,26 +63,26 @@ RestartGetElement:
 					}
 					m_comment+=m_source[iCount];
 					if(m_source[iCount]=='*' && iCount+1<m_nSourceLength &&
-						m_source[iCount+1]=='/') //µ½´ï×¢ÊÍÎ²
+						m_source[iCount+1]=='/') //åˆ°è¾¾æ³¨é‡Šå°¾
 					{
 						m_comment+="*/";
 						iCount+=2;
-						break;//¶àĞĞ×¢ÊÍ½áÊø
+						break;//å¤šè¡Œæ³¨é‡Šç»“æŸ
 					}
 					iCount++;
 				}
 			}
-			else break;//²»ÊÇ×¢ÊÍ
+			else break;//ä¸æ˜¯æ³¨é‡Š
 		}
-		else break;//²»ÊÇ¿Õ°××Ö·û£¬ÇÒ²»¿ÉÄÜÊÇ×¢ÊÍ
+		else break;//ä¸æ˜¯ç©ºç™½å­—ç¬¦ï¼Œä¸”ä¸å¯èƒ½æ˜¯æ³¨é‡Š
 	}
 	if( (m_source[iCount]>='a' && m_source[iCount]<='z') ||
 		(m_source[iCount]>='A' && m_source[iCount]<='Z') ||
 		m_source[iCount]=='_' )
-////±êÊ¶·û¡¢¹Ø¼ü×Ö¡¢¿âº¯Êı/////////////////////////////////////////////////////
+////æ ‡è¯†ç¬¦ã€å…³é”®å­—ã€åº“å‡½æ•°/////////////////////////////////////////////////////
 	{
 		m_ident="";
-		//»ñÈ¡Á¬ĞøµÄ×ÖÄ¸¡¢Êı×Ö¡¢ÏÂ»®Ïß´®
+		//è·å–è¿ç»­çš„å­—æ¯ã€æ•°å­—ã€ä¸‹åˆ’çº¿ä¸²
 		while(iCount<m_nSourceLength &&
 			  ( (m_source[iCount]>='a' && m_source[iCount]<='z') ||
 				(m_source[iCount]>='A' && m_source[iCount]<='Z') ||
@@ -92,7 +92,7 @@ RestartGetElement:
 			m_ident+=m_source[iCount];
 			iCount++;
 		}
-		if(m_ident.GetLength()>31) //Ö»±£Áô±êÊ¶·ûµÄÇ°31¸ö×Ö·û
+		if(m_ident.GetLength()>31) //åªä¿ç•™æ ‡è¯†ç¬¦çš„å‰31ä¸ªå­—ç¬¦
 			m_ident=m_ident.Left(31);
 		if(GetKeyword())
 			return TRUE;
@@ -102,7 +102,7 @@ RestartGetElement:
 		return TRUE;
 	}
 	if(m_source[iCount]>='0' && m_source[iCount]<='9')
-////Êı/////////////////////////////////////////////////////////////////////////
+////æ•°/////////////////////////////////////////////////////////////////////////
 	{
 		m_int=0;
 		while(iCount<m_nSourceLength && m_source[iCount]>='0' && m_source[iCount]<='9')
@@ -111,14 +111,14 @@ RestartGetElement:
 			m_int+=m_source[iCount]-'0';
 			iCount++;
 		}
-		if(iCount>=m_nSourceLength || m_source[iCount]!='.')//µ½´ïÔ´ÎÄ¼şÎ²»ò²»ÊÇĞ¡Êıµã£¬¼´ÎªÕûÊı
+		if(iCount>=m_nSourceLength || m_source[iCount]!='.')//åˆ°è¾¾æºæ–‡ä»¶å°¾æˆ–ä¸æ˜¯å°æ•°ç‚¹ï¼Œå³ä¸ºæ•´æ•°
 		{
 			m_element=E_INUMBER;
 			return TRUE;
 		}
 		int l=1;
 		m_double=m_int;
-		iCount++;//Ìø¹ıĞ¡ÊıµãiCount<m_nSourceLength && 
+		iCount++;//è·³è¿‡å°æ•°ç‚¹iCount<m_nSourceLength && 
 		while(iCount<m_nSourceLength && m_source[iCount]>='0' && m_source[iCount]<='9')
 		{
 			m_double+=(m_source[iCount]-'0')/pow(10,l);
@@ -129,10 +129,10 @@ RestartGetElement:
 		return TRUE;
 	}
 	if(m_source[iCount]=='\'')
-////×Ö·û///////////////////////////////////////////////////////////////////////
+////å­—ç¬¦///////////////////////////////////////////////////////////////////////
 	{
-		iCount++;//Ìø¹ıµ¥ÒıºÅ
-		if(iCount>=m_nSourceLength || m_source[iCount]=='\r')//Ô´´úÂë½áÊø»òĞĞ½áÊø
+		iCount++;//è·³è¿‡å•å¼•å·
+		if(iCount>=m_nSourceLength || m_source[iCount]=='\r')//æºä»£ç ç»“æŸæˆ–è¡Œç»“æŸ
 		{
 			if(!ErrorReport(ET_WRONGCHARACTER))
 				return FALSE;
@@ -143,7 +143,7 @@ RestartGetElement:
 		if(m_source[iCount]=='\\')
 		{
 			iCount++;
-			if(iCount>=m_nSourceLength || m_source[iCount]=='\r')//Ô´´úÂë½áÊø»òĞĞ½áÊø
+			if(iCount>=m_nSourceLength || m_source[iCount]=='\r')//æºä»£ç ç»“æŸæˆ–è¡Œç»“æŸ
 			{
 				if(!ErrorReport(ET_WRONGCHARACTER))
 					return FALSE;
@@ -158,34 +158,34 @@ RestartGetElement:
 		{
 			m_element=E_CHARACTER;
 			m_char=m_source[iCount];
-			iCount++;//Ìø¹ı×Ö·û
+			iCount++;//è·³è¿‡å­—ç¬¦
 		}
-		if(iCount>=m_nSourceLength || m_source[iCount]!='\'')//Ô´´úÂë½áÊø»ò²»ÊÇµ¥ÒıºÅ
+		if(iCount>=m_nSourceLength || m_source[iCount]!='\'')//æºä»£ç ç»“æŸæˆ–ä¸æ˜¯å•å¼•å·
 		{
 			if(!ErrorReport(ET_WRONGCHARACTER))
 				return FALSE;
 			m_char='\0';
 			return TRUE;
 		}
-		iCount++;//Ìø¹ıµ¥ÒıºÅ
+		iCount++;//è·³è¿‡å•å¼•å·
 		return TRUE;
 	}
 	if(m_source[iCount]=='\"')
-////×Ö·û´®/////////////////////////////////////////////////////////////////////
+////å­—ç¬¦ä¸²/////////////////////////////////////////////////////////////////////
 	{
-		iCount++;//Ìø¹ıË«ÒıºÅ
+		iCount++;//è·³è¿‡åŒå¼•å·
 		m_element=E_STRING;
 		m_string="";
 		while(iCount<m_nSourceLength && m_source[iCount]!='\"')
 		{
-			if(m_source[iCount]=='\\')//×ªÒå×Ö·û
+			if(m_source[iCount]=='\\')//è½¬ä¹‰å­—ç¬¦
 			{
 				iCount++;
 				if(!GetSysChar())
 					return FALSE;
 				m_string+=m_char;
 			}
-			else if(m_source[iCount]=='\r')//ĞĞ½áÊø
+			else if(m_source[iCount]=='\r')//è¡Œç»“æŸ
 			{
 				if(!ErrorReport(ET_STRINGNOEND))
 					return FALSE;
@@ -197,11 +197,11 @@ RestartGetElement:
 				iCount++;
 			}
 		}
-		iCount++;//Ìø¹ıË«ÒıºÅ
+		iCount++;//è·³è¿‡åŒå¼•å·
 		return TRUE;
 	}
 	switch(m_source[iCount])
-////ÔËËã·û/////////////////////////////////////////////////////////////////////
+////è¿ç®—ç¬¦/////////////////////////////////////////////////////////////////////
 	{
 	case '+':
 		iCount++;
@@ -351,7 +351,7 @@ RestartGetElement:
 			return FALSE;
 		bReportWrongToken=FALSE;
 	}
-	//Åöµ½ÎŞ·¨Ê¶±ğµÄ·ûºÅ£¬Ìø¹ıÖ®£¬Ê¹ÓÃgotoÓï¾äÖØĞÂÆô¶¯±¾º¯Êı
+	//ç¢°åˆ°æ— æ³•è¯†åˆ«çš„ç¬¦å·ï¼Œè·³è¿‡ä¹‹ï¼Œä½¿ç”¨gotoè¯­å¥é‡æ–°å¯åŠ¨æœ¬å‡½æ•°
 	iCount++;
 	goto RestartGetElement;
 }

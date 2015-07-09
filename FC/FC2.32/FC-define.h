@@ -19,45 +19,45 @@ typedef ZIdentType	ZIT;
 
 enum ZElement
 {
-	E_FILEEND,		//Ô´´úÂë½áÊø·û
-	E_NULL,			//¿Õ£¬²»ÈÏÊ¶µÄ·ûºÅ
-	E_IDENT,		//±êÊ¶·û
-	E_CHARACTER,	//×Ö·û
-	E_INUMBER,		//ÕûÊý
-	E_DNUMBER,		//ÊµÊý
-	E_STRING,		//×Ö·û´®
-////ÔËËã·û
-	E_PLUS,			//¼Ó
-	E_MINUS,		//¼õ
-	E_TIMES,		//³Ë
-	E_SLASH,		//³ý
-	E_MOD,			//Óà
-	E_PLUSBECOMES,	//¼ÓµÈ
-	E_MINUSBECOMES,	//¼õµÈ
-	E_TIMESBECOMES,	//³ËµÈ
-	E_SLASHBECOMES,	//³ýµÈ
-	E_MODBECOMES,	//ÓàµÈ
-	E_EQUAL,		//µÈÓÚ
-	E_NOTEQUAL,		//²»µÈÓÚ
-	E_LESS,			//Ð¡ÓÚ
-	E_LESSEQUAL,	//Ð¡ÓÚµÈÓÚ
-	E_GREAT,		//´óÓÚ
-	E_GREATEQUAL,	//´óÓÚµÈÓÚ
-	E_BECOMES,		//¸³ÖµºÅ
-	E_NOT,			//·Ç
-	E_AND,			//Óë
-	E_OR,			//»ò
-////½ç·û
-	E_LPAREN,		//×óÔ²À¨ºÅ
-	E_RPAREN,		//ÓÒÔ²À¨ºÅ
-	E_LSUB,			//×ó·½À¨ºÅ
-	E_RSUB,			//ÓÒ·½À¨ºÅ
-	E_BEGIN,		//×ó»¨À¨ºÅ
-	E_END,			//ÓÒ»¨À¨ºÅ
-	E_COMMA,		//¶ººÅ
-	E_COLON,		//Ã°ºÅ
-	E_SEMICOLON,	//·ÖºÅ
-////¹Ø¼ü×Ö
+	E_FILEEND,		//æºä»£ç ç»“æŸç¬¦
+	E_NULL,			//ç©ºï¼Œä¸è®¤è¯†çš„ç¬¦å·
+	E_IDENT,		//æ ‡è¯†ç¬¦
+	E_CHARACTER,	//å­—ç¬¦
+	E_INUMBER,		//æ•´æ•°
+	E_DNUMBER,		//å®žæ•°
+	E_STRING,		//å­—ç¬¦ä¸²
+////è¿ç®—ç¬¦
+	E_PLUS,			//åŠ 
+	E_MINUS,		//å‡
+	E_TIMES,		//ä¹˜
+	E_SLASH,		//é™¤
+	E_MOD,			//ä½™
+	E_PLUSBECOMES,	//åŠ ç­‰
+	E_MINUSBECOMES,	//å‡ç­‰
+	E_TIMESBECOMES,	//ä¹˜ç­‰
+	E_SLASHBECOMES,	//é™¤ç­‰
+	E_MODBECOMES,	//ä½™ç­‰
+	E_EQUAL,		//ç­‰äºŽ
+	E_NOTEQUAL,		//ä¸ç­‰äºŽ
+	E_LESS,			//å°äºŽ
+	E_LESSEQUAL,	//å°äºŽç­‰äºŽ
+	E_GREAT,		//å¤§äºŽ
+	E_GREATEQUAL,	//å¤§äºŽç­‰äºŽ
+	E_BECOMES,		//èµ‹å€¼å·
+	E_NOT,			//éž
+	E_AND,			//ä¸Ž
+	E_OR,			//æˆ–
+////ç•Œç¬¦
+	E_LPAREN,		//å·¦åœ†æ‹¬å·
+	E_RPAREN,		//å³åœ†æ‹¬å·
+	E_LSUB,			//å·¦æ–¹æ‹¬å·
+	E_RSUB,			//å³æ–¹æ‹¬å·
+	E_BEGIN,		//å·¦èŠ±æ‹¬å·
+	E_END,			//å³èŠ±æ‹¬å·
+	E_COMMA,		//é€—å·
+	E_COLON,		//å†’å·
+	E_SEMICOLON,	//åˆ†å·
+////å…³é”®å­—
 	E_BREAK,		//break
 	E_CASE,			//case
 	E_CHAR,			//char
@@ -76,8 +76,8 @@ enum ZElement
 	E_SWITCH,		//switch
 	E_VOID,			//void
 	E_WHILE,		//while
-////¿âº¯Êý
-	////ÊýÑ§¿â
+////åº“å‡½æ•°
+	////æ•°å­¦åº“
 	E_ABS,			//abs
 	E_ARCCOS,		//arccos
 	E_ARCCTG,		//arcctg
@@ -96,13 +96,13 @@ enum ZElement
 	E_SQRT,			//sqrt
 	E_TG,			//tg
 	E_TH,			//th
-	////×Ö·û´®
+	////å­—ç¬¦ä¸²
 	E_STRCMP,		//strcmp
 	E_STRCPY,		//strcpy
 	E_STRLEN,		//strlen
 	E_STRLWR,		//strlwr
 	E_STRUPR,		//strupr
-	////Êý×é
+	////æ•°ç»„
 	E_AVERAGE,		//average
 	E_DOWNSORT,		//downsort
 	E_MAX,			//min
@@ -113,162 +113,162 @@ enum ZElement
 
 enum ZErrorType
 {
-	ET_DEFINEDFUNCTION,	//º¯ÊýÒÑ¾­¶¨Òå
-	ET_DEFINEDIDENT,	//±êÊ¶·ûÒÑ¾­¶¨Òå
-	ET_DIFPARAMNUM,		//º¯Êý²ÎÊýÊýÄ¿ÓëÔ¤¶¨ÒåÊ±²»ÏàÍ¬
-	ET_DIFPARAMTYPE,	//º¯Êý²ÎÊýÀàÐÍÓëÔ¤¶¨ÒåÊ±²»ÏàÍ¬
-	ET_DIFRETURNTYPE,	//º¯Êý·µ»ØÀàÐÍÓëÔ¤¶¨ÒåÊ±²»ÏàÍ¬
-	ET_DONOWHILE,		//do-whileÑ­»·Óï¾äÈ±ÉÙwhile
-	ET_DOUBLEMOD,		//¸¡µãÊý²Î¼ÓÇóÄ£ÔËËã
-	ET_DOUBLESUB,		//ÊµÊý£¨»òÊµÊý±í´ïÊ½£©×÷ÎªÊý×éÏÂ±ê
-	ET_DOUBLESWITCH,	//¸¡µãÊýÓÃÓÚÑ¡ÔñÓï¾ä
-	ET_EMPTYSTATE,		//²»ÄÜÓÐ¿ÕÓï¾ä
-	ET_FUNCTIONUS,		//´æÔÚÃ»ÓÐÊµÏÖµÄº¯Êý
-	ET_INPUTNACARRAY,	//ÎÞ·¨ÊäÈë·Ç×Ö·ûÊý×é
-	ET_LONGSTR2ARRAY,	//ÓÃÓÚ³õÊ¼»¯×Ö·ûÊý×éµÄ×Ö·û´®Ì«³¤
-	ET_MISSBEGIN,		//È±ÉÙ×óÀ¨ºÅ¡°{¡±
-	ET_MISSCOLON,		//È±ÉÙÃ°ºÅ¡°:¡±
-	ET_MISSCOMMA,		//È±ÉÙ¶ººÅ¡°,¡±
-	ET_MISSEND,			//È±ÉÙÓÒÀ¨ºÅ¡°}¡±
-	ET_MISSIDENT,		//È±ÉÙ±êÊ¶·û
-	ET_MISSLPAREN,		//È±ÉÙ×óÀ¨ºÅ¡°(¡±
-	ET_MISSLSUB,		//È±ÉÙ×óÀ¨ºÅ¡°[¡±
-	ET_MISSRPAREN,		//È±ÉÙÓÒÀ¨ºÅ¡°)¡±
-	ET_MISSRSUB,		//È±ÉÙÓÒÀ¨ºÅ¡°]¡±
-	ET_MISSSEMICOLON,	//È±ÉÙ·ÖºÅ¡°;¡±
-	ET_MUSTCHANGETYPE,	//±ØÐë½øÐÐÇ¿ÖÆÀàÐÍ×ª»»
-	ET_MUSTRETURNVALUE,	//·µ»ØÀàÐÍ·Çvoidº¯Êý±ØÐëÓÐ·µ»ØÖµ
-	ET_NOARRIDENTARR,	//°Ñ²»ÊÇÊý×éµÄ±êÊ¶·û×÷ÎªÊý×é²Ù×÷
-	ET_NOMAIN,			//ÕÒ²»µ½mainº¯Êý
-	ET_NOVOIDMAIN,		//mainº¯Êý·µ»ØÀàÐÍ²»ÊÇvoid
-	ET_PARAMMAIN,		//mainº¯Êý´øÓÐ²ÎÊý
-	ET_OUTPUTNCARRAY,	//Êä³öµÄÊý×é²»ÊÇ×Ö·ûÊý×é
-	ET_SOURCENOEND,		//Ô´´úÂëÒì³£½áÊø
-	ET_STRINGNOEND,		//×Ö·û´®Òì³£½áÊø
-	ET_UNKNOWNARRAYSIZE,//Î´ÖªµÄÊý×é³¤¶È
-	ET_UNKNOWNERROR,	//Î´ÖªµÄÓï·¨ÓïÒå´íÎó
-	ET_UNKNOWNFUNCDEF,	//Î´ÖªµÄº¯Êý¶¨ÒåÐÎÊ½
-	ET_UNKNOWNIDENT,	//Î´¶¨ÒåµÄ±êÊ¶·û
-	ET_UNKNOWNOP,		//Î´ÖªµÄ²Ù×÷
-	ET_UNKNOWNSTATE,	//Î´ÖªµÄÓï¾äÐÎÊ½
-	ET_UNKNOWNSYSCHAR,	//Î´ÖªµÄ×ªÒå×Ö·û
-	ET_UNKNOWNTOKEN,	//·Ç·¨·ûºÅ
-	ET_VOIDIDENT,		//±êÊ¶·ûÀàÐÍÎªvoid
-	ET_VOIDINEXPRESSION,//±í´ïÊ½ÖÐµ÷ÓÃÁË·µ»ØÀàÐÍÎªvoidµÄº¯Êý
-	ET_VOIDRETURNVALUE,	//·µ»ØÀàÐÍÎªvoidµÄº¯Êý²»ÄÜÓÐ·µ»ØÖµ
-	ET_WRONGBREAK,		//´íÎóµÄbreakÓï¾ä
-	ET_WRONGCHARACTER,	//´íÎóµÄ×Ö·û±íÊ¾
-	ET_WRONGCONTINUE,	//´íÎóµÄcontinueÓï¾ä
-	ET_WRONGIDENTTYPE,	//´íÎóµÄ±äÁ¿ÀàÐÍ
-	ET_WRONGINIT,		//´íÎóµÄ±äÁ¿»òÊý×é³õÊ¼»¯
-	ET_WRONGPARAMNUM,	//º¯Êýµ÷ÓÃÊ±²ÎÊýÊýÄ¿²»ÕýÈ·
-	ET_WRONGPARAMTYPE,	//º¯Êýµ÷ÓÃÊ±²ÎÊýÀàÐÍ²»ÕýÈ·
-	ET_WRONGRETURNTYPE,	//´íÎóµÄº¯Êý·µ»ØÀàÐÍ
+	ET_DEFINEDFUNCTION,	//å‡½æ•°å·²ç»å®šä¹‰
+	ET_DEFINEDIDENT,	//æ ‡è¯†ç¬¦å·²ç»å®šä¹‰
+	ET_DIFPARAMNUM,		//å‡½æ•°å‚æ•°æ•°ç›®ä¸Žé¢„å®šä¹‰æ—¶ä¸ç›¸åŒ
+	ET_DIFPARAMTYPE,	//å‡½æ•°å‚æ•°ç±»åž‹ä¸Žé¢„å®šä¹‰æ—¶ä¸ç›¸åŒ
+	ET_DIFRETURNTYPE,	//å‡½æ•°è¿”å›žç±»åž‹ä¸Žé¢„å®šä¹‰æ—¶ä¸ç›¸åŒ
+	ET_DONOWHILE,		//do-whileå¾ªçŽ¯è¯­å¥ç¼ºå°‘while
+	ET_DOUBLEMOD,		//æµ®ç‚¹æ•°å‚åŠ æ±‚æ¨¡è¿ç®—
+	ET_DOUBLESUB,		//å®žæ•°ï¼ˆæˆ–å®žæ•°è¡¨è¾¾å¼ï¼‰ä½œä¸ºæ•°ç»„ä¸‹æ ‡
+	ET_DOUBLESWITCH,	//æµ®ç‚¹æ•°ç”¨äºŽé€‰æ‹©è¯­å¥
+	ET_EMPTYSTATE,		//ä¸èƒ½æœ‰ç©ºè¯­å¥
+	ET_FUNCTIONUS,		//å­˜åœ¨æ²¡æœ‰å®žçŽ°çš„å‡½æ•°
+	ET_INPUTNACARRAY,	//æ— æ³•è¾“å…¥éžå­—ç¬¦æ•°ç»„
+	ET_LONGSTR2ARRAY,	//ç”¨äºŽåˆå§‹åŒ–å­—ç¬¦æ•°ç»„çš„å­—ç¬¦ä¸²å¤ªé•¿
+	ET_MISSBEGIN,		//ç¼ºå°‘å·¦æ‹¬å·â€œ{â€
+	ET_MISSCOLON,		//ç¼ºå°‘å†’å·â€œ:â€
+	ET_MISSCOMMA,		//ç¼ºå°‘é€—å·â€œ,â€
+	ET_MISSEND,			//ç¼ºå°‘å³æ‹¬å·â€œ}â€
+	ET_MISSIDENT,		//ç¼ºå°‘æ ‡è¯†ç¬¦
+	ET_MISSLPAREN,		//ç¼ºå°‘å·¦æ‹¬å·â€œ(â€
+	ET_MISSLSUB,		//ç¼ºå°‘å·¦æ‹¬å·â€œ[â€
+	ET_MISSRPAREN,		//ç¼ºå°‘å³æ‹¬å·â€œ)â€
+	ET_MISSRSUB,		//ç¼ºå°‘å³æ‹¬å·â€œ]â€
+	ET_MISSSEMICOLON,	//ç¼ºå°‘åˆ†å·â€œ;â€
+	ET_MUSTCHANGETYPE,	//å¿…é¡»è¿›è¡Œå¼ºåˆ¶ç±»åž‹è½¬æ¢
+	ET_MUSTRETURNVALUE,	//è¿”å›žç±»åž‹éžvoidå‡½æ•°å¿…é¡»æœ‰è¿”å›žå€¼
+	ET_NOARRIDENTARR,	//æŠŠä¸æ˜¯æ•°ç»„çš„æ ‡è¯†ç¬¦ä½œä¸ºæ•°ç»„æ“ä½œ
+	ET_NOMAIN,			//æ‰¾ä¸åˆ°mainå‡½æ•°
+	ET_NOVOIDMAIN,		//mainå‡½æ•°è¿”å›žç±»åž‹ä¸æ˜¯void
+	ET_PARAMMAIN,		//mainå‡½æ•°å¸¦æœ‰å‚æ•°
+	ET_OUTPUTNCARRAY,	//è¾“å‡ºçš„æ•°ç»„ä¸æ˜¯å­—ç¬¦æ•°ç»„
+	ET_SOURCENOEND,		//æºä»£ç å¼‚å¸¸ç»“æŸ
+	ET_STRINGNOEND,		//å­—ç¬¦ä¸²å¼‚å¸¸ç»“æŸ
+	ET_UNKNOWNARRAYSIZE,//æœªçŸ¥çš„æ•°ç»„é•¿åº¦
+	ET_UNKNOWNERROR,	//æœªçŸ¥çš„è¯­æ³•è¯­ä¹‰é”™è¯¯
+	ET_UNKNOWNFUNCDEF,	//æœªçŸ¥çš„å‡½æ•°å®šä¹‰å½¢å¼
+	ET_UNKNOWNIDENT,	//æœªå®šä¹‰çš„æ ‡è¯†ç¬¦
+	ET_UNKNOWNOP,		//æœªçŸ¥çš„æ“ä½œ
+	ET_UNKNOWNSTATE,	//æœªçŸ¥çš„è¯­å¥å½¢å¼
+	ET_UNKNOWNSYSCHAR,	//æœªçŸ¥çš„è½¬ä¹‰å­—ç¬¦
+	ET_UNKNOWNTOKEN,	//éžæ³•ç¬¦å·
+	ET_VOIDIDENT,		//æ ‡è¯†ç¬¦ç±»åž‹ä¸ºvoid
+	ET_VOIDINEXPRESSION,//è¡¨è¾¾å¼ä¸­è°ƒç”¨äº†è¿”å›žç±»åž‹ä¸ºvoidçš„å‡½æ•°
+	ET_VOIDRETURNVALUE,	//è¿”å›žç±»åž‹ä¸ºvoidçš„å‡½æ•°ä¸èƒ½æœ‰è¿”å›žå€¼
+	ET_WRONGBREAK,		//é”™è¯¯çš„breakè¯­å¥
+	ET_WRONGCHARACTER,	//é”™è¯¯çš„å­—ç¬¦è¡¨ç¤º
+	ET_WRONGCONTINUE,	//é”™è¯¯çš„continueè¯­å¥
+	ET_WRONGIDENTTYPE,	//é”™è¯¯çš„å˜é‡ç±»åž‹
+	ET_WRONGINIT,		//é”™è¯¯çš„å˜é‡æˆ–æ•°ç»„åˆå§‹åŒ–
+	ET_WRONGPARAMNUM,	//å‡½æ•°è°ƒç”¨æ—¶å‚æ•°æ•°ç›®ä¸æ­£ç¡®
+	ET_WRONGPARAMTYPE,	//å‡½æ•°è°ƒç”¨æ—¶å‚æ•°ç±»åž‹ä¸æ­£ç¡®
+	ET_WRONGRETURNTYPE,	//é”™è¯¯çš„å‡½æ•°è¿”å›žç±»åž‹
 };
 
-//49¸öÁã²Ù×÷Êý²Ù×÷·û
-//77¸öµ¥ÕûÊý²Ù×÷Êý²Ù×÷·û
-// 1¸öµ¥×Ö·û²Ù×÷Êý²Ù×÷·û
-// 1¸öµ¥ÊµÊý²Ù×÷Êý²Ù×÷·û
-// 2¸ö×Ö·û´®µ¥²Ù×÷Êý²Ù×÷·û
-// 9¸öË«ÕûÊý²Ù×÷Êý²Ù×÷·û
-// 1¸öÕûÊý×Ö·û´®Ë«²Ù×÷Êý²Ù×÷·û
-//×Ü¹²140¸ö²Ù×÷·û
+//49ä¸ªé›¶æ“ä½œæ•°æ“ä½œç¬¦
+//77ä¸ªå•æ•´æ•°æ“ä½œæ•°æ“ä½œç¬¦
+// 1ä¸ªå•å­—ç¬¦æ“ä½œæ•°æ“ä½œç¬¦
+// 1ä¸ªå•å®žæ•°æ“ä½œæ•°æ“ä½œç¬¦
+// 2ä¸ªå­—ç¬¦ä¸²å•æ“ä½œæ•°æ“ä½œç¬¦
+// 9ä¸ªåŒæ•´æ•°æ“ä½œæ•°æ“ä½œç¬¦
+// 1ä¸ªæ•´æ•°å­—ç¬¦ä¸²åŒæ“ä½œæ•°æ“ä½œç¬¦
+//æ€»å…±140ä¸ªæ“ä½œç¬¦
 enum ZOperator
 {
-	OP_C2D,				//ÀàÐÍ×ª»» char => double	£¨sd.iNumberÎªµØÖ·Æ«ÒÆÁ¿£©
-	OP_C2I,				//ÀàÐÍ×ª»» char => int		£¨sd.iNumberÎªµØÖ·Æ«ÒÆÁ¿£©
-	OP_CALL,			//º¯Êýµ÷ÓÃ£¨sdÎªº¯ÊýµØÖ·£©
-	OP_CHANGESIGNALC,	//¸Ä±ä×Ö·û·ûºÅ
-	OP_CHANGESIGNALD,	//¸Ä±äÊµÊý·ûºÅ
-	OP_CHANGESIGNALI,	//¸Ä±äÕûÊý·ûºÅ
-	OP_COPYI,			//¸´ÖÆÕ»¶¥ÊýÖµ£¨ÕûÊý£©
-	OP_D2C,				//ÀàÐÍ×ª»» double => char	£¨sd.iNumberÎªµØÖ·Æ«ÒÆÁ¿£©
-	OP_D2I,				//ÀàÐÍ×ª»» double => int	£¨sd.iNumberÎªµØÖ·Æ«ÒÆÁ¿£©
-	OP_DELARRAYC,		//É¾³ýÒ»¸ö×Ö·ûÊý×é£¨sdÎªÊý×éµØÖ·£©
-	OP_DELARRAYD,		//É¾³ýÒ»¸öÊµÊýÊý×é£¨sdÎªÊý×éµØÖ·£©
-	OP_DELARRAYI,		//É¾³ýÒ»¸öÕûÊýÊý×é£¨sdÎªÊý×éµØÖ·£©
-	OP_DELETEC,			//É¾³ýÕ»¶¥×Ö·û
-	OP_DELETED,			//É¾³ýÕ»¶¥ÊµÊý
-	OP_DELETEI,			//É¾³ýÕ»¶¥ÕûÊý
-	OP_EQUALC,			//µÈÓÚ£¨sd.iNumberÎªÌõ¼þÂú×ãÊ±µÄÌø×ªµØÖ·£©
-	OP_EQUALD,			//µÈÓÚ£¨sd.iNumberÎªÌõ¼þÂú×ãÊ±µÄÌø×ªµØÖ·£©
-	OP_EQUALI,			//µÈÓÚ£¨sd.iNumberÎªÌõ¼þÂú×ãÊ±µÄÌø×ªµØÖ·£©
-	OP_EXIT,			//³ÌÐò½áÊø
-	OP_FUNCTIONSTART,	//º¯Êý¿ªÊ¼±êÖ¾£¨sd.iNumberÎª±äÁ¿²ÎÊýËùÐèµÄ×î´óÄÚ´æ£©
-	OP_GREATC,			//´óÓÚ£¨sd.iNumberÎªÌõ¼þÂú×ãÊ±µÄÌø×ªµØÖ·£©
-	OP_GREATD,			//´óÓÚ£¨sd.iNumberÎªÌõ¼þÂú×ãÊ±µÄÌø×ªµØÖ·£©
-	OP_GREATEQUALC,		//´óÓÚµÈÓÚ£¨sd.iNumberÎªÌõ¼þÂú×ãÊ±µÄÌø×ªµØÖ·£©
-	OP_GREATEQUALD,		//´óÓÚµÈÓÚ£¨sd.iNumberÎªÌõ¼þÂú×ãÊ±µÄÌø×ªµØÖ·£©
-	OP_GREATEQUALI,		//´óÓÚµÈÓÚ£¨sd.iNumberÎªÌõ¼þÂú×ãÊ±µÄÌø×ªµØÖ·£©
-	OP_GREATI,			//´óÓÚ£¨sd.iNumberÎªÌõ¼þÂú×ãÊ±µÄÌø×ªµØÖ·£©
-	OP_I2C,				//ÀàÐÍ×ª»» int => char	£¨sd.iNumberÎªµØÖ·Æ«ÒÆÁ¿£©
-	OP_I2D,				//ÀàÐÍ×ª»» int => double£¨sd.iNumberÎªµØÖ·Æ«ÒÆÁ¿£©
-	OP_INPUTARRAYC,		//ÊäÈë×Ö·ûÊý×éÖµ£¨sd.iNumberÎªÊý×éµØÖ·£¬ÏÂ±êÔÚÕ»¶¥£©
-	OP_INPUTARRAYD,		//ÊäÈëÊµÐÍÊý×éÖµ£¨sd.iNumberÎªÊý×éµØÖ·£¬ÏÂ±êÔÚÕ»¶¥£©
-	OP_INPUTARRAYI,		//ÊäÈëÕûÐÍÊý×éÖµ£¨sd.iNumberÎªÊý×éµØÖ·£¬ÏÂ±êÔÚÕ»¶¥£©
-	OP_INPUTC,			//ÊäÈë×Ö·û£¨sd.iNumberÎªµØÖ·£©
-	OP_INPUTCA,			//ÊäÈë×Ö·ûÊý×é£¨sd.iNumberÎªÊý×éµØÖ·£©
-	OP_INPUTD,			//ÊäÈëÊµÊý£¨sd.iNumberÎªµØÖ·£©
-	OP_INPUTI,			//ÊäÈëÕûÊý£¨sd.iNumberÎªµØÖ·£©
-	OP_JUMP,			//ÎÞÌõ¼þÌø×ª£¨sdÎªÌø×ªµØÖ·£©
-	OP_LESSC,			//Ð¡ÓÚ£¨sd.iNumberÎªÌõ¼þÂú×ãÊ±µÄÌø×ªµØÖ·£©
-	OP_LESSD,			//Ð¡ÓÚ£¨sd.iNumberÎªÌõ¼þÂú×ãÊ±µÄÌø×ªµØÖ·£©
-	OP_LESSEQUALC,		//Ð¡ÓÚµÈÓÚ£¨sd.iNumberÎªÌõ¼þÂú×ãÊ±µÄÌø×ªµØÖ·£©
-	OP_LESSEQUALD,		//Ð¡ÓÚµÈÓÚ£¨sd.iNumberÎªÌõ¼þÂú×ãÊ±µÄÌø×ªµØÖ·£©
-	OP_LESSEQUALI,		//Ð¡ÓÚµÈÓÚ£¨sd.iNumberÎªÌõ¼þÂú×ãÊ±µÄÌø×ªµØÖ·£©
-	OP_LESSI,			//Ð¡ÓÚ£¨sd.iNumberÎªÌõ¼þÂú×ãÊ±µÄÌø×ªµØÖ·£©
-	OP_LOADARRAY,		//µ¼ÈëÊý×éµØÖ·£¨sd.iNumberÎªÊý×éÍ·µØÖ·£©
-	OP_LOADARRAYC,		//µ¼Èë×Ö·ûÊý×éÖµ£¨sd.iNumberÎªÊý×éÍ·µØÖ·£¬ÏÂ±êÔÚÕ»¶¥
-	OP_LOADARRAYD,		//µ¼ÈëÊµÊýÊý×éÖµ£¨sd.iNumberÎªÊý×éÍ·µØÖ·£¬ÏÂ±êÔÚÕ»¶¥£©
-	OP_LOADARRAYI,		//µ¼ÈëÕûÊýÊý×éÖµ£¨sd.iNumberÎªÊý×éÍ·µØÖ·£¬ÏÂ±êÔÚÕ»¶¥£©
-	OP_LOADCONSTC,		//µ¼Èë×Ö·û³£Êý	£¨sdÎª²ÎÊý£©
-	OP_LOADCONSTD,		//µ¼ÈëÊµ³£Êý	£¨sdÎª²ÎÊý£©
-	OP_LOADCONSTI,		//µ¼ÈëÕû³£Êý	£¨sdÎª²ÎÊý£©
-	OP_LOADVARC,		//µ¼Èë×Ö·û£¨sd.iNumberÎªµØÖ·£©
-	OP_LOADVARD,		//µ¼ÈëÊµÊý£¨sd.iNumberÎªµØÖ·£©
-	OP_LOADVARI,		//µ¼ÈëÕûÊý£¨sd.iNumberÎªµØÖ·£©
-	OP_MINUSC,			//¼õ£¨×Ö·û£©
-	OP_MINUSD,			//¼õ£¨ÊµÊý£©
-	OP_MINUSI,			//¼õ£¨ÕûÊý£©
-	OP_MODC,			//Óà£¨×Ö·û£©
-	OP_MODI,			//Óà£¨ÕûÊý£©
-	OP_NEWARRAYC,		//ÉêÇëÒ»¸ö×Ö·ûÊý×é£¨sd.iNumberÎªÊý×éÍ·µØÖ·£¬sd.iNumber2Îª³¤¶È£©
-	OP_NEWARRAYD,		//ÉêÇëÒ»¸öÊµÊýÊý×é£¨sd.iNumberÎªÊý×éÍ·µØÖ·£¬sd.iNumber2Îª³¤¶È£©
-	OP_NEWARRAYI,		//ÉêÇëÒ»¸öÕûÊýÊý×é£¨sd.iNumberÎªÊý×éÍ·µØÖ·£¬sd.iNumber2Îª³¤¶È£©
-	OP_NOTEQUALC,		//²»µÈÓÚ£¨sd.iNumberÎªÌõ¼þÂú×ãÊ±µÄÌø×ªµØÖ·£©
-	OP_NOTEQUALD,		//²»µÈÓÚ£¨sd.iNumberÎªÌõ¼þÂú×ãÊ±µÄÌø×ªµØÖ·£©
-	OP_NOTEQUALI,		//²»µÈÓÚ£¨sd.iNumberÎªÌõ¼þÂú×ãÊ±µÄÌø×ªµØÖ·£©
-	OP_NULL,			//¿Õ²Ù×÷
-	OP_OUTPUTC,			//Êä³ö×Ö·û
-	OP_OUTPUTCA,		//Êä³ö×Ö·ûÊý×é£¨sdÎª×Ö·ûÊý×éµØÖ·£©
-	OP_OUTPUTD,			//Êä³öÊµÊý
-	OP_OUTPUTI,			//Êä³öÕûÊý
-	OP_OUTPUTS,			//Êä³ö×Ö·û´®£¨sdÎª×Ö·û´®ÊµµØÖ·£©
-	OP_PARAMTRANSA,		//Êý×é²ÎÊý´«µÝ£¨sd.iNumberÎªµØÖ·£¬sd.iNumber2ÎªÆ«ÒÆÁ¿£©
-	OP_PARAMTRANSC,		//×Ö·û²ÎÊý´«µÝ£¨sd.iNumberÎªµØÖ·£¬sd.iNumber2ÎªÆ«ÒÆÁ¿£©
-	OP_PARAMTRANSD,		//ÊµÊý²ÎÊý´«µÝ£¨sd.iNumberÎªµØÖ·£¬sd.iNumber2ÎªÆ«ÒÆÁ¿£©
-	OP_PARAMTRANSI,		//ÕûÊý²ÎÊý´«µÝ£¨sd.iNumberÎªµØÖ·£¬sd.iNumber2ÎªÆ«ÒÆÁ¿£©
-	OP_PLUSC,			//¼Ó£¨×Ö·û£©
-	OP_PLUSD,			//¼Ó£¨ÊµÊý£©
-	OP_PLUSI,			//¼Ó£¨ÕûÊý£©
-	OP_RETURN,			//void	º¯Êý·µ»Ø£¨sd.iNumberÎªÆ«ÒÆÁ¿£©
-	OP_RETURNC,			//char	º¯Êý·µ»Ø£¨sd.iNumberÎªÆ«ÒÆÁ¿£©
-	OP_RETURND,			//int	º¯Êý·µ»Ø£¨sd.iNumberÎªÆ«ÒÆÁ¿£©
-	OP_RETURNI,			//doubleº¯Êý·µ»Ø£¨sd.iNumberÎªÆ«ÒÆÁ¿£©
-	OP_SAVEARRAYC,		//´æ´¢×Ö·ûÊý×éÖµ£¨sd.iNumberÎªÊý×éµØÖ·£¬ÊýÖµÔÚÕ»¶¥£¬ÏÂ±êÔÚÕ»´Î¶¥£©
-	OP_SAVEARRAYD,		//´æ´¢ÊµÊýÊý×éÖµ£¨sd.iNumberÎªÊý×éµØÖ·£¬ÊýÖµÔÚÕ»¶¥£¬ÏÂ±êÔÚÕ»´Î¶¥£©
-	OP_SAVEARRAYI,		//´æ´¢ÕûÊýÊý×éÖµ£¨sd.iNumberÎªÊý×éµØÖ·£¬ÊýÖµÔÚÕ»¶¥£¬ÏÂ±êÔÚÕ»´Î¶¥£©
-	OP_SAVEC,			//±£´æ×Ö·û±äÁ¿£¨sdÎª±äÁ¿µØÖ·£©
-	OP_SAVED,			//±£´æÊµÊý±äÁ¿£¨sdÎª±äÁ¿µØÖ·£©
-	OP_SAVEI,			//±£´æÕûÊý±äÁ¿£¨sdÎª±äÁ¿µØÖ·£©
-	OP_SLASHC,			//³ý£¨×Ö·û£©
-	OP_SLASHD,			//³ý£¨ÊµÊý£©
-	OP_SLASHI,			//³ý£¨ÕûÊý£©
-	OP_TIMESC,			//³Ë£¨×Ö·û£©
-	OP_TIMESD,			//³Ë£¨ÊµÊý£©
-	OP_TIMESI,			//³Ë£¨ÕûÊý£©
-//////¿âº¯Êýµ÷ÓÃ²Ù×÷·û
+	OP_C2D,				//ç±»åž‹è½¬æ¢ char => double	ï¼ˆsd.iNumberä¸ºåœ°å€åç§»é‡ï¼‰
+	OP_C2I,				//ç±»åž‹è½¬æ¢ char => int		ï¼ˆsd.iNumberä¸ºåœ°å€åç§»é‡ï¼‰
+	OP_CALL,			//å‡½æ•°è°ƒç”¨ï¼ˆsdä¸ºå‡½æ•°åœ°å€ï¼‰
+	OP_CHANGESIGNALC,	//æ”¹å˜å­—ç¬¦ç¬¦å·
+	OP_CHANGESIGNALD,	//æ”¹å˜å®žæ•°ç¬¦å·
+	OP_CHANGESIGNALI,	//æ”¹å˜æ•´æ•°ç¬¦å·
+	OP_COPYI,			//å¤åˆ¶æ ˆé¡¶æ•°å€¼ï¼ˆæ•´æ•°ï¼‰
+	OP_D2C,				//ç±»åž‹è½¬æ¢ double => char	ï¼ˆsd.iNumberä¸ºåœ°å€åç§»é‡ï¼‰
+	OP_D2I,				//ç±»åž‹è½¬æ¢ double => int	ï¼ˆsd.iNumberä¸ºåœ°å€åç§»é‡ï¼‰
+	OP_DELARRAYC,		//åˆ é™¤ä¸€ä¸ªå­—ç¬¦æ•°ç»„ï¼ˆsdä¸ºæ•°ç»„åœ°å€ï¼‰
+	OP_DELARRAYD,		//åˆ é™¤ä¸€ä¸ªå®žæ•°æ•°ç»„ï¼ˆsdä¸ºæ•°ç»„åœ°å€ï¼‰
+	OP_DELARRAYI,		//åˆ é™¤ä¸€ä¸ªæ•´æ•°æ•°ç»„ï¼ˆsdä¸ºæ•°ç»„åœ°å€ï¼‰
+	OP_DELETEC,			//åˆ é™¤æ ˆé¡¶å­—ç¬¦
+	OP_DELETED,			//åˆ é™¤æ ˆé¡¶å®žæ•°
+	OP_DELETEI,			//åˆ é™¤æ ˆé¡¶æ•´æ•°
+	OP_EQUALC,			//ç­‰äºŽï¼ˆsd.iNumberä¸ºæ¡ä»¶æ»¡è¶³æ—¶çš„è·³è½¬åœ°å€ï¼‰
+	OP_EQUALD,			//ç­‰äºŽï¼ˆsd.iNumberä¸ºæ¡ä»¶æ»¡è¶³æ—¶çš„è·³è½¬åœ°å€ï¼‰
+	OP_EQUALI,			//ç­‰äºŽï¼ˆsd.iNumberä¸ºæ¡ä»¶æ»¡è¶³æ—¶çš„è·³è½¬åœ°å€ï¼‰
+	OP_EXIT,			//ç¨‹åºç»“æŸ
+	OP_FUNCTIONSTART,	//å‡½æ•°å¼€å§‹æ ‡å¿—ï¼ˆsd.iNumberä¸ºå˜é‡å‚æ•°æ‰€éœ€çš„æœ€å¤§å†…å­˜ï¼‰
+	OP_GREATC,			//å¤§äºŽï¼ˆsd.iNumberä¸ºæ¡ä»¶æ»¡è¶³æ—¶çš„è·³è½¬åœ°å€ï¼‰
+	OP_GREATD,			//å¤§äºŽï¼ˆsd.iNumberä¸ºæ¡ä»¶æ»¡è¶³æ—¶çš„è·³è½¬åœ°å€ï¼‰
+	OP_GREATEQUALC,		//å¤§äºŽç­‰äºŽï¼ˆsd.iNumberä¸ºæ¡ä»¶æ»¡è¶³æ—¶çš„è·³è½¬åœ°å€ï¼‰
+	OP_GREATEQUALD,		//å¤§äºŽç­‰äºŽï¼ˆsd.iNumberä¸ºæ¡ä»¶æ»¡è¶³æ—¶çš„è·³è½¬åœ°å€ï¼‰
+	OP_GREATEQUALI,		//å¤§äºŽç­‰äºŽï¼ˆsd.iNumberä¸ºæ¡ä»¶æ»¡è¶³æ—¶çš„è·³è½¬åœ°å€ï¼‰
+	OP_GREATI,			//å¤§äºŽï¼ˆsd.iNumberä¸ºæ¡ä»¶æ»¡è¶³æ—¶çš„è·³è½¬åœ°å€ï¼‰
+	OP_I2C,				//ç±»åž‹è½¬æ¢ int => char	ï¼ˆsd.iNumberä¸ºåœ°å€åç§»é‡ï¼‰
+	OP_I2D,				//ç±»åž‹è½¬æ¢ int => doubleï¼ˆsd.iNumberä¸ºåœ°å€åç§»é‡ï¼‰
+	OP_INPUTARRAYC,		//è¾“å…¥å­—ç¬¦æ•°ç»„å€¼ï¼ˆsd.iNumberä¸ºæ•°ç»„åœ°å€ï¼Œä¸‹æ ‡åœ¨æ ˆé¡¶ï¼‰
+	OP_INPUTARRAYD,		//è¾“å…¥å®žåž‹æ•°ç»„å€¼ï¼ˆsd.iNumberä¸ºæ•°ç»„åœ°å€ï¼Œä¸‹æ ‡åœ¨æ ˆé¡¶ï¼‰
+	OP_INPUTARRAYI,		//è¾“å…¥æ•´åž‹æ•°ç»„å€¼ï¼ˆsd.iNumberä¸ºæ•°ç»„åœ°å€ï¼Œä¸‹æ ‡åœ¨æ ˆé¡¶ï¼‰
+	OP_INPUTC,			//è¾“å…¥å­—ç¬¦ï¼ˆsd.iNumberä¸ºåœ°å€ï¼‰
+	OP_INPUTCA,			//è¾“å…¥å­—ç¬¦æ•°ç»„ï¼ˆsd.iNumberä¸ºæ•°ç»„åœ°å€ï¼‰
+	OP_INPUTD,			//è¾“å…¥å®žæ•°ï¼ˆsd.iNumberä¸ºåœ°å€ï¼‰
+	OP_INPUTI,			//è¾“å…¥æ•´æ•°ï¼ˆsd.iNumberä¸ºåœ°å€ï¼‰
+	OP_JUMP,			//æ— æ¡ä»¶è·³è½¬ï¼ˆsdä¸ºè·³è½¬åœ°å€ï¼‰
+	OP_LESSC,			//å°äºŽï¼ˆsd.iNumberä¸ºæ¡ä»¶æ»¡è¶³æ—¶çš„è·³è½¬åœ°å€ï¼‰
+	OP_LESSD,			//å°äºŽï¼ˆsd.iNumberä¸ºæ¡ä»¶æ»¡è¶³æ—¶çš„è·³è½¬åœ°å€ï¼‰
+	OP_LESSEQUALC,		//å°äºŽç­‰äºŽï¼ˆsd.iNumberä¸ºæ¡ä»¶æ»¡è¶³æ—¶çš„è·³è½¬åœ°å€ï¼‰
+	OP_LESSEQUALD,		//å°äºŽç­‰äºŽï¼ˆsd.iNumberä¸ºæ¡ä»¶æ»¡è¶³æ—¶çš„è·³è½¬åœ°å€ï¼‰
+	OP_LESSEQUALI,		//å°äºŽç­‰äºŽï¼ˆsd.iNumberä¸ºæ¡ä»¶æ»¡è¶³æ—¶çš„è·³è½¬åœ°å€ï¼‰
+	OP_LESSI,			//å°äºŽï¼ˆsd.iNumberä¸ºæ¡ä»¶æ»¡è¶³æ—¶çš„è·³è½¬åœ°å€ï¼‰
+	OP_LOADARRAY,		//å¯¼å…¥æ•°ç»„åœ°å€ï¼ˆsd.iNumberä¸ºæ•°ç»„å¤´åœ°å€ï¼‰
+	OP_LOADARRAYC,		//å¯¼å…¥å­—ç¬¦æ•°ç»„å€¼ï¼ˆsd.iNumberä¸ºæ•°ç»„å¤´åœ°å€ï¼Œä¸‹æ ‡åœ¨æ ˆé¡¶
+	OP_LOADARRAYD,		//å¯¼å…¥å®žæ•°æ•°ç»„å€¼ï¼ˆsd.iNumberä¸ºæ•°ç»„å¤´åœ°å€ï¼Œä¸‹æ ‡åœ¨æ ˆé¡¶ï¼‰
+	OP_LOADARRAYI,		//å¯¼å…¥æ•´æ•°æ•°ç»„å€¼ï¼ˆsd.iNumberä¸ºæ•°ç»„å¤´åœ°å€ï¼Œä¸‹æ ‡åœ¨æ ˆé¡¶ï¼‰
+	OP_LOADCONSTC,		//å¯¼å…¥å­—ç¬¦å¸¸æ•°	ï¼ˆsdä¸ºå‚æ•°ï¼‰
+	OP_LOADCONSTD,		//å¯¼å…¥å®žå¸¸æ•°	ï¼ˆsdä¸ºå‚æ•°ï¼‰
+	OP_LOADCONSTI,		//å¯¼å…¥æ•´å¸¸æ•°	ï¼ˆsdä¸ºå‚æ•°ï¼‰
+	OP_LOADVARC,		//å¯¼å…¥å­—ç¬¦ï¼ˆsd.iNumberä¸ºåœ°å€ï¼‰
+	OP_LOADVARD,		//å¯¼å…¥å®žæ•°ï¼ˆsd.iNumberä¸ºåœ°å€ï¼‰
+	OP_LOADVARI,		//å¯¼å…¥æ•´æ•°ï¼ˆsd.iNumberä¸ºåœ°å€ï¼‰
+	OP_MINUSC,			//å‡ï¼ˆå­—ç¬¦ï¼‰
+	OP_MINUSD,			//å‡ï¼ˆå®žæ•°ï¼‰
+	OP_MINUSI,			//å‡ï¼ˆæ•´æ•°ï¼‰
+	OP_MODC,			//ä½™ï¼ˆå­—ç¬¦ï¼‰
+	OP_MODI,			//ä½™ï¼ˆæ•´æ•°ï¼‰
+	OP_NEWARRAYC,		//ç”³è¯·ä¸€ä¸ªå­—ç¬¦æ•°ç»„ï¼ˆsd.iNumberä¸ºæ•°ç»„å¤´åœ°å€ï¼Œsd.iNumber2ä¸ºé•¿åº¦ï¼‰
+	OP_NEWARRAYD,		//ç”³è¯·ä¸€ä¸ªå®žæ•°æ•°ç»„ï¼ˆsd.iNumberä¸ºæ•°ç»„å¤´åœ°å€ï¼Œsd.iNumber2ä¸ºé•¿åº¦ï¼‰
+	OP_NEWARRAYI,		//ç”³è¯·ä¸€ä¸ªæ•´æ•°æ•°ç»„ï¼ˆsd.iNumberä¸ºæ•°ç»„å¤´åœ°å€ï¼Œsd.iNumber2ä¸ºé•¿åº¦ï¼‰
+	OP_NOTEQUALC,		//ä¸ç­‰äºŽï¼ˆsd.iNumberä¸ºæ¡ä»¶æ»¡è¶³æ—¶çš„è·³è½¬åœ°å€ï¼‰
+	OP_NOTEQUALD,		//ä¸ç­‰äºŽï¼ˆsd.iNumberä¸ºæ¡ä»¶æ»¡è¶³æ—¶çš„è·³è½¬åœ°å€ï¼‰
+	OP_NOTEQUALI,		//ä¸ç­‰äºŽï¼ˆsd.iNumberä¸ºæ¡ä»¶æ»¡è¶³æ—¶çš„è·³è½¬åœ°å€ï¼‰
+	OP_NULL,			//ç©ºæ“ä½œ
+	OP_OUTPUTC,			//è¾“å‡ºå­—ç¬¦
+	OP_OUTPUTCA,		//è¾“å‡ºå­—ç¬¦æ•°ç»„ï¼ˆsdä¸ºå­—ç¬¦æ•°ç»„åœ°å€ï¼‰
+	OP_OUTPUTD,			//è¾“å‡ºå®žæ•°
+	OP_OUTPUTI,			//è¾“å‡ºæ•´æ•°
+	OP_OUTPUTS,			//è¾“å‡ºå­—ç¬¦ä¸²ï¼ˆsdä¸ºå­—ç¬¦ä¸²å®žåœ°å€ï¼‰
+	OP_PARAMTRANSA,		//æ•°ç»„å‚æ•°ä¼ é€’ï¼ˆsd.iNumberä¸ºåœ°å€ï¼Œsd.iNumber2ä¸ºåç§»é‡ï¼‰
+	OP_PARAMTRANSC,		//å­—ç¬¦å‚æ•°ä¼ é€’ï¼ˆsd.iNumberä¸ºåœ°å€ï¼Œsd.iNumber2ä¸ºåç§»é‡ï¼‰
+	OP_PARAMTRANSD,		//å®žæ•°å‚æ•°ä¼ é€’ï¼ˆsd.iNumberä¸ºåœ°å€ï¼Œsd.iNumber2ä¸ºåç§»é‡ï¼‰
+	OP_PARAMTRANSI,		//æ•´æ•°å‚æ•°ä¼ é€’ï¼ˆsd.iNumberä¸ºåœ°å€ï¼Œsd.iNumber2ä¸ºåç§»é‡ï¼‰
+	OP_PLUSC,			//åŠ ï¼ˆå­—ç¬¦ï¼‰
+	OP_PLUSD,			//åŠ ï¼ˆå®žæ•°ï¼‰
+	OP_PLUSI,			//åŠ ï¼ˆæ•´æ•°ï¼‰
+	OP_RETURN,			//void	å‡½æ•°è¿”å›žï¼ˆsd.iNumberä¸ºåç§»é‡ï¼‰
+	OP_RETURNC,			//char	å‡½æ•°è¿”å›žï¼ˆsd.iNumberä¸ºåç§»é‡ï¼‰
+	OP_RETURND,			//int	å‡½æ•°è¿”å›žï¼ˆsd.iNumberä¸ºåç§»é‡ï¼‰
+	OP_RETURNI,			//doubleå‡½æ•°è¿”å›žï¼ˆsd.iNumberä¸ºåç§»é‡ï¼‰
+	OP_SAVEARRAYC,		//å­˜å‚¨å­—ç¬¦æ•°ç»„å€¼ï¼ˆsd.iNumberä¸ºæ•°ç»„åœ°å€ï¼Œæ•°å€¼åœ¨æ ˆé¡¶ï¼Œä¸‹æ ‡åœ¨æ ˆæ¬¡é¡¶ï¼‰
+	OP_SAVEARRAYD,		//å­˜å‚¨å®žæ•°æ•°ç»„å€¼ï¼ˆsd.iNumberä¸ºæ•°ç»„åœ°å€ï¼Œæ•°å€¼åœ¨æ ˆé¡¶ï¼Œä¸‹æ ‡åœ¨æ ˆæ¬¡é¡¶ï¼‰
+	OP_SAVEARRAYI,		//å­˜å‚¨æ•´æ•°æ•°ç»„å€¼ï¼ˆsd.iNumberä¸ºæ•°ç»„åœ°å€ï¼Œæ•°å€¼åœ¨æ ˆé¡¶ï¼Œä¸‹æ ‡åœ¨æ ˆæ¬¡é¡¶ï¼‰
+	OP_SAVEC,			//ä¿å­˜å­—ç¬¦å˜é‡ï¼ˆsdä¸ºå˜é‡åœ°å€ï¼‰
+	OP_SAVED,			//ä¿å­˜å®žæ•°å˜é‡ï¼ˆsdä¸ºå˜é‡åœ°å€ï¼‰
+	OP_SAVEI,			//ä¿å­˜æ•´æ•°å˜é‡ï¼ˆsdä¸ºå˜é‡åœ°å€ï¼‰
+	OP_SLASHC,			//é™¤ï¼ˆå­—ç¬¦ï¼‰
+	OP_SLASHD,			//é™¤ï¼ˆå®žæ•°ï¼‰
+	OP_SLASHI,			//é™¤ï¼ˆæ•´æ•°ï¼‰
+	OP_TIMESC,			//ä¹˜ï¼ˆå­—ç¬¦ï¼‰
+	OP_TIMESD,			//ä¹˜ï¼ˆå®žæ•°ï¼‰
+	OP_TIMESI,			//ä¹˜ï¼ˆæ•´æ•°ï¼‰
+//////åº“å‡½æ•°è°ƒç”¨æ“ä½œç¬¦
 	//math
 	OP_ABSC,			//char abs(char)
 	OP_ABSD,			//int abs(int)
@@ -335,33 +335,33 @@ enum ZIdentType
 	IT_ECHARARRAY,	//
 	IT_EINTARRAY,	//
 	IT_EDOUBLEARRAY,//
-	IT_FUNCTION,	//º¯Êý
-	IT_FUNCTIONUS,	//ÉÐÎ´ÊµÏÖµÄº¯Êý
+	IT_FUNCTION,	//å‡½æ•°
+	IT_FUNCTIONUS,	//å°šæœªå®žçŽ°çš„å‡½æ•°
 };
 
 struct ZIdent
 {
-	CString name;		//±äÁ¿Ãû
-	ZIdentType type;	//±äÁ¿ÀàÐÍ
-	int level;			//±äÁ¿Ëù´¦µÄÇ¶Ì×²ã´Î
-	int nAddress;		//±äÁ¿µÄ´æ´¢µØÖ·
+	CString name;		//å˜é‡å
+	ZIdentType type;	//å˜é‡ç±»åž‹
+	int level;			//å˜é‡æ‰€å¤„çš„åµŒå¥—å±‚æ¬¡
+	int nAddress;		//å˜é‡çš„å­˜å‚¨åœ°å€
 };
 
 struct ZFunction
 {
-	int CurLevel;			//µ±Ç°Ç¶Ì×²ã´Î
-	ZIdent **pIdent;		//Ö¸Ïò±äÁ¿Êý×éµÄÖ¸Õë
-	int nIdent;				//±äÁ¿µ±Ç°ÊýÄ¿
-	int nMaxIdent;			//±äÁ¿Êý×éËùÄÜÈÝÄÉµÄ×î´ó±äÁ¿ÊýÄ¿
-	ZIdent **pParam;		//Ö¸Ïò²ÎÊýÊý×éµÄÖ¸Õë
-	int nParam;				//²ÎÊýµ±Ç°ÊýÄ¿
-	int nMaxParam;			//²ÎÊýÊý×éËùÄÜÈÝÄÉµÄ×î´ó²ÎÊýÊýÄ¿
-	int nMaxTotalMemory;	//²ÎÊý¡¢±äÁ¿ËùÕ¼ÓÃµÄ×î´óÄÚ´æ
-	int nCurAddress;		//µ±Ç°²ÎÊý¡¢±äÁ¿Ê¹ÓÃµÄÄÚ´æÁ¿
-	int nStartAddress;		//º¯ÊýÆðÊ¼µØÖ·
-	BOOL bSolved;			//ÊÇ·ñÒÑ¾­¾ßÌåÊµÏÖ
-	CString name;			//º¯ÊýÃû
-	ZIdentType ReturnType;	//º¯Êý·µ»ØÀàÐÍ
+	int CurLevel;			//å½“å‰åµŒå¥—å±‚æ¬¡
+	ZIdent **pIdent;		//æŒ‡å‘å˜é‡æ•°ç»„çš„æŒ‡é’ˆ
+	int nIdent;				//å˜é‡å½“å‰æ•°ç›®
+	int nMaxIdent;			//å˜é‡æ•°ç»„æ‰€èƒ½å®¹çº³çš„æœ€å¤§å˜é‡æ•°ç›®
+	ZIdent **pParam;		//æŒ‡å‘å‚æ•°æ•°ç»„çš„æŒ‡é’ˆ
+	int nParam;				//å‚æ•°å½“å‰æ•°ç›®
+	int nMaxParam;			//å‚æ•°æ•°ç»„æ‰€èƒ½å®¹çº³çš„æœ€å¤§å‚æ•°æ•°ç›®
+	int nMaxTotalMemory;	//å‚æ•°ã€å˜é‡æ‰€å ç”¨çš„æœ€å¤§å†…å­˜
+	int nCurAddress;		//å½“å‰å‚æ•°ã€å˜é‡ä½¿ç”¨çš„å†…å­˜é‡
+	int nStartAddress;		//å‡½æ•°èµ·å§‹åœ°å€
+	BOOL bSolved;			//æ˜¯å¦å·²ç»å…·ä½“å®žçŽ°
+	CString name;			//å‡½æ•°å
+	ZIdentType ReturnType;	//å‡½æ•°è¿”å›žç±»åž‹
 };
 
 union ZSecond
@@ -370,21 +370,21 @@ union ZSecond
 	{
 		union
 		{
-			char cNumber;	//µ¥×Ö·û²Ù×÷Êý
-			char *string;	//µ¥×Ö·û´®Ö¸Õë²Ù×÷Êý
-			int iNumber;	//µ¥ÕûÊý²Ù×÷Êý »ò Ë«²Ù×÷ÊýµÄµÚÒ»²Ù×÷Êý
+			char cNumber;	//å•å­—ç¬¦æ“ä½œæ•°
+			char *string;	//å•å­—ç¬¦ä¸²æŒ‡é’ˆæ“ä½œæ•°
+			int iNumber;	//å•æ•´æ•°æ“ä½œæ•° æˆ– åŒæ“ä½œæ•°çš„ç¬¬ä¸€æ“ä½œæ•°
 		};
 		union
 		{
-			int iNumber2;	//Ë«ÕûÊý²Ù×÷ÊýµÄµÚ¶þ²Ù×÷Êý
-			char*string2;	//ÕûÊý¡¢×Ö·û´®Ö¸ÕëË«²Ù×÷ÊýµÄµÚ¶þ²Ù×÷Êý
+			int iNumber2;	//åŒæ•´æ•°æ“ä½œæ•°çš„ç¬¬äºŒæ“ä½œæ•°
+			char*string2;	//æ•´æ•°ã€å­—ç¬¦ä¸²æŒ‡é’ˆåŒæ“ä½œæ•°çš„ç¬¬äºŒæ“ä½œæ•°
 		};
 	};
-	double dNumber;			//µ¥ÊµÊý²Ù×÷Êý
+	double dNumber;			//å•å®žæ•°æ“ä½œæ•°
 };
 
 struct ZCode
 {
-	ZOperator op;	//²Ù×÷·û
-	ZSecond sd;		//²Ù×÷Êý
+	ZOperator op;	//æ“ä½œç¬¦
+	ZSecond sd;		//æ“ä½œæ•°
 };

@@ -6,7 +6,7 @@
 
 HINSTANCE g_hInstance;
 
-// 外部函数定义
+// 澶栭儴鍑芥暟瀹氫箟
 BOOL CALLBACK FcrDialogProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam);
 
 int APIENTRY WinMain(HINSTANCE hInstance,

@@ -16,7 +16,7 @@ static char THIS_FILE[] = __FILE__;
 BOOL CFCView::ErrorReport(ZET et)
 {
 	m_iErrorCount++;
-	if(m_bIgnoreError)//²»±¨¸æ´íÎó
+	if(m_bIgnoreError)//ä¸æŠ¥å‘Šé”™è¯¯
 		return TRUE;
 	int i,iLine=1,start,end;
 	for(i=0;i<m_iCharCount && i<m_nSourceLength;i++)
@@ -129,7 +129,7 @@ BOOL CFCView::NewFunction()
 		m_pFunction=new ZFunction* [m_nMaxFunction];
 		if(m_pFunction==NULL)
 		{
-			MessageBox("¸øº¯Êı·ÖÅäÄÚ´æ¿Õ¼äÊ±·¢Éú´íÎó£¡","FC",MB_OK|MB_ICONINFORMATION);
+			MessageBox("ç»™å‡½æ•°åˆ†é…å†…å­˜ç©ºé—´æ—¶å‘ç”Ÿé”™è¯¯ï¼","FC",MB_OK|MB_ICONINFORMATION);
 			return FALSE;
 		}
 		for(int i=0;i<m_nFunction;i++)
@@ -140,7 +140,7 @@ BOOL CFCView::NewFunction()
 	m_pFunction[m_nFunction]=new ZFunction;
 	if(m_pFunction[m_nFunction]==NULL)
 	{
-		MessageBox("¸øº¯Êı·ÖÅäÄÚ´æ¿Õ¼äÊ±·¢Éú´íÎó£¡","FC",MB_OK|MB_ICONINFORMATION);
+		MessageBox("ç»™å‡½æ•°åˆ†é…å†…å­˜ç©ºé—´æ—¶å‘ç”Ÿé”™è¯¯ï¼","FC",MB_OK|MB_ICONINFORMATION);
 		return FALSE;
 	}
 	m_pFunction[m_nFunction]->bSolved=FALSE;
@@ -169,7 +169,7 @@ BOOL CFCView::NewIdent()
 		pFunction->pIdent=new ZIdent* [pFunction->nMaxIdent];
 		if(pFunction->pIdent==NULL)
 		{
-			MessageBox("¸ø±äÁ¿·ÖÅäÄÚ´æ¿Õ¼äÊ±·¢Éú´íÎó£¡","FC",MB_OK|MB_ICONINFORMATION);
+			MessageBox("ç»™å˜é‡åˆ†é…å†…å­˜ç©ºé—´æ—¶å‘ç”Ÿé”™è¯¯ï¼","FC",MB_OK|MB_ICONINFORMATION);
 			return FALSE;
 		}
 		for(int i=0;i < pFunction->nIdent;i++)
@@ -180,7 +180,7 @@ BOOL CFCView::NewIdent()
 	pFunction->pIdent[pFunction->nIdent]=new ZIdent;
 	if(pFunction->pIdent[pFunction->nIdent]==NULL)
 	{
-		MessageBox("¸ø±äÁ¿·ÖÅäÄÚ´æ¿Õ¼äÊ±·¢Éú´íÎó£¡","FC",MB_OK|MB_ICONINFORMATION);
+		MessageBox("ç»™å˜é‡åˆ†é…å†…å­˜ç©ºé—´æ—¶å‘ç”Ÿé”™è¯¯ï¼","FC",MB_OK|MB_ICONINFORMATION);
 		return FALSE;
 	}
 	pFunction->pIdent[pFunction->nIdent]->level=0;
@@ -193,14 +193,14 @@ BOOL CFCView::NewIdent()
 BOOL CFCView::NewParam()
 {
 	ZFunction *pFunction=m_pFunction[m_nCurFunction];
-	if(pFunction->nParam==pFunction->nMaxParam)//²ÎÊıÊı×éÒÑÂú£¬ÉêÇëĞÂµÄ¿Õ¼ä
+	if(pFunction->nParam==pFunction->nMaxParam)//å‚æ•°æ•°ç»„å·²æ»¡ï¼Œç”³è¯·æ–°çš„ç©ºé—´
 	{
 		ZIdent **pParam=pFunction->pParam;
 		pFunction->nMaxParam+=IDENT_NUM_INC;
 		pFunction->pParam=new ZIdent* [pFunction->nMaxParam];
 		if(pFunction->pParam==NULL)
 		{
-			MessageBox("¸ø²ÎÊı·ÖÅäÄÚ´æ¿Õ¼äÊ±·¢Éú´íÎó£¡","FC",MB_OK|MB_ICONINFORMATION);
+			MessageBox("ç»™å‚æ•°åˆ†é…å†…å­˜ç©ºé—´æ—¶å‘ç”Ÿé”™è¯¯ï¼","FC",MB_OK|MB_ICONINFORMATION);
 			return FALSE;
 		}
 		for(int i=0;i < pFunction->nParam;i++)
@@ -211,7 +211,7 @@ BOOL CFCView::NewParam()
 	pFunction->pParam[pFunction->nParam]=new ZIdent;
 	if(pFunction->pParam[pFunction->nParam]==NULL)
 	{
-		MessageBox("¸ø²ÎÊı·ÖÅäÄÚ´æ¿Õ¼äÊ±·¢Éú´íÎó£¡","FC",MB_OK|MB_ICONINFORMATION);
+		MessageBox("ç»™å‚æ•°åˆ†é…å†…å­˜ç©ºé—´æ—¶å‘ç”Ÿé”™è¯¯ï¼","FC",MB_OK|MB_ICONINFORMATION);
 		return FALSE;
 	}
 	pFunction->pParam[pFunction->nParam]->level=0;
@@ -230,7 +230,7 @@ BOOL CFCView::NewCode()
 		m_pCode=new ZCode[m_nMaxCode];
 		if(m_pCode==NULL)
 		{
-			MessageBox("¸øÖĞ¼ä´úÂë·ÖÅäÄÚ´æ¿Õ¼äÊ±·¢Éú´íÎó£¡","FC",MB_OK|MB_ICONINFORMATION);
+			MessageBox("ç»™ä¸­é—´ä»£ç åˆ†é…å†…å­˜ç©ºé—´æ—¶å‘ç”Ÿé”™è¯¯ï¼","FC",MB_OK|MB_ICONINFORMATION);
 			return FALSE;
 		}
 		memcpy(m_pCode,pCode,sizeof(ZCode)*m_nCode);
@@ -375,10 +375,10 @@ BOOL CFCView::RecycleMemory()
 	ZFunction *pFunction=m_pFunction[m_nCurFunction];
 	ZIdent **pIdent=pFunction->pIdent;
 	int i;
-	//¸üĞÂ×î´óĞéÄÚ´æ
+	//æ›´æ–°æœ€å¤§è™šå†…å­˜
 	if(pFunction->nMaxTotalMemory < pFunction->nCurAddress)
 		pFunction->nMaxTotalMemory = pFunction->nCurAddress;
-	//²úÉú»ØÊÕÄÚ´æ´úÂë -- ²»ĞèÒª»ØÊÕ²ÎÊıÊı×éµÄÄÚ´æ
+	//äº§ç”Ÿå›æ”¶å†…å­˜ä»£ç  -- ä¸éœ€è¦å›æ”¶å‚æ•°æ•°ç»„çš„å†…å­˜
 	for(i=pFunction->nIdent-1;i>=0 && pIdent[i]->level > pFunction->CurLevel;i--)
 	{
 		switch(pFunction->pIdent[i]->type)
@@ -405,7 +405,7 @@ BOOL CFCView::RecycleMemory()
 }
 
 BOOL CFCView::RecycleArrayMemory()
-{	//´Ëº¯ÊıÓÃÓÚreturnÓï¾äÇ°µÄÄÚ´æ»ØÊÕ¹¤×÷£¬ÎŞĞè×öÆäËü²ÎÊıµÄ¸üĞÂ
+{	//æ­¤å‡½æ•°ç”¨äºreturnè¯­å¥å‰çš„å†…å­˜å›æ”¶å·¥ä½œï¼Œæ— éœ€åšå…¶å®ƒå‚æ•°çš„æ›´æ–°
 	ZFunction *pFunction=m_pFunction[m_nCurFunction];
 	for(int i=pFunction->nIdent-1;i>=0;i--)
 	{
@@ -439,17 +439,17 @@ BOOL CFCView::Compile()
 	if(m_OldSource==m_source && m_bCompiled)
 		return TRUE;
 
-	m_char='\0';			//µ±Ç°×Ö·û
-	m_iCharCount=0;			//Ô´´úÂë×Ö·û¼ÆÊı
-	m_int=0;				//µ±Ç°ÕûÊı
-	m_double=0.0;			//µ±Ç°ÊµÊı
-	m_ident="";				//µ±Ç°±êÊ¶·û
-	m_string="";			//µ±Ç°×Ö·û´®
-	m_comment="";			//µ±Ç°×¢ÊÍ
-	m_element=E_NULL;		//µ±Ç°µ¥´Ê
+	m_char='\0';			//å½“å‰å­—ç¬¦
+	m_iCharCount=0;			//æºä»£ç å­—ç¬¦è®¡æ•°
+	m_int=0;				//å½“å‰æ•´æ•°
+	m_double=0.0;			//å½“å‰å®æ•°
+	m_ident="";				//å½“å‰æ ‡è¯†ç¬¦
+	m_string="";			//å½“å‰å­—ç¬¦ä¸²
+	m_comment="";			//å½“å‰æ³¨é‡Š
+	m_element=E_NULL;		//å½“å‰å•è¯
 	ClearFunction();
-	m_nCurFunction=0;		//µ±Ç°´¦ÀíµÄº¯Êı
-	m_iErrorCount=0;		//Ô´´úÂë´íÎó¼ÆÊı
+	m_nCurFunction=0;		//å½“å‰å¤„ç†çš„å‡½æ•°
+	m_iErrorCount=0;		//æºä»£ç é”™è¯¯è®¡æ•°
 	ClearCode();
 	m_nBreak=-1;			//
 	m_nContinue=-1;			//
@@ -457,11 +457,11 @@ BOOL CFCView::Compile()
 	m_nFalse=-1;			//
 	m_nCase=-1;				//
 
-	//ÖĞ¼ä´úÂëÊ×²¿Îªcall main£¬ÆäÖĞµØÖ·Áô´ıDoEndProgram()ÖĞÌí¼Ó
+	//ä¸­é—´ä»£ç é¦–éƒ¨ä¸ºcall mainï¼Œå…¶ä¸­åœ°å€ç•™å¾…DoEndProgram()ä¸­æ·»åŠ 
 	if(!GenerateCode(OP_CALL,0))
 		return FALSE;
 
-	if(!GetElement(TRUE))	//»ñÈ¡µÚÒ»¸öµ¥´Ê
+	if(!GetElement(TRUE))	//è·å–ç¬¬ä¸€ä¸ªå•è¯
 		return FALSE;
 	while(1)
 	{
@@ -470,7 +470,7 @@ BOOL CFCView::Compile()
 		if(!DoFunctionHead())
 			return FALSE;
 	}
-	if(!DoEndProgram())		//´¦Àí±àÒëºóµÄÊÂÎñ
+	if(!DoEndProgram())		//å¤„ç†ç¼–è¯‘åçš„äº‹åŠ¡
 		return FALSE;
 	return TRUE;
 }
@@ -478,7 +478,7 @@ BOOL CFCView::Compile()
 BOOL CFCView::DoFunctionHead()
 {
 	ZIT ReturnType,it;
-	switch(m_element)//¼ì²éº¯Êı·µ»ØÀàĞÍ
+	switch(m_element)//æ£€æŸ¥å‡½æ•°è¿”å›ç±»å‹
 	{
 	case E_VOID:	ReturnType=IT_VOID;		break;
 	case E_CHAR:	ReturnType=IT_CHAR;		break;
@@ -490,9 +490,9 @@ BOOL CFCView::DoFunctionHead()
 		ReturnType=IT_VOID;
 		break;
 	}
-	if(!GetElement())//»ñÈ¡º¯ÊıÃû
+	if(!GetElement())//è·å–å‡½æ•°å
 		return FALSE;
-	if(m_element!=E_IDENT)//²»ÊÇ±êÊ¶·û£¬±¨´í
+	if(m_element!=E_IDENT)//ä¸æ˜¯æ ‡è¯†ç¬¦ï¼ŒæŠ¥é”™
 	{
 		if(!ErrorReport(ET_MISSIDENT))
 			return FALSE;
@@ -501,105 +501,105 @@ BOOL CFCView::DoFunctionHead()
 	it=GetFunctionIdentType(m_ident);
 	switch(it)
 	{
-	case IT_FUNCTION://ÒÑ¾­¶¨Òå¹ıµÄº¯Êı
+	case IT_FUNCTION://å·²ç»å®šä¹‰è¿‡çš„å‡½æ•°
 		if(!ErrorReport(ET_DEFINEDFUNCTION))
 			return FALSE;
 		m_ident="";
 		m_nCurFunction=m_nFunction;
 		break;
-	case IT_FUNCTIONUS://ÒÑ¾­Ô¤¶¨Òå¹ıµÄº¯Êı
+	case IT_FUNCTIONUS://å·²ç»é¢„å®šä¹‰è¿‡çš„å‡½æ•°
 		m_nCurFunction=GetFunctionIndex(m_ident);
 		break;
-	case IT_NULL://Ã»ÓĞ¶¨Òå¹ıµÄ±êÊ¶·û
+	case IT_NULL://æ²¡æœ‰å®šä¹‰è¿‡çš„æ ‡è¯†ç¬¦
 		m_nCurFunction=m_nFunction;
 		break;
 	}
-	if(it==IT_FUNCTIONUS)//ÒÑ¾­Ô¤¶¨Òå¹ıµÄº¯Êı
+	if(it==IT_FUNCTIONUS)//å·²ç»é¢„å®šä¹‰è¿‡çš„å‡½æ•°
 	{
-		if(ReturnType!=m_pFunction[m_nCurFunction]->ReturnType)//Á½´Î¶¨ÒåµÄ·µ»ØÀàĞÍ²»Í¬£¬±¨´í
+		if(ReturnType!=m_pFunction[m_nCurFunction]->ReturnType)//ä¸¤æ¬¡å®šä¹‰çš„è¿”å›ç±»å‹ä¸åŒï¼ŒæŠ¥é”™
 		{
 			if(!ErrorReport(ET_DIFRETURNTYPE))
 				return FALSE;
-			//ÈôÁ½´Î¶¨ÒåµÄº¯Êı·µ»ØÀàĞÍ²»Í¬£¬È¡×îºóÒ»´Î¶¨ÒåµÄÎªÕæ·µ»ØÀàĞÍ
+			//è‹¥ä¸¤æ¬¡å®šä¹‰çš„å‡½æ•°è¿”å›ç±»å‹ä¸åŒï¼Œå–æœ€åä¸€æ¬¡å®šä¹‰çš„ä¸ºçœŸè¿”å›ç±»å‹
 			m_pFunction[m_nCurFunction]->ReturnType=ReturnType;
 		}
-		if(!GetElement())//»ñÈ¡(
+		if(!GetElement())//è·å–(
 			return FALSE;
-		if(m_element!=E_LPAREN)//²»ÊÇ(£¬±¨´í
+		if(m_element!=E_LPAREN)//ä¸æ˜¯(ï¼ŒæŠ¥é”™
 		{
 			if(!ErrorReport(ET_MISSLPAREN))
 				return FALSE;
 		}
-		if(!GetElement())//»ñÈ¡void»ò)»ò²ÎÊı²¿·ÖµÄµÚÒ»¸ö²ÎÊıÀàĞÍ
+		if(!GetElement())//è·å–voidæˆ–)æˆ–å‚æ•°éƒ¨åˆ†çš„ç¬¬ä¸€ä¸ªå‚æ•°ç±»å‹
 			return FALSE;
-		if(m_element==E_VOID || m_element==E_RPAREN)//void»ò)£¬ÎŞ²Îº¯Êı
+		if(m_element==E_VOID || m_element==E_RPAREN)//voidæˆ–)ï¼Œæ— å‚å‡½æ•°
 		{
-			if(m_pFunction[m_nCurFunction]->nParam!=0)//Á½´Î¶¨ÒåµÄ²ÎÊıÊıÄ¿²»Í¬£¬±¨´í
+			if(m_pFunction[m_nCurFunction]->nParam!=0)//ä¸¤æ¬¡å®šä¹‰çš„å‚æ•°æ•°ç›®ä¸åŒï¼ŒæŠ¥é”™
 			{
 				if(!ErrorReport(ET_DIFPARAMNUM))
 					return FALSE;
-				//ÈôÁ½´Î¶¨ÒåµÄ²ÎÊıÊıÄ¿²»Í¬£¬ÔòÈ¡×îºóÒ»´Î¶¨ÒåµÄÎªÕæ
+				//è‹¥ä¸¤æ¬¡å®šä¹‰çš„å‚æ•°æ•°ç›®ä¸åŒï¼Œåˆ™å–æœ€åä¸€æ¬¡å®šä¹‰çš„ä¸ºçœŸ
 				m_pFunction[m_nCurFunction]->nParam=0;
 			}
 			if(m_element==E_VOID)
 			{
 				if(!GetElement())
 					return FALSE;
-				if(m_element!=E_RPAREN)//voidºó±ß²»ÊÇ)£¬±¨´í
+				if(m_element!=E_RPAREN)//voidåè¾¹ä¸æ˜¯)ï¼ŒæŠ¥é”™
 				{
 					if(!ErrorReport(ET_MISSRPAREN))
 						return FALSE;
 				}
 			}
 		}
-		else//ÓĞ²Îº¯Êı
+		else//æœ‰å‚å‡½æ•°
 		{
 			const int nOldParam=m_pFunction[m_nCurFunction]->nParam;
 			int i,&nParam=m_pFunction[m_nCurFunction]->nParam;
 			nParam=0;
-			for(i=0;i<nOldParam;i++)//Çå³ıÔ¤¶¨ÒåÊ±µÇ¼ÇµÄ²ÎÊıÃû
+			for(i=0;i<nOldParam;i++)//æ¸…é™¤é¢„å®šä¹‰æ—¶ç™»è®°çš„å‚æ•°å
 				m_pFunction[m_nCurFunction]->pParam[i]->name="";
 			while(1)
 			{
 				if(nParam == nOldParam)
-				{	//ÔÙ´Î¶¨ÒåÊ±²ÎÊıÊıÄ¿±ÈÇ°´Î¶¨Òå¶àÒ»£¨´ËÌõ¼ş±£Ö¤ÁËÖ»±¨´íÒ»´Î£©£¬±¨´í
+				{	//å†æ¬¡å®šä¹‰æ—¶å‚æ•°æ•°ç›®æ¯”å‰æ¬¡å®šä¹‰å¤šä¸€ï¼ˆæ­¤æ¡ä»¶ä¿è¯äº†åªæŠ¥é”™ä¸€æ¬¡ï¼‰ï¼ŒæŠ¥é”™
 					if(!ErrorReport(ET_DIFPARAMNUM))
 						return FALSE;
-					//ÈôÁ½´Îº¯Êı¶¨ÒåÊ±²ÎÊıÊıÄ¿²»Í¬£¬È¡×îºóÒ»´ÎÎªÕæ£¬´Ë´¦ÎŞĞè¶¯×÷£¬ÁôºóĞŞÕınParamÖµ
+					//è‹¥ä¸¤æ¬¡å‡½æ•°å®šä¹‰æ—¶å‚æ•°æ•°ç›®ä¸åŒï¼Œå–æœ€åä¸€æ¬¡ä¸ºçœŸï¼Œæ­¤å¤„æ— éœ€åŠ¨ä½œï¼Œç•™åä¿®æ­£nParamå€¼
 				}
 				switch(m_element)
 				{
 				case E_CHAR:	it=IT_CHAR;		break;
 				case E_INT:		it=IT_INT;		break;
 				case E_DOUBLE:	it=IT_DOUBLE;	break;
-				default://´íÎóµÄ²ÎÊıÀàĞÍ
+				default://é”™è¯¯çš„å‚æ•°ç±»å‹
 					if(!ErrorReport(ET_WRONGIDENTTYPE))
 						return FALSE;
 					it=IT_INT;
 					break;
 				}
-				if(!GetElement())//»ñÈ¡²ÎÊı±êÊ¶·û»ò[
+				if(!GetElement())//è·å–å‚æ•°æ ‡è¯†ç¬¦æˆ–[
 					return FALSE;
-				if(m_element==E_LSUB)//[£¬Êı×é
+				if(m_element==E_LSUB)//[ï¼Œæ•°ç»„
 				{
 					it=ZIT(it+3);
-					if(!GetElement())//»ñÈ¡]
+					if(!GetElement())//è·å–]
 						return FALSE;
-					if(m_element!=E_RSUB)//²»ÊÇ]£¬±¨´í
+					if(m_element!=E_RSUB)//ä¸æ˜¯]ï¼ŒæŠ¥é”™
 					{
 						if(!ErrorReport(ET_MISSRSUB))
 							return FALSE;
 					}
-					if(!GetElement())//»ñÈ¡±êÊ¶·û
+					if(!GetElement())//è·å–æ ‡è¯†ç¬¦
 						return FALSE;
 				}
-				if(m_element!=E_IDENT)//²»ÊÇ±êÊ¶·û,±¨´í
+				if(m_element!=E_IDENT)//ä¸æ˜¯æ ‡è¯†ç¬¦,æŠ¥é”™
 				{
 					if(!ErrorReport(ET_MISSIDENT))
 						return FALSE;
 					m_ident="";
 				}
-				if(GetIdentType(m_ident)!=IT_NULL)//²ÎÊı±êÖ¾·ûÒÑ¾­¶¨Òå£¬±¨´í
+				if(GetIdentType(m_ident)!=IT_NULL)//å‚æ•°æ ‡å¿—ç¬¦å·²ç»å®šä¹‰ï¼ŒæŠ¥é”™
 				{
 					if(!ErrorReport(ET_DEFINEDIDENT))
 						return FALSE;
@@ -607,11 +607,11 @@ BOOL CFCView::DoFunctionHead()
 				}
 				if(nParam < nOldParam)
 				{
-					if(it!=m_pFunction[m_nCurFunction]->pParam[nParam]->type)//Á½´Î¶¨ÒåµÄ²ÎÊıÀàĞÍ²»Í¬£¬±¨´í
+					if(it!=m_pFunction[m_nCurFunction]->pParam[nParam]->type)//ä¸¤æ¬¡å®šä¹‰çš„å‚æ•°ç±»å‹ä¸åŒï¼ŒæŠ¥é”™
 					{
 						if(!ErrorReport(ET_DIFPARAMTYPE))
 							return FALSE;
-						//ÈôÁ½´Î¶¨ÒåµÄ²ÎÊıÀàĞÍ²»Í¬£¬È¡ºóÒ»´Î¶¨ÒåµÄÎªÕæ²ÎÊıÀàĞÍ
+						//è‹¥ä¸¤æ¬¡å®šä¹‰çš„å‚æ•°ç±»å‹ä¸åŒï¼Œå–åä¸€æ¬¡å®šä¹‰çš„ä¸ºçœŸå‚æ•°ç±»å‹
 						m_pFunction[m_nCurFunction]->pParam[nParam]->type=it;
 					}
 				}
@@ -623,44 +623,44 @@ BOOL CFCView::DoFunctionHead()
 				}
 				m_pFunction[m_nCurFunction]->pParam[nParam]->name=m_ident;
 				nParam++;
-				if(!GetElement())//»ñÈ¡, )
+				if(!GetElement())//è·å–, )
 					return FALSE;
-				if(m_element==E_RPAREN)//ÓÒÀ¨ºÅ£¬½áÊø²ÎÊı²¿·Ö
+				if(m_element==E_RPAREN)//å³æ‹¬å·ï¼Œç»“æŸå‚æ•°éƒ¨åˆ†
 					break;
-				if(m_element!=E_COMMA)//²»ÊÇ¶ººÅ£¬±¨´í
+				if(m_element!=E_COMMA)//ä¸æ˜¯é€—å·ï¼ŒæŠ¥é”™
 				{
 					if(!ErrorReport(ET_MISSCOMMA))
 						return FALSE;
 				}
-				if(!GetElement())//»ñÈ¡ÏÂÒ»¸ö²ÎÊıµÄÀàĞÍ
+				if(!GetElement())//è·å–ä¸‹ä¸€ä¸ªå‚æ•°çš„ç±»å‹
 					return FALSE;
 			}//end while
-			if(nParam<nOldParam)//²ÎÊıÊıÄ¿²»Ò»ÖÂ£¬±¨´í
+			if(nParam<nOldParam)//å‚æ•°æ•°ç›®ä¸ä¸€è‡´ï¼ŒæŠ¥é”™
 			{
 				if(!ErrorReport(ET_DIFPARAMNUM))
 					return FALSE;
-				//ÈôÁ½´Îº¯Êı¶¨ÒåÊ±²ÎÊıÊıÄ¿²»Í¬£¬È¡×îºóÒ»´ÎÎªÕæ£¬´Ë´¦ÎŞĞè¶¯×÷
+				//è‹¥ä¸¤æ¬¡å‡½æ•°å®šä¹‰æ—¶å‚æ•°æ•°ç›®ä¸åŒï¼Œå–æœ€åä¸€æ¬¡ä¸ºçœŸï¼Œæ­¤å¤„æ— éœ€åŠ¨ä½œ
 			}
 		}
-		if(!GetElement())//»ñÈ¡{ ;
+		if(!GetElement())//è·å–{ ;
 			return FALSE;
 		if(m_element==E_BEGIN)
 		{
 			if(!DoFunction())
 				return FALSE;
 		}
-		else if(m_element==E_SEMICOLON)//º¯ÊıÔ¤¶¨Òå
+		else if(m_element==E_SEMICOLON)//å‡½æ•°é¢„å®šä¹‰
 		{
 			if(!GetElement(TRUE))
 				return FALSE;
 		}
-		else//¼È·Ç{ÓÖ·Ç;£¬±¨´í
+		else//æ—¢é{åˆé;ï¼ŒæŠ¥é”™
 		{
 			if(!ErrorReport(ET_UNKNOWNFUNCDEF))
 				return FALSE;
 		}
 	}
-	else//Ã»ÓĞÔ¤¶¨ÒåµÄº¯Êı
+	else//æ²¡æœ‰é¢„å®šä¹‰çš„å‡½æ•°
 	{
 		if(!NewFunction())
 			return FALSE;
@@ -668,26 +668,26 @@ BOOL CFCView::DoFunctionHead()
 		m_pFunction[m_nCurFunction]->ReturnType=ReturnType;
 		m_pFunction[m_nCurFunction]->name=m_ident;
 		m_nFunction++;
-		if(!GetElement())//»ñÈ¡(
+		if(!GetElement())//è·å–(
 			return FALSE;
-		if(m_element!=E_LPAREN)//²»ÊÇ(£¬±¨´í
+		if(m_element!=E_LPAREN)//ä¸æ˜¯(ï¼ŒæŠ¥é”™
 		{
 			if(!ErrorReport(ET_MISSLPAREN))
 				return FALSE;
 		}
-		if(!GetElement())//»ñÈ¡void»ò)»òµÚÒ»¸ö²ÎÊıµÄÀàĞÍ
+		if(!GetElement())//è·å–voidæˆ–)æˆ–ç¬¬ä¸€ä¸ªå‚æ•°çš„ç±»å‹
 			return FALSE;
-		if(m_element==E_VOID)//void£¬ÎŞ²Îº¯Êı
+		if(m_element==E_VOID)//voidï¼Œæ— å‚å‡½æ•°
 		{
 			if(!GetElement())
 				return FALSE;
-			if(m_element!=E_RPAREN)//voidºó±ß²»ÊÇ)£¬±¨´í
+			if(m_element!=E_RPAREN)//voidåè¾¹ä¸æ˜¯)ï¼ŒæŠ¥é”™
 			{
 				if(!ErrorReport(ET_MISSRPAREN))
 					return FALSE;
 			}
 		}
-		else if(m_element!=E_RPAREN)//²»ÊÇvoidÒ²²»ÊÇ)£¬ÓĞ²Îº¯Êı
+		else if(m_element!=E_RPAREN)//ä¸æ˜¯voidä¹Ÿä¸æ˜¯)ï¼Œæœ‰å‚å‡½æ•°
 		{
 			int &nParam=m_pFunction[m_nCurFunction]->nParam;
 			while(1)
@@ -697,7 +697,7 @@ BOOL CFCView::DoFunctionHead()
 				case E_CHAR:	it=IT_CHAR;		break;
 				case E_INT:		it=IT_INT;		break;
 				case E_DOUBLE:	it=IT_DOUBLE;	break;
-				default://´íÎóµÄ²ÎÊıÀàĞÍ
+				default://é”™è¯¯çš„å‚æ•°ç±»å‹
 					if(!ErrorReport(ET_WRONGIDENTTYPE))
 						return FALSE;
 					it=IT_INT;
@@ -706,29 +706,29 @@ BOOL CFCView::DoFunctionHead()
 				if(!NewParam())
 					return FALSE;
 				m_pFunction[m_nCurFunction]->pParam[nParam]->type=it;
-				if(!GetElement())//»ñÈ¡²ÎÊı±êÊ¶·û»ò[
+				if(!GetElement())//è·å–å‚æ•°æ ‡è¯†ç¬¦æˆ–[
 					return FALSE;
-				if(m_element==E_LSUB)//[£¬Êı×é
+				if(m_element==E_LSUB)//[ï¼Œæ•°ç»„
 				{
 					m_pFunction[m_nCurFunction]->pParam[nParam]->type=
 						ZIT(m_pFunction[m_nCurFunction]->pParam[nParam]->type+3);
-					if(!GetElement())//»ñÈ¡]
+					if(!GetElement())//è·å–]
 						return FALSE;
-					if(m_element!=E_RSUB)//²»ÊÇ]£¬±¨´í
+					if(m_element!=E_RSUB)//ä¸æ˜¯]ï¼ŒæŠ¥é”™
 					{
 						if(!ErrorReport(ET_MISSRSUB))
 							return FALSE;
 					}
-					if(!GetElement())//»ñÈ¡±êÊ¶·û
+					if(!GetElement())//è·å–æ ‡è¯†ç¬¦
 						return FALSE;
 				}
-				if(m_element!=E_IDENT)//²»ÊÇ±êÊ¶·û,±¨´í
+				if(m_element!=E_IDENT)//ä¸æ˜¯æ ‡è¯†ç¬¦,æŠ¥é”™
 				{
 					if(!ErrorReport(ET_MISSIDENT))
 						return FALSE;
 					m_ident="";
 				}
-				if(GetIdentType(m_ident)!=IT_NULL)//²ÎÊı±êÖ¾·ûÒÑ¾­¶¨Òå£¬±¨´í
+				if(GetIdentType(m_ident)!=IT_NULL)//å‚æ•°æ ‡å¿—ç¬¦å·²ç»å®šä¹‰ï¼ŒæŠ¥é”™
 				{
 					if(!ErrorReport(ET_DEFINEDIDENT))
 						return FALSE;
@@ -736,32 +736,32 @@ BOOL CFCView::DoFunctionHead()
 				}
 				m_pFunction[m_nCurFunction]->pParam[nParam]->name=m_ident;
 				nParam++;
-				if(!GetElement())//»ñÈ¡, )
+				if(!GetElement())//è·å–, )
 					return FALSE;
-				if(m_element==E_RPAREN)//ÓÒÀ¨ºÅ£¬½áÊø²ÎÊı²¿·Ö
+				if(m_element==E_RPAREN)//å³æ‹¬å·ï¼Œç»“æŸå‚æ•°éƒ¨åˆ†
 					break;
-				if(m_element!=E_COMMA)//²»ÊÇ¶ººÅ£¬±¨´í
+				if(m_element!=E_COMMA)//ä¸æ˜¯é€—å·ï¼ŒæŠ¥é”™
 				{
 					if(!ErrorReport(ET_MISSCOMMA))
 						return FALSE;
 				}
-				if(!GetElement())//»ñÈ¡ÏÂÒ»¸ö²ÎÊıµÄÀàĞÍ
+				if(!GetElement())//è·å–ä¸‹ä¸€ä¸ªå‚æ•°çš„ç±»å‹
 					return FALSE;
 			}//end while
 		}
-		if(!GetElement())//»ñÈ¡{ ;
+		if(!GetElement())//è·å–{ ;
 			return FALSE;
 		if(m_element==E_BEGIN)
 		{
 			if(!DoFunction())
 				return FALSE;
 		}
-		else if(m_element==E_SEMICOLON)//º¯ÊıÔ¤¶¨Òå
+		else if(m_element==E_SEMICOLON)//å‡½æ•°é¢„å®šä¹‰
 		{
 			if(!GetElement(TRUE))
 				return FALSE;
 		}
-		else//¼È·Ç{ÓÖ·Ç;£¬±¨´í
+		else//æ—¢é{åˆé;ï¼ŒæŠ¥é”™
 		{
 			if(!ErrorReport(ET_UNKNOWNFUNCDEF))
 				return FALSE;
@@ -773,23 +773,23 @@ BOOL CFCView::DoFunctionHead()
 BOOL CFCView::DoFunction()
 {
 	ZFunction *pFunction=m_pFunction[m_nCurFunction];
-	pFunction->nStartAddress=m_nCode;//µÇ¼Çº¯Êı¿ªÊ¼µØÖ·
+	pFunction->nStartAddress=m_nCode;//ç™»è®°å‡½æ•°å¼€å§‹åœ°å€
 	if(!GenerateCode(OP_FUNCTIONSTART))
 		return FALSE;
 	int i,offset;
 	if(pFunction->nParam>0)
 	{
-		//¿ªÊ¼µÇ¼Ç²ÎÊıµØÖ·
+		//å¼€å§‹ç™»è®°å‚æ•°åœ°å€
 		pFunction->pParam[0]->nAddress=0;
 		for(i=1;i<pFunction->nParam;i++)
 		{
 			pFunction->pParam[i]->nAddress =
 				pFunction->pParam[i-1]->nAddress+SizeOf(pFunction->pParam[i-1]->type);
 		}
-		//½áÊøµÇ¼Ç²ÎÊıµØÖ·
-		//¿ªÊ¼²ÎÊı´«µİ
+		//ç»“æŸç™»è®°å‚æ•°åœ°å€
+		//å¼€å§‹å‚æ•°ä¼ é€’
 		pFunction->nCurAddress=pFunction->pParam[pFunction->nParam-1]->nAddress +
-			SizeOf(pFunction->pParam[pFunction->nParam-1]->type);//µÇ¼Çµ±Ç°ÄÚ´æÊ¹ÓÃÁ¿
+			SizeOf(pFunction->pParam[pFunction->nParam-1]->type);//ç™»è®°å½“å‰å†…å­˜ä½¿ç”¨é‡
 		offset=pFunction->nCurAddress+3;
 		ZOperator op;
 		for(i=0;i<pFunction->nParam;i++)
@@ -814,25 +814,25 @@ BOOL CFCView::DoFunction()
 			if(!GenerateCode(op,pFunction->pParam[i]->nAddress,offset))
 				return FALSE;
 		}
-		//½áÊø²ÎÊı´«µİ
+		//ç»“æŸå‚æ•°ä¼ é€’
 	}
 	else
 		offset=3;
 	m_it=IT_NULL;
 	m_nBreak= -1;
 	m_nContinue= -1;
-	if(!GetElement())//»ñÈ¡º¯ÊıÕıÎÄµÄµÚÒ»¸öµ¥´Ê
+	if(!GetElement())//è·å–å‡½æ•°æ­£æ–‡çš„ç¬¬ä¸€ä¸ªå•è¯
 		return FALSE;
-	while(m_element!=E_END)//Ñ­»·´¦ÀíÓï¾ä
+	while(m_element!=E_END)//å¾ªç¯å¤„ç†è¯­å¥
 	{
 		if(!DoStatement())
 			return FALSE;
 	}
-	m_pFunction[m_nCurFunction]->CurLevel=-1;//º¯ÊıÒÑ¾­½áÊø£¬»ØÊÕËùÓĞ±äÁ¿Õ¼ÓÃµÄÄÚ´æ
-	if(!RecycleMemory())//²úÉú»ØÊÕÄÚ´æµÄ´úÂë
+	m_pFunction[m_nCurFunction]->CurLevel=-1;//å‡½æ•°å·²ç»ç»“æŸï¼Œå›æ”¶æ‰€æœ‰å˜é‡å ç”¨çš„å†…å­˜
+	if(!RecycleMemory())//äº§ç”Ÿå›æ”¶å†…å­˜çš„ä»£ç 
 		return FALSE;
-	m_pCode[pFunction->nStartAddress].sd.iNumber=pFunction->nMaxTotalMemory;//µÇ¼Çº¯Êı×îĞ¡ÄÚ´æÁ¿
-	//¿ªÊ¼Éú³ÉÈ±Ê¡·µ»Ø´úÂë
+	m_pCode[pFunction->nStartAddress].sd.iNumber=pFunction->nMaxTotalMemory;//ç™»è®°å‡½æ•°æœ€å°å†…å­˜é‡
+	//å¼€å§‹ç”Ÿæˆç¼ºçœè¿”å›ä»£ç 
 	ZOP op;
 	switch(pFunction->ReturnType)
 	{
@@ -857,8 +857,8 @@ BOOL CFCView::DoFunction()
 	}
 	if(!GenerateCode(op,offset))
 		return FALSE;
-	m_pFunction[m_nCurFunction]->bSolved=TRUE;//º¯ÊıÒÑ¾­³¹µ×¶¨Òå
-	if(!GetElement(TRUE))//»ñÈ¡ÏÂ¸öº¯ÊıµÄ·µ»ØÀàĞÍ»òÔ´´úÂë½áÊø·û
+	m_pFunction[m_nCurFunction]->bSolved=TRUE;//å‡½æ•°å·²ç»å½»åº•å®šä¹‰
+	if(!GetElement(TRUE))//è·å–ä¸‹ä¸ªå‡½æ•°çš„è¿”å›ç±»å‹æˆ–æºä»£ç ç»“æŸç¬¦
 		return FALSE;
 	return TRUE;
 }
@@ -871,60 +871,60 @@ BOOL CFCView::DoStatement()
 	{
 	case E_CHAR:
 	case E_INT:
-	case E_DOUBLE://*******************************±äÁ¿¶¨Òå
+	case E_DOUBLE://*******************************å˜é‡å®šä¹‰
 		if(!DoDefine())
 			return FALSE;
 		break;
-	case E_INPUT://********************************ÊäÈëÓï¾ä
+	case E_INPUT://********************************è¾“å…¥è¯­å¥
 		if(!DoInput())
 			return FALSE;
 		break;
-	case E_OUTPUT://*******************************Êä³öÓï¾ä
+	case E_OUTPUT://*******************************è¾“å‡ºè¯­å¥
 		if(!DoOutput())
 			return FALSE;
 		break;
-	case E_IF://***********************************Ñ¡ÔñÓï¾ä
+	case E_IF://***********************************é€‰æ‹©è¯­å¥
 		if(!DoIf())
 			return FALSE;
 		break;
-	case E_SWITCH://*******************************¿ª¹ØÓï¾ä
+	case E_SWITCH://*******************************å¼€å…³è¯­å¥
 		if(!DoSwitch())
 			return FALSE;
 		break;
-	case E_BEGIN://********************************¸´ºÏÓï¾ä
+	case E_BEGIN://********************************å¤åˆè¯­å¥
 		if(!DoMultiStatement())
 			return FALSE;
 		break;
 	case E_BREAK:
 	case E_CONTINUE:
 	case E_EXIT:
-	case E_RETURN://*******************************×ªÒÆÓï¾ä
+	case E_RETURN://*******************************è½¬ç§»è¯­å¥
 		if(!DoJump())
 			return FALSE;
 		break;
-	case E_WHILE://*******************************whileÑ­»·
+	case E_WHILE://*******************************whileå¾ªç¯
 		if(!DoWhile())
 			return FALSE;
 		break;
-	case E_DO://*******************************do-whileÑ­»·
+	case E_DO://*******************************do-whileå¾ªç¯
 		if(!DoDoWhile())
 			return FALSE;
 		break;
-	case E_IDENT://**********************¸³ÖµÓï¾ä¡¢º¯Êıµ÷ÓÃ
+	case E_IDENT://**********************èµ‹å€¼è¯­å¥ã€å‡½æ•°è°ƒç”¨
 		switch(GetIdentType(m_ident))
 		{
-		case IT_NULL://Î´ÖªµÄ±êÊ¶·û
+		case IT_NULL://æœªçŸ¥çš„æ ‡è¯†ç¬¦
 			if(!ErrorReport(ET_UNKNOWNIDENT))
 				return FALSE;
 			if(!GetElement())
 				return FALSE;
 			break;
 		case IT_FUNCTION:
-		case IT_FUNCTIONUS://º¯Êıµ÷ÓÃ
+		case IT_FUNCTIONUS://å‡½æ•°è°ƒç”¨
 			it=m_pFunction[GetFunctionIndex(m_ident)]->ReturnType;
 			if(!DoCall())
 				return FALSE;
-			if(m_element!=E_SEMICOLON)//²»ÊÇ;£¬±¨´í
+			if(m_element!=E_SEMICOLON)//ä¸æ˜¯;ï¼ŒæŠ¥é”™
 			{
 				if(!ErrorReport(ET_MISSSEMICOLON))
 					return FALSE;
@@ -944,12 +944,12 @@ BOOL CFCView::DoStatement()
 			if(!GetElement())
 				return FALSE;
 			break;
-		default://±äÁ¿¸³Öµ
+		default://å˜é‡èµ‹å€¼
 			if(!DoBecomes())
 				return FALSE;
 		}
 		break;
-	case E_STRCPY://**************************** strcpyµ÷ÓÃ
+	case E_STRCPY://**************************** strcpyè°ƒç”¨
 		if(!DoStrcpyCall())
 			return FALSE;
 		if(m_element!=E_SEMICOLON)
@@ -961,7 +961,7 @@ BOOL CFCView::DoStatement()
 			return FALSE;
 		break;
 	case E_STRLWR:
-	case E_STRUPR://********************* strlwr struprµ÷ÓÃ
+	case E_STRUPR://********************* strlwr struprè°ƒç”¨
 		if(!DoStrlwruprCall())
 			return FALSE;
 		if(m_element!=E_SEMICOLON)
@@ -973,7 +973,7 @@ BOOL CFCView::DoStatement()
 			return FALSE;
 		break;
 	case E_DOWNSORT:
-	case E_UPSORT://******************* downsort upsortµ÷ÓÃ
+	case E_UPSORT://******************* downsort upsortè°ƒç”¨
 		if(!DoSortCall())
 			return FALSE;
 		if(m_element!=E_SEMICOLON)
@@ -984,7 +984,7 @@ BOOL CFCView::DoStatement()
 		if(!GetElement())
 			return FALSE;
 		break;
-	case E_SEMICOLON://************************·ÖºÅ£¬¿ÕÓï¾ä
+	case E_SEMICOLON://************************åˆ†å·ï¼Œç©ºè¯­å¥
 		if(!m_bAllowEmptyStatement)
 		{
 			if(!ErrorReport(ET_EMPTYSTATE))
@@ -1017,15 +1017,15 @@ BOOL CFCView::DoDefine()
 	}
 	do
 	{
-		if(!GetElement())//»ñÈ¡µÚÒ»¸ö¶¨Òå¶ÔÏóµÄ±êÊ¶·û»ò[
+		if(!GetElement())//è·å–ç¬¬ä¸€ä¸ªå®šä¹‰å¯¹è±¡çš„æ ‡è¯†ç¬¦æˆ–[
 			return FALSE;
 		if(m_element==E_LSUB)
 		{
 			bArray=TRUE;
-			if(!GetElement())//»ñÈ¡±íÊ¾Êı×é³¤µÄÕûÊı»ò×Ö·û
+			if(!GetElement())//è·å–è¡¨ç¤ºæ•°ç»„é•¿çš„æ•´æ•°æˆ–å­—ç¬¦
 				return FALSE;
 			nArrayLength=0;
-			switch(m_element)//¸ù¾İ²»Í¬µÄ¶ÔÏó¸ø³ö²»Í¬µÄ´íÎóÌáÊ¾
+			switch(m_element)//æ ¹æ®ä¸åŒçš„å¯¹è±¡ç»™å‡ºä¸åŒçš„é”™è¯¯æç¤º
 			{
 			case E_CHARACTER:	nArrayLength=m_char;break;
 			case E_INUMBER:		nArrayLength=m_int;	break;
@@ -1037,24 +1037,24 @@ BOOL CFCView::DoDefine()
 				if(!ErrorReport(ET_UNKNOWNARRAYSIZE))
 					return FALSE;
 			}
-			if(!GetElement())//»ñÈ¡]
+			if(!GetElement())//è·å–]
 				return FALSE;
-			if(m_element!=E_RSUB)//²»ÊÇ]£¬±¨´í
+			if(m_element!=E_RSUB)//ä¸æ˜¯]ï¼ŒæŠ¥é”™
 			{
 				if(!ErrorReport(ET_MISSRSUB))
 					return FALSE;
 			}
-			if(!GetElement())//»ñÈ¡¶¨Òå¶ÔÏóµÄ±êÊ¶·û
+			if(!GetElement())//è·å–å®šä¹‰å¯¹è±¡çš„æ ‡è¯†ç¬¦
 				return FALSE;
 		}
 		else bArray=FALSE;
-		if(m_element!=E_IDENT)//»ñµÃµÄ²»ÊÇ±êÊ¶·û£¬±¨´í
+		if(m_element!=E_IDENT)//è·å¾—çš„ä¸æ˜¯æ ‡è¯†ç¬¦ï¼ŒæŠ¥é”™
 		{
 			if(!ErrorReport(ET_MISSIDENT))
 				return FALSE;
 			m_ident="";
 		}
-		switch(GetIdentType(m_ident))//¼ì²é±êÊ¶·ûÀàĞÍ
+		switch(GetIdentType(m_ident))//æ£€æŸ¥æ ‡è¯†ç¬¦ç±»å‹
 		{
 		case IT_CHAR:
 		case IT_INT:
@@ -1063,7 +1063,7 @@ BOOL CFCView::DoDefine()
 		case IT_INTARRAY:
 		case IT_DOUBLEARRAY:
 		case IT_FUNCTION:
-		case IT_FUNCTIONUS://±êÊ¶·ûÒÑ¾­¶¨Òå£¬±¨´í
+		case IT_FUNCTIONUS://æ ‡è¯†ç¬¦å·²ç»å®šä¹‰ï¼ŒæŠ¥é”™
 			if(!ErrorReport(ET_DEFINEDIDENT))
 				return FALSE;
 			m_ident="";
@@ -1071,12 +1071,12 @@ BOOL CFCView::DoDefine()
 		}
 		if(!NewIdent())
 			return FALSE;
-		pFunction->pIdent[pFunction->nIdent]->level=pFunction->CurLevel;//µÇ¼Ç±äÁ¿²ã´Î
-		pFunction->pIdent[pFunction->nIdent]->name=m_ident;//µÇ¼Ç±äÁ¿Ãû
-		pFunction->pIdent[pFunction->nIdent]->nAddress=pFunction->nCurAddress;//µÇ¼Ç±äÁ¿µØÖ·
-		if(!bArray)//µÇ¼Ç±äÁ¿ÀàĞÍ -- ²»ÊÇÊı×é
+		pFunction->pIdent[pFunction->nIdent]->level=pFunction->CurLevel;//ç™»è®°å˜é‡å±‚æ¬¡
+		pFunction->pIdent[pFunction->nIdent]->name=m_ident;//ç™»è®°å˜é‡å
+		pFunction->pIdent[pFunction->nIdent]->nAddress=pFunction->nCurAddress;//ç™»è®°å˜é‡åœ°å€
+		if(!bArray)//ç™»è®°å˜é‡ç±»å‹ -- ä¸æ˜¯æ•°ç»„
 			pFunction->pIdent[pFunction->nIdent]->type=it;
-		else//µÇ¼Ç±äÁ¿ÀàĞÍ -- ÊÇÊı×é
+		else//ç™»è®°å˜é‡ç±»å‹ -- æ˜¯æ•°ç»„
 		{
 			pFunction->pIdent[pFunction->nIdent]->type=ZIT(it+IT_CHARARRAY-IT_CHAR);
 			ZOP op;
@@ -1089,17 +1089,17 @@ BOOL CFCView::DoDefine()
 			if(!GenerateCode(op,pFunction->pIdent[pFunction->nIdent]->nAddress,nArrayLength))
 				return FALSE;
 		}
-		pFunction->nCurAddress += SizeOf(pFunction->pIdent[pFunction->nIdent]->type);//¸üĞÂº¯ÊıÄÚ´æÊ¹ÓÃÁ¿
-		if(!GetElement())//»ñÈ¡= , ;
+		pFunction->nCurAddress += SizeOf(pFunction->pIdent[pFunction->nIdent]->type);//æ›´æ–°å‡½æ•°å†…å­˜ä½¿ç”¨é‡
+		if(!GetElement())//è·å–= , ;
 			return FALSE;
 		if(m_element==E_BECOMES)
 		{
-			if(!GetElement())//»ñÈ¡×Ö·û´®»ò±í´ïÊ½µÄµÚÒ»¸öµ¥´Ê
+			if(!GetElement())//è·å–å­—ç¬¦ä¸²æˆ–è¡¨è¾¾å¼çš„ç¬¬ä¸€ä¸ªå•è¯
 				return FALSE;
 			switch(pFunction->pIdent[pFunction->nIdent]->type)
 			{
-			case IT_CHARARRAY://×Ö·ûÊı×é
-				if(m_element!=E_STRING)//²»ÊÇ×Ö·û´®
+			case IT_CHARARRAY://å­—ç¬¦æ•°ç»„
+				if(m_element!=E_STRING)//ä¸æ˜¯å­—ç¬¦ä¸²
 				{
 					if(!ErrorReport(ET_WRONGINIT))
 						return FALSE;
@@ -1116,7 +1116,7 @@ BOOL CFCView::DoDefine()
 					if(!GenerateCode(OP_STRCPYS,pFunction->pIdent[pFunction->nIdent]->nAddress,string))
 						return FALSE;
 				}
-				if(!GetElement())//»ñÈ¡, ;
+				if(!GetElement())//è·å–, ;
 					return FALSE;
 				break;
 			case IT_CHAR:
@@ -1125,13 +1125,13 @@ BOOL CFCView::DoDefine()
 				if(!DoExpression())
 					return FALSE;
 				if(m_it != pFunction->pIdent[pFunction->nIdent]->type)
-				{	//ÀàĞÍ²»Í¬£¬»òÕßĞèÒªÇ¿ÖÆÀàĞÍ×ª»»£¬»òÕßĞèÒªÒşÊ½ÀàĞÍ×ª»»
+				{	//ç±»å‹ä¸åŒï¼Œæˆ–è€…éœ€è¦å¼ºåˆ¶ç±»å‹è½¬æ¢ï¼Œæˆ–è€…éœ€è¦éšå¼ç±»å‹è½¬æ¢
 					if(int(m_it) > int(pFunction->pIdent[pFunction->nIdent]->type))//
-					{	//double => int,char; int => char;ÎŞ·¨¸³Öµ£¬ĞèÒªÇ¿ÖÆÀàĞÍ×ª»»
+					{	//double => int,char; int => char;æ— æ³•èµ‹å€¼ï¼Œéœ€è¦å¼ºåˆ¶ç±»å‹è½¬æ¢
 						if(!ErrorReport(ET_MUSTCHANGETYPE))
 							return FALSE;
 					}
-					else//ÒşÊ½ÀàĞÍ×ª»»
+					else//éšå¼ç±»å‹è½¬æ¢
 					{
 						ZOP op;
 						switch(pFunction->pIdent[pFunction->nIdent]->type)
@@ -1157,16 +1157,16 @@ BOOL CFCView::DoDefine()
 				if(!GenerateCode(op,pFunction->pIdent[pFunction->nIdent]->nAddress))
 					return FALSE;
 				break;
-			case IT_INTARRAY:	//ÕûĞÍÊı×é
-			case IT_DOUBLEARRAY://ÊµĞÍÊı×é
+			case IT_INTARRAY:	//æ•´å‹æ•°ç»„
+			case IT_DOUBLEARRAY://å®å‹æ•°ç»„
 				if(!ErrorReport(ET_WRONGINIT))
 					return FALSE;
-				if(!GetElement())//»ñÈ¡, ;
+				if(!GetElement())//è·å–, ;
 					return FALSE;
 				break;
 			}
 		}
-		else//Ã»ÓĞµÈºÅ
+		else//æ²¡æœ‰ç­‰å·
 		{
 			switch(pFunction->pIdent[pFunction->nIdent]->type)
 			{
@@ -1190,7 +1190,7 @@ BOOL CFCView::DoDefine()
 				break;
 			}
 		}
-		pFunction->nIdent++;//¸üĞÂº¯Êı±äÁ¿ÊıÄ¿£¬±ØĞëÔÚÍêÈ«´¦ÀíÍêÒ»¸ö±äÁ¿µÄ¶¨ÒåÊ±¸üĞÂ
+		pFunction->nIdent++;//æ›´æ–°å‡½æ•°å˜é‡æ•°ç›®ï¼Œå¿…é¡»åœ¨å®Œå…¨å¤„ç†å®Œä¸€ä¸ªå˜é‡çš„å®šä¹‰æ—¶æ›´æ–°
 	}
 	while(m_element==E_COMMA);
 	if(m_element!=E_SEMICOLON)
@@ -1207,26 +1207,26 @@ BOOL CFCView::DoInput()
 {
 	while(1)
 	{
-		if(!GetElement())//»ñÈ¡ÊäÈë¶ÔÏóµÄµÚÒ»¸öµ¥´Ê
+		if(!GetElement())//è·å–è¾“å…¥å¯¹è±¡çš„ç¬¬ä¸€ä¸ªå•è¯
 			return FALSE;
-		if(m_element==E_LSUB)//[£¬×Ö·ûÊı×éÊäÈë
+		if(m_element==E_LSUB)//[ï¼Œå­—ç¬¦æ•°ç»„è¾“å…¥
 		{
-			if(!GetElement())//»ñÈ¡]
+			if(!GetElement())//è·å–]
 				return FALSE;
-			if(m_element!=E_RSUB)//²»ÊÇ]£¬±¨´í
+			if(m_element!=E_RSUB)//ä¸æ˜¯]ï¼ŒæŠ¥é”™
 			{
 				if(!ErrorReport(ET_MISSRSUB))
 					return FALSE;
 			}
-			if(!GetElement())//»ñÈ¡×Ö·ûÊı×é±êÊ¶·û
+			if(!GetElement())//è·å–å­—ç¬¦æ•°ç»„æ ‡è¯†ç¬¦
 				return FALSE;
-			if(m_element!=E_IDENT)//²»ÊÇ±êÊ¶·û£¬±¨´í
+			if(m_element!=E_IDENT)//ä¸æ˜¯æ ‡è¯†ç¬¦ï¼ŒæŠ¥é”™
 			{
 				if(!ErrorReport(ET_MISSIDENT))
 					return FALSE;
 				m_ident="";
 			}
-			switch(GetIdentType(m_ident))//¸ù¾İ²»Í¬µÄ±êÊ¶·ûÀàĞÍ¸ø³ö²»Í¬µÄÌáÊ¾
+			switch(GetIdentType(m_ident))//æ ¹æ®ä¸åŒçš„æ ‡è¯†ç¬¦ç±»å‹ç»™å‡ºä¸åŒçš„æç¤º
 			{
 			case IT_CHARARRAY:
 			case IT_ECHARARRAY:
@@ -1245,43 +1245,43 @@ BOOL CFCView::DoInput()
 					return FALSE;
 				break;
 			}
-			if(!GetElement())//»ñÈ¡, ;
+			if(!GetElement())//è·å–, ;
 				return FALSE;
 		}
-		else//±êÊ¶·û
+		else//æ ‡è¯†ç¬¦
 		{
-			if(m_element!=E_IDENT)//²»ÊÇ±êÊ¶·û£¬±¨´í
+			if(m_element!=E_IDENT)//ä¸æ˜¯æ ‡è¯†ç¬¦ï¼ŒæŠ¥é”™
 			{
 				if(!ErrorReport(ET_MISSIDENT))
 					return FALSE;
 				m_ident="";
 			}
-			switch(GetIdentType(m_ident))//¸ù¾İ²»Í¬µÄ±êÊ¶·ûÀàĞÍ¸ø³ö²»Í¬µÄÌáÊ¾
+			switch(GetIdentType(m_ident))//æ ¹æ®ä¸åŒçš„æ ‡è¯†ç¬¦ç±»å‹ç»™å‡ºä¸åŒçš„æç¤º
 			{
 			case IT_CHAR:
 			case IT_ECHAR:
 				if(!GenerateCode(OP_INPUTC,GetIdentAddress(m_ident)))
 					return FALSE;
-				if(!GetElement())//»ñÈ¡, ;
+				if(!GetElement())//è·å–, ;
 					return FALSE;
 				break;
 			case IT_INT:
 			case IT_EINT:
 				if(!GenerateCode(OP_INPUTI,GetIdentAddress(m_ident)))
 					return FALSE;
-				if(!GetElement())//»ñÈ¡, ;
+				if(!GetElement())//è·å–, ;
 					return FALSE;
 				break;
 			case IT_DOUBLE:
 			case IT_EDOUBLE:
 				if(!GenerateCode(OP_INPUTD,GetIdentAddress(m_ident)))
 					return FALSE;
-				if(!GetElement())//»ñÈ¡, ;
+				if(!GetElement())//è·å–, ;
 					return FALSE;
 				break;
 			case IT_CHARARRAY:
 			case IT_ECHARARRAY:
-				if(!GetElement())//»ñÈ¡[
+				if(!GetElement())//è·å–[
 					return FALSE;
 				if(!DoSubscript())
 					return FALSE;
@@ -1290,7 +1290,7 @@ BOOL CFCView::DoInput()
 				break;
 			case IT_INTARRAY:
 			case IT_EINTARRAY:
-				if(!GetElement())//»ñÈ¡[
+				if(!GetElement())//è·å–[
 					return FALSE;
 				if(!DoSubscript())
 					return FALSE;
@@ -1299,7 +1299,7 @@ BOOL CFCView::DoInput()
 				break;
 			case IT_DOUBLEARRAY:
 			case IT_EDOUBLEARRAY:
-				if(!GetElement())//»ñÈ¡[
+				if(!GetElement())//è·å–[
 					return FALSE;
 				if(!DoSubscript())
 					return FALSE;
@@ -1325,35 +1325,35 @@ BOOL CFCView::DoOutput()
 {
 	do
 	{
-		if(!GetElement())//»ñÈ¡Êä³ö¶ÔÏóµÄµÚÒ»¸öµ¥´Ê
+		if(!GetElement())//è·å–è¾“å‡ºå¯¹è±¡çš„ç¬¬ä¸€ä¸ªå•è¯
 			return FALSE;
-		if(m_element==E_STRING)//Êä³ö×Ö·û´®
+		if(m_element==E_STRING)//è¾“å‡ºå­—ç¬¦ä¸²
 		{
 			char *string=new char[m_string.GetLength()+1];
 			strcpy(string,m_string);
 			if(!GenerateCode(OP_OUTPUTS,string))
 				return FALSE;
-			if(!GetElement())//»ñÈ¡, ;
+			if(!GetElement())//è·å–, ;
 				return FALSE;
 		}
-		else if(m_element==E_LSUB)//Êä³ö×Ö·ûÊı×é
+		else if(m_element==E_LSUB)//è¾“å‡ºå­—ç¬¦æ•°ç»„
 		{
-			if(!GetElement())//»ñÈ¡]
+			if(!GetElement())//è·å–]
 				return FALSE;
-			if(m_element!=E_RSUB)//²»ÊÇ]£¬±¨´í
+			if(m_element!=E_RSUB)//ä¸æ˜¯]ï¼ŒæŠ¥é”™
 			{
 				if(!ErrorReport(ET_MISSRSUB))
 					return FALSE;
 			}
-			if(!GetElement())//»ñÈ¡×Ö·ûÊı×é±êÊ¶·û
+			if(!GetElement())//è·å–å­—ç¬¦æ•°ç»„æ ‡è¯†ç¬¦
 				return FALSE;
-			if(m_element!=E_IDENT)//²»ÊÇ±êÊ¶·û£¬±¨´í
+			if(m_element!=E_IDENT)//ä¸æ˜¯æ ‡è¯†ç¬¦ï¼ŒæŠ¥é”™
 			{
 				if(!ErrorReport(ET_MISSIDENT))
 					return FALSE;
 				m_ident="";
 			}
-			switch(GetIdentType(m_ident))//¼ì²é±êÊ¶·ûÀàĞÍ
+			switch(GetIdentType(m_ident))//æ£€æŸ¥æ ‡è¯†ç¬¦ç±»å‹
 			{
 			case IT_CHARARRAY:
 			case IT_ECHARARRAY:
@@ -1361,12 +1361,12 @@ BOOL CFCView::DoOutput()
 			case IT_INTARRAY:
 			case IT_EINTARRAY:
 			case IT_DOUBLEARRAY:
-			case IT_EDOUBLEARRAY://±êÊ¶·ûÀàĞÍ²»ÊÇ×Ö·ûÊı×é£¬±¨´í
+			case IT_EDOUBLEARRAY://æ ‡è¯†ç¬¦ç±»å‹ä¸æ˜¯å­—ç¬¦æ•°ç»„ï¼ŒæŠ¥é”™
 				if(!ErrorReport(ET_OUTPUTNCARRAY))
 					return FALSE;
 				m_ident="";
 				break;
-			default://±êÊ¶·û²»ÊÇÊı×é£¬±¨´í
+			default://æ ‡è¯†ç¬¦ä¸æ˜¯æ•°ç»„ï¼ŒæŠ¥é”™
 				if(!ErrorReport(ET_NOARRIDENTARR))
 					return FALSE;
 				m_ident="";
@@ -1374,15 +1374,15 @@ BOOL CFCView::DoOutput()
 			}
 			if(!GenerateCode(OP_OUTPUTCA,GetIdentAddress(m_ident)))
 				return FALSE;
-			if(!GetElement())//»ñÈ¡, ;
+			if(!GetElement())//è·å–, ;
 				return FALSE;
 		}
-		else//±í´ïÊ½
+		else//è¡¨è¾¾å¼
 		{
 			if(!DoExpression())
 				return FALSE;
 			ZOP op;
-			switch(m_it)//¼ì²éÀàĞÍ
+			switch(m_it)//æ£€æŸ¥ç±»å‹
 			{
 			case IT_CHAR:	op=OP_OUTPUTC;break;
 			case IT_INT:	op=OP_OUTPUTI;break;
@@ -1393,7 +1393,7 @@ BOOL CFCView::DoOutput()
 		}
 	}
 	while(m_element==E_COMMA);
-	if(m_element!=E_SEMICOLON)//²»ÊÇ·ÖºÅ£¬±¨´í
+	if(m_element!=E_SEMICOLON)//ä¸æ˜¯åˆ†å·ï¼ŒæŠ¥é”™
 	{
 		if(!ErrorReport(ET_MISSSEMICOLON))
 			return FALSE;
@@ -1405,7 +1405,7 @@ BOOL CFCView::DoOutput()
 
 BOOL CFCView::DoIf()
 {
-	const int nTrue=m_nTrue,nFalse=m_nFalse;//±£´æÉÏÒ»¼¶µÄÕæ¼Ù³ö¿Ú
+	const int nTrue=m_nTrue,nFalse=m_nFalse;//ä¿å­˜ä¸Šä¸€çº§çš„çœŸå‡å‡ºå£
 	if(!GenerateCode(OP_JUMP,m_nCode+3))
 		return FALSE;
 	m_nTrue=m_nCode;
@@ -1414,70 +1414,70 @@ BOOL CFCView::DoIf()
 	m_nFalse=m_nCode;
 	if(!GenerateCode(OP_JUMP,0))
 		return FALSE;
-	if(!GetElement())//»ñÈ¡(
+	if(!GetElement())//è·å–(
 		return FALSE;
-	if(m_element!=E_LPAREN)//²»ÊÇ(£¬±¨´í
+	if(m_element!=E_LPAREN)//ä¸æ˜¯(ï¼ŒæŠ¥é”™
 	{
 		if(!ErrorReport(ET_MISSLPAREN))
 			return FALSE;
 	}
-	if(!GetElement())//»ñÈ¡Ìõ¼şµÄµÚÒ»¸öµ¥´Ê
+	if(!GetElement())//è·å–æ¡ä»¶çš„ç¬¬ä¸€ä¸ªå•è¯
 		return FALSE;
 	if(!DoCondition())
 		return FALSE;
-	if(m_element!=E_RPAREN)//²»ÊÇ)£¬±¨´í
+	if(m_element!=E_RPAREN)//ä¸æ˜¯)ï¼ŒæŠ¥é”™
 	{
 		if(!ErrorReport(ET_MISSRPAREN))
 			return FALSE;
 	}
-	m_pCode[m_nTrue].sd.iNumber=m_nCode;//Ìî³äÕæ³ö¿ÚµÄÕæÊµµØÖ·
-	m_pFunction[m_nCurFunction]->CurLevel++;//Ç¶Ì×²ã´Î¼ÓÒ»
-	if(!GetElement())//»ñÈ¡ifºóÓï¾äµÄµÚÒ»¸öµ¥´Ê
+	m_pCode[m_nTrue].sd.iNumber=m_nCode;//å¡«å……çœŸå‡ºå£çš„çœŸå®åœ°å€
+	m_pFunction[m_nCurFunction]->CurLevel++;//åµŒå¥—å±‚æ¬¡åŠ ä¸€
+	if(!GetElement())//è·å–ifåè¯­å¥çš„ç¬¬ä¸€ä¸ªå•è¯
 		return FALSE;
 	if(!DoStatement())
 		return FALSE;
-	m_pFunction[m_nCurFunction]->CurLevel--;//Ç¶Ì×²ã´Î¼õÒ»
-	if(!RecycleMemory())//»ØÊÕÄÚ´æ
+	m_pFunction[m_nCurFunction]->CurLevel--;//åµŒå¥—å±‚æ¬¡å‡ä¸€
+	if(!RecycleMemory())//å›æ”¶å†…å­˜
 		return FALSE;
-	if(m_element!=E_ELSE)//ifÎŞelseÓï¾ä
-		m_pCode[m_nFalse].sd.iNumber=m_nCode;//Ìî³ä¼Ù³ö¿ÚµÄÕæÊµµØÖ·
-	else//if-elseÓï¾ä
+	if(m_element!=E_ELSE)//ifæ— elseè¯­å¥
+		m_pCode[m_nFalse].sd.iNumber=m_nCode;//å¡«å……å‡å‡ºå£çš„çœŸå®åœ°å€
+	else//if-elseè¯­å¥
 	{
 		int over=m_nCode;
 		if(!GenerateCode(OP_JUMP,0))
 			return FALSE;
-		m_pCode[m_nFalse].sd.iNumber=m_nCode;//Ìî³ä¼Ù³ö¿ÚµÄÕæÊµµØÖ·
-		m_pFunction[m_nCurFunction]->CurLevel++;//Ç¶Ì×²ã´Î¼ÓÒ»
-		if(!GetElement())//»ñÈ¡elseºóµÄÓï¾äµÄµÚÒ»¸öµ¥´Ê
+		m_pCode[m_nFalse].sd.iNumber=m_nCode;//å¡«å……å‡å‡ºå£çš„çœŸå®åœ°å€
+		m_pFunction[m_nCurFunction]->CurLevel++;//åµŒå¥—å±‚æ¬¡åŠ ä¸€
+		if(!GetElement())//è·å–elseåçš„è¯­å¥çš„ç¬¬ä¸€ä¸ªå•è¯
 			return FALSE;
 		if(!DoStatement())
 			return FALSE;
-		m_pFunction[m_nCurFunction]->CurLevel--;//Ç¶Ì×²ã´Î¼õÒ»
-		if(!RecycleMemory())//»ØÊÕÄÚ´æ
+		m_pFunction[m_nCurFunction]->CurLevel--;//åµŒå¥—å±‚æ¬¡å‡ä¸€
+		if(!RecycleMemory())//å›æ”¶å†…å­˜
 			return FALSE;
 		m_pCode[over].sd.iNumber=m_nCode;
 	}
-	m_nTrue=nTrue;//»Ö¸´ÉÏÒ»¼¶µÄÕæ¼Ù³ö¿Ú
+	m_nTrue=nTrue;//æ¢å¤ä¸Šä¸€çº§çš„çœŸå‡å‡ºå£
 	m_nFalse=nFalse;
 	return TRUE;
 }
 
 BOOL CFCView::DoSwitch()
 {
-	const int nBreak=m_nBreak;	//±£´æÉÏÒ»¼¶µÄbreakÌø×ªµØÖ·
-	const int nCase=m_nCase;	//±£´æÉÏÒ»¼¶µÄcase¼ÌĞøÆğµã
-	if(!GetElement())//»ñÈ¡(
+	const int nBreak=m_nBreak;	//ä¿å­˜ä¸Šä¸€çº§çš„breakè·³è½¬åœ°å€
+	const int nCase=m_nCase;	//ä¿å­˜ä¸Šä¸€çº§çš„caseç»§ç»­èµ·ç‚¹
+	if(!GetElement())//è·å–(
 		return FALSE;
-	if(m_element!=E_LPAREN)//²»ÊÇ(£¬±¨´í
+	if(m_element!=E_LPAREN)//ä¸æ˜¯(ï¼ŒæŠ¥é”™
 	{
 		if(!ErrorReport(ET_MISSLPAREN))
 			return FALSE;
 	}
-	if(!GetElement())//»ñÈ¡switchºó±í´ïÊ½µÄµÚÒ»¸öµ¥´Ê
+	if(!GetElement())//è·å–switchåè¡¨è¾¾å¼çš„ç¬¬ä¸€ä¸ªå•è¯
 		return FALSE;
 	if(!DoExpression())
 		return FALSE;
-	if(m_it==IT_DOUBLE)//Èôswitchºó±í´ïÊ½µÄÀàĞÍÎªÊµÊı£¬±¨´í
+	if(m_it==IT_DOUBLE)//è‹¥switchåè¡¨è¾¾å¼çš„ç±»å‹ä¸ºå®æ•°ï¼ŒæŠ¥é”™
 	{
 		if(!ErrorReport(ET_DOUBLESWITCH))
 			return FALSE;
@@ -1487,46 +1487,46 @@ BOOL CFCView::DoSwitch()
 		if(!GenerateCode(OP_C2I,0))
 			return FALSE;
 	}
-	if(m_element!=E_RPAREN)//±í´ïÊ±ºò²»ÊÇ)£¬±¨´í
+	if(m_element!=E_RPAREN)//è¡¨è¾¾æ—¶å€™ä¸æ˜¯)ï¼ŒæŠ¥é”™
 	{
 		if(!ErrorReport(ET_MISSRPAREN))
 			return FALSE;
 	}
-	if(!GetElement())//»ñÈ¡{
+	if(!GetElement())//è·å–{
 		return FALSE;
-	if(m_element!=E_BEGIN)//²»ÊÇ{£¬±¨´í
+	if(m_element!=E_BEGIN)//ä¸æ˜¯{ï¼ŒæŠ¥é”™
 	{
 		if(!ErrorReport(ET_MISSBEGIN))
 			return FALSE;
 	}
 	if(!GenerateCode(OP_JUMP,m_nCode+2))
 		return FALSE;
-	m_nBreak=m_nCode;//ÉèÖÃbreakÌø×ªµØÖ·
+	m_nBreak=m_nCode;//è®¾ç½®breakè·³è½¬åœ°å€
 	if(!GenerateCode(OP_JUMP,0))
 		return FALSE;
 	m_nCase=-1;
-	if(!GetElement())//»ñÈ¡case¹Ø¼ü×Ö
+	if(!GetElement())//è·å–caseå…³é”®å­—
 		return FALSE;
-	while(m_element==E_CASE)//Ñ­»·´¦Àícase·ÖÖ§
+	while(m_element==E_CASE)//å¾ªç¯å¤„ç†caseåˆ†æ”¯
 	{
 		if(!DoCase())
 			return FALSE;
 	}
-	if(m_element==E_DEFAULT)//ÓĞdefault£¬´¦Àídefault·ÖÖ§
+	if(m_element==E_DEFAULT)//æœ‰defaultï¼Œå¤„ç†defaultåˆ†æ”¯
 	{
 		if(!DoDefault())
 			return FALSE;
 	}
-	m_pCode[m_nBreak].sd.iNumber=m_nCode;//»ØÌîbreakµÄÕæÊµÌø×ªÖÕµã
-	if(!GenerateCode(OP_DELETEI))//É¾³ıÕ»¶¥Êı
+	m_pCode[m_nBreak].sd.iNumber=m_nCode;//å›å¡«breakçš„çœŸå®è·³è½¬ç»ˆç‚¹
+	if(!GenerateCode(OP_DELETEI))//åˆ é™¤æ ˆé¡¶æ•°
 		return FALSE;
 	if(m_element!=E_END)
 	{
 		if(!ErrorReport(ET_MISSEND))
 			return FALSE;
 	}
-	m_nBreak=nBreak;//»Ö¸´ÉÏÒ»¼¶µÄbreakÌø×ªÎ»ÖÃ
-	m_nCase=nCase;	//»Ö¸´ÉÏÒ»¼¶µÄcase¼ÌĞøÌø×ªÆğµã
+	m_nBreak=nBreak;//æ¢å¤ä¸Šä¸€çº§çš„breakè·³è½¬ä½ç½®
+	m_nCase=nCase;	//æ¢å¤ä¸Šä¸€çº§çš„caseç»§ç»­è·³è½¬èµ·ç‚¹
 	if(!GetElement())
 		return FALSE;
 	return TRUE;
@@ -1554,14 +1554,14 @@ BOOL CFCView::DoJump()
 	switch(m_element)
 	{
 	case E_BREAK:
-		if(m_nBreak<0)//´íÎóµÄbreakÓï¾ä
+		if(m_nBreak<0)//é”™è¯¯çš„breakè¯­å¥
 		{
 			if(!ErrorReport(ET_WRONGBREAK))
 				return FALSE;
 		}
 		if(!GenerateCode(OP_JUMP,m_nBreak))
 			return FALSE;
-		if(!GetElement())//»ñÈ¡·ÖºÅ
+		if(!GetElement())//è·å–åˆ†å·
 			return FALSE;
 		break;
 	case E_CONTINUE:
@@ -1572,35 +1572,35 @@ BOOL CFCView::DoJump()
 		}
 		if(!GenerateCode(OP_JUMP,m_nContinue))
 			return FALSE;
-		if(!GetElement())//»ñÈ¡·ÖºÅ
+		if(!GetElement())//è·å–åˆ†å·
 			return FALSE;
 		break;
 	case E_EXIT:
 		if(!GenerateCode(OP_EXIT))
 			return FALSE;
-		if(!GetElement())//»ñÈ¡·ÖºÅ
+		if(!GetElement())//è·å–åˆ†å·
 			return FALSE;
 		break;
 	case E_RETURN:
-		if(!GetElement())//»ñÈ¡·ÖºÅ»òreturnºó±í´ïÊ½µÄµÚÒ»¸öµ¥´Ê
+		if(!GetElement())//è·å–åˆ†å·æˆ–returnåè¡¨è¾¾å¼çš„ç¬¬ä¸€ä¸ªå•è¯
 			return FALSE;
-		if(m_element!=E_SEMICOLON)//²»ÊÇ·ÖºÅ£¬ÓĞ·µ»ØÖµ
+		if(m_element!=E_SEMICOLON)//ä¸æ˜¯åˆ†å·ï¼Œæœ‰è¿”å›å€¼
 		{
 			if(pFunction->ReturnType==IT_VOID)
-			{	//º¯Êı·µ»ØÀàĞÍÎªvoidµ«returnºó±ßÓĞ±í´ïÊ½
+			{	//å‡½æ•°è¿”å›ç±»å‹ä¸ºvoidä½†returnåè¾¹æœ‰è¡¨è¾¾å¼
 				if(!ErrorReport(ET_VOIDRETURNVALUE))
 					return FALSE;
 			}
 			if(!DoExpression())
 				return FALSE;
 			if(pFunction->ReturnType!=IT_VOID && m_it != pFunction->ReturnType)
-			{	//ÀàĞÍ²»Í¬£¬»òÕßĞèÒªÇ¿ÖÆÀàĞÍ×ª»»£¬»òÕßĞèÒªÒşÊ½ÀàĞÍ×ª»»
+			{	//ç±»å‹ä¸åŒï¼Œæˆ–è€…éœ€è¦å¼ºåˆ¶ç±»å‹è½¬æ¢ï¼Œæˆ–è€…éœ€è¦éšå¼ç±»å‹è½¬æ¢
 				if(int(m_it) > int(pFunction->ReturnType))//
-				{	//double => int,char; int => char;ÎŞ·¨¸³Öµ£¬ĞèÒªÇ¿ÖÆÀàĞÍ×ª»»
+				{	//double => int,char; int => char;æ— æ³•èµ‹å€¼ï¼Œéœ€è¦å¼ºåˆ¶ç±»å‹è½¬æ¢
 					if(!ErrorReport(ET_MUSTCHANGETYPE))
 						return FALSE;
 				}
-				else//ÒşÊ½ÀàĞÍ×ª»»
+				else//éšå¼ç±»å‹è½¬æ¢
 				{
 					ZOP op;
 					switch(pFunction->ReturnType)
@@ -1616,7 +1616,7 @@ BOOL CFCView::DoJump()
 						return FALSE;
 				}
 			}
-			if(!RecycleArrayMemory())//º¯Êı·µ»ØÇ°Òª»ØÊÕËùÓĞÄÚ´æ
+			if(!RecycleArrayMemory())//å‡½æ•°è¿”å›å‰è¦å›æ”¶æ‰€æœ‰å†…å­˜
 				return FALSE;
 			ZOP op;
 			int offset=3;
@@ -1632,16 +1632,16 @@ BOOL CFCView::DoJump()
 			if(!GenerateCode(op,offset))
 				return FALSE;
 		}
-		else//Ã»ÓĞ·µ»ØÖµ
+		else//æ²¡æœ‰è¿”å›å€¼
 		{
-			if(pFunction->ReturnType!=IT_VOID)//²»ÊÇvoidº¯Êıµ«Ò²Ã»ÓĞ·µ»ØÖµ
+			if(pFunction->ReturnType!=IT_VOID)//ä¸æ˜¯voidå‡½æ•°ä½†ä¹Ÿæ²¡æœ‰è¿”å›å€¼
 			{
 				if(!ErrorReport(ET_MUSTRETURNVALUE))
 					return FALSE;
 			}
 			else
 			{
-				if(!RecycleArrayMemory())//º¯Êı·µ»ØÇ°Òª»ØÊÕËùÓĞÄÚ´æ
+				if(!RecycleArrayMemory())//å‡½æ•°è¿”å›å‰è¦å›æ”¶æ‰€æœ‰å†…å­˜
 					return FALSE;
 				int offset=3;
 				if(pFunction->nParam>0)
@@ -1653,7 +1653,7 @@ BOOL CFCView::DoJump()
 		}
 		break;//end case E_RETURN
 	}//end switch
-	if(m_element!=E_SEMICOLON)//²»ÊÇ·ÖºÅ£¬±¨´í
+	if(m_element!=E_SEMICOLON)//ä¸æ˜¯åˆ†å·ï¼ŒæŠ¥é”™
 	{
 		if(!ErrorReport(ET_MISSSEMICOLON))
 			return FALSE;
@@ -1665,17 +1665,17 @@ BOOL CFCView::DoJump()
 
 BOOL CFCView::DoBecomes()
 {
-	ZIT it;//±»¸³Öµ±äÁ¿µÄÀàĞÍ£¬ÓÃÓÚ¸³ÖµÊ±µÄÀàĞÍ¼ì²â
+	ZIT it;//è¢«èµ‹å€¼å˜é‡çš„ç±»å‹ï¼Œç”¨äºèµ‹å€¼æ—¶çš„ç±»å‹æ£€æµ‹
 	BOOL bArray=FALSE;
-	int address;//±äÁ¿µØÖ·
-	ZElement elmt;//¸³ÖµºÅ
+	int address;//å˜é‡åœ°å€
+	ZElement elmt;//èµ‹å€¼å·
 	ZOP op;
 	switch(GetIdentType(m_ident))
 	{
 	case IT_CHARARRAY:
 	case IT_ECHARARRAY:
 		bArray=TRUE;
-		//´Ë´¦²»ĞèÒªbreak;
+		//æ­¤å¤„ä¸éœ€è¦break;
 	case IT_CHAR:
 	case IT_ECHAR:
 		it=IT_CHAR;
@@ -1683,7 +1683,7 @@ BOOL CFCView::DoBecomes()
 	case IT_INTARRAY:
 	case IT_EINTARRAY:
 		bArray=TRUE;
-		//´Ë´¦²»ĞèÒªbreak;
+		//æ­¤å¤„ä¸éœ€è¦break;
 	case IT_INT:
 	case IT_EINT:
 		it=IT_INT;
@@ -1691,14 +1691,14 @@ BOOL CFCView::DoBecomes()
 	case IT_DOUBLEARRAY:
 	case IT_EDOUBLEARRAY:
 		bArray=TRUE;
-		//´Ë´¦²»ĞèÒªbreak;
+		//æ­¤å¤„ä¸éœ€è¦break;
 	case IT_DOUBLE:
 	case IT_EDOUBLE:
 		it=IT_DOUBLE;
 		break;
 	}
 	address=GetIdentAddress(m_ident);
-	if(!GetElement())//»ñÈ¡¸³ÖµºÅ»ò[
+	if(!GetElement())//è·å–èµ‹å€¼å·æˆ–[
 		return FALSE;
 	if(bArray)
 	{
@@ -1728,7 +1728,7 @@ BOOL CFCView::DoBecomes()
 	case E_BECOMES:
 		elmt=m_element;
 		break;
-	default://²»ÊÇ¸³ÖµºÅ£¬±¨´í
+	default://ä¸æ˜¯èµ‹å€¼å·ï¼ŒæŠ¥é”™
 		if(!ErrorReport(ET_UNKNOWNOP))
 			return FALSE;
 		break;
@@ -1741,21 +1741,21 @@ BOOL CFCView::DoBecomes()
 		case IT_INT:	op=(bArray ? OP_LOADARRAYI : OP_LOADVARI);	break;
 		case IT_DOUBLE:	op=(bArray ? OP_LOADARRAYD : OP_LOADVARD);	break;
 		}
-		if(!GenerateCode(op,address))//°Ñ±äÁ¿µ¼ÈëÕ»ÖĞ
+		if(!GenerateCode(op,address))//æŠŠå˜é‡å¯¼å…¥æ ˆä¸­
 			return FALSE;
 	}
-	if(!GetElement())//»ñÈ¡¸³ÖµºÅºó±ßµÄµÚÒ»¸öµ¥´Ê
+	if(!GetElement())//è·å–èµ‹å€¼å·åè¾¹çš„ç¬¬ä¸€ä¸ªå•è¯
 		return FALSE;
 	if(!DoExpression())
 		return FALSE;
-	if(it!=m_it)//ÀàĞÍ²»µÈ£¬»òÕßĞèÒªÇ¿ÖÆÀàĞÍ×ª»»»òÕßĞèÒªÒşÊ½ÀàĞÍ×ª»»
+	if(it!=m_it)//ç±»å‹ä¸ç­‰ï¼Œæˆ–è€…éœ€è¦å¼ºåˆ¶ç±»å‹è½¬æ¢æˆ–è€…éœ€è¦éšå¼ç±»å‹è½¬æ¢
 	{
-		if(int(it) < int(m_it))//ĞèÇ¿ÖÆÀàĞÍ×ª»»£¬±¨´í
+		if(int(it) < int(m_it))//éœ€å¼ºåˆ¶ç±»å‹è½¬æ¢ï¼ŒæŠ¥é”™
 		{
 			if(!ErrorReport(ET_MUSTCHANGETYPE))
 				return FALSE;
 		}
-		else//½øĞĞÒşÊ½ÀàĞÍ×ª»»
+		else//è¿›è¡Œéšå¼ç±»å‹è½¬æ¢
 		{
 			ZOP op;
 			switch(it)
@@ -1788,7 +1788,7 @@ BOOL CFCView::DoBecomes()
 			op= (it==IT_CHAR ? OP_SLASHC : (it==IT_INT ? OP_SLASHI : OP_SLASHD));
 			break;
 		case E_MODBECOMES:
-			if(it==IT_DOUBLE)//¸¡µãÊıÇóÓà£¬±¨´í
+			if(it==IT_DOUBLE)//æµ®ç‚¹æ•°æ±‚ä½™ï¼ŒæŠ¥é”™
 			{
 				if(!ErrorReport(ET_DOUBLEMOD))
 					return FALSE;
@@ -1796,7 +1796,7 @@ BOOL CFCView::DoBecomes()
 			op= (it==IT_CHAR ? OP_MODC : OP_MODI);
 			break;
 		}
-		if(!GenerateCode(op))//ÇóÖµ
+		if(!GenerateCode(op))//æ±‚å€¼
 			return FALSE;
 	}
 	switch(it)
@@ -1805,9 +1805,9 @@ BOOL CFCView::DoBecomes()
 	case IT_INT:	op=(bArray ? OP_SAVEARRAYI : OP_SAVEI);	break;
 	case IT_DOUBLE:	op=(bArray ? OP_SAVEARRAYD : OP_SAVED);	break;
 	}
-	if(!GenerateCode(op,address))//¸³Öµ
+	if(!GenerateCode(op,address))//èµ‹å€¼
 		return FALSE;
-	if(m_element!=E_SEMICOLON)//²»ÊÇ;£¬±¨´í
+	if(m_element!=E_SEMICOLON)//ä¸æ˜¯;ï¼ŒæŠ¥é”™
 	{
 		if(!ErrorReport(ET_MISSSEMICOLON))
 			return FALSE;
@@ -1821,46 +1821,46 @@ BOOL CFCView::DoCall()
 {
 	const int nDestFunc=GetFunctionIndex(m_ident);
 	const ZFunction *pDestFunc=m_pFunction[nDestFunc];
-	if(!GetElement())//»ñÈ¡(
+	if(!GetElement())//è·å–(
 		return FALSE;
-	if(m_element!=E_LPAREN)//²»ÊÇ(£¬±¨´í
+	if(m_element!=E_LPAREN)//ä¸æ˜¯(ï¼ŒæŠ¥é”™
 	{
 		if(!ErrorReport(ET_MISSLPAREN))
 			return FALSE;
 	}
-	if(!GetElement())//»ñÈ¡[ ) »òµÚÒ»¸ö²ÎÊı±í´ïÊ½µÄµÚÒ»¸öµ¥´Ê
+	if(!GetElement())//è·å–[ ) æˆ–ç¬¬ä¸€ä¸ªå‚æ•°è¡¨è¾¾å¼çš„ç¬¬ä¸€ä¸ªå•è¯
 		return FALSE;
 	if(m_element==E_RPAREN)
 	{
-		if(pDestFunc->nParam!=0)//º¯ÊıÓĞ²ÎÊıµ«µ÷ÓÃÊ±Ã»ÓĞ²ÎÊıÁĞ±í£¬±¨´í
+		if(pDestFunc->nParam!=0)//å‡½æ•°æœ‰å‚æ•°ä½†è°ƒç”¨æ—¶æ²¡æœ‰å‚æ•°åˆ—è¡¨ï¼ŒæŠ¥é”™
 		{
 			if(!ErrorReport(ET_WRONGPARAMNUM))
 				return FALSE;
 		}
 	}
-	else//ÓĞ²ÎÊıÁĞ±í
+	else//æœ‰å‚æ•°åˆ—è¡¨
 	{
 		const int nParam=pDestFunc->nParam;
 		int iParam=0;
 		while(1)
 		{
-			if(iParam==nParam)//±»µ÷ÓÃº¯Êı´¦²ÎÊıÊıÄ¿±Èº¯Êı²ÎÊıÊıÄ¿¶àÒ»£¬±¨´í
+			if(iParam==nParam)//è¢«è°ƒç”¨å‡½æ•°å¤„å‚æ•°æ•°ç›®æ¯”å‡½æ•°å‚æ•°æ•°ç›®å¤šä¸€ï¼ŒæŠ¥é”™
 			{
 				if(!ErrorReport(ET_WRONGPARAMNUM))
 					return FALSE;
 			}
-			if(m_element==E_LSUB)//[£¬Êı×é×÷Îª²ÎÊı
+			if(m_element==E_LSUB)//[ï¼Œæ•°ç»„ä½œä¸ºå‚æ•°
 			{
-				if(!GetElement())//»ñÈ¡]
+				if(!GetElement())//è·å–]
 					return FALSE;
 				if(m_element!=E_RSUB)
 				{
 					if(!ErrorReport(ET_MISSRSUB))
 						return FALSE;
 				}
-				if(!GetElement())//»ñÈ¡Êı×é±êÊ¶·û
+				if(!GetElement())//è·å–æ•°ç»„æ ‡è¯†ç¬¦
 					return FALSE;
-				if(m_element!=E_IDENT)//²»ÊÇ±êÊ¶·û
+				if(m_element!=E_IDENT)//ä¸æ˜¯æ ‡è¯†ç¬¦
 				{
 					if(!ErrorReport(ET_MISSIDENT))
 						return FALSE;
@@ -1880,14 +1880,14 @@ BOOL CFCView::DoCall()
 				case IT_EDOUBLEARRAY:
 					m_it=IT_DOUBLEARRAY;
 					break;
-				default://²»ÊÇÊı×é±êÊ¶·û
+				default://ä¸æ˜¯æ•°ç»„æ ‡è¯†ç¬¦
 					if(!ErrorReport(ET_NOARRIDENTARR))
 						return FALSE;
 					break;
 				}
 				if(iParam<nParam)
 				{
-					if(m_it != pDestFunc->pParam[iParam]->type)//Êı×éÀàĞÍ²»Í¬
+					if(m_it != pDestFunc->pParam[iParam]->type)//æ•°ç»„ç±»å‹ä¸åŒ
 					{
 						if(!ErrorReport(ET_WRONGPARAMTYPE))
 							return FALSE;
@@ -1901,7 +1901,7 @@ BOOL CFCView::DoCall()
 				if(!GetElement())
 					return FALSE;
 			}
-			else//±í´ïÊ½
+			else//è¡¨è¾¾å¼
 			{
 				if(!DoExpression())
 					return FALSE;
@@ -1915,20 +1915,20 @@ BOOL CFCView::DoCall()
 					case IT_DOUBLE:
 						it=pDestFunc->pParam[iParam]->type;
 						break;
-					default://ĞÎÊ½²ÎÊı²»ÊÇ±äÁ¿£¨¼´ÎªÊı×é£©
+					default://å½¢å¼å‚æ•°ä¸æ˜¯å˜é‡ï¼ˆå³ä¸ºæ•°ç»„ï¼‰
 						it=IT_NULL;
 						if(!ErrorReport(ET_WRONGPARAMTYPE))
 							return FALSE;
 						break;
 					}
-					if(it!=IT_NULL && it != m_it)//ÀàĞÍ²»Í¬
+					if(it!=IT_NULL && it != m_it)//ç±»å‹ä¸åŒ
 					{
-						if(int(it) > int(pDestFunc->pParam[iParam]->type))//Òª½øĞĞÇ¿ÖÆÀàĞÍ×ª»»
+						if(int(it) > int(pDestFunc->pParam[iParam]->type))//è¦è¿›è¡Œå¼ºåˆ¶ç±»å‹è½¬æ¢
 						{
 							if(!ErrorReport(ET_MUSTCHANGETYPE))
 								return FALSE;
 						}
-						else//½øĞĞÒşÊ½ÀàĞÍ×ª»»
+						else//è¿›è¡Œéšå¼ç±»å‹è½¬æ¢
 						{
 							ZOP op;
 							switch(pDestFunc->pParam[iParam]->type)
@@ -1944,21 +1944,21 @@ BOOL CFCView::DoCall()
 								return FALSE;
 						}
 					}
-					else;//ÀàĞÍÏàÍ¬£¬ÎŞĞè¶¯×÷
+					else;//ç±»å‹ç›¸åŒï¼Œæ— éœ€åŠ¨ä½œ
 				}
 			}
 			iParam++;
-			if(m_element!=E_COMMA)//²»ÊÇ¶ººÅ£¬²ÎÊı½áÊø
+			if(m_element!=E_COMMA)//ä¸æ˜¯é€—å·ï¼Œå‚æ•°ç»“æŸ
 				break;
 			if(!GetElement())
 				return FALSE;
 		}
-		if(m_element!=E_RPAREN)//²»ÊÇ)£¬±¨´í
+		if(m_element!=E_RPAREN)//ä¸æ˜¯)ï¼ŒæŠ¥é”™
 		{
 			if(!ErrorReport(ET_MISSRPAREN))
 				return FALSE;
 		}
-		if(iParam<nParam)//²ÎÊıÊıÄ¿²»¶Ô£¬±¨´í
+		if(iParam<nParam)//å‚æ•°æ•°ç›®ä¸å¯¹ï¼ŒæŠ¥é”™
 		{
 			if(!ErrorReport(ET_WRONGPARAMNUM))
 				return FALSE;
@@ -1985,25 +1985,25 @@ BOOL CFCView::DoWhile()
 	if(!GenerateCode(OP_JUMP,0))
 		return FALSE;
 	m_nContinue=m_nCode;
-	if(!GetElement())//»ñÈ¡(
+	if(!GetElement())//è·å–(
 		return FALSE;
-	if(m_element!=E_LPAREN)//²»ÊÇ(£¬±¨´í
+	if(m_element!=E_LPAREN)//ä¸æ˜¯(ï¼ŒæŠ¥é”™
 	{
 		if(!ErrorReport(ET_MISSLPAREN))
 			return FALSE;
 	}
-	if(!GetElement())//»ñÈ¡whileºóÌõ¼şµÄµÚÒ»¸öµ¥´Ê
+	if(!GetElement())//è·å–whileåæ¡ä»¶çš„ç¬¬ä¸€ä¸ªå•è¯
 		return FALSE;
 	if(!DoCondition())
 		return FALSE;
-	if(m_element!=E_RPAREN)//²»ÊÇ)£¬±¨´í
+	if(m_element!=E_RPAREN)//ä¸æ˜¯)ï¼ŒæŠ¥é”™
 	{
 		if(!ErrorReport(ET_MISSRPAREN))
 			return FALSE;
 	}
-	if(!GetElement())//»ñÈ¡whileºóÓï¾äµÄµÚÒ»¸öµ¥´Ê
+	if(!GetElement())//è·å–whileåè¯­å¥çš„ç¬¬ä¸€ä¸ªå•è¯
 		return FALSE;
-	m_pCode[m_nTrue].sd.iNumber=m_nCode;//»ØÌîÕæ³ö¿ÚÖÕµãµØÖ·
+	m_pCode[m_nTrue].sd.iNumber=m_nCode;//å›å¡«çœŸå‡ºå£ç»ˆç‚¹åœ°å€
 	m_pFunction[m_nCurFunction]->CurLevel++;
 	if(!DoStatement())
 		return FALSE;
@@ -2012,7 +2012,7 @@ BOOL CFCView::DoWhile()
 		return FALSE;
 	if(!GenerateCode(OP_JUMP,m_nContinue))
 		return FALSE;
-	m_pCode[m_nBreak].sd.iNumber=m_nCode;//»ØÌî¼Ù³ö¿ÚÖØµãµØÖ·
+	m_pCode[m_nBreak].sd.iNumber=m_nCode;//å›å¡«å‡å‡ºå£é‡ç‚¹åœ°å€
 	m_nTrue=nTrue;
 	m_nFalse=nFalse;
 	m_nBreak=nBreak;
@@ -2038,19 +2038,19 @@ BOOL CFCView::DoDoWhile()
 	m_pFunction[m_nCurFunction]->CurLevel--;
 	if(!RecycleMemory())
 		return FALSE;
-	if(m_element!=E_WHILE)//²»ÊÇwhile£¬±¨´í
+	if(m_element!=E_WHILE)//ä¸æ˜¯whileï¼ŒæŠ¥é”™
 	{
 		if(!ErrorReport(ET_DONOWHILE))
 			return FALSE;
 	}
-	if(!GetElement())//»ñÈ¡(
+	if(!GetElement())//è·å–(
 		return FALSE;
-	if(m_element!=E_LPAREN)//²»ÊÇ(£¬±¨´í
+	if(m_element!=E_LPAREN)//ä¸æ˜¯(ï¼ŒæŠ¥é”™
 	{
 		if(!ErrorReport(ET_MISSLPAREN))
 			return FALSE;
 	}
-	if(!GetElement())//»ñÈ¡whileºóÌõ¼şµÄµÚÒ»¸öµ¥´Ê
+	if(!GetElement())//è·å–whileåæ¡ä»¶çš„ç¬¬ä¸€ä¸ªå•è¯
 		return FALSE;
 	if(!DoCondition())
 		return FALSE;
@@ -2077,14 +2077,14 @@ BOOL CFCView::DoExpression()
 	m_it=IT_CHAR;
 	ZIT it;
 	BOOL bMinus;
-	if(m_element==E_PLUS || m_element==E_MINUS)//Ç°ÓĞ + -
+	if(m_element==E_PLUS || m_element==E_MINUS)//å‰æœ‰ + -
 	{
 		bMinus= (m_element==E_MINUS);
-		if(!GetElement())//»ñÈ¡ÏîµÄµÚÒ»¸öµ¥´Ê
+		if(!GetElement())//è·å–é¡¹çš„ç¬¬ä¸€ä¸ªå•è¯
 			return FALSE;
 		if(!DoTerm())
 			return FALSE;
-		if(bMinus)//Ç°ÓĞ¸ººÅ£¬×÷±äºÅ´¦Àí
+		if(bMinus)//å‰æœ‰è´Ÿå·ï¼Œä½œå˜å·å¤„ç†
 		{
 			ZOP op;
 			switch(m_it)
@@ -2097,24 +2097,24 @@ BOOL CFCView::DoExpression()
 				return FALSE;
 		}
 	}
-	else//Ç°ÎŞ+ -
+	else//å‰æ— + -
 	{
 		if(!DoTerm())
 			return FALSE;
 	}
-	while(m_element==E_PLUS || m_element==E_MINUS)//Ñ­»·´¦ÀíÏî
+	while(m_element==E_PLUS || m_element==E_MINUS)//å¾ªç¯å¤„ç†é¡¹
 	{
 		bMinus= (m_element==E_MINUS);
-		if(!GetElement())//»ñÈ¡ÏîµÄµÚÒ»¸öµ¥´Ê
+		if(!GetElement())//è·å–é¡¹çš„ç¬¬ä¸€ä¸ªå•è¯
 			return FALSE;
-		it=m_it;//±£´æÇ°±ßÏîµÄÀàĞÍ
+		it=m_it;//ä¿å­˜å‰è¾¹é¡¹çš„ç±»å‹
 		if(!DoTerm())
 			return FALSE;
-		if(it!=m_it)//Ç°ºóÏîµÄÀàĞÍ²»Í¬
+		if(it!=m_it)//å‰åé¡¹çš„ç±»å‹ä¸åŒ
 		{
 			ZOP op;
 			int offset;
-			switch(it)//¼ì²éÀàĞÍ
+			switch(it)//æ£€æŸ¥ç±»å‹
 			{
 			case IT_CHAR:
 				if(m_it==IT_INT)
@@ -2145,10 +2145,10 @@ BOOL CFCView::DoExpression()
 				offset=0;
 				break;
 			}
-			if(!GenerateCode(op,offset))//Éú³ÉÒşÊ½ÀàĞÍ×ª»»´úÂë
+			if(!GenerateCode(op,offset))//ç”Ÿæˆéšå¼ç±»å‹è½¬æ¢ä»£ç 
 				return FALSE;
 		}
-		else;//Ç°ºóÏîµÄÀàĞÍÏàÍ¬£¬ÎŞĞè¶¯×÷
+		else;//å‰åé¡¹çš„ç±»å‹ç›¸åŒï¼Œæ— éœ€åŠ¨ä½œ
 		ZOP op;
 		switch(m_it)
 		{
@@ -2178,16 +2178,16 @@ BOOL CFCView::DoTerm()
 	while(m_element==E_TIMES || m_element==E_SLASH || m_element==E_MOD)
 	{
 		elmt=m_element;
-		if(!GetElement())//»ñÈ¡ÏÂ¸öÒò×ÓµÄµÚÒ»¸öµ¥´Ê
+		if(!GetElement())//è·å–ä¸‹ä¸ªå› å­çš„ç¬¬ä¸€ä¸ªå•è¯
 			return FALSE;
-		it=m_it;//±£´æÉÏÒ»¸öÒò×ÓµÄÀàĞÍ
+		it=m_it;//ä¿å­˜ä¸Šä¸€ä¸ªå› å­çš„ç±»å‹
 		if(!DoFactor())
 			return FALSE;
 		if(it!=m_it)
 		{
 			ZOP op;
 			int offset;
-			switch(it)//¼ì²éÀàĞÍ
+			switch(it)//æ£€æŸ¥ç±»å‹
 			{
 			case IT_CHAR:
 				if(m_it==IT_INT)
@@ -2218,11 +2218,11 @@ BOOL CFCView::DoTerm()
 				offset=0;
 				break;
 			}
-			if(!GenerateCode(op,offset))//Éú³ÉÒşÊ½ÀàĞÍ×ª»»´úÂë
+			if(!GenerateCode(op,offset))//ç”Ÿæˆéšå¼ç±»å‹è½¬æ¢ä»£ç 
 				return FALSE;
 		}
-		else;//Ç°ºóÏîµÄÀàĞÍÏàÍ¬£¬ÎŞĞè¶¯×÷
-		if(elmt==E_MOD && m_it==IT_DOUBLE)//ÊµÊı²ÎÓëÁËÇóÓàÔËËã
+		else;//å‰åé¡¹çš„ç±»å‹ç›¸åŒï¼Œæ— éœ€åŠ¨ä½œ
+		if(elmt==E_MOD && m_it==IT_DOUBLE)//å®æ•°å‚ä¸äº†æ±‚ä½™è¿ç®—
 		{
 			if(!ErrorReport(ET_DOUBLEMOD))
 				return FALSE;
@@ -2250,25 +2250,25 @@ BOOL CFCView::DoTerm()
 BOOL CFCView::DoFactor()
 {
 	m_it=IT_CHAR;
-	ZIT it=IT_VOID;//ÓÃÓÚÇ¿ÖÆÀàĞÍ×ª»»
-	int address;//´æ´¢±êÊ¶·ûµÄµØÖ·
+	ZIT it=IT_VOID;//ç”¨äºå¼ºåˆ¶ç±»å‹è½¬æ¢
+	int address;//å­˜å‚¨æ ‡è¯†ç¬¦çš„åœ°å€
 	switch(m_element)
 	{
-	case E_CHARACTER://************×Ö·û
+	case E_CHARACTER://************å­—ç¬¦
 		m_it=IT_CHAR;
 		if(!GenerateCode(OP_LOADCONSTC,m_char))
 			return FALSE;
 		if(!GetElement())
 			return FALSE;
 		break;
-	case E_INUMBER://**************ÕûÊı
+	case E_INUMBER://**************æ•´æ•°
 		m_it=IT_INT;
 		if(!GenerateCode(OP_LOADCONSTI,m_int))
 			return FALSE;
 		if(!GetElement())
 			return FALSE;
 		break;
-	case E_DNUMBER://**************ÊµÊı
+	case E_DNUMBER://**************å®æ•°
 		m_it=IT_DOUBLE;
 		if(!GenerateCode(OP_LOADCONSTD,m_double))
 			return FALSE;
@@ -2277,7 +2277,7 @@ BOOL CFCView::DoFactor()
 		break;
 	case E_CHAR://char
 	case E_INT://int
-	case E_DOUBLE://*******Ç¿ÖÆÀàĞÍ×ª»»
+	case E_DOUBLE://*******å¼ºåˆ¶ç±»å‹è½¬æ¢
 		it= (m_element==E_CHAR ? IT_CHAR : (m_element==E_INT ? IT_INT : IT_DOUBLE));
 		if(!GetElement())
 			return FALSE;
@@ -2286,8 +2286,8 @@ BOOL CFCView::DoFactor()
 			if(!ErrorReport(ET_MISSLPAREN))
 				return FALSE;
 		}
-		//´Ë´¦²»ÌîÈëbreakÓï¾ä
-	case E_LPAREN://*****À¨ÆğÀ´µÄ±í´ïÊ½
+		//æ­¤å¤„ä¸å¡«å…¥breakè¯­å¥
+	case E_LPAREN://*****æ‹¬èµ·æ¥çš„è¡¨è¾¾å¼
 		if(!GetElement())
 			return FALSE;
 		if(!DoExpression())
@@ -2296,7 +2296,7 @@ BOOL CFCView::DoFactor()
 		{
 			if(!ErrorReport(ET_MISSRPAREN))
 				return FALSE;
-			//¼ÌĞø±àÒë£¬È¨µ±´Ë´¦ÓĞ¸öÓÒĞ¡À¨ºÅ
+			//ç»§ç»­ç¼–è¯‘ï¼Œæƒå½“æ­¤å¤„æœ‰ä¸ªå³å°æ‹¬å·
 		}
 		if(it!=IT_VOID && it!=m_it)
 		{
@@ -2320,11 +2320,11 @@ BOOL CFCView::DoFactor()
 		if(!GetElement())
 			return FALSE;
 		break;
-	case E_IDENT://**************±êÊ¶·û
+	case E_IDENT://**************æ ‡è¯†ç¬¦
 		address=GetIdentAddress(m_ident);
-		switch(GetIdentType(m_ident))//¸ù¾İ±êÊ¶·ûÀàĞÍ´¦Àí
+		switch(GetIdentType(m_ident))//æ ¹æ®æ ‡è¯†ç¬¦ç±»å‹å¤„ç†
 		{
-		case IT_NULL://Î´¶¨ÒåµÄ±êÊ¶·û
+		case IT_NULL://æœªå®šä¹‰çš„æ ‡è¯†ç¬¦
 			if(!ErrorReport(ET_UNKNOWNIDENT))
 				return FALSE;
 			if(!GetElement())
@@ -2332,9 +2332,9 @@ BOOL CFCView::DoFactor()
 			m_it=IT_CHAR;
 			break;
 		case IT_FUNCTION:
-		case IT_FUNCTIONUS://º¯ÊıÃû
+		case IT_FUNCTIONUS://å‡½æ•°å
 			m_it = m_pFunction[GetFunctionIndex(m_ident)]->ReturnType;
-			if(m_it==IT_VOID)//voidº¯Êı
+			if(m_it==IT_VOID)//voidå‡½æ•°
 			{
 				if(!ErrorReport(ET_VOIDINEXPRESSION))
 					return FALSE;
@@ -2343,7 +2343,7 @@ BOOL CFCView::DoFactor()
 				return FALSE;
 			break;
 		case IT_CHAR:
-		case IT_ECHAR://×Ö·û±äÁ¿
+		case IT_ECHAR://å­—ç¬¦å˜é‡
 			if(!GenerateCode(OP_LOADVARC,address))
 				return FALSE;
 			if(!GetElement())
@@ -2351,7 +2351,7 @@ BOOL CFCView::DoFactor()
 			m_it=IT_CHAR;
 			break;
 		case IT_INT:
-		case IT_EINT://ÕûÊı±äÁ¿
+		case IT_EINT://æ•´æ•°å˜é‡
 			if(!GenerateCode(OP_LOADVARI,address))
 				return FALSE;
 			if(!GetElement())
@@ -2359,7 +2359,7 @@ BOOL CFCView::DoFactor()
 			m_it=IT_INT;
 			break;
 		case IT_DOUBLE:
-		case IT_EDOUBLE://ÊµÊı±äÁ¿
+		case IT_EDOUBLE://å®æ•°å˜é‡
 			if(!GenerateCode(OP_LOADVARD,address))
 				return FALSE;
 			if(!GetElement())
@@ -2367,7 +2367,7 @@ BOOL CFCView::DoFactor()
 			m_it=IT_DOUBLE;
 			break;
 		case IT_CHARARRAY:
-		case IT_ECHARARRAY://×Ö·ûÊı×é
+		case IT_ECHARARRAY://å­—ç¬¦æ•°ç»„
 			if(!GetElement())
 				return FALSE;
 			if(!DoSubscript())
@@ -2377,7 +2377,7 @@ BOOL CFCView::DoFactor()
 			m_it=IT_CHAR;
 			break;
 		case IT_INTARRAY:
-		case IT_EINTARRAY://ÕûÊıÊı×é
+		case IT_EINTARRAY://æ•´æ•°æ•°ç»„
 			if(!GetElement())
 				return FALSE;
 			if(!DoSubscript())
@@ -2387,7 +2387,7 @@ BOOL CFCView::DoFactor()
 			m_it=IT_INT;
 			break;
 		case IT_DOUBLEARRAY:
-		case IT_EDOUBLEARRAY://ÊµÊıÊı×é
+		case IT_EDOUBLEARRAY://å®æ•°æ•°ç»„
 			if(!GetElement())
 				return FALSE;
 			if(!DoSubscript())
@@ -2413,30 +2413,30 @@ BOOL CFCView::DoFactor()
 	case E_SIN:
 	case E_SQRT:
 	case E_TG:
-	case E_TH://*********ÊıÑ§¿âº¯Êıµ÷ÓÃ
+	case E_TH://*********æ•°å­¦åº“å‡½æ•°è°ƒç”¨
 		if(!DoMathFunctionCall())
 			return FALSE;
 		break;
-	case E_ABS://********** absº¯Êıµ÷ÓÃ
+	case E_ABS://********** abså‡½æ•°è°ƒç”¨
 		if(!DoAbsCall())
 			return FALSE;
 		break;
-	case E_POW://********** powº¯Êıµ÷ÓÃ
+	case E_POW://********** powå‡½æ•°è°ƒç”¨
 		if(!DoPowCall())
 			return FALSE;
 		break;
-	case E_STRCMP://**** strcmpº¯Êıµ÷ÓÃ
+	case E_STRCMP://**** strcmpå‡½æ•°è°ƒç”¨
 		if(!DoStrcmpCall())
 			return FALSE;
 		break;
-	case E_STRLEN://**** strlenº¯Êıµ÷ÓÃ
+	case E_STRLEN://**** strlenå‡½æ•°è°ƒç”¨
 		if(!DoStrlenCall())
 			return FALSE;
 		break;
 	case E_AVERAGE:
 	case E_SUM:
 	case E_MAX:
-	case E_MIN://******* Êı×é¿âº¯Êıµ÷ÓÃ
+	case E_MIN://******* æ•°ç»„åº“å‡½æ•°è°ƒç”¨
 		if(!DoArrayFunctionCall())
 			return FALSE;
 		break;
@@ -2452,26 +2452,26 @@ BOOL CFCView::DoFactor()
 
 BOOL CFCView::DoSubscript()
 {
-	if(m_element!=E_LSUB)//²»ÊÇ[£¬±¨´í
+	if(m_element!=E_LSUB)//ä¸æ˜¯[ï¼ŒæŠ¥é”™
 	{
 		if(!ErrorReport(ET_MISSLSUB))
 			return FALSE;
 	}
-	if(!GetElement())//»ñÈ¡ÏÂ±ê±í´ïÊ½µÄµÚÒ»¸öµ¥´Ê
+	if(!GetElement())//è·å–ä¸‹æ ‡è¡¨è¾¾å¼çš„ç¬¬ä¸€ä¸ªå•è¯
 		return FALSE;
 	if(!DoExpression())
 		return FALSE;
-	if(m_it==IT_DOUBLE)//ÊµÊı±í´ïÊ½×÷ÎªÊı×éÏÂ±ê£¬±¨´í
+	if(m_it==IT_DOUBLE)//å®æ•°è¡¨è¾¾å¼ä½œä¸ºæ•°ç»„ä¸‹æ ‡ï¼ŒæŠ¥é”™
 	{
 		if(!ErrorReport(ET_DOUBLESUB))
 			return FALSE;
 	}
-	if(m_it==IT_CHAR)//×Ö·û±í´ïÊ½×÷ÎªÊı×éÏÂ±ê£¬½øĞĞÒşÊ½ÀàĞÍ×ª»»
+	if(m_it==IT_CHAR)//å­—ç¬¦è¡¨è¾¾å¼ä½œä¸ºæ•°ç»„ä¸‹æ ‡ï¼Œè¿›è¡Œéšå¼ç±»å‹è½¬æ¢
 	{
 		if(!GenerateCode(OP_C2I,0))
 			return FALSE;
 	}
-	if(m_element!=E_RSUB)//²»ÊÇ]£¬±¨´í
+	if(m_element!=E_RSUB)//ä¸æ˜¯]ï¼ŒæŠ¥é”™
 	{
 		if(!ErrorReport(ET_MISSRSUB))
 			return FALSE;
@@ -2596,7 +2596,7 @@ BOOL CFCView::DoSubCondition()
 			return FALSE;
 		if(!DoExpression())
 			return FALSE;
-		if(m_it != it)//ÀàĞÍ²»Í¬
+		if(m_it != it)//ç±»å‹ä¸åŒ
 		{
 			ZOP op;
 			int offset;
@@ -2679,9 +2679,9 @@ BOOL CFCView::DoSubCondition()
 BOOL CFCView::DoCase()
 {
 	int nCase;
-	if(!GenerateCode(OP_COPYI))//¸´ÖÆÕ»¶¥Êı
+	if(!GenerateCode(OP_COPYI))//å¤åˆ¶æ ˆé¡¶æ•°
 		return FALSE;
-	if(!GetElement())//»ñÈ¡caseºóµÄÕûÊı»ò×Ö·û
+	if(!GetElement())//è·å–caseåçš„æ•´æ•°æˆ–å­—ç¬¦
 		return FALSE;
 	if(m_element==E_CHARACTER)
 	{
@@ -2693,14 +2693,14 @@ BOOL CFCView::DoCase()
 		if(!GenerateCode(OP_LOADCONSTI,m_int))
 			return FALSE;
 	}
-	else//¼È·Ç×Ö·ûÓÖ·ÇÕûÊı£¬±¨´í
+	else//æ—¢éå­—ç¬¦åˆéæ•´æ•°ï¼ŒæŠ¥é”™
 	{
 		if(!ErrorReport(ET_DOUBLESWITCH))
 			return FALSE;
 	}
-	if(!GetElement())//»ñÈ¡:
+	if(!GetElement())//è·å–:
 		return FALSE;
-	if(m_element!=E_COLON)//²»ÊÇ:£¬±¨´í
+	if(m_element!=E_COLON)//ä¸æ˜¯:ï¼ŒæŠ¥é”™
 	{
 		if(!ErrorReport(ET_MISSCOLON))
 			return FALSE;
@@ -2708,38 +2708,38 @@ BOOL CFCView::DoCase()
 	nCase=m_nCode;
 	if(!GenerateCode(OP_NOTEQUALI,0))
 		return FALSE;
-	if(m_nCase>0)//»ØÌîcase¼ÌĞøÌø×ªµØÖ·
+	if(m_nCase>0)//å›å¡«caseç»§ç»­è·³è½¬åœ°å€
 		m_pCode[m_nCase].sd.iNumber=m_nCode;
-	m_pFunction[m_nCurFunction]->CurLevel++;//Ç¶Ì×²ã´Î¼ÓÒ»
-	if(!GetElement())//»ñÈ¡case·ÖÖ§ÖĞµÚÒ»¸öÓï¾äµÄµÚÒ»¸öµ¥´Ê
+	m_pFunction[m_nCurFunction]->CurLevel++;//åµŒå¥—å±‚æ¬¡åŠ ä¸€
+	if(!GetElement())//è·å–caseåˆ†æ”¯ä¸­ç¬¬ä¸€ä¸ªè¯­å¥çš„ç¬¬ä¸€ä¸ªå•è¯
 		return FALSE;
 	while(m_element!=E_CASE && m_element!=E_DEFAULT && m_element!=E_END)
 	{
 		if(!DoStatement())
 			return FALSE;
 	}
-	m_pFunction[m_nCurFunction]->CurLevel--;//Ç¶Ì×²ã´Î¼õÒ»
+	m_pFunction[m_nCurFunction]->CurLevel--;//åµŒå¥—å±‚æ¬¡å‡ä¸€
 	if(!RecycleMemory())
 		return FALSE;
 	m_nCase=m_nCode;
 	if(!GenerateCode(OP_JUMP,0))
 		return FALSE;
-	m_pCode[nCase].sd.iNumber=m_nCode;//»ØÌîÌø¹ıcase·ÖÖ§µÄÌø×ªÄ¿µÄµØÖ·
+	m_pCode[nCase].sd.iNumber=m_nCode;//å›å¡«è·³è¿‡caseåˆ†æ”¯çš„è·³è½¬ç›®çš„åœ°å€
 	return TRUE;
 }
 
 BOOL CFCView::DoDefault()
 {
-	if(!GetElement())//»ñÈ¡defaultºóµÄÃ°ºÅ
+	if(!GetElement())//è·å–defaultåçš„å†’å·
 		return FALSE;
-	if(m_element!=E_COLON)//²»ÊÇÃ°ºÅ£¬±¨´í
+	if(m_element!=E_COLON)//ä¸æ˜¯å†’å·ï¼ŒæŠ¥é”™
 	{
 		if(!ErrorReport(ET_MISSCOLON))
 			return FALSE;
 	}
 	if(m_nCase>0)
 		m_pCode[m_nCase].sd.iNumber=m_nCode;
-	if(!GetElement())//»ñÈ¡Ã°ºÅºóµÚÒ»¸öÓï¾äµÄµÚÒ»¸öµ¥´Ê
+	if(!GetElement())//è·å–å†’å·åç¬¬ä¸€ä¸ªè¯­å¥çš„ç¬¬ä¸€ä¸ªå•è¯
 		return FALSE;
 	m_pFunction[m_nCurFunction]->CurLevel++;
 	while(m_element!=E_END)
@@ -2756,33 +2756,33 @@ BOOL CFCView::DoDefault()
 BOOL CFCView::DoEndProgram()
 {
 	int i;
-	for(i=m_nFunction-1;i>=0;i--)//Ñ°ÕÒmainº¯Êı
+	for(i=m_nFunction-1;i>=0;i--)//å¯»æ‰¾mainå‡½æ•°
 		if("main"==m_pFunction[i]->name)
 			break;
-	if(i<0)//ÕÒ²»µ½mainº¯Êı
+	if(i<0)//æ‰¾ä¸åˆ°mainå‡½æ•°
 	{
 		if(!ErrorReport(ET_NOMAIN))
 			return FALSE;
 	}
 	else
 	{
-		if(m_pFunction[i]->ReturnType!=IT_VOID)//¼ì²émainº¯Êı·µ»ØÀàĞÍ
+		if(m_pFunction[i]->ReturnType!=IT_VOID)//æ£€æŸ¥mainå‡½æ•°è¿”å›ç±»å‹
 		{
 			if(!ErrorReport(ET_NOVOIDMAIN))
 				return FALSE;
 		}
-		if(m_pFunction[i]->nParam>0)//¼ì²émainº¯ÊıµÄ²ÎÊıÊıÄ¿
+		if(m_pFunction[i]->nParam>0)//æ£€æŸ¥mainå‡½æ•°çš„å‚æ•°æ•°ç›®
 		{
 			if(!ErrorReport(ET_PARAMMAIN))
 				return FALSE;
 		}
-		m_pCode[0].sd.iNumber=i;//»ØÌîcall mainÖ¸ÁîµÄµØÖ·
+		m_pCode[0].sd.iNumber=i;//å›å¡«call mainæŒ‡ä»¤çš„åœ°å€
 	}
-	if(!ExamUnsolvedFunctions())//¼ì²éÊÇ·ñÓĞ±»ÒıÓÃÁËµÄÈ´Ã»ÓĞÊµÏÖµÄº¯Êı
+	if(!ExamUnsolvedFunctions())//æ£€æŸ¥æ˜¯å¦æœ‰è¢«å¼•ç”¨äº†çš„å´æ²¡æœ‰å®ç°çš„å‡½æ•°
 		return FALSE;
-	if(m_iErrorCount>0)//Èô´æÔÚÓï·¨´íÎó£¬Ôò²»½øĞĞÏÂ±ßµÄÓÅ»¯
+	if(m_iErrorCount>0)//è‹¥å­˜åœ¨è¯­æ³•é”™è¯¯ï¼Œåˆ™ä¸è¿›è¡Œä¸‹è¾¹çš„ä¼˜åŒ–
 		return TRUE;
-	for(i=0;i<m_nCode;i++)//Ìî³ä¸÷callÖ¸ÁîµÄµØÖ·
+	for(i=0;i<m_nCode;i++)//å¡«å……å„callæŒ‡ä»¤çš„åœ°å€
 	{
 		if(m_pCode[i].op==OP_CALL)
 			m_pCode[i].sd.iNumber=m_pFunction[m_pCode[i].sd.iNumber]->nStartAddress;
@@ -2795,7 +2795,7 @@ BOOL CFCView::DoEndProgram()
 void CFCView::DoOptimize()
 {
 	int i;
-	//Ìø×ªÁ´ÓÅ»¯
+	//è·³è½¬é“¾ä¼˜åŒ–
 	int dest;
 	for(i=0;i<m_nCode;i++)
 	{
@@ -2830,13 +2830,13 @@ void CFCView::DoOptimize()
 			break;
 		}
 	}
-	//È¥³ı²»¿Éµ½´ï´úÂë
+	//å»é™¤ä¸å¯åˆ°è¾¾ä»£ç 
 	bool *bReach=new bool[m_nCode];
 	BOOL b=TRUE;
 	for(i=0;i<m_nCode;i++)
 		bReach[i]=false;
 	bReach[0]=true;
-	for(i=1;i<m_nCode;i++)//³õÊ¼»¯ÈÎÒâº¯ÊıµÄµÚÒ»¸ö´úÂë¶¼ÊÇ¿Éµ½´ïµÄ
+	for(i=1;i<m_nCode;i++)//åˆå§‹åŒ–ä»»æ„å‡½æ•°çš„ç¬¬ä¸€ä¸ªä»£ç éƒ½æ˜¯å¯åˆ°è¾¾çš„
 	{
 		if(m_pCode[i].op==OP_FUNCTIONSTART)
 			bReach[i]=true;
@@ -2907,7 +2907,7 @@ void CFCView::DoOptimize()
 		if(!bReach[i])
 			m_pCode[i].op=OP_NULL;
 	delete bReach;
-	//È¥³ıÎŞĞ§µÄÎŞÌõ¼şÌø×ª
+	//å»é™¤æ— æ•ˆçš„æ— æ¡ä»¶è·³è½¬
 	int j;
 	for(i=0;i<m_nCode;i++)
 	{
@@ -2918,12 +2918,12 @@ void CFCView::DoOptimize()
 				m_pCode[i].op=OP_NULL;
 		}
 	}
-	//°ÑOP_NULL´Ó´úÂëÖĞÌŞ³ı£¬ÒÔËõĞ¡ÖĞ¼ä´úÂë´æ´¢¿Õ¼ä
-	int nCode=0;//ÓĞĞ§´úÂë¼ÆÊı
+	//æŠŠOP_NULLä»ä»£ç ä¸­å‰”é™¤ï¼Œä»¥ç¼©å°ä¸­é—´ä»£ç å­˜å‚¨ç©ºé—´
+	int nCode=0;//æœ‰æ•ˆä»£ç è®¡æ•°
 	for(i=0;i<m_nCode;i++)
 		if(m_pCode[i].op!=OP_NULL)
 			nCode++;
-	int nMaxCode=nCode/CODE_NUM_INC*CODE_NUM_INC+CODE_NUM_INC;//±ÈnCode´óµÄCODE_NUM_INCµÄ×îĞ¡±¶Êı
+	int nMaxCode=nCode/CODE_NUM_INC*CODE_NUM_INC+CODE_NUM_INC;//æ¯”nCodeå¤§çš„CODE_NUM_INCçš„æœ€å°å€æ•°
 	ZCode *pCode=new ZCode[nMaxCode];
 	int k;
 	for(i=j=0;i<m_nCode;i++)
@@ -3010,14 +3010,14 @@ void CFCView::DoOptimize()
 BOOL CFCView::DoMathFunctionCall()
 {
 	const ZOP op=ZOP(OP_ARCCOS+m_element-E_ARCCOS);
-	if(!GetElement())//»ñÈ¡(
+	if(!GetElement())//è·å–(
 		return FALSE;
 	if(m_element!=E_LPAREN)
 	{
 		if(!ErrorReport(ET_MISSLPAREN))
 			return FALSE;
 	}
-	if(!GetElement())//»ñÈ¡²ÎÊı±í´ïÊ½µÄµÚÒ»¸öµ¥´Ê
+	if(!GetElement())//è·å–å‚æ•°è¡¨è¾¾å¼çš„ç¬¬ä¸€ä¸ªå•è¯
 		return FALSE;
 	if(!DoExpression())
 		return FALSE;
@@ -3026,7 +3026,7 @@ BOOL CFCView::DoMathFunctionCall()
 		if(!ErrorReport(ET_MISSRPAREN))
 			return FALSE;
 	}
-	switch(m_it)//¼ì²éÀàĞÍ
+	switch(m_it)//æ£€æŸ¥ç±»å‹
 	{
 	case IT_CHAR:
 		if(!GenerateCode(OP_C2D,0))
@@ -3047,14 +3047,14 @@ BOOL CFCView::DoMathFunctionCall()
 
 BOOL CFCView::DoAbsCall()
 {
-	if(!GetElement())//»ñÈ¡(
+	if(!GetElement())//è·å–(
 		return FALSE;
 	if(m_element!=E_LPAREN)
 	{
 		if(!ErrorReport(ET_MISSLPAREN))
 			return FALSE;
 	}
-	if(!GetElement())//»ñÈ¡²ÎÊı±í´ïÊ½µÄµÚÒ»¸öµ¥´Ê
+	if(!GetElement())//è·å–å‚æ•°è¡¨è¾¾å¼çš„ç¬¬ä¸€ä¸ªå•è¯
 		return FALSE;
 	if(!DoExpression())
 		return FALSE;
@@ -3064,7 +3064,7 @@ BOOL CFCView::DoAbsCall()
 			return FALSE;
 	}
 	ZOP op;
-	switch(m_it)//¼ì²éÀàĞÍ
+	switch(m_it)//æ£€æŸ¥ç±»å‹
 	{
 	case IT_CHAR:	op=OP_ABSC;break;
 	case IT_INT:	op=OP_ABSI;break;
@@ -3079,18 +3079,18 @@ BOOL CFCView::DoAbsCall()
 
 BOOL CFCView::DoPowCall()
 {
-	if(!GetElement())//»ñÈ¡(
+	if(!GetElement())//è·å–(
 		return FALSE;
 	if(m_element!=E_LPAREN)
 	{
 		if(!ErrorReport(ET_MISSLPAREN))
 			return FALSE;
 	}
-	if(!GetElement())//»ñÈ¡µÚÒ»¸ö²ÎÊı±í´ïÊ½µÄµÚÒ»¸öµ¥´Ê
+	if(!GetElement())//è·å–ç¬¬ä¸€ä¸ªå‚æ•°è¡¨è¾¾å¼çš„ç¬¬ä¸€ä¸ªå•è¯
 		return FALSE;
 	if(!DoExpression())
 		return FALSE;
-	switch(m_it)//¼ì²éÀàĞÍ
+	switch(m_it)//æ£€æŸ¥ç±»å‹
 	{
 	case IT_CHAR:
 		if(!GenerateCode(OP_C2D,0))
@@ -3106,11 +3106,11 @@ BOOL CFCView::DoPowCall()
 		if(!ErrorReport(ET_MISSCOMMA))
 			return FALSE;
 	}
-	if(!GetElement())//»ñÈ¡µÚ¶ş¸ö²ÎÊı±í´ïÊ½µÄµÚÒ»¸öµ¥´Ê
+	if(!GetElement())//è·å–ç¬¬äºŒä¸ªå‚æ•°è¡¨è¾¾å¼çš„ç¬¬ä¸€ä¸ªå•è¯
 		return FALSE;
 	if(!DoExpression())
 		return FALSE;
-	switch(m_it)//¼ì²éÀàĞÍ
+	switch(m_it)//æ£€æŸ¥ç±»å‹
 	{
 	case IT_CHAR:
 		if(!GenerateCode(OP_C2D,0))
@@ -3138,7 +3138,7 @@ BOOL CFCView::DoStrcmpCall()
 {
 	int i;
 	int address[2];
-	if(!GetElement())//»ñÈ¡(
+	if(!GetElement())//è·å–(
 		return FALSE;
 	if(m_element!=E_LPAREN)
 	{
@@ -3147,21 +3147,21 @@ BOOL CFCView::DoStrcmpCall()
 	}
 	for(i=0;i<2;i++)
 	{
-		if(!GetElement())//»ñÈ¡×Ö·ûÊı×éµÄ[
+		if(!GetElement())//è·å–å­—ç¬¦æ•°ç»„çš„[
 			return FALSE;
 		if(m_element!=E_LSUB)
 		{
 			if(!ErrorReport(ET_MISSLSUB))
 				return FALSE;
 		}
-		if(!GetElement())//»ñÈ¡×Ö·ûÊı×éµÄ]
+		if(!GetElement())//è·å–å­—ç¬¦æ•°ç»„çš„]
 			return FALSE;
 		if(m_element!=E_RSUB)
 		{
 			if(!ErrorReport(ET_MISSRSUB))
 				return FALSE;
 		}
-		if(!GetElement())//»ñÈ¡×Ö·ûÊı×é±êÊ¶·û
+		if(!GetElement())//è·å–å­—ç¬¦æ•°ç»„æ ‡è¯†ç¬¦
 			return FALSE;
 		if(m_element!=E_IDENT)
 		{
@@ -3181,7 +3181,7 @@ BOOL CFCView::DoStrcmpCall()
 			address[i]=0;
 			break;
 		}
-		if(!GetElement())//»ñÈ¡,)
+		if(!GetElement())//è·å–,)
 			return FALSE;
 		if(i==0 && m_element!=E_COMMA)
 		{
@@ -3209,7 +3209,7 @@ BOOL CFCView::DoStrcpyCall()
 	BOOL bStringToCA=FALSE;
 	char *string;
 
-	if(!GetElement())//»ñÈ¡(
+	if(!GetElement())//è·å–(
 		return FALSE;
 	if(m_element!=E_LPAREN)
 	{
@@ -3218,7 +3218,7 @@ BOOL CFCView::DoStrcpyCall()
 	}
 	for(i=0;i<2;i++)
 	{
-		if(!GetElement())//»ñÈ¡×Ö·ûÊı×éµÄ[»ò×÷ÎªµÚ¶ş²ÎÊıµÄ×Ö·û´®
+		if(!GetElement())//è·å–å­—ç¬¦æ•°ç»„çš„[æˆ–ä½œä¸ºç¬¬äºŒå‚æ•°çš„å­—ç¬¦ä¸²
 			return FALSE;
 		if(i==1 && m_element==E_STRING)
 		{
@@ -3235,14 +3235,14 @@ BOOL CFCView::DoStrcpyCall()
 				if(!ErrorReport(ET_MISSLSUB))
 					return FALSE;
 			}
-			if(!GetElement())//»ñÈ¡×Ö·ûÊı×éµÄ]
+			if(!GetElement())//è·å–å­—ç¬¦æ•°ç»„çš„]
 				return FALSE;
 			if(m_element!=E_RSUB)
 			{
 				if(!ErrorReport(ET_MISSRSUB))
 					return FALSE;
 			}
-			if(!GetElement())//»ñÈ¡×Ö·ûÊı×é±êÊ¶·û
+			if(!GetElement())//è·å–å­—ç¬¦æ•°ç»„æ ‡è¯†ç¬¦
 				return FALSE;
 			if(m_element!=E_IDENT)
 			{
@@ -3262,7 +3262,7 @@ BOOL CFCView::DoStrcpyCall()
 				address[i]=0;
 				break;
 			}
-			if(!GetElement())//»ñÈ¡,)
+			if(!GetElement())//è·å–,)
 				return FALSE;
 			if(i==0 && m_element!=E_COMMA)
 			{
@@ -3297,22 +3297,22 @@ BOOL CFCView::DoStrlenCall()
 	char *string;
 	int address;
 
-	if(!GetElement())//»ñÈ¡(
+	if(!GetElement())//è·å–(
 		return FALSE;
 	if(m_element!=E_LPAREN)
 	{
 		if(!ErrorReport(ET_MISSLPAREN))
 			return FALSE;
 	}
-	if(!GetElement())//»ñÈ¡[»ò×Ö·û´®
+	if(!GetElement())//è·å–[æˆ–å­—ç¬¦ä¸²
 		return FALSE;
-	if(m_element==E_STRING)//Çó×Ö·û´®µÄ³¤¶È
+	if(m_element==E_STRING)//æ±‚å­—ç¬¦ä¸²çš„é•¿åº¦
 	{
 		bString=TRUE;
 		string=new char[m_string.GetLength()+1];
 		strcpy(string,m_string);
 	}
-	else//Çó×Ö·ûÊı×éµÄ³¤¶È
+	else//æ±‚å­—ç¬¦æ•°ç»„çš„é•¿åº¦
 	{
 		bString=FALSE;
 		if(m_element!=E_LSUB)
@@ -3320,14 +3320,14 @@ BOOL CFCView::DoStrlenCall()
 			if(!ErrorReport(ET_MISSLPAREN))
 				return FALSE;
 		}
-		if(!GetElement())//»ñÈ¡]
+		if(!GetElement())//è·å–]
 			return FALSE;
 		if(m_element!=E_RSUB)
 		{
 			if(!ErrorReport(ET_MISSRPAREN))
 				return FALSE;
 		}
-		if(!GetElement())//»ñÈ¡×Ö·ûÊı×é±êÊ¶·û
+		if(!GetElement())//è·å–å­—ç¬¦æ•°ç»„æ ‡è¯†ç¬¦
 			return FALSE;
 		if(m_element!=E_IDENT)
 		{
@@ -3348,7 +3348,7 @@ BOOL CFCView::DoStrlenCall()
 			break;
 		}
 	}
-	if(!GetElement())//»ñÈ¡)
+	if(!GetElement())//è·å–)
 		return FALSE;
 	if(m_element!=E_RPAREN)
 	{
@@ -3378,28 +3378,28 @@ BOOL CFCView::DoStrlwruprCall()
 		op=OP_STRLWR;
 	else
 		op=OP_STRUPR;
-	if(!GetElement())//»ñÈ¡(
+	if(!GetElement())//è·å–(
 		return FALSE;
 	if(m_element!=E_LPAREN)
 	{
 		if(!ErrorReport(ET_MISSLPAREN))
 			return FALSE;
 	}
-	if(!GetElement())//»ñÈ¡[
+	if(!GetElement())//è·å–[
 		return FALSE;
 	if(m_element!=E_LSUB)
 	{
 		if(!ErrorReport(ET_MISSLPAREN))
 			return FALSE;
 	}
-	if(!GetElement())//»ñÈ¡]
+	if(!GetElement())//è·å–]
 		return FALSE;
 	if(m_element!=E_RSUB)
 	{
 		if(!ErrorReport(ET_MISSRPAREN))
 			return FALSE;
 	}
-	if(!GetElement())//»ñÈ¡×Ö·ûÊı×é±êÊ¶·û
+	if(!GetElement())//è·å–å­—ç¬¦æ•°ç»„æ ‡è¯†ç¬¦
 		return FALSE;
 	if(m_element!=E_IDENT)
 	{
@@ -3419,7 +3419,7 @@ BOOL CFCView::DoStrlwruprCall()
 			return FALSE;
 		break;
 	}
-	if(!GetElement())//»ñÈ¡)
+	if(!GetElement())//è·å–)
 		return FALSE;
 	if(m_element!=E_RPAREN)
 	{
@@ -3444,28 +3444,28 @@ BOOL CFCView::DoArrayFunctionCall()
 	case E_MIN:		op=OP_MINC;		break;
 	case E_SUM:		op=OP_SUMC;		break;
 	}
-	if(!GetElement())//»ñÈ¡(
+	if(!GetElement())//è·å–(
 		return FALSE;
 	if(m_element!=E_LPAREN)
 	{
 		if(!ErrorReport(ET_MISSLPAREN))
 			return FALSE;
 	}
-	if(!GetElement())//»ñÈ¡[
+	if(!GetElement())//è·å–[
 		return FALSE;
 	if(m_element!=E_LSUB)
 	{
 		if(!ErrorReport(ET_MISSLPAREN))
 			return FALSE;
 	}
-	if(!GetElement())//»ñÈ¡]
+	if(!GetElement())//è·å–]
 		return FALSE;
 	if(m_element!=E_RSUB)
 	{
 		if(!ErrorReport(ET_MISSRPAREN))
 			return FALSE;
 	}
-	if(!GetElement())//»ñÈ¡Êı×é±êÊ¶·û
+	if(!GetElement())//è·å–æ•°ç»„æ ‡è¯†ç¬¦
 		return FALSE;
 	if(m_element!=E_IDENT)
 	{
@@ -3503,18 +3503,18 @@ BOOL CFCView::DoArrayFunctionCall()
 		it=IT_INT;
 	}
 	address=GetIdentAddress(m_ident);
-	if(!GetElement())//»ñÈ¡,
+	if(!GetElement())//è·å–,
 		return FALSE;
 	if(m_element!=E_COMMA)
 	{
 		if(!ErrorReport(ET_MISSCOMMA))
 			return FALSE;
 	}
-	if(!GetElement())//»ñÈ¡Êı×é³¤¶È±í´ïÊ½µÄµÚÒ»¸öµ¥´Ê
+	if(!GetElement())//è·å–æ•°ç»„é•¿åº¦è¡¨è¾¾å¼çš„ç¬¬ä¸€ä¸ªå•è¯
 		return FALSE;
 	if(!DoExpression())
 		return FALSE;
-	switch(m_it)//¼ì²éÀàĞÍ
+	switch(m_it)//æ£€æŸ¥ç±»å‹
 	{
 	case IT_CHAR:
 		if(!GenerateCode(OP_C2I,0))
@@ -3548,28 +3548,28 @@ BOOL CFCView::DoSortCall()
 	else
 		op=OP_UPSORTC;
 //	return FALSE;
-	if(!GetElement())//»ñÈ¡(
+	if(!GetElement())//è·å–(
 		return FALSE;
 	if(m_element!=E_LPAREN)
 	{
 		if(!ErrorReport(ET_MISSLPAREN))
 			return FALSE;
 	}
-	if(!GetElement())//»ñÈ¡[
+	if(!GetElement())//è·å–[
 		return FALSE;
 	if(m_element!=E_LSUB)
 	{
 		if(!ErrorReport(ET_MISSLPAREN))
 			return FALSE;
 	}
-	if(!GetElement())//»ñÈ¡]
+	if(!GetElement())//è·å–]
 		return FALSE;
 	if(m_element!=E_RSUB)
 	{
 		if(!ErrorReport(ET_MISSRPAREN))
 			return FALSE;
 	}
-	if(!GetElement())//»ñÈ¡Êı×é±êÊ¶·û
+	if(!GetElement())//è·å–æ•°ç»„æ ‡è¯†ç¬¦
 		return FALSE;
 	if(m_element!=E_IDENT)
 	{
@@ -3595,18 +3595,18 @@ BOOL CFCView::DoSortCall()
 			return FALSE;
 	}
 	address=GetIdentAddress(m_ident);
-	if(!GetElement())//»ñÈ¡,
+	if(!GetElement())//è·å–,
 		return FALSE;
 	if(m_element!=E_COMMA)
 	{
 		if(!ErrorReport(ET_MISSCOMMA))
 			return FALSE;
 	}
-	if(!GetElement())//»ñÈ¡Êı×é³¤¶È±í´ïÊ½µÄµÚÒ»¸öµ¥´Ê
+	if(!GetElement())//è·å–æ•°ç»„é•¿åº¦è¡¨è¾¾å¼çš„ç¬¬ä¸€ä¸ªå•è¯
 		return FALSE;
 	if(!DoExpression())
 		return FALSE;
-	switch(m_it)//¼ì²éÀàĞÍ
+	switch(m_it)//æ£€æŸ¥ç±»å‹
 	{
 	case IT_CHAR:
 		if(!GenerateCode(OP_C2I,0))

@@ -74,7 +74,7 @@ void CFCTranslateDlg::OnBrowse()
 
 void CFCTranslateDlg::OnDefaultSet() 
 {
-	//翻译选项参数
+	//缈昏瘧閫夐」鍙傛暟
 	m_iBackChoice=0;
 	m_iBackNumber=4;
 	m_bEmptyLine=TRUE;
@@ -98,7 +98,7 @@ void CFCTranslateDlg::OnOK()
 	CFile fout;//(m_strObjectFile,CFile::modeWrite);
 	if(!fout.Open(m_strObjectFile,CFile::modeWrite|CFile::modeCreate))
 	{
-		MessageBox("无法打开或创建文件！","FC",MB_OK|MB_ICONEXCLAMATION);
+		MessageBox("鏃犳硶鎵撳紑鎴栧垱寤烘枃浠讹紒","FC",MB_OK|MB_ICONEXCLAMATION);
 		return;
 	}
 	fout.Close();

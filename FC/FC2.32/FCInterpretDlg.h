@@ -47,46 +47,46 @@ protected:
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 private:
-	CString m_strFileTitle;		//ÎÄ¼şÃû£¨ÎŞÀ©Õ¹Ãû£©
+	CString m_strFileTitle;		//æ–‡ä»¶åï¼ˆæ— æ‰©å±•åï¼‰
 	char *m_lpszOutput;			//
 	int m_nOutputLength;		//
 	int m_nOutputCapacity;		//
-private://ÖĞ¼ä´úÂë²ÎÊı/////////////////////////////////////////////////////////
+private://ä¸­é—´ä»£ç å‚æ•°/////////////////////////////////////////////////////////
 	const ZCode *m_pCode;
 	int m_nCode;
-private://½âÊÍÖ´ĞĞ²ÎÊı/////////////////////////////////////////////////////////
-	ofstream m_fout;			//ÎÄ¼şÊä³ö
-	BOOL m_bCalcRuntime;		//ÊÇ·ñÍ³¼ÆÔËĞĞÊ±¼ä
-	BOOL m_bFileOutput;			//ÊÇ·ñÊä³öµ½ÎÄ¼ş
-	BOOL m_bFixedPrecision;		//ÊÇ·ñ¹Ì¶¨Êä³ö¾«¶È
-	BOOL m_bIgnoreCircleNoend;	//ÊÇ·ñºöÂÔ¿ÉÄÜµÄËÀÑ­»·
-	BOOL m_bOutputInput;		//ÊÇ·ñÊäÈë»ØÏÔ
-	CString m_strOutputFile;	//Êä³öÎÄ¼şÃû
-	int m_nPrecision;			//Êä³ö¾«¶È
-	int m_nMemoryApply;			//ÉêÇëµÄĞéÄÚ´æÁ¿
-private://½âÊÍÖ´ĞĞº¯Êı/////////////////////////////////////////////////////////
-	BOOL Interpret();						//½âÊÍÖ´ĞĞÖ÷º¯Êı
-	BOOL TestAddress(int);					//¼ì²éÄÚ´æÊÇ·ñÒç³ö
-	BOOL SlashModZero(char);				//¼ì²é±»³ıÊı¡¢Ä£ÊÇ·ñÎªÁã
-	BOOL SlashModZero(int);					//¼ì²é±»³ıÊı¡¢Ä£ÊÇ·ñÎªÁã
-	BOOL SlashModZero(double);				//¼ì²é±»³ıÊı¡¢Ä£ÊÇ·ñÎªÁã
-	BOOL ArraySubscript(int,int);			//¼ì²éÊı×éÏÂ±êµÄÓĞĞ§ĞÔ
-	BOOL ValidArray(void*);					//¼ì²éÊı×éµÄÓĞĞ§ĞÔ
-	BOOL ExamCircumscriptive(ZOP,double);	//¼ì²éÊıÑ§º¯Êı±äÁ¿ÊÇ·ñÔÚ¶¨ÒåÓòÄÚ
-	void InitInterpretOutput();				//³õÊ¼»¯½âÊÍÖ´ĞĞµÄÊä³ö
-	void EndInterpretOutput(int);			//½áÊø½âÊÍÖ´ĞĞµÄÊä³ö
-	void Output(char,BOOL=FALSE);			//Êä³ö×Ö·û
-	void Output(int,BOOL=FALSE);			//Êä³öÕûÊı
-	void Output(double,BOOL=FALSE);			//Êä³öÊµÊı
-	void Output(CString,BOOL=FALSE);		//Êä³ö×Ö·û´®
-	void Output(char*,BOOL=FALSE);			//Êä³ö×Ö·ûÊı×é
+private://è§£é‡Šæ‰§è¡Œå‚æ•°/////////////////////////////////////////////////////////
+	ofstream m_fout;			//æ–‡ä»¶è¾“å‡º
+	BOOL m_bCalcRuntime;		//æ˜¯å¦ç»Ÿè®¡è¿è¡Œæ—¶é—´
+	BOOL m_bFileOutput;			//æ˜¯å¦è¾“å‡ºåˆ°æ–‡ä»¶
+	BOOL m_bFixedPrecision;		//æ˜¯å¦å›ºå®šè¾“å‡ºç²¾åº¦
+	BOOL m_bIgnoreCircleNoend;	//æ˜¯å¦å¿½ç•¥å¯èƒ½çš„æ­»å¾ªç¯
+	BOOL m_bOutputInput;		//æ˜¯å¦è¾“å…¥å›æ˜¾
+	CString m_strOutputFile;	//è¾“å‡ºæ–‡ä»¶å
+	int m_nPrecision;			//è¾“å‡ºç²¾åº¦
+	int m_nMemoryApply;			//ç”³è¯·çš„è™šå†…å­˜é‡
+private://è§£é‡Šæ‰§è¡Œå‡½æ•°/////////////////////////////////////////////////////////
+	BOOL Interpret();						//è§£é‡Šæ‰§è¡Œä¸»å‡½æ•°
+	BOOL TestAddress(int);					//æ£€æŸ¥å†…å­˜æ˜¯å¦æº¢å‡º
+	BOOL SlashModZero(char);				//æ£€æŸ¥è¢«é™¤æ•°ã€æ¨¡æ˜¯å¦ä¸ºé›¶
+	BOOL SlashModZero(int);					//æ£€æŸ¥è¢«é™¤æ•°ã€æ¨¡æ˜¯å¦ä¸ºé›¶
+	BOOL SlashModZero(double);				//æ£€æŸ¥è¢«é™¤æ•°ã€æ¨¡æ˜¯å¦ä¸ºé›¶
+	BOOL ArraySubscript(int,int);			//æ£€æŸ¥æ•°ç»„ä¸‹æ ‡çš„æœ‰æ•ˆæ€§
+	BOOL ValidArray(void*);					//æ£€æŸ¥æ•°ç»„çš„æœ‰æ•ˆæ€§
+	BOOL ExamCircumscriptive(ZOP,double);	//æ£€æŸ¥æ•°å­¦å‡½æ•°å˜é‡æ˜¯å¦åœ¨å®šä¹‰åŸŸå†…
+	void InitInterpretOutput();				//åˆå§‹åŒ–è§£é‡Šæ‰§è¡Œçš„è¾“å‡º
+	void EndInterpretOutput(int);			//ç»“æŸè§£é‡Šæ‰§è¡Œçš„è¾“å‡º
+	void Output(char,BOOL=FALSE);			//è¾“å‡ºå­—ç¬¦
+	void Output(int,BOOL=FALSE);			//è¾“å‡ºæ•´æ•°
+	void Output(double,BOOL=FALSE);			//è¾“å‡ºå®æ•°
+	void Output(CString,BOOL=FALSE);		//è¾“å‡ºå­—ç¬¦ä¸²
+	void Output(char*,BOOL=FALSE);			//è¾“å‡ºå­—ç¬¦æ•°ç»„
 	void OutputToMemory(CString);			//
 	void UpdateOutput();					//
-	BOOL InputChar(char &);					//ÊäÈë×Ö·û
-	BOOL InputInt(int &);					//ÊäÈëÕûÊı
-	BOOL InputDouble(double &);				//ÊäÈëÊµÊı
-	BOOL InputString(CString &);			//ÊäÈë×Ö·û´®
-public://ÏûÏ¢´¦Àíº¯Êı/////////////////////////////////////////////////////////
+	BOOL InputChar(char &);					//è¾“å…¥å­—ç¬¦
+	BOOL InputInt(int &);					//è¾“å…¥æ•´æ•°
+	BOOL InputDouble(double &);				//è¾“å…¥å®æ•°
+	BOOL InputString(CString &);			//è¾“å…¥å­—ç¬¦ä¸²
+public://æ¶ˆæ¯å¤„ç†å‡½æ•°/////////////////////////////////////////////////////////
 	void DoModal(const ZCode *pCode,int nCode,BOOL bCalcRuntime,BOOL bFileOutput,
 		BOOL bIgnoreCircleNoend,BOOL bOutputInput,CString strOutputFile,
 		int &nPrecision,int nMemoryApply,CString strFileTitle);

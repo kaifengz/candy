@@ -97,7 +97,7 @@ void CFCView::ReadOptions()
 		if(opt >= OPT_MAX)
 			continue;
 
-		fin>>cEqual; // ÊäÈëµÈºÅ
+		fin>>cEqual; // è¾“å…¥ç­‰å·
 		if(opt == OPT_FILE)
 		{
 			fin>>string;
@@ -111,7 +111,7 @@ void CFCView::ReadOptions()
 		case OPT_ADDSPACE:		ASSIGN_IF_BOOL(m_bInsertSpace,i);			break;
 		case OPT_ADDTIME:		ASSIGN_IF_BOOL(m_bRunTime,i);				break;
 		case OPT_ARRAY:			ASSIGN_IF_BOOL(m_bIncludeArray,i);			break;
-		case OPT_AUTO:			/* ²»´¦Àí¡°×Ô¶¯½øĞĞÇ¿ÖÆÀàĞÍ×ª»»¡± */		break;
+		case OPT_AUTO:			/* ä¸å¤„ç†â€œè‡ªåŠ¨è¿›è¡Œå¼ºåˆ¶ç±»å‹è½¬æ¢â€ */		break;
 		case OPT_BINARY:		ASSIGN_IF_BOOL(m_bGenerateBinary,i);		break;
 		case OPT_COMMENT:		ASSIGN_IF_BOOL(m_bKeepComment,i);			break;
 		case OPT_EMPTY:			ASSIGN_IF_BOOL(m_bAllowEmptyStatement,i);	break;
@@ -120,7 +120,7 @@ void CFCView::ReadOptions()
 		case OPT_INDENT:		ASSIGN_IF_IN_RANGE(m_iBackNumber,i,0,8);	break;
 		case OPT_MATH:			ASSIGN_IF_BOOL(m_bIncludeMath,i);			break;
 		case OPT_MEMORY:		ASSIGN_IF_NOT_BELOW(m_nMemoryApply,i,1);	break;
-		case OPT_NEVER:			/* ²»´¦Àí¡°½ûÖ¹ÒşÊ½ÀàĞÍ×ª»»¡± */			break;
+		case OPT_NEVER:			/* ä¸å¤„ç†â€œç¦æ­¢éšå¼ç±»å‹è½¬æ¢â€ */			break;
 		case OPT_OPTIMIZE:		ASSIGN_IF_BOOL(m_bJumpOptimize,i);			break;
 		case OPT_PRECISION:		ASSIGN_IF_IN_RANGE(m_nPrecision,i,0,15);	break;
 		case OPT_REPORT:		ASSIGN_IF_BOOL(m_bIgnoreError,1-i);			break;

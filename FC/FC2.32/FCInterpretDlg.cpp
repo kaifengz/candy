@@ -78,7 +78,7 @@ BOOL CFCInterpretDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 
-	// Ê¹´°¿Ú¾ÓÖĞ
+	// ä½¿çª—å£å±…ä¸­
 	CRect rcParentWnd, rcThisDlg;
 	GetParent()->GetWindowRect(&rcParentWnd);
 	GetWindowRect(&rcThisDlg);
@@ -103,9 +103,9 @@ void CFCInterpretDlg::OnInterpret()
 
 void CFCInterpretDlg::OnSaveOutput() 
 {
-	CFileDialog dlg(FALSE,"txt",m_strFileTitle+" ÔËĞĞ½á¹û",
+	CFileDialog dlg(FALSE,"txt",m_strFileTitle+" è¿è¡Œç»“æœ",
 		OFN_HIDEREADONLY|OFN_OVERWRITEPROMPT,
-		"ÎÄ±¾ÎÄ¼ş (*.txt)|*.txt|ËùÓĞÎÄ¼ş (*.*)|*.*||");
+		"æ–‡æœ¬æ–‡ä»¶ (*.txt)|*.txt|æ‰€æœ‰æ–‡ä»¶ (*.*)|*.*||");
 	if(dlg.DoModal()!=IDOK)
 		return;
 	ofstream fout(dlg.GetFileName(),ios::out);
@@ -118,7 +118,7 @@ void CFCInterpretDlg::OnPresicion0()
 	if(m_nPrecision!=0)
 	{
 		m_nPrecision=0;
-		if(MessageBox("ÊÇ·ñÒªÖØĞÂÖ´ĞĞ³ÌĞò£¿","FC",MB_YESNO|MB_ICONQUESTION)==IDYES)
+		if(MessageBox("æ˜¯å¦è¦é‡æ–°æ‰§è¡Œç¨‹åºï¼Ÿ","FC",MB_YESNO|MB_ICONQUESTION)==IDYES)
 			Interpret();
 	}
 }
@@ -128,7 +128,7 @@ void CFCInterpretDlg::OnPrecision6()
 	if(m_nPrecision!=6)
 	{
 		m_nPrecision=6;
-		if(MessageBox("ÊÇ·ñÒªÖØĞÂÖ´ĞĞ³ÌĞò£¿","FC",MB_YESNO|MB_ICONQUESTION)==IDYES)
+		if(MessageBox("æ˜¯å¦è¦é‡æ–°æ‰§è¡Œç¨‹åºï¼Ÿ","FC",MB_YESNO|MB_ICONQUESTION)==IDYES)
 			Interpret();
 	}
 }
@@ -138,7 +138,7 @@ void CFCInterpretDlg::OnPrecision15()
 	if(m_nPrecision!=15)
 	{
 		m_nPrecision=15;
-		if(MessageBox("ÊÇ·ñÒªÖØĞÂÖ´ĞĞ³ÌĞò£¿","FC",MB_YESNO|MB_ICONQUESTION)==IDYES)
+		if(MessageBox("æ˜¯å¦è¦é‡æ–°æ‰§è¡Œç¨‹åºï¼Ÿ","FC",MB_YESNO|MB_ICONQUESTION)==IDYES)
 			Interpret();
 	}
 }

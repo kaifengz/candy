@@ -13,37 +13,37 @@
 #define INIT_OUTPUT_BUFFER_SIZE	1024
 
 ///////////////////////////////////////////////////////////////////////////////
-// È«¾Ö±äÁ¿
+// å…¨å±€å˜é‡
 ///////////////////////////////////////////////////////////////////////////////
 
 extern HINSTANCE g_hInstance;
 
 HWND g_hWndFcr;
 
-// Î±´úÂë
+// ä¼ªä»£ç 
 ZCode *g_pCode;
 int g_nCode;
 
-// Êä³ö¾«¶È
+// è¾“å‡ºç²¾åº¦
 int g_nPrecision;
 
-// Êä³öÄÚÈİ
+// è¾“å‡ºå†…å®¹
 LPSTR g_lpszOutput;
 int g_nOutputCapacity;
 int g_nOutputLength;
 
-// ³ÌĞò±êÌâ
+// ç¨‹åºæ ‡é¢˜
 LPSTR g_lpszTitle;
 
 ///////////////////////////////////////////////////////////////////////////////
-// º¯ÊıÔ¤¶¨Òå
+// å‡½æ•°é¢„å®šä¹‰
 ///////////////////////////////////////////////////////////////////////////////
 
-// Íâ²¿º¯Êı¶¨Òå
+// å¤–éƒ¨å‡½æ•°å®šä¹‰
 extern BOOL CALLBACK AboutDialogProc(HWND, UINT, WPARAM, LPARAM);
 extern BOOL CallInputDialog(HWND, ZIM, void *);
 
-// ÏûÏ¢´¦Àí
+// æ¶ˆæ¯å¤„ç†
 void OnFcrExecute();
 void OnFcrSaveOutput();
 void OnFcrPrecision0();
@@ -53,11 +53,11 @@ void OnFcrAbout();
 void OnFcrExit();
 void InitFcrDialog();
 
-// ¶ÁÈ¡Î±´úÂë
+// è¯»å–ä¼ªä»£ç 
 BOOL ReadCodesFromRes();
 BOOL ReadCodes(LPCTSTR lpCodes);
 
-// ½âÊÍÖ´ĞĞÊ±µÄÊı¾İÓĞĞ§ĞÔ¼ì²é
+// è§£é‡Šæ‰§è¡Œæ—¶çš„æ•°æ®æœ‰æ•ˆæ€§æ£€æŸ¥
 BOOL TestAddress(int iAddress);
 BOOL SlashModZeroChar(char ch);
 BOOL SlashModZeroInt(int i);
@@ -66,28 +66,28 @@ BOOL ArraySubscript(int index,int length);
 BOOL ValidArray(void *pArray);
 BOOL ExamCircumscriptive(ZOP op,double value);
 
-// ½âÊÍÖ´ĞĞ
+// è§£é‡Šæ‰§è¡Œ
 BOOL Interpret();
 
-// Êä³ö¿ØÖÆ
+// è¾“å‡ºæ§åˆ¶
 void InitInterpretOutput();
 void UpdateOutput();
 void EndInterpretOutput(clock_t tElapse);
 
-// ÊäÈëÊı¾İ
+// è¾“å…¥æ•°æ®
 BOOL InputChar(char *p);
 BOOL InputInt(int *p);
 BOOL InputDouble(double *p);
 BOOL InputString(char **p);
 
-// Êä³öÊı¾İ
+// è¾“å‡ºæ•°æ®
 void OutputChar(char c);
 void OutputInt(int i);
 void OutputDouble(double d);
 void OutputString(char *s);
 void OutputCharArray(char *s);
 
-// ÅÅĞò±È½Ï
+// æ’åºæ¯”è¾ƒ
 int DownCompareChar(const void *ch1,const void *ch2);
 int DownCompareInt(const void *i1,const void *i2);
 int DownCompareDouble(const void *d1,const void *d2);
@@ -99,7 +99,7 @@ int UpCompareDouble(const void *d1,const void *d2);
 char *TransStringNewline(char *s);
 
 ///////////////////////////////////////////////////////////////////////////////
-// ¶Ô»°¿òÖ÷º¯Êı
+// å¯¹è¯æ¡†ä¸»å‡½æ•°
 ///////////////////////////////////////////////////////////////////////////////
 
 BOOL CALLBACK FcrDialogProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam)
@@ -145,12 +145,12 @@ BOOL CALLBACK FcrDialogProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam)
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-// ÏûÏ¢´¦Àíº¯Êı
+// æ¶ˆæ¯å¤„ç†å‡½æ•°
 ///////////////////////////////////////////////////////////////////////////////
 
 void OnFcrExecute()
 {
-	// (BUG)¶à´Î½âÊÍÖ´ĞĞÊ±³ö´í -- ÒÑ¾­ĞŞÕı£¬ÏµÊä³ö²¿·Ö´íÎó
+	// (BUG)å¤šæ¬¡è§£é‡Šæ‰§è¡Œæ—¶å‡ºé”™ -- å·²ç»ä¿®æ­£ï¼Œç³»è¾“å‡ºéƒ¨åˆ†é”™è¯¯
 	Interpret();
 }
 
@@ -163,16 +163,16 @@ void OnFcrSaveOutput()
 	ofn.lStructSize = sizeof(ofn);
 	ofn.hwndOwner = g_hWndFcr;
 	ofn.lpstrDefExt = "txt";
-	ofn.lpstrFilter = "ÎÄ±¾ÎÄ¼ş (*.txt)\0*.txt\0ËùÓĞÎÄ¼ş (*.*)\0*.*\0\0";
+	ofn.lpstrFilter = "æ–‡æœ¬æ–‡ä»¶ (*.txt)\0*.txt\0æ‰€æœ‰æ–‡ä»¶ (*.*)\0*.*\0\0";
 	ofn.Flags = OFN_HIDEREADONLY|OFN_OVERWRITEPROMPT;
 	ofn.lpstrFile = (char *)malloc(1024);
-	strcpy(ofn.lpstrFile, "ÔËĞĞ½á¹û.txt");
+	strcpy(ofn.lpstrFile, "è¿è¡Œç»“æœ.txt");
 	ofn.nMaxFile = 1024;
 
 	if(!GetSaveFileName(&ofn))
 		return;
 
-	{	// ±£´æµ½ÎÄ¼ş
+	{	// ä¿å­˜åˆ°æ–‡ä»¶
 		FILE *fout = fopen(ofn.lpstrFile, "wt");
 		fwrite(g_lpszOutput, 1, g_nOutputLength, fout);
 		fclose(fout);
@@ -184,7 +184,7 @@ void OnFcrPrecision0()
 	if(g_nPrecision!=0)
 	{
 		g_nPrecision = 0;
-		if(IDYES == MessageBox(g_hWndFcr, "ÊÇ·ñÒªÖØĞÂÖ´ĞĞ³ÌĞò£¿", "FCR", MB_YESNO|MB_ICONQUESTION))
+		if(IDYES == MessageBox(g_hWndFcr, "æ˜¯å¦è¦é‡æ–°æ‰§è¡Œç¨‹åºï¼Ÿ", "FCR", MB_YESNO|MB_ICONQUESTION))
 			PostMessage(g_hWndFcr, WM_COMMAND, ID_EXECUTE, 0);
 	}
 }
@@ -194,7 +194,7 @@ void OnFcrPrecision6()
 	if(g_nPrecision!=6)
 	{
 		g_nPrecision = 6;
-		if(IDYES == MessageBox(g_hWndFcr, "ÊÇ·ñÒªÖØĞÂÖ´ĞĞ³ÌĞò£¿", "FCR", MB_YESNO|MB_ICONQUESTION))
+		if(IDYES == MessageBox(g_hWndFcr, "æ˜¯å¦è¦é‡æ–°æ‰§è¡Œç¨‹åºï¼Ÿ", "FCR", MB_YESNO|MB_ICONQUESTION))
 			PostMessage(g_hWndFcr, WM_COMMAND, ID_EXECUTE, 0);
 	}
 }
@@ -204,7 +204,7 @@ void OnFcrPrecision15()
 	if(g_nPrecision!=15)
 	{
 		g_nPrecision = 15;
-		if(IDYES == MessageBox(g_hWndFcr, "ÊÇ·ñÒªÖØĞÂÖ´ĞĞ³ÌĞò£¿", "FCR", MB_YESNO|MB_ICONQUESTION))
+		if(IDYES == MessageBox(g_hWndFcr, "æ˜¯å¦è¦é‡æ–°æ‰§è¡Œç¨‹åºï¼Ÿ", "FCR", MB_YESNO|MB_ICONQUESTION))
 			PostMessage(g_hWndFcr, WM_COMMAND, ID_EXECUTE, 0);
 	}
 }
@@ -222,7 +222,7 @@ void OnFcrExit()
 
 void InitFcrDialog()
 {
-	// ÉèÖÃÍ¼±ê
+	// è®¾ç½®å›¾æ ‡
 	HICON hIcon = LoadIcon(g_hInstance, (LPCTSTR)IDR_MAINFRAME);
 	SendMessage(g_hWndFcr, WM_SETICON, TRUE, (LPARAM)hIcon);
 	SendMessage(g_hWndFcr, WM_SETICON, FALSE, (LPARAM)hIcon);
@@ -237,14 +237,14 @@ void InitFcrDialog()
 
 	if(!ReadCodesFromRes())
 	{
-		MessageBox(g_hWndFcr, "´úÂë¶Î´íÎó£¡³ÌĞò¼´½«±»¹Ø±Õ£¡", "FCR", MB_OK|MB_ICONERROR);
+		MessageBox(g_hWndFcr, "ä»£ç æ®µé”™è¯¯ï¼ç¨‹åºå³å°†è¢«å…³é—­ï¼", "FCR", MB_OK|MB_ICONERROR);
 		PostQuitMessage(0);
 	}
 	else
 	{
 		SetWindowText(g_hWndFcr, g_lpszTitle);
 
-		{	// ´°¿Ú¾ÓÖĞ
+		{	// çª—å£å±…ä¸­
 			RECT rcFcr, rcDesktop;
 			HWND hWndDesktop = GetDesktopWindow();
 			GetWindowRect(hWndDesktop, &rcDesktop);
@@ -265,7 +265,7 @@ void InitFcrDialog()
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-// ÆäËûº¯Êı
+// å…¶ä»–å‡½æ•°
 ///////////////////////////////////////////////////////////////////////////////
 
 BOOL ReadCodesFromRes()
@@ -296,7 +296,7 @@ BOOL ReadCodes(LPCTSTR lpCodes)
 	int i,j,t;
 	char header[4];
 
-	// ¼ìÑéÎÄ¼şÍ·
+	// æ£€éªŒæ–‡ä»¶å¤´
 	for(i=0; i<3; i++,lpCodes++)
 		header[i] = *lpCodes;
 	header[3] = '\0';
@@ -306,13 +306,13 @@ BOOL ReadCodes(LPCTSTR lpCodes)
 		return FALSE;
 	lpCodes++;
 
-	// ¶ÁÈëÎ±´úÂëÊıÁ¿
+	// è¯»å…¥ä¼ªä»£ç æ•°é‡
 	g_nCode = *((int *)lpCodes);
 	g_pCode = (ZCode *)malloc(sizeof(ZCode)*g_nCode);
 
 	lpCodes += 4;
 
-	// ¶ÁÈëÎ±´úÂë
+	// è¯»å…¥ä¼ªä»£ç 
 	for(i=0; i<g_nCode; i++)
 	{
 		g_pCode[i].op = (ZOperator)*lpCodes;
@@ -321,7 +321,7 @@ BOOL ReadCodes(LPCTSTR lpCodes)
 		switch(g_pCode[i].op)
 		{
 		case OP_OUTPUTS:
-		case OP_STRLENS://²Ù×÷ÊıÎª²»¶¨³¤×Ö·û´®
+		case OP_STRLENS://æ“ä½œæ•°ä¸ºä¸å®šé•¿å­—ç¬¦ä¸²
 			t = *((int *)lpCodes);
 			lpCodes += 4;
 			g_pCode[i].sd.string = (char *)malloc(t+1);
@@ -329,7 +329,7 @@ BOOL ReadCodes(LPCTSTR lpCodes)
 				g_pCode[i].sd.string[j] = *lpCodes;
 			g_pCode[i].sd.string[t] = '\0';
 			break;
-		case OP_STRCPYS://´Ó×Ö·û´®¸´ÖÆµ½×Ö·ûÊı×é
+		case OP_STRCPYS://ä»å­—ç¬¦ä¸²å¤åˆ¶åˆ°å­—ç¬¦æ•°ç»„
 			g_pCode[i].sd.iNumber = *((int *)lpCodes);
 			lpCodes += 4;
 			t = *((int *)lpCodes);
@@ -341,17 +341,17 @@ BOOL ReadCodes(LPCTSTR lpCodes)
 			break;
 		case OP_PARAMTRANSA:case OP_PARAMTRANSC:case OP_PARAMTRANSD:case OP_PARAMTRANSI:
 		case OP_NEWARRAYC:case OP_NEWARRAYD:case OP_NEWARRAYI:
-		case OP_STRCMP:case OP_STRCPYCA://Ë«ÕûÊı²Ù×÷ÊıÖ¸Áî
+		case OP_STRCMP:case OP_STRCPYCA://åŒæ•´æ•°æ“ä½œæ•°æŒ‡ä»¤
 			g_pCode[i].sd.iNumber = *((int *)lpCodes);
 			lpCodes += 4;
 			g_pCode[i].sd.iNumber2 = *((int *)lpCodes);
 			lpCodes += 4;
 			break;
-		case OP_LOADCONSTD://µ¥ÊµÊı²Ù×÷ÊıÖ¸Áî
+		case OP_LOADCONSTD://å•å®æ•°æ“ä½œæ•°æŒ‡ä»¤
 			g_pCode[i].sd.dNumber = *((double *)lpCodes);
 			lpCodes += 8;
 			break;
-		case OP_LOADCONSTC://µ¥×Ö·û²Ù×÷ÊıÖ¸Áî
+		case OP_LOADCONSTC://å•å­—ç¬¦æ“ä½œæ•°æŒ‡ä»¤
 			g_pCode[i].sd.cNumber = *lpCodes;
 			lpCodes++;
 			break;
@@ -385,11 +385,11 @@ BOOL ReadCodes(LPCTSTR lpCodes)
 		case OP_MAXC:case OP_MAXD:case OP_MAXI:
 		case OP_MINC:case OP_MIND:case OP_MINI:
 		case OP_SUMC:case OP_SUMD:case OP_SUMI:
-		case OP_UPSORTC:case OP_UPSORTD:case OP_UPSORTI://µ¥ÕûÊı²Ù×÷ÊıÖ¸Áî
+		case OP_UPSORTC:case OP_UPSORTD:case OP_UPSORTI://å•æ•´æ•°æ“ä½œæ•°æŒ‡ä»¤
 			g_pCode[i].sd.iNumber = *((int *)lpCodes);
 			lpCodes += 4;
 			break;
-		default://ÆäËüÁã²Ù×÷ÊıÖ¸Áî
+		default://å…¶å®ƒé›¶æ“ä½œæ•°æŒ‡ä»¤
 			break;
 		}
 	}
@@ -401,7 +401,7 @@ BOOL TestAddress(int iAddress)
 {
 	if(iAddress>=MEMORY_SIZE*256)
 	{
-		MessageBox(g_hWndFcr, "ÄÚ´æÒç³ö£¬ÖĞÖ¹½âÊÍÖ´ĞĞ£¡","FC",MB_OK|MB_ICONINFORMATION);
+		MessageBox(g_hWndFcr, "å†…å­˜æº¢å‡ºï¼Œä¸­æ­¢è§£é‡Šæ‰§è¡Œï¼","FC",MB_OK|MB_ICONINFORMATION);
 		return FALSE;
 	}
 	return TRUE;
@@ -411,7 +411,7 @@ BOOL SlashModZeroChar(char ch)
 {
 	if(ch=='\0')
 	{
-		MessageBox(g_hWndFcr, "¡°/¡±»ò¡°%¡±µÄÓÒ²Ù×÷ÊıÎª0£¬ÖĞÖ¹½âÊÍÖ´ĞĞ£¡",
+		MessageBox(g_hWndFcr, "â€œ/â€æˆ–â€œ%â€çš„å³æ“ä½œæ•°ä¸º0ï¼Œä¸­æ­¢è§£é‡Šæ‰§è¡Œï¼",
 			"FC",MB_OK|MB_ICONINFORMATION);
 		return FALSE;
 	}
@@ -422,7 +422,7 @@ BOOL SlashModZeroInt(int i)
 {
 	if(i==0)
 	{
-		MessageBox(g_hWndFcr, "¡°/¡±»ò¡°%¡±µÄÓÒ²Ù×÷ÊıÎª0£¬ÖĞÖ¹½âÊÍÖ´ĞĞ£¡", "FCR", MB_OK|MB_ICONINFORMATION);
+		MessageBox(g_hWndFcr, "â€œ/â€æˆ–â€œ%â€çš„å³æ“ä½œæ•°ä¸º0ï¼Œä¸­æ­¢è§£é‡Šæ‰§è¡Œï¼", "FCR", MB_OK|MB_ICONINFORMATION);
 		return FALSE;
 	}
 	return TRUE;
@@ -432,7 +432,7 @@ BOOL SlashModZeroDouble(double d)
 {
 	if(d==0.0)
 	{
-		MessageBox(g_hWndFcr, "¡°/¡±»ò¡°%¡±µÄÓÒ²Ù×÷ÊıÎª0£¬ÖĞÖ¹½âÊÍÖ´ĞĞ£¡", "FCR", MB_OK|MB_ICONINFORMATION);
+		MessageBox(g_hWndFcr, "â€œ/â€æˆ–â€œ%â€çš„å³æ“ä½œæ•°ä¸º0ï¼Œä¸­æ­¢è§£é‡Šæ‰§è¡Œï¼", "FCR", MB_OK|MB_ICONINFORMATION);
 		return FALSE;
 	}
 	return TRUE;
@@ -442,7 +442,7 @@ BOOL ArraySubscript(int index,int length)
 {
 	if(index<0 || index>=length)
 	{
-		MessageBox(g_hWndFcr, "Êı×éÏÂ±êÒç³ö£¬ÖĞÖ¹½âÊÍÖ´ĞĞ£¡", "FCR", MB_OK|MB_ICONINFORMATION);
+		MessageBox(g_hWndFcr, "æ•°ç»„ä¸‹æ ‡æº¢å‡ºï¼Œä¸­æ­¢è§£é‡Šæ‰§è¡Œï¼", "FCR", MB_OK|MB_ICONINFORMATION);
 		return FALSE;
 	}
 	return TRUE;
@@ -452,7 +452,7 @@ BOOL ValidArray(void *pArray)
 {
 	if(pArray==NULL)
 	{
-		MessageBox(g_hWndFcr, "ÎŞ·¨·ÖÅäÊı×é¿Õ¼ä£¬ÖĞÖ¹½âÊÍÖ´ĞĞ£¡", "FCR", MB_OK|MB_ICONINFORMATION);
+		MessageBox(g_hWndFcr, "æ— æ³•åˆ†é…æ•°ç»„ç©ºé—´ï¼Œä¸­æ­¢è§£é‡Šæ‰§è¡Œï¼", "FCR", MB_OK|MB_ICONINFORMATION);
 		return FALSE;
 	}
 	return TRUE;
@@ -499,7 +499,7 @@ BOOL ExamCircumscriptive(ZOP op,double value)
 
 	if(msg[0] != '\0')
 	{
-		strcat(msg, " º¯Êıµ÷ÓÃÊ±±äÁ¿³¬³ö¶¨ÒåÓò£¬ÖĞÖ¹½âÊÍÖ´ĞĞ£¡");
+		strcat(msg, " å‡½æ•°è°ƒç”¨æ—¶å˜é‡è¶…å‡ºå®šä¹‰åŸŸï¼Œä¸­æ­¢è§£é‡Šæ‰§è¡Œï¼");
 		MessageBox(g_hWndFcr, msg, "FC", MB_OK|MB_ICONINFORMATION);
 		return FALSE;
 	}
@@ -515,14 +515,14 @@ BOOL Interpret()
 
 	int i;
 
-	register int iBase = -1;	//º¯Êı»ùµØÖ·£¬Ö¸Ïòº¯ÊıµÚÒ»¸ö²ÎÊıµØÖ·
-	register int iAddress = 0;	//µØÖ·Ö¸Õë£¬Ö¸ÏòµÚÒ»¸öÎ´ÓÃµÄµØÖ·µ¥Ôª
-	register int iCode = 0;		//´úÂëÖ¸Õë£¬Ö¸Ïòµ±Ç°´úÂë
-	int memory[MEMORY_SIZE*256];	//ĞéÄÚ´æ
+	register int iBase = -1;	//å‡½æ•°åŸºåœ°å€ï¼ŒæŒ‡å‘å‡½æ•°ç¬¬ä¸€ä¸ªå‚æ•°åœ°å€
+	register int iAddress = 0;	//åœ°å€æŒ‡é’ˆï¼ŒæŒ‡å‘ç¬¬ä¸€ä¸ªæœªç”¨çš„åœ°å€å•å…ƒ
+	register int iCode = 0;		//ä»£ç æŒ‡é’ˆï¼ŒæŒ‡å‘å½“å‰ä»£ç 
+	int memory[MEMORY_SIZE*256];	//è™šå†…å­˜
 	const ZCode *pCode = g_pCode;
 
-	register int iOp;			//Ö¸ÁîÌõÊı¼ÆÊı
-	BOOL bWarning = TRUE;		//ÊÇ·ñ¶Ô¿ÉÄÜµÄËÀÑ­»·½øĞĞ¾¯¸æ
+	register int iOp;			//æŒ‡ä»¤æ¡æ•°è®¡æ•°
+	BOOL bWarning = TRUE;		//æ˜¯å¦å¯¹å¯èƒ½çš„æ­»å¾ªç¯è¿›è¡Œè­¦å‘Š
 
 	clock_t tStart,tElapse=0;
 	tStart=clock();
@@ -531,25 +531,25 @@ BOOL Interpret()
 
 	for(iOp=0;;iOp++)
 	{
-		if(iOp==173330 && bWarning)//17333Ö»ÊÇ±íÊ¾173°à33ºÅ£¬ÎŞÆäËûÒâÒå
+		if(iOp==173330 && bWarning)//17333åªæ˜¯è¡¨ç¤º173ç­33å·ï¼Œæ— å…¶ä»–æ„ä¹‰
 		{
 			UpdateOutput();
 			tElapse += clock()-tStart;
 			switch(MessageBox(
 				g_hWndFcr,
-				"³ÌĞò¿ÉÄÜ½øÈëËÀÑ­»·£¬ÒªÖĞÖ¹½âÊÍÖ´ĞĞÂğ£¿\n"
-				"°´¡°ÊÇ¡±ÖĞÖ¹½âÊÍÖ´ĞĞ£¬°´¡°·ñ¡±¼ÌĞø½âÊÍÖ´ĞĞ\n"
-				"°´¡°È¡Ïû¡±¼ÌĞø½âÊÍÖ´ĞĞ²¢²»ÔÙÏÔÊ¾´ËÏûÏ¢¿ò",
+				"ç¨‹åºå¯èƒ½è¿›å…¥æ­»å¾ªç¯ï¼Œè¦ä¸­æ­¢è§£é‡Šæ‰§è¡Œå—ï¼Ÿ\n"
+				"æŒ‰â€œæ˜¯â€ä¸­æ­¢è§£é‡Šæ‰§è¡Œï¼ŒæŒ‰â€œå¦â€ç»§ç»­è§£é‡Šæ‰§è¡Œ\n"
+				"æŒ‰â€œå–æ¶ˆâ€ç»§ç»­è§£é‡Šæ‰§è¡Œå¹¶ä¸å†æ˜¾ç¤ºæ­¤æ¶ˆæ¯æ¡†",
 				"FCR",
 				MB_YESNOCANCEL|MB_ICONQUESTION))
 			{
 			case IDYES:
 				tStart = clock();
 				goto EndInterpret;
-				//´Ë´¦ÎŞĞèbreakÓï¾ä
+				//æ­¤å¤„æ— éœ€breakè¯­å¥
 			case IDCANCEL:
 				bWarning = FALSE;
-				//´Ë´¦²»ÌîÈëbreakÓï¾ä
+				//æ­¤å¤„ä¸å¡«å…¥breakè¯­å¥
 			case IDNO:
 				tStart = clock();
 				iOp=0;
@@ -558,7 +558,7 @@ BOOL Interpret()
 		}
 		switch(pCode[iCode].op)
 		{
-		case OP_C2D:				//ÀàĞÍ×ª»» char => double	£¨sd.iNumberÎªµØÖ·Æ«ÒÆÁ¿£©
+		case OP_C2D:				//ç±»å‹è½¬æ¢ char => double	ï¼ˆsd.iNumberä¸ºåœ°å€åç§»é‡ï¼‰
 			if(!TestAddress(iAddress))
 				return FALSE;
 			if(pCode[iCode++].sd.iNumber==0)
@@ -570,42 +570,42 @@ BOOL Interpret()
 			}
 			iAddress++;
 			break;
-		case OP_C2I:				//ÀàĞÍ×ª»» char => int		£¨sd.iNumberÎªµØÖ·Æ«ÒÆÁ¿£©
+		case OP_C2I:				//ç±»å‹è½¬æ¢ char => int		ï¼ˆsd.iNumberä¸ºåœ°å€åç§»é‡ï¼‰
 			if(pCode[iCode++].sd.iNumber==0)
 				memory[iAddress-1]=*((char*) &memory[iAddress-1]);
 			else
 				memory[iAddress-2]=*((char*) &memory[iAddress-1]);
 			break;
-		case OP_CALL:				//µ÷ÓÃº¯Êı£¨sdÎªº¯ÊıµØÖ·£©
-			if(!TestAddress(iAddress+3))// +3 ÊÇÒòÎªÏÂ±ßĞèÒª3µ¥ÔªĞéÄÚ´æ
+		case OP_CALL:				//è°ƒç”¨å‡½æ•°ï¼ˆsdä¸ºå‡½æ•°åœ°å€ï¼‰
+			if(!TestAddress(iAddress+3))// +3 æ˜¯å› ä¸ºä¸‹è¾¹éœ€è¦3å•å…ƒè™šå†…å­˜
 				return FALSE;
-			memory[iAddress  ]=iBase;	//±£ÁôÔ­»ùµØÖ·
-			memory[iAddress+1]=iAddress;//±£ÁôÔ­Õ»¶¥Ö¸Õë
-			memory[iAddress+2]=iCode;	//±£ÁôÔ­ÖĞ¼ä´úÂëÖ¸Õë
+			memory[iAddress  ]=iBase;	//ä¿ç•™åŸåŸºåœ°å€
+			memory[iAddress+1]=iAddress;//ä¿ç•™åŸæ ˆé¡¶æŒ‡é’ˆ
+			memory[iAddress+2]=iCode;	//ä¿ç•™åŸä¸­é—´ä»£ç æŒ‡é’ˆ
 			iBase=iAddress+3;
 			iCode=pCode[iCode].sd.iNumber;
 			iAddress+=3;
 			break;
-		case OP_CHANGESIGNALC:		//¸Ä±ä×Ö·û·ûºÅ
+		case OP_CHANGESIGNALC:		//æ”¹å˜å­—ç¬¦ç¬¦å·
 			*((char*) (&memory[iAddress-1]))= - *((char*) (&memory[iAddress-1]));
 			iCode++;
 			break;
-		case OP_CHANGESIGNALD:		//¸Ä±äÊµÊı·ûºÅ
+		case OP_CHANGESIGNALD:		//æ”¹å˜å®æ•°ç¬¦å·
 			*((double*) (&memory[iAddress-2]))= - *((double*) (&memory[iAddress-2]));
 			iCode++;
 			break;
-		case OP_CHANGESIGNALI:		//¸Ä±äÕûÊı·ûºÅ
+		case OP_CHANGESIGNALI:		//æ”¹å˜æ•´æ•°ç¬¦å·
 			memory[iAddress-1]= -memory[iAddress-1];
 			iCode++;
 			break;
-		case OP_COPYI:				//¸´ÖÆÕ»¶¥ÊıÖµ£¨ÕûÊı£©
+		case OP_COPYI:				//å¤åˆ¶æ ˆé¡¶æ•°å€¼ï¼ˆæ•´æ•°ï¼‰
 			if(!TestAddress(iAddress))
 				return FALSE;
 			memory[iAddress]=memory[iAddress-1];
 			iAddress++;
 			iCode++;
 			break;
-		case OP_D2C:				//ÀàĞÍ×ª»» double => char	£¨sd.iNumberÎªµØÖ·Æ«ÒÆÁ¿£©
+		case OP_D2C:				//ç±»å‹è½¬æ¢ double => char	ï¼ˆsd.iNumberä¸ºåœ°å€åç§»é‡ï¼‰
 			if(pCode[iCode++].sd.iNumber==0)
 				*((char*)&memory[iAddress-2]) = (char) *((double*)&memory[iAddress-2]);
 			else
@@ -615,7 +615,7 @@ BOOL Interpret()
 			}
 			iAddress--;
 			break;
-		case OP_D2I:				//ÀàĞÍ×ª»» double => int	£¨sd.iNumberÎªµØÖ·Æ«ÒÆÁ¿£©
+		case OP_D2I:				//ç±»å‹è½¬æ¢ double => int	ï¼ˆsd.iNumberä¸ºåœ°å€åç§»é‡ï¼‰
 			if(pCode[iCode++].sd.iNumber==0)
 				memory[iAddress-2] = (int) *((double*)&memory[iAddress-2]);
 			else
@@ -625,102 +625,102 @@ BOOL Interpret()
 			}
 			iAddress--;
 			break;
-		case OP_DELARRAYC:			//É¾³ıÒ»¸ö×Ö·ûÊı×é£¨sd.iNumberÎªÊı×éµØÖ·£©
+		case OP_DELARRAYC:			//åˆ é™¤ä¸€ä¸ªå­—ç¬¦æ•°ç»„ï¼ˆsd.iNumberä¸ºæ•°ç»„åœ°å€ï¼‰
 			free( (char*)(memory[iBase+pCode[iCode++].sd.iNumber]) );
 			break;
-		case OP_DELARRAYD:			//É¾³ıÒ»¸öÊµÊıÊı×é£¨sd.iNumberÎªÊı×éµØÖ·£©
+		case OP_DELARRAYD:			//åˆ é™¤ä¸€ä¸ªå®æ•°æ•°ç»„ï¼ˆsd.iNumberä¸ºæ•°ç»„åœ°å€ï¼‰
 			free( (double*)(memory[iBase+pCode[iCode++].sd.iNumber]) );
 			break;
-		case OP_DELARRAYI:			//É¾³ıÒ»¸öÕûÊıÊı×é£¨sd.iNumberÎªÊı×éµØÖ·£©
+		case OP_DELARRAYI:			//åˆ é™¤ä¸€ä¸ªæ•´æ•°æ•°ç»„ï¼ˆsd.iNumberä¸ºæ•°ç»„åœ°å€ï¼‰
 			free( (int*)(memory[iBase+pCode[iCode++].sd.iNumber]) );
 			break;
-		case OP_DELETEC:			//É¾³ıÕ»¶¥×Ö·û
+		case OP_DELETEC:			//åˆ é™¤æ ˆé¡¶å­—ç¬¦
 			iAddress--;
 			iCode++;
 			break;
-		case OP_DELETED:			//É¾³ıÕ»¶¥ÊµÊı
+		case OP_DELETED:			//åˆ é™¤æ ˆé¡¶å®æ•°
 			iAddress-=2;
 			iCode++;
 			break;
-		case OP_DELETEI:			//É¾³ıÕ»¶¥ÕûÊı
+		case OP_DELETEI:			//åˆ é™¤æ ˆé¡¶æ•´æ•°
 			iAddress--;
 			iCode++;
 			break;
-		case OP_EQUALC:				//µÈÓÚ£¨sd.iNumberÎªÌõ¼şÂú×ãÊ±µÄÌø×ªµØÖ·£©
+		case OP_EQUALC:				//ç­‰äºï¼ˆsd.iNumberä¸ºæ¡ä»¶æ»¡è¶³æ—¶çš„è·³è½¬åœ°å€ï¼‰
 			if( *((char*)&memory[iAddress-2]) == *((char*)&memory[iAddress-1]) )
 				iCode=pCode[iCode].sd.iNumber;
 			else
 				iCode++;
 			iAddress-=2;
 			break;
-		case OP_EQUALD:				//µÈÓÚ£¨sd.iNumberÎªÌõ¼şÂú×ãÊ±µÄÌø×ªµØÖ·£©
+		case OP_EQUALD:				//ç­‰äºï¼ˆsd.iNumberä¸ºæ¡ä»¶æ»¡è¶³æ—¶çš„è·³è½¬åœ°å€ï¼‰
 			if( *((double*)&memory[iAddress-4]) == *((double*)&memory[iAddress-2]) )
 				iCode=pCode[iCode].sd.iNumber;
 			else
 				iCode++;
 			iAddress-=4;
 			break;
-		case OP_EQUALI:				//µÈÓÚ£¨sd.iNumberÎªÌõ¼şÂú×ãÊ±µÄÌø×ªµØÖ·£©
+		case OP_EQUALI:				//ç­‰äºï¼ˆsd.iNumberä¸ºæ¡ä»¶æ»¡è¶³æ—¶çš„è·³è½¬åœ°å€ï¼‰
 			if(memory[iAddress-2]==memory[iAddress-1])
 				iCode=pCode[iCode].sd.iNumber;
 			else
 				iCode++;
 			iAddress-=2;
 			break;
-		case OP_EXIT:				//³ÌĞò½áÊø
+		case OP_EXIT:				//ç¨‹åºç»“æŸ
 			goto EndInterpret;
-		case OP_FUNCTIONSTART:		//º¯Êı¿ªÊ¼±êÖ¾£¨sd.iNumberÎª±äÁ¿²ÎÊıËùĞèµÄ×î´óÄÚ´æ£©
+		case OP_FUNCTIONSTART:		//å‡½æ•°å¼€å§‹æ ‡å¿—ï¼ˆsd.iNumberä¸ºå˜é‡å‚æ•°æ‰€éœ€çš„æœ€å¤§å†…å­˜ï¼‰
 			iAddress+=pCode[iCode++].sd.iNumber;
 			break;
-		case OP_GREATC:				//´óÓÚ£¨sd.iNumberÎªÌõ¼şÂú×ãÊ±µÄÌø×ªµØÖ·£©
+		case OP_GREATC:				//å¤§äºï¼ˆsd.iNumberä¸ºæ¡ä»¶æ»¡è¶³æ—¶çš„è·³è½¬åœ°å€ï¼‰
 			if( *((char*)&memory[iAddress-2]) > *((char*)&memory[iAddress-1]) )
 				iCode=pCode[iCode].sd.iNumber;
 			else
 				iCode++;
 			iAddress-=2;
 			break;
-		case OP_GREATD:				//´óÓÚ£¨sd.iNumberÎªÌõ¼şÂú×ãÊ±µÄÌø×ªµØÖ·£©
+		case OP_GREATD:				//å¤§äºï¼ˆsd.iNumberä¸ºæ¡ä»¶æ»¡è¶³æ—¶çš„è·³è½¬åœ°å€ï¼‰
 			if( *((double*)&memory[iAddress-4]) > *((double*)&memory[iAddress-2]) )
 				iCode=pCode[iCode].sd.iNumber;
 			else
 				iCode++;
 			iAddress-=4;
 			break;
-		case OP_GREATEQUALC:		//´óÓÚµÈÓÚ£¨sd.iNumberÎªÌõ¼şÂú×ãÊ±µÄÌø×ªµØÖ·£©
+		case OP_GREATEQUALC:		//å¤§äºç­‰äºï¼ˆsd.iNumberä¸ºæ¡ä»¶æ»¡è¶³æ—¶çš„è·³è½¬åœ°å€ï¼‰
 			if( *((char*)&memory[iAddress-2]) >= *((char*)&memory[iAddress-1]) )
 				iCode=pCode[iCode].sd.iNumber;
 			else
 				iCode++;
 			iAddress-=2;
 			break;
-		case OP_GREATEQUALD:		//´óÓÚµÈÓÚ£¨sd.iNumberÎªÌõ¼şÂú×ãÊ±µÄÌø×ªµØÖ·£©
+		case OP_GREATEQUALD:		//å¤§äºç­‰äºï¼ˆsd.iNumberä¸ºæ¡ä»¶æ»¡è¶³æ—¶çš„è·³è½¬åœ°å€ï¼‰
 			if( *((double*)&memory[iAddress-4]) >= *((double*)&memory[iAddress-2]) )
 				iCode=pCode[iCode].sd.iNumber;
 			else
 				iCode++;
 			iAddress-=4;
 			break;
-		case OP_GREATEQUALI:		//´óÓÚµÈÓÚ£¨sd.iNumberÎªÌõ¼şÂú×ãÊ±µÄÌø×ªµØÖ·£©
+		case OP_GREATEQUALI:		//å¤§äºç­‰äºï¼ˆsd.iNumberä¸ºæ¡ä»¶æ»¡è¶³æ—¶çš„è·³è½¬åœ°å€ï¼‰
 			if(memory[iAddress-2]>=memory[iAddress-1])
 				iCode=pCode[iCode].sd.iNumber;
 			else
 				iCode++;
 			iAddress-=2;
 			break;
-		case OP_GREATI:				//´óÓÚ£¨sd.iNumberÎªÌõ¼şÂú×ãÊ±µÄÌø×ªµØÖ·£©
+		case OP_GREATI:				//å¤§äºï¼ˆsd.iNumberä¸ºæ¡ä»¶æ»¡è¶³æ—¶çš„è·³è½¬åœ°å€ï¼‰
 			if(memory[iAddress-2]>memory[iAddress-1])
 				iCode=pCode[iCode].sd.iNumber;
 			else
 				iCode++;
 			iAddress-=2;
 			break;
-		case OP_I2C:				//ÀàĞÍ×ª»» int => char	£¨sd.iNumberÎªµØÖ·Æ«ÒÆÁ¿£©
+		case OP_I2C:				//ç±»å‹è½¬æ¢ int => char	ï¼ˆsd.iNumberä¸ºåœ°å€åç§»é‡ï¼‰
 			if(pCode[iCode++].sd.iNumber==0)
 				memory[iAddress-1] = (int) *((char*)&memory[iAddress-1]);
 			else
 				memory[iAddress-2] = (int) *((char*)&memory[iAddress-2]);
 			break;
-		case OP_I2D:				//ÀàĞÍ×ª»» int => double£¨sd.iNumberÎªµØÖ·Æ«ÒÆÁ¿£©
+		case OP_I2D:				//ç±»å‹è½¬æ¢ int => doubleï¼ˆsd.iNumberä¸ºåœ°å€åç§»é‡ï¼‰
 			if(!TestAddress(iAddress))
 				return FALSE;
 			if(pCode[iCode++].sd.iNumber==0)
@@ -732,9 +732,9 @@ BOOL Interpret()
 			}
 			iAddress++;
 			break;
-		case OP_INPUTARRAYC:		//ÊäÈë×Ö·ûÊı×éÖµ£¨sd.iNumberÎªÊı×éµØÖ·£¬ÏÂ±êÔÚÕ»¶¥£©
-			iTemp =memory[--iAddress];//Êı×éÏÂ±ê
-			iTemp2=iBase+pCode[iCode++].sd.iNumber;//Êı×éµØÖ·
+		case OP_INPUTARRAYC:		//è¾“å…¥å­—ç¬¦æ•°ç»„å€¼ï¼ˆsd.iNumberä¸ºæ•°ç»„åœ°å€ï¼Œä¸‹æ ‡åœ¨æ ˆé¡¶ï¼‰
+			iTemp =memory[--iAddress];//æ•°ç»„ä¸‹æ ‡
+			iTemp2=iBase+pCode[iCode++].sd.iNumber;//æ•°ç»„åœ°å€
 			if(!ArraySubscript(iTemp,memory[iTemp2+1]))
 				return FALSE;
 			tElapse+=clock()-tStart;
@@ -745,9 +745,9 @@ BOOL Interpret()
 			}
 			tStart=clock();
 			break;
-		case OP_INPUTARRAYD:		//ÊäÈëÊµĞÍÊı×éÖµ£¨sd.iNumberÎªÊı×éµØÖ·£¬ÏÂ±êÔÚÕ»¶¥£©
-			iTemp =memory[--iAddress];//Êı×éÏÂ±ê
-			iTemp2=iBase+pCode[iCode++].sd.iNumber;//Êı×éµØÖ·
+		case OP_INPUTARRAYD:		//è¾“å…¥å®å‹æ•°ç»„å€¼ï¼ˆsd.iNumberä¸ºæ•°ç»„åœ°å€ï¼Œä¸‹æ ‡åœ¨æ ˆé¡¶ï¼‰
+			iTemp =memory[--iAddress];//æ•°ç»„ä¸‹æ ‡
+			iTemp2=iBase+pCode[iCode++].sd.iNumber;//æ•°ç»„åœ°å€
 			if(!ArraySubscript(iTemp,memory[iTemp2+1]))
 				return FALSE;
 			tElapse+=clock()-tStart;
@@ -758,9 +758,9 @@ BOOL Interpret()
 			}
 			tStart=clock();
 			break;
-		case OP_INPUTARRAYI:		//ÊäÈëÕûĞÍÊı×éÖµ£¨sd.iNumberÎªÊı×éµØÖ·£¬ÏÂ±êÔÚÕ»¶¥£©
-			iTemp =memory[--iAddress];//Êı×éÏÂ±ê
-			iTemp2=iBase+pCode[iCode++].sd.iNumber;//Êı×éµØÖ·
+		case OP_INPUTARRAYI:		//è¾“å…¥æ•´å‹æ•°ç»„å€¼ï¼ˆsd.iNumberä¸ºæ•°ç»„åœ°å€ï¼Œä¸‹æ ‡åœ¨æ ˆé¡¶ï¼‰
+			iTemp =memory[--iAddress];//æ•°ç»„ä¸‹æ ‡
+			iTemp2=iBase+pCode[iCode++].sd.iNumber;//æ•°ç»„åœ°å€
 			if(!ArraySubscript(iTemp,memory[iTemp2+1]))
 				return FALSE;
 			tElapse+=clock()-tStart;
@@ -771,7 +771,7 @@ BOOL Interpret()
 			}
 			tStart=clock();
 			break;
-		case OP_INPUTC:				//ÊäÈë×Ö·û£¨sd.iNumberÎªµØÖ·£©
+		case OP_INPUTC:				//è¾“å…¥å­—ç¬¦ï¼ˆsd.iNumberä¸ºåœ°å€ï¼‰
 			tElapse+=clock()-tStart;
 			if(!InputChar((char*) &memory[iBase+pCode[iCode++].sd.iNumber]))
 			{
@@ -780,9 +780,9 @@ BOOL Interpret()
 			}
 			tStart=clock();
 			break;
-		case OP_INPUTCA:			//ÊäÈë×Ö·ûÊı×é£¨sd.iNumberÎªÊı×éµØÖ·£©
-			iTemp =iBase+pCode[iCode++].sd.iNumber;//Êı×éµØÖ·
-			iTemp2=memory[iTemp+1];//Êı×é³¤¶È
+		case OP_INPUTCA:			//è¾“å…¥å­—ç¬¦æ•°ç»„ï¼ˆsd.iNumberä¸ºæ•°ç»„åœ°å€ï¼‰
+			iTemp =iBase+pCode[iCode++].sd.iNumber;//æ•°ç»„åœ°å€
+			iTemp2=memory[iTemp+1];//æ•°ç»„é•¿åº¦
 			tElapse+=clock()-tStart;
 			if(!InputString(&lpszTemp))
 			{
@@ -795,7 +795,7 @@ BOOL Interpret()
 			strcpy( (char*)memory[iTemp], lpszTemp);
 			free(lpszTemp); // MUST FREE
 			break;
-		case OP_INPUTD:				//ÊäÈëÊµÊı£¨sd.iNumberÎªµØÖ·£©
+		case OP_INPUTD:				//è¾“å…¥å®æ•°ï¼ˆsd.iNumberä¸ºåœ°å€ï¼‰
 			tElapse+=clock()-tStart;
 			if(!InputDouble( (double*) &memory[iBase+pCode[iCode++].sd.iNumber] ))
 			{
@@ -804,7 +804,7 @@ BOOL Interpret()
 			}
 			tStart=clock();
 			break;
-		case OP_INPUTI:				//ÊäÈëÕûÊı£¨sd.iNumberÎªµØÖ·£©
+		case OP_INPUTI:				//è¾“å…¥æ•´æ•°ï¼ˆsd.iNumberä¸ºåœ°å€ï¼‰
 			tElapse+=clock()-tStart;
 			if(!InputInt( &memory[iBase+pCode[iCode++].sd.iNumber] ))
 			{
@@ -813,154 +813,154 @@ BOOL Interpret()
 			}
 			tStart=clock();
 			break;
-		case OP_JUMP:				//ÎŞÌõ¼şÌø×ª£¨sdÎªÌø×ªµØÖ·£©
+		case OP_JUMP:				//æ— æ¡ä»¶è·³è½¬ï¼ˆsdä¸ºè·³è½¬åœ°å€ï¼‰
 			iCode=pCode[iCode].sd.iNumber;
 			break;
-		case OP_LESSC:				//Ğ¡ÓÚ£¨sd.iNumberÎªÌõ¼şÂú×ãÊ±µÄÌø×ªµØÖ·£©
+		case OP_LESSC:				//å°äºï¼ˆsd.iNumberä¸ºæ¡ä»¶æ»¡è¶³æ—¶çš„è·³è½¬åœ°å€ï¼‰
 			if( *((char*)&memory[iAddress-2]) < *((char*)&memory[iAddress-1]) )
 				iCode=pCode[iCode].sd.iNumber;
 			else
 				iCode++;
 			iAddress-=2;
 			break;
-		case OP_LESSD:				//Ğ¡ÓÚ£¨sd.iNumberÎªÌõ¼şÂú×ãÊ±µÄÌø×ªµØÖ·£©
+		case OP_LESSD:				//å°äºï¼ˆsd.iNumberä¸ºæ¡ä»¶æ»¡è¶³æ—¶çš„è·³è½¬åœ°å€ï¼‰
 			if( *((double*)&memory[iAddress-4]) < *((double*)&memory[iAddress-2]) )
 				iCode=pCode[iCode].sd.iNumber;
 			else
 				iCode++;
 			iAddress-=4;
 			break;
-		case OP_LESSEQUALC:			//Ğ¡ÓÚµÈÓÚ£¨sd.iNumberÎªÌõ¼şÂú×ãÊ±µÄÌø×ªµØÖ·£©
+		case OP_LESSEQUALC:			//å°äºç­‰äºï¼ˆsd.iNumberä¸ºæ¡ä»¶æ»¡è¶³æ—¶çš„è·³è½¬åœ°å€ï¼‰
 			if( *((char*)&memory[iAddress-2]) <= *((char*)&memory[iAddress-1]) )
 				iCode=pCode[iCode].sd.iNumber;
 			else
 				iCode++;
 			iAddress-=2;
 			break;
-		case OP_LESSEQUALD:			//Ğ¡ÓÚµÈÓÚ£¨sd.iNumberÎªÌõ¼şÂú×ãÊ±µÄÌø×ªµØÖ·£©
+		case OP_LESSEQUALD:			//å°äºç­‰äºï¼ˆsd.iNumberä¸ºæ¡ä»¶æ»¡è¶³æ—¶çš„è·³è½¬åœ°å€ï¼‰
 			if( *((double*)&memory[iAddress-4]) <= *((double*)&memory[iAddress-2]) )
 				iCode=pCode[iCode].sd.iNumber;
 			else
 				iCode++;
 			iAddress-=4;
 			break;
-		case OP_LESSEQUALI:			//Ğ¡ÓÚµÈÓÚ£¨sd.iNumberÎªÌõ¼şÂú×ãÊ±µÄÌø×ªµØÖ·£©
+		case OP_LESSEQUALI:			//å°äºç­‰äºï¼ˆsd.iNumberä¸ºæ¡ä»¶æ»¡è¶³æ—¶çš„è·³è½¬åœ°å€ï¼‰
 			if(memory[iAddress-2]<=memory[iAddress-1])
 				iCode=pCode[iCode].sd.iNumber;
 			else
 				iCode++;
 			iAddress-=2;
 			break;
-		case OP_LESSI:				//Ğ¡ÓÚ£¨sd.iNumberÎªÌõ¼şÂú×ãÊ±µÄÌø×ªµØÖ·£©
+		case OP_LESSI:				//å°äºï¼ˆsd.iNumberä¸ºæ¡ä»¶æ»¡è¶³æ—¶çš„è·³è½¬åœ°å€ï¼‰
 			if(memory[iAddress-2]<memory[iAddress-1])
 				iCode=pCode[iCode].sd.iNumber;
 			else
 				iCode++;
 			iAddress-=2;
 			break;
-		case OP_LOADARRAY:			//µ¼ÈëÊı×éµØÖ·£¨sd.iNumberÎªÊı×éÍ·µØÖ·£©
+		case OP_LOADARRAY:			//å¯¼å…¥æ•°ç»„åœ°å€ï¼ˆsd.iNumberä¸ºæ•°ç»„å¤´åœ°å€ï¼‰
 			memory[iAddress++]=memory[iBase+pCode[iCode].sd.iNumber];
 			memory[iAddress++]=memory[iBase+pCode[iCode++].sd.iNumber+1];
 			break;
-		case OP_LOADARRAYC:			//µ¼Èë×Ö·ûÊı×éÖµ£¨sd.iNumberÎªÊı×éÍ·µØÖ·£¬ÏÂ±êÔÚÕ»¶¥£©
-			iTemp =memory[iAddress-1];//Êı×éÏÂ±ê
-			iTemp2=iBase+pCode[iCode++].sd.iNumber;//Êı×éµØÖ·
+		case OP_LOADARRAYC:			//å¯¼å…¥å­—ç¬¦æ•°ç»„å€¼ï¼ˆsd.iNumberä¸ºæ•°ç»„å¤´åœ°å€ï¼Œä¸‹æ ‡åœ¨æ ˆé¡¶ï¼‰
+			iTemp =memory[iAddress-1];//æ•°ç»„ä¸‹æ ‡
+			iTemp2=iBase+pCode[iCode++].sd.iNumber;//æ•°ç»„åœ°å€
 			if(!ArraySubscript(iTemp,memory[iTemp2+1]))
 				return FALSE;
 			*((char*)&memory[iAddress-1]) = ((char*)memory[iTemp2])[iTemp];
 			break;
-		case OP_LOADARRAYD:			//µ¼ÈëÊµÊıÊı×éÖµ£¨sd.iNumberÎªÊı×éÍ·µØÖ·£¬ÏÂ±êÔÚÕ»¶¥£©
+		case OP_LOADARRAYD:			//å¯¼å…¥å®æ•°æ•°ç»„å€¼ï¼ˆsd.iNumberä¸ºæ•°ç»„å¤´åœ°å€ï¼Œä¸‹æ ‡åœ¨æ ˆé¡¶ï¼‰
 			if(!TestAddress(iAddress))
 				return FALSE;
-			iTemp =memory[iAddress-1];//Êı×éÏÂ±ê
-			iTemp2=iBase+pCode[iCode++].sd.iNumber;//Êı×éµØÖ·
+			iTemp =memory[iAddress-1];//æ•°ç»„ä¸‹æ ‡
+			iTemp2=iBase+pCode[iCode++].sd.iNumber;//æ•°ç»„åœ°å€
 			if(!ArraySubscript(iTemp,memory[iTemp2+1]))
 				return FALSE;
 			*((double*)&memory[iAddress-1]) = ((double*)memory[iTemp2])[iTemp];
 			iAddress++;
 			break;
-		case OP_LOADARRAYI:			//µ¼ÈëÕûÊıÊı×éÖµ£¨sd.iNumberÎªÊı×éÍ·µØÖ·£¬ÏÂ±êÔÚÕ»¶¥£©
-			iTemp =memory[iAddress-1];//Êı×éÏÂ±ê
-			iTemp2=iBase+pCode[iCode++].sd.iNumber;//Êı×éµØÖ·
+		case OP_LOADARRAYI:			//å¯¼å…¥æ•´æ•°æ•°ç»„å€¼ï¼ˆsd.iNumberä¸ºæ•°ç»„å¤´åœ°å€ï¼Œä¸‹æ ‡åœ¨æ ˆé¡¶ï¼‰
+			iTemp =memory[iAddress-1];//æ•°ç»„ä¸‹æ ‡
+			iTemp2=iBase+pCode[iCode++].sd.iNumber;//æ•°ç»„åœ°å€
 			if(!ArraySubscript(iTemp,memory[iTemp2+1]))
 				return FALSE;
 			memory[iAddress-1] = ((int*)memory[iTemp2])[iTemp];
 			break;
-		case OP_LOADCONSTC:			//µ¼Èë×Ö·û³£Êı	£¨sdÎª²ÎÊı£©
+		case OP_LOADCONSTC:			//å¯¼å…¥å­—ç¬¦å¸¸æ•°	ï¼ˆsdä¸ºå‚æ•°ï¼‰
 			if(!TestAddress(iAddress))
 				return FALSE;
 			*((char*)&memory[iAddress++])=pCode[iCode++].sd.cNumber;
 			break;
-		case OP_LOADCONSTD:			//µ¼ÈëÊµ³£Êı	£¨sdÎª²ÎÊı£©
+		case OP_LOADCONSTD:			//å¯¼å…¥å®å¸¸æ•°	ï¼ˆsdä¸ºå‚æ•°ï¼‰
 			if(!TestAddress(iAddress+1))
 				return FALSE;
 			*((double*)&memory[iAddress])=pCode[iCode++].sd.dNumber;
 			iAddress+=2;
 			break;
-		case OP_LOADCONSTI:			//µ¼ÈëÕû³£Êı	£¨sdÎª²ÎÊı£©
+		case OP_LOADCONSTI:			//å¯¼å…¥æ•´å¸¸æ•°	ï¼ˆsdä¸ºå‚æ•°ï¼‰
 			if(!TestAddress(iAddress))
 				return FALSE;
 			memory[iAddress++]=pCode[iCode++].sd.iNumber;
 			break;
-		case OP_LOADVARC:			//µ¼Èë×Ö·û£¨sd.iNumberÎªµØÖ·£©
+		case OP_LOADVARC:			//å¯¼å…¥å­—ç¬¦ï¼ˆsd.iNumberä¸ºåœ°å€ï¼‰
 			if(!TestAddress(iAddress))
 				return FALSE;
 			*((char*)&memory[iAddress++])=*((char*)&memory[iBase+pCode[iCode++].sd.iNumber]);
 			break;
-		case OP_LOADVARD:			//µ¼ÈëÊµÊı£¨sd.iNumberÎªµØÖ·£©
+		case OP_LOADVARD:			//å¯¼å…¥å®æ•°ï¼ˆsd.iNumberä¸ºåœ°å€ï¼‰
 			if(!TestAddress(iAddress+1))
 				return FALSE;
 			*((double*)&memory[iAddress])=
 				*((double*)&memory[iBase+pCode[iCode++].sd.iNumber]);
 			iAddress+=2;
 			break;
-		case OP_LOADVARI:			//µ¼ÈëÕûÊı£¨sd.iNumberÎªµØÖ·£©
+		case OP_LOADVARI:			//å¯¼å…¥æ•´æ•°ï¼ˆsd.iNumberä¸ºåœ°å€ï¼‰
 			if(!TestAddress(iAddress))
 				return FALSE;
 			memory[iAddress++]=memory[iBase+pCode[iCode++].sd.iNumber];
 			break;
-		case OP_MINUSC:				//¼õ£¨×Ö·û£©
+		case OP_MINUSC:				//å‡ï¼ˆå­—ç¬¦ï¼‰
 			iAddress--;
 			*((char*)&memory[iAddress-1]) -= *((char*)&memory[iAddress]);
 			iCode++;
 			break;
-		case OP_MINUSD:				//¼õ£¨ÊµÊı£©
+		case OP_MINUSD:				//å‡ï¼ˆå®æ•°ï¼‰
 			iAddress-=2;
 			*((double*)&memory[iAddress-2]) -= *((double*)&memory[iAddress]);
 			iCode++;
 			break;
-		case OP_MINUSI:				//¼õ£¨ÕûÊı£©
+		case OP_MINUSI:				//å‡ï¼ˆæ•´æ•°ï¼‰
 			iAddress--;
 			memory[iAddress-1]-=memory[iAddress];
 			iCode++;
 			break;
-		case OP_MODC:				//Óà£¨×Ö·û£©
+		case OP_MODC:				//ä½™ï¼ˆå­—ç¬¦ï¼‰
 			cTemp= *((char*)&memory[--iAddress]);
 			if(!SlashModZeroChar(cTemp))
 				return FALSE;
 			*((char*)&memory[iAddress-1]) %= cTemp;
 			iCode++;
 			break;
-		case OP_MODI:				//Óà£¨ÕûÊı£©
+		case OP_MODI:				//ä½™ï¼ˆæ•´æ•°ï¼‰
 			iTemp=memory[--iAddress];
 			if(!SlashModZeroInt(iTemp))
 				return FALSE;
 			memory[iAddress-1]%=iTemp;
 			iCode++;
 			break;
-		case OP_NEWARRAYC:			//ÉêÇëÒ»¸ö×Ö·ûÊı×é£¨sd.iNumberÎªÊı×éÍ·µØÖ·£¬sd.iNumber2Îª³¤¶È£©
-			iTemp =iBase+pCode[iCode].sd.iNumber;//Êı×éµØÖ·
-			iTemp2=pCode[iCode++].sd.iNumber2;//Êı×é³¤¶È
-			memory[iTemp] = (int)malloc(iTemp2+1);//×Ö·ûÊı×é³¤¶ÈĞë¼ÓÒ»
+		case OP_NEWARRAYC:			//ç”³è¯·ä¸€ä¸ªå­—ç¬¦æ•°ç»„ï¼ˆsd.iNumberä¸ºæ•°ç»„å¤´åœ°å€ï¼Œsd.iNumber2ä¸ºé•¿åº¦ï¼‰
+			iTemp =iBase+pCode[iCode].sd.iNumber;//æ•°ç»„åœ°å€
+			iTemp2=pCode[iCode++].sd.iNumber2;//æ•°ç»„é•¿åº¦
+			memory[iTemp] = (int)malloc(iTemp2+1);//å­—ç¬¦æ•°ç»„é•¿åº¦é¡»åŠ ä¸€
 			if(!ValidArray((char*)memory[iTemp]))
 				return FALSE;
 			memory[iTemp+1]=iTemp2;
 			for(i=0;i<=iTemp2;i++)
 				((char*)memory[iTemp])[i]='\0';
 			break;
-		case OP_NEWARRAYD:			//ÉêÇëÒ»¸öÊµÊıÊı×é£¨sd.iNumberÎªÊı×éÍ·µØÖ·£¬sd.iNumber2Îª³¤¶È£©
-			iTemp =iBase+pCode[iCode].sd.iNumber;//Êı×éµØÖ·
-			iTemp2=pCode[iCode++].sd.iNumber2;//Êı×é³¤¶È
+		case OP_NEWARRAYD:			//ç”³è¯·ä¸€ä¸ªå®æ•°æ•°ç»„ï¼ˆsd.iNumberä¸ºæ•°ç»„å¤´åœ°å€ï¼Œsd.iNumber2ä¸ºé•¿åº¦ï¼‰
+			iTemp =iBase+pCode[iCode].sd.iNumber;//æ•°ç»„åœ°å€
+			iTemp2=pCode[iCode++].sd.iNumber2;//æ•°ç»„é•¿åº¦
 			memory[iTemp] = (int)malloc(sizeof(double)*iTemp2);
 			if(!ValidArray((double*)memory[iTemp]))
 				return FALSE;
@@ -968,9 +968,9 @@ BOOL Interpret()
 			for(i=0;i<iTemp2;i++)
 				((double*)memory[iTemp])[i]=0.0;
 			break;
-		case OP_NEWARRAYI:			//ÉêÇëÒ»¸öÕûÊıÊı×é£¨sd.iNumberÎªÊı×éÍ·µØÖ·£¬sd.iNumber2Îª³¤¶È£©
-			iTemp =iBase+pCode[iCode].sd.iNumber;//Êı×éµØÖ·
-			iTemp2=pCode[iCode++].sd.iNumber2;//Êı×é³¤¶È
+		case OP_NEWARRAYI:			//ç”³è¯·ä¸€ä¸ªæ•´æ•°æ•°ç»„ï¼ˆsd.iNumberä¸ºæ•°ç»„å¤´åœ°å€ï¼Œsd.iNumber2ä¸ºé•¿åº¦ï¼‰
+			iTemp =iBase+pCode[iCode].sd.iNumber;//æ•°ç»„åœ°å€
+			iTemp2=pCode[iCode++].sd.iNumber2;//æ•°ç»„é•¿åº¦
 			memory[iTemp] = (int)malloc(sizeof(int)*iTemp2);
 			if(!ValidArray((int*)memory[iTemp]))
 				return FALSE;
@@ -978,161 +978,161 @@ BOOL Interpret()
 			for(i=0;i<iTemp2;i++)
 				((int*)memory[iTemp])[i]=0;
 			break;
-		case OP_NOTEQUALC:			//²»µÈÓÚ£¨sd.iNumberÎªÌõ¼şÂú×ãÊ±µÄÌø×ªµØÖ·£©
+		case OP_NOTEQUALC:			//ä¸ç­‰äºï¼ˆsd.iNumberä¸ºæ¡ä»¶æ»¡è¶³æ—¶çš„è·³è½¬åœ°å€ï¼‰
 			if( *((char*)&memory[iAddress-2]) != *((char*)&memory[iAddress-1]) )
 				iCode=pCode[iCode].sd.iNumber;
 			else
 				iCode++;
 			iAddress-=2;
 			break;
-		case OP_NOTEQUALD:			//²»µÈÓÚ£¨sd.iNumberÎªÌõ¼şÂú×ãÊ±µÄÌø×ªµØÖ·£©
+		case OP_NOTEQUALD:			//ä¸ç­‰äºï¼ˆsd.iNumberä¸ºæ¡ä»¶æ»¡è¶³æ—¶çš„è·³è½¬åœ°å€ï¼‰
 			if( *((double*)&memory[iAddress-4]) != *((double*)&memory[iAddress-2]) )
 				iCode=pCode[iCode].sd.iNumber;
 			else
 				iCode++;
 			iAddress-=4;
 			break;
-		case OP_NOTEQUALI:			//²»µÈÓÚ£¨sd.iNumberÎªÌõ¼şÂú×ãÊ±µÄÌø×ªµØÖ·£©
+		case OP_NOTEQUALI:			//ä¸ç­‰äºï¼ˆsd.iNumberä¸ºæ¡ä»¶æ»¡è¶³æ—¶çš„è·³è½¬åœ°å€ï¼‰
 			if(memory[iAddress-2]!=memory[iAddress-1])
 				iCode=pCode[iCode].sd.iNumber;
 			else
 				iCode++;
 			iAddress-=2;
 			break;
-		case OP_NULL:				//¿Õ²Ù×÷
+		case OP_NULL:				//ç©ºæ“ä½œ
 			iCode++;
 			break;
-		case OP_OUTPUTC:			//Êä³ö×Ö·û
+		case OP_OUTPUTC:			//è¾“å‡ºå­—ç¬¦
 			OutputChar( *((char*)&memory[--iAddress]) );
 			iCode++;
 			break;
-		case OP_OUTPUTCA:			//Êä³ö×Ö·ûÊı×é£¨sdÎª×Ö·ûÊı×éµØÖ·£©
+		case OP_OUTPUTCA:			//è¾“å‡ºå­—ç¬¦æ•°ç»„ï¼ˆsdä¸ºå­—ç¬¦æ•°ç»„åœ°å€ï¼‰
 			OutputCharArray( (char*)memory[iBase+pCode[iCode++].sd.iNumber] );
 			break;
-		case OP_OUTPUTD:			//Êä³öÊµÊı
+		case OP_OUTPUTD:			//è¾“å‡ºå®æ•°
 			iAddress-=2;
 			OutputDouble( *((double*)&memory[iAddress]) );
 			iCode++;
 			break;
-		case OP_OUTPUTI:			//Êä³öÕûÊı
+		case OP_OUTPUTI:			//è¾“å‡ºæ•´æ•°
 			OutputInt(memory[--iAddress]);
 			iCode++;
 			break;
-		case OP_OUTPUTS:			//Êä³ö×Ö·û´®£¨sdÎª×Ö·û´®ÊµµØÖ·£©
+		case OP_OUTPUTS:			//è¾“å‡ºå­—ç¬¦ä¸²ï¼ˆsdä¸ºå­—ç¬¦ä¸²å®åœ°å€ï¼‰
 			OutputString(pCode[iCode].sd.string);
 			iCode++;
 			break;
-		case OP_PARAMTRANSA:		//Êı×é²ÎÊı´«µİ£¨sd.iNumberÎªµØÖ·£¬sd.iNumber2ÎªÆ«ÒÆÁ¿£©
+		case OP_PARAMTRANSA:		//æ•°ç»„å‚æ•°ä¼ é€’ï¼ˆsd.iNumberä¸ºåœ°å€ï¼Œsd.iNumber2ä¸ºåç§»é‡ï¼‰
 			iTemp=iBase+pCode[iCode].sd.iNumber;
 			memory[iTemp]=memory[iTemp-pCode[iCode].sd.iNumber2];
 			memory[iTemp+1]=memory[iTemp+1-pCode[iCode++].sd.iNumber2];
 			break;
-		case OP_PARAMTRANSC:		//×Ö·û²ÎÊı´«µİ£¨sd.iNumberÎªµØÖ·£¬sd.iNumber2ÎªÆ«ÒÆÁ¿£©
+		case OP_PARAMTRANSC:		//å­—ç¬¦å‚æ•°ä¼ é€’ï¼ˆsd.iNumberä¸ºåœ°å€ï¼Œsd.iNumber2ä¸ºåç§»é‡ï¼‰
 			iTemp=iBase+pCode[iCode].sd.iNumber;
 			*((char*)&memory[iTemp])=
 				*((char*)&memory[iTemp-pCode[iCode++].sd.iNumber2]);
 			break;
-		case OP_PARAMTRANSD:		//ÊµÊı²ÎÊı´«µİ£¨sd.iNumberÎªµØÖ·£¬sd.iNumber2ÎªÆ«ÒÆÁ¿£©
+		case OP_PARAMTRANSD:		//å®æ•°å‚æ•°ä¼ é€’ï¼ˆsd.iNumberä¸ºåœ°å€ï¼Œsd.iNumber2ä¸ºåç§»é‡ï¼‰
 			iTemp=iBase+pCode[iCode].sd.iNumber;
 			*((double*)&memory[iTemp])=
 				*((double*)&memory[iTemp-pCode[iCode++].sd.iNumber2]);
 			break;
-		case OP_PARAMTRANSI:		//ÕûÊı²ÎÊı´«µİ£¨sd.iNumberÎªµØÖ·£¬sd.iNumber2ÎªÆ«ÒÆÁ¿£©
+		case OP_PARAMTRANSI:		//æ•´æ•°å‚æ•°ä¼ é€’ï¼ˆsd.iNumberä¸ºåœ°å€ï¼Œsd.iNumber2ä¸ºåç§»é‡ï¼‰
 			iTemp=iBase+pCode[iCode].sd.iNumber;
 			memory[iTemp]=memory[iTemp-pCode[iCode++].sd.iNumber2];
 			break;
-		case OP_PLUSC:				//¼Ó£¨×Ö·û£©
+		case OP_PLUSC:				//åŠ ï¼ˆå­—ç¬¦ï¼‰
 			iAddress--;
 			*((char*)&memory[iAddress-1]) += *((char*)&memory[iAddress]);
 			iCode++;
 			break;
-		case OP_PLUSD:				//¼Ó£¨ÊµÊı£©
+		case OP_PLUSD:				//åŠ ï¼ˆå®æ•°ï¼‰
 			iAddress-=2;
 			*((double*)&memory[iAddress-2]) += *((double*)&memory[iAddress]);
 			iCode++;
 			break;
-		case OP_PLUSI:				//¼Ó£¨ÕûÊı£©
+		case OP_PLUSI:				//åŠ ï¼ˆæ•´æ•°ï¼‰
 			iAddress--;
 			memory[iAddress-1]+=memory[iAddress];
 			iCode++;
 			break;
-		case OP_RETURN:				//void	º¯Êı·µ»Ø£¨sd.iNumberÎªÆ«ÒÆÁ¿£©
-			iAddress=memory[iBase-2]	//»Ö¸´ÖĞ¼ä´úÂëÖ¸Õë
-				+3-pCode[iCode].sd.iNumber;//»ØÊÕ²ÎÊı´«µİÊ±²ÎÊıÕ¼ÓÃµÄĞéÄÚ´æ
-			iCode	=memory[iBase-1]+1;	//»Ö¸´Õ»¶¥Ö¸Õë
-			iBase	=memory[iBase-3];	//»Ö¸´Ô­»ùµØÖ·
+		case OP_RETURN:				//void	å‡½æ•°è¿”å›ï¼ˆsd.iNumberä¸ºåç§»é‡ï¼‰
+			iAddress=memory[iBase-2]	//æ¢å¤ä¸­é—´ä»£ç æŒ‡é’ˆ
+				+3-pCode[iCode].sd.iNumber;//å›æ”¶å‚æ•°ä¼ é€’æ—¶å‚æ•°å ç”¨çš„è™šå†…å­˜
+			iCode	=memory[iBase-1]+1;	//æ¢å¤æ ˆé¡¶æŒ‡é’ˆ
+			iBase	=memory[iBase-3];	//æ¢å¤åŸåŸºåœ°å€
 			if(iBase<0)
 				goto EndInterpret;
 			break;
-		case OP_RETURNC:			//char	º¯Êı·µ»Ø£¨sd.iNumberÎªÆ«ÒÆÁ¿£©
+		case OP_RETURNC:			//char	å‡½æ•°è¿”å›ï¼ˆsd.iNumberä¸ºåç§»é‡ï¼‰
 			cTemp= *((char*)&memory[iAddress-1]);
-			iAddress=memory[iBase-2]	//»Ö¸´ÖĞ¼ä´úÂëÖ¸Õë
-				+3-pCode[iCode].sd.iNumber;//»ØÊÕ²ÎÊı´«µİÊ±²ÎÊıÕ¼ÓÃµÄĞéÄÚ´æ
-			iCode	=memory[iBase-1]+1;	//»Ö¸´Õ»¶¥Ö¸Õë
-			iBase	=memory[iBase-3];	//»Ö¸´Ô­»ùµØÖ·
+			iAddress=memory[iBase-2]	//æ¢å¤ä¸­é—´ä»£ç æŒ‡é’ˆ
+				+3-pCode[iCode].sd.iNumber;//å›æ”¶å‚æ•°ä¼ é€’æ—¶å‚æ•°å ç”¨çš„è™šå†…å­˜
+			iCode	=memory[iBase-1]+1;	//æ¢å¤æ ˆé¡¶æŒ‡é’ˆ
+			iBase	=memory[iBase-3];	//æ¢å¤åŸåŸºåœ°å€
 			*((char*)&memory[iAddress++])=cTemp;
 			break;
-		case OP_RETURND:			//doubleº¯Êı·µ»Ø£¨sd.iNumberÎªÆ«ÒÆÁ¿£©
+		case OP_RETURND:			//doubleå‡½æ•°è¿”å›ï¼ˆsd.iNumberä¸ºåç§»é‡ï¼‰
 			dTemp=*((double*)&memory[iAddress-2]);
-			iAddress=memory[iBase-2]	//»Ö¸´ÖĞ¼ä´úÂëÖ¸Õë
-				+3-pCode[iCode].sd.iNumber;//»ØÊÕ²ÎÊı´«µİÊ±²ÎÊıÕ¼ÓÃµÄĞéÄÚ´æ
-			iCode	=memory[iBase-1]+1;	//»Ö¸´Õ»¶¥Ö¸Õë
-			iBase	=memory[iBase-3];	//»Ö¸´Ô­»ùµØÖ·
+			iAddress=memory[iBase-2]	//æ¢å¤ä¸­é—´ä»£ç æŒ‡é’ˆ
+				+3-pCode[iCode].sd.iNumber;//å›æ”¶å‚æ•°ä¼ é€’æ—¶å‚æ•°å ç”¨çš„è™šå†…å­˜
+			iCode	=memory[iBase-1]+1;	//æ¢å¤æ ˆé¡¶æŒ‡é’ˆ
+			iBase	=memory[iBase-3];	//æ¢å¤åŸåŸºåœ°å€
 			*((double*)&memory[iAddress])=dTemp;
 			iAddress+=2;
 			break;
-		case OP_RETURNI:			//int	º¯Êı·µ»Ø£¨sd.iNumberÎªÆ«ÒÆÁ¿£©
+		case OP_RETURNI:			//int	å‡½æ•°è¿”å›ï¼ˆsd.iNumberä¸ºåç§»é‡ï¼‰
 			iTemp=memory[iAddress-1];
-			iAddress=memory[iBase-2]	//»Ö¸´ÖĞ¼ä´úÂëÖ¸Õë
-				+3-pCode[iCode].sd.iNumber;//»ØÊÕ²ÎÊı´«µİÊ±²ÎÊıÕ¼ÓÃµÄĞéÄÚ´æ
-			iCode	=memory[iBase-1]+1;	//»Ö¸´Õ»¶¥Ö¸Õë
-			iBase	=memory[iBase-3];	//»Ö¸´Ô­»ùµØÖ·
+			iAddress=memory[iBase-2]	//æ¢å¤ä¸­é—´ä»£ç æŒ‡é’ˆ
+				+3-pCode[iCode].sd.iNumber;//å›æ”¶å‚æ•°ä¼ é€’æ—¶å‚æ•°å ç”¨çš„è™šå†…å­˜
+			iCode	=memory[iBase-1]+1;	//æ¢å¤æ ˆé¡¶æŒ‡é’ˆ
+			iBase	=memory[iBase-3];	//æ¢å¤åŸåŸºåœ°å€
 			memory[iAddress++]=iTemp;
 			break;
-		case OP_SAVEARRAYC:			//´æ´¢×Ö·ûÊı×éÖµ£¨sd.iNumberÎªÊı×éµØÖ·£¬ÊıÖµÔÚÕ»¶¥£¬ÏÂ±êÔÚÕ»´Î¶¥£©
+		case OP_SAVEARRAYC:			//å­˜å‚¨å­—ç¬¦æ•°ç»„å€¼ï¼ˆsd.iNumberä¸ºæ•°ç»„åœ°å€ï¼Œæ•°å€¼åœ¨æ ˆé¡¶ï¼Œä¸‹æ ‡åœ¨æ ˆæ¬¡é¡¶ï¼‰
 			iAddress-=2;
-			iTemp =memory[iAddress];//Êı×éÏÂ±ê
-			iTemp2=iBase+pCode[iCode++].sd.iNumber;//Êı×éµØÖ·
+			iTemp =memory[iAddress];//æ•°ç»„ä¸‹æ ‡
+			iTemp2=iBase+pCode[iCode++].sd.iNumber;//æ•°ç»„åœ°å€
 			if(!ArraySubscript(iTemp,memory[iTemp2+1]))
 				return FALSE;
 			((char*)memory[iTemp2])[iTemp]= *((char*)&memory[iAddress+1]);
 			break;
-		case OP_SAVEARRAYD:			//´æ´¢ÊµÊıÊı×éÖµ£¨sd.iNumberÎªÊı×éµØÖ·£¬ÊıÖµÔÚÕ»¶¥£¬ÏÂ±êÔÚÕ»´Î¶¥£©
+		case OP_SAVEARRAYD:			//å­˜å‚¨å®æ•°æ•°ç»„å€¼ï¼ˆsd.iNumberä¸ºæ•°ç»„åœ°å€ï¼Œæ•°å€¼åœ¨æ ˆé¡¶ï¼Œä¸‹æ ‡åœ¨æ ˆæ¬¡é¡¶ï¼‰
 			iAddress-=3;
-			iTemp =memory[iAddress];//Êı×éÏÂ±ê
-			iTemp2=iBase+pCode[iCode++].sd.iNumber;//Êı×éµØÖ·
+			iTemp =memory[iAddress];//æ•°ç»„ä¸‹æ ‡
+			iTemp2=iBase+pCode[iCode++].sd.iNumber;//æ•°ç»„åœ°å€
 			if(!ArraySubscript(iTemp,memory[iTemp2+1]))
 				return FALSE;
 			((double*)memory[iTemp2])[iTemp]= *((double*)&memory[iAddress+1]);
 			break;
-		case OP_SAVEARRAYI:			//´æ´¢ÕûÊıÊı×éÖµ£¨sd.iNumberÎªÊı×éµØÖ·£¬ÊıÖµÔÚÕ»¶¥£¬ÏÂ±êÔÚÕ»´Î¶¥£©
+		case OP_SAVEARRAYI:			//å­˜å‚¨æ•´æ•°æ•°ç»„å€¼ï¼ˆsd.iNumberä¸ºæ•°ç»„åœ°å€ï¼Œæ•°å€¼åœ¨æ ˆé¡¶ï¼Œä¸‹æ ‡åœ¨æ ˆæ¬¡é¡¶ï¼‰
 			iAddress-=2;
-			iTemp =memory[iAddress];//Êı×éÏÂ±ê
-			iTemp2=iBase+pCode[iCode++].sd.iNumber;//Êı×éµØÖ·
+			iTemp =memory[iAddress];//æ•°ç»„ä¸‹æ ‡
+			iTemp2=iBase+pCode[iCode++].sd.iNumber;//æ•°ç»„åœ°å€
 			if(!ArraySubscript(iTemp,memory[iTemp2+1]))
 				return FALSE;
 			((int*)memory[iTemp2])[iTemp]=memory[iAddress+1];
 			break;
-		case OP_SAVEC:				//±£´æ×Ö·û±äÁ¿£¨sdÎª±äÁ¿µØÖ·£©
+		case OP_SAVEC:				//ä¿å­˜å­—ç¬¦å˜é‡ï¼ˆsdä¸ºå˜é‡åœ°å€ï¼‰
 			*((char*)&memory[iBase+pCode[iCode++].sd.iNumber])=
 				*((char*)&memory[--iAddress]);
 			break;
-		case OP_SAVED:				//±£´æÊµÊı±äÁ¿£¨sdÎª±äÁ¿µØÖ·£©
+		case OP_SAVED:				//ä¿å­˜å®æ•°å˜é‡ï¼ˆsdä¸ºå˜é‡åœ°å€ï¼‰
 			iAddress-=2;
 			*((double*)&memory[iBase+pCode[iCode++].sd.iNumber])=
 				*((double*)&memory[iAddress]);
 			break;
-		case OP_SAVEI:				//±£´æÕûÊı±äÁ¿£¨sdÎª±äÁ¿µØÖ·£©
+		case OP_SAVEI:				//ä¿å­˜æ•´æ•°å˜é‡ï¼ˆsdä¸ºå˜é‡åœ°å€ï¼‰
 			memory[iBase+pCode[iCode++].sd.iNumber]=memory[--iAddress];
 			break;
-		case OP_SLASHC:				//³ı£¨×Ö·û£©
+		case OP_SLASHC:				//é™¤ï¼ˆå­—ç¬¦ï¼‰
 			cTemp= *((char*)&memory[--iAddress]);
 			if(!SlashModZeroChar(cTemp))
 				return FALSE;
 			*((char*)&memory[iAddress-1])/=cTemp;
 			iCode++;
 			break;
-		case OP_SLASHD:				//³ı£¨ÊµÊı£©
+		case OP_SLASHD:				//é™¤ï¼ˆå®æ•°ï¼‰
 			iAddress-=2;
 			dTemp=*((double*)&memory[iAddress]);
 			if(!SlashModZeroDouble(dTemp))
@@ -1140,24 +1140,24 @@ BOOL Interpret()
 			*((double*)&memory[iAddress-2]) /= dTemp;
 			iCode++;
 			break;
-		case OP_SLASHI:				//³ı£¨ÕûÊı£©
+		case OP_SLASHI:				//é™¤ï¼ˆæ•´æ•°ï¼‰
 			iTemp=memory[--iAddress];
 			if(!SlashModZeroInt(iTemp))
 				return FALSE;
 			memory[iAddress-1]/=iTemp;
 			iCode++;
 			break;
-		case OP_TIMESC:				//³Ë£¨×Ö·û£©
+		case OP_TIMESC:				//ä¹˜ï¼ˆå­—ç¬¦ï¼‰
 			iAddress--;
 			*((char*)&memory[iAddress-1]) *= *((char*)&memory[iAddress]);
 			iCode++;
 			break;
-		case OP_TIMESD:				//³Ë£¨ÊµÊı£©
+		case OP_TIMESD:				//ä¹˜ï¼ˆå®æ•°ï¼‰
 			iAddress-=2;
 			*((double*)&memory[iAddress-2]) *= *((double*)&memory[iAddress]);
 			iCode++;
 			break;
-		case OP_TIMESI:				//³Ë£¨ÕûÊı£©
+		case OP_TIMESI:				//ä¹˜ï¼ˆæ•´æ•°ï¼‰
 			iAddress--;
 			memory[iAddress-1]*=memory[iAddress];
 			iCode++;
@@ -1295,23 +1295,23 @@ BOOL Interpret()
 			break;
 		case OP_STRCPYCA:			//void strcpy([]char,[]char)
 			lpszTemp = (char *)malloc(1+strlen((char*)memory[iBase+pCode[iCode].sd.iNumber2]));
-			strcpy(lpszTemp, (char*)memory[iBase+pCode[iCode].sd.iNumber2]);//Ô­×Ö·ûÊı×é
-			iTemp =iBase+pCode[iCode++].sd.iNumber;//Ä¿±ê×Ö·ûÊı×éµØÖ·
-			iTemp2=memory[iTemp+1];//Ä¿±ê×Ö·ûÊı×é³¤
-			if(strlen(lpszTemp) > (UINT)iTemp2)//Ô­×Ö·ûÊı×é³¤¶È´óÓÚÄ¿±ê×Ö·ûÊı×é
+			strcpy(lpszTemp, (char*)memory[iBase+pCode[iCode].sd.iNumber2]);//åŸå­—ç¬¦æ•°ç»„
+			iTemp =iBase+pCode[iCode++].sd.iNumber;//ç›®æ ‡å­—ç¬¦æ•°ç»„åœ°å€
+			iTemp2=memory[iTemp+1];//ç›®æ ‡å­—ç¬¦æ•°ç»„é•¿
+			if(strlen(lpszTemp) > (UINT)iTemp2)//åŸå­—ç¬¦æ•°ç»„é•¿åº¦å¤§äºç›®æ ‡å­—ç¬¦æ•°ç»„
 				lpszTemp[iTemp2] = '\0';
 			strcpy( ((char*)memory[iTemp]), lpszTemp );
 			free(lpszTemp);
 			break;
-		case OP_STRCPYS:			//×Ö·ûÊı×é³õÊ¼»¯£¨sd.iNumberÎªÊı×éµØÖ·£¬sd.string2Îª×Ö·û´®ÊµµØÖ·£©
+		case OP_STRCPYS:			//å­—ç¬¦æ•°ç»„åˆå§‹åŒ–ï¼ˆsd.iNumberä¸ºæ•°ç»„åœ°å€ï¼Œsd.string2ä¸ºå­—ç¬¦ä¸²å®åœ°å€ï¼‰
 			if(pCode[iCode].sd.string2==NULL)
 				strcpy((char*)(memory[iBase+pCode[iCode].sd.iNumber]),"");
 			else
 			{
 				lpszTemp = (char *)malloc(1+strlen(pCode[iCode].sd.string2));
 				strcpy(lpszTemp, pCode[iCode].sd.string2);
-				iTemp =iBase+pCode[iCode].sd.iNumber;//Ä¿±ê×Ö·ûÊı×éµØÖ·
-				iTemp2=memory[iTemp+1];//Ä¿±ê×Ö·ûÊı×é³¤
+				iTemp =iBase+pCode[iCode].sd.iNumber;//ç›®æ ‡å­—ç¬¦æ•°ç»„åœ°å€
+				iTemp2=memory[iTemp+1];//ç›®æ ‡å­—ç¬¦æ•°ç»„é•¿
 				if( strlen(lpszTemp) > (UINT)iTemp2 )
 					lpszTemp[iTemp2] = '\0';
 				strcpy((char*)(memory[iTemp]), lpszTemp);
@@ -1339,7 +1339,7 @@ BOOL Interpret()
 		//array
 		case OP_AVERAGEC:			//double average([]char,int)
 			dTemp=0;
-			iTemp=iBase+pCode[iCode++].sd.iNumber;//Êı×éµØÖ·
+			iTemp=iBase+pCode[iCode++].sd.iNumber;//æ•°ç»„åœ°å€
 			iTemp2=memory[iAddress-1];
 			if(iTemp2>memory[iTemp+1])
 				iTemp2=memory[iTemp+1];
@@ -1353,7 +1353,7 @@ BOOL Interpret()
 			if(!TestAddress(iAddress))
 				return FALSE;
 			dTemp=0;
-			iTemp=iBase+pCode[iCode++].sd.iNumber;//Êı×éµØÖ·
+			iTemp=iBase+pCode[iCode++].sd.iNumber;//æ•°ç»„åœ°å€
 			iTemp2=memory[iAddress-1];
 			if(iTemp2>memory[iTemp+1])
 				iTemp2=memory[iTemp+1];
@@ -1365,7 +1365,7 @@ BOOL Interpret()
 			break;
 		case OP_AVERAGEI:			//double arerage([]int,int)
 			dTemp=0;
-			iTemp=iBase+pCode[iCode++].sd.iNumber;//Êı×éµØÖ·
+			iTemp=iBase+pCode[iCode++].sd.iNumber;//æ•°ç»„åœ°å€
 			iTemp2=memory[iAddress-1];
 			if(iTemp2>memory[iTemp+1])
 				iTemp2=memory[iTemp+1];
@@ -1376,28 +1376,28 @@ BOOL Interpret()
 			iAddress++;
 			break;
 		case OP_DOWNSORTC:			//void downsort([]char,int)
-			iTemp =iBase+pCode[iCode++].sd.iNumber;//Êı×éµØÖ·
+			iTemp =iBase+pCode[iCode++].sd.iNumber;//æ•°ç»„åœ°å€
 			iTemp2=memory[--iAddress];
 			if(iTemp2>memory[iTemp+1])
 				iTemp2=memory[iTemp+1];
 			qsort( (char*)memory[iTemp],iTemp2,sizeof(char),DownCompareChar );
 			break;
 		case OP_DOWNSORTD:			//void downsort([]double,int)
-			iTemp =iBase+pCode[iCode++].sd.iNumber;//Êı×éµØÖ·
+			iTemp =iBase+pCode[iCode++].sd.iNumber;//æ•°ç»„åœ°å€
 			iTemp2=memory[--iAddress];
 			if(iTemp2>memory[iTemp+1])
 				iTemp2=memory[iTemp+1];
 			qsort( (double*)memory[iTemp],iTemp2,sizeof(double),DownCompareDouble );
 			break;
 		case OP_DOWNSORTI:			//void downsort([]int,int)
-			iTemp =iBase+pCode[iCode++].sd.iNumber;//Êı×éµØÖ·
+			iTemp =iBase+pCode[iCode++].sd.iNumber;//æ•°ç»„åœ°å€
 			iTemp2=memory[--iAddress];
 			if(iTemp2>memory[iTemp+1])
 				iTemp2=memory[iTemp+1];
 			qsort( (int*)memory[iTemp],iTemp2,sizeof(int),DownCompareInt );
 			break;
 		case OP_MAXC:				//char max([]char,int)
-			iTemp =iBase+pCode[iCode++].sd.iNumber;//Êı×éµØÖ·
+			iTemp =iBase+pCode[iCode++].sd.iNumber;//æ•°ç»„åœ°å€
 			iTemp2=memory[iAddress-1];
 			if(iTemp2>memory[iTemp+1])
 				iTemp2=memory[iTemp+1];
@@ -1410,7 +1410,7 @@ BOOL Interpret()
 		case OP_MAXD:				//double max([]double,int)
 			if(!TestAddress(iAddress))
 				return FALSE;
-			iTemp =iBase+pCode[iCode++].sd.iNumber;//Êı×éµØÖ·
+			iTemp =iBase+pCode[iCode++].sd.iNumber;//æ•°ç»„åœ°å€
 			iTemp2=memory[iAddress-1];
 			if(iTemp2>memory[iTemp+1])
 				iTemp2=memory[iTemp+1];
@@ -1422,7 +1422,7 @@ BOOL Interpret()
 			iAddress++;
 			break;
 		case OP_MAXI:				//int max([]int,int)
-			iTemp =iBase+pCode[iCode++].sd.iNumber;//Êı×éµØÖ·
+			iTemp =iBase+pCode[iCode++].sd.iNumber;//æ•°ç»„åœ°å€
 			i=memory[iAddress-1];
 			if(i>memory[iTemp+1])
 				i=memory[iTemp+1];
@@ -1433,7 +1433,7 @@ BOOL Interpret()
 			*((int*)&memory[iAddress-1]) = iTemp2;
 			break;
 		case OP_MINC:				//char min([]char,int)
-			iTemp =iBase+pCode[iCode++].sd.iNumber;//Êı×éµØÖ·
+			iTemp =iBase+pCode[iCode++].sd.iNumber;//æ•°ç»„åœ°å€
 			iTemp2=memory[iAddress-1];
 			if(iTemp2>memory[iTemp+1])
 				iTemp2=memory[iTemp+1];
@@ -1446,7 +1446,7 @@ BOOL Interpret()
 		case OP_MIND:				//double min([]double,int)
 			if(!TestAddress(iAddress))
 				return FALSE;
-			iTemp =iBase+pCode[iCode++].sd.iNumber;//Êı×éµØÖ·
+			iTemp =iBase+pCode[iCode++].sd.iNumber;//æ•°ç»„åœ°å€
 			iTemp2=memory[iAddress-1];
 			if(iTemp2>memory[iTemp+1])
 				iTemp2=memory[iTemp+1];
@@ -1458,7 +1458,7 @@ BOOL Interpret()
 			iAddress++;
 			break;
 		case OP_MINI:				//int min([]int,int)
-			iTemp =iBase+pCode[iCode++].sd.iNumber;//Êı×éµØÖ·
+			iTemp =iBase+pCode[iCode++].sd.iNumber;//æ•°ç»„åœ°å€
 			i=memory[iAddress-1];
 			if(i>memory[iTemp+1])
 				i=memory[iTemp+1];
@@ -1469,7 +1469,7 @@ BOOL Interpret()
 			*((int*)&memory[iAddress-1]) = iTemp2;
 			break;
 		case OP_SUMC:				//int sum([]char,int)
-			iTemp =iBase+pCode[iCode++].sd.iNumber;//Êı×éµØÖ·
+			iTemp =iBase+pCode[iCode++].sd.iNumber;//æ•°ç»„åœ°å€
 			i=memory[iAddress-1];
 			if(i>memory[iTemp+1])
 				i=memory[iTemp+1];
@@ -1481,7 +1481,7 @@ BOOL Interpret()
 		case OP_SUMD:				//double sum([]double,int)
 			if(!TestAddress(iAddress))
 				return FALSE;
-			iTemp =iBase+pCode[iCode++].sd.iNumber;//Êı×éµØÖ·
+			iTemp =iBase+pCode[iCode++].sd.iNumber;//æ•°ç»„åœ°å€
 			i=memory[iAddress-1];
 			if(i>memory[iTemp+1])
 				i=memory[iTemp+1];
@@ -1491,7 +1491,7 @@ BOOL Interpret()
 			*((double*)&memory[iAddress-1]) = dTemp;
 			break;
 		case OP_SUMI:				//int sum([]int,int)
-			iTemp =iBase+pCode[iCode++].sd.iNumber;//Êı×éµØÖ·
+			iTemp =iBase+pCode[iCode++].sd.iNumber;//æ•°ç»„åœ°å€
 			i=memory[iAddress-1];
 			if(i>memory[iTemp+1])
 				i=memory[iTemp+1];
@@ -1501,21 +1501,21 @@ BOOL Interpret()
 			memory[iAddress-1]=iTemp2;
 			break;
 		case OP_UPSORTC:			//void upsort([]char,int)
-			iTemp =iBase+pCode[iCode++].sd.iNumber;//Êı×éµØÖ·
+			iTemp =iBase+pCode[iCode++].sd.iNumber;//æ•°ç»„åœ°å€
 			iTemp2=memory[--iAddress];
 			if(iTemp2>memory[iTemp+1])
 				iTemp2=memory[iTemp+1];
 			qsort( (char*)memory[iTemp],iTemp2,sizeof(char),UpCompareChar );
 			break;
 		case OP_UPSORTD:			//void upsort([]double,int)
-			iTemp =iBase+pCode[iCode++].sd.iNumber;//Êı×éµØÖ·
+			iTemp =iBase+pCode[iCode++].sd.iNumber;//æ•°ç»„åœ°å€
 			iTemp2=memory[--iAddress];
 			if(iTemp2>memory[iTemp+1])
 				iTemp2=memory[iTemp+1];
 			qsort( (double*)memory[iTemp],iTemp2,sizeof(double),DownCompareDouble );
 			break;
 		case OP_UPSORTI:			//void upsort([]int,int)
-			iTemp =iBase+pCode[iCode++].sd.iNumber;//Êı×éµØÖ·
+			iTemp =iBase+pCode[iCode++].sd.iNumber;//æ•°ç»„åœ°å€
 			iTemp2=memory[--iAddress];
 			if(iTemp2>memory[iTemp+1])
 				iTemp2=memory[iTemp+1];
@@ -1523,15 +1523,15 @@ BOOL Interpret()
 			break;
 		//candy
 		case OP_FC23:
-			OutputString("\nFC 2.32 - FC±à³ÌÓïÑÔ±àÒëÆ÷\n°æÈ¨ËùÓĞ Öì¿­·å 2004.02\n");
+			OutputString("\nFC 2.32 - FCç¼–ç¨‹è¯­è¨€ç¼–è¯‘å™¨\nç‰ˆæƒæ‰€æœ‰ æœ±å‡¯å³° 2004.02\n");
 			iCode++;
 			break;
 		case OP_ZKF:
-			OutputString("\nÖì¿­·å\nFC 2.32 °æÈ¨ËùÓĞÕß\ne-mail: cafeeee@sina.com\n");
+			OutputString("\næœ±å‡¯å³°\nFC 2.32 ç‰ˆæƒæ‰€æœ‰è€…\ne-mail: cafeeee@sina.com\n");
 			iCode++;
 			break;
 		default:
-			MessageBox(g_hWndFcr, "½âÊÍÖ´ĞĞÊ±Åöµ½ÁË·Ç·¨µÄ²Ù×÷·û£¬ÎŞ·¨¼ÌĞø½âÊÍÖ´ĞĞ£¬ÇëÓë³ÌĞòÌá¹©ÕßÁªÏµ£¡",
+			MessageBox(g_hWndFcr, "è§£é‡Šæ‰§è¡Œæ—¶ç¢°åˆ°äº†éæ³•çš„æ“ä½œç¬¦ï¼Œæ— æ³•ç»§ç»­è§£é‡Šæ‰§è¡Œï¼Œè¯·ä¸ç¨‹åºæä¾›è€…è”ç³»ï¼",
 				"FC",MB_OK|MB_ICONINFORMATION);
 			return FALSE;
 		}
@@ -1543,7 +1543,7 @@ EndInterpret:
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-// Êä³ö¿ØÖÆ
+// è¾“å‡ºæ§åˆ¶
 ///////////////////////////////////////////////////////////////////////////////
 
 void InitInterpretOutput()
@@ -1551,7 +1551,7 @@ void InitInterpretOutput()
 	if(g_lpszOutput != NULL)
 		free(g_lpszOutput);
 
-	// ´´½¨ÄÚ´æÊä³ö»º´æ
+	// åˆ›å»ºå†…å­˜è¾“å‡ºç¼“å­˜
 	g_lpszOutput = (char *)malloc(INIT_OUTPUT_BUFFER_SIZE);
 	g_lpszOutput[0] = '\0';
 	g_nOutputCapacity = INIT_OUTPUT_BUFFER_SIZE;
@@ -1566,13 +1566,13 @@ void UpdateOutput()
 		g_hWndFcr,
 		IDC_OUTPUT,
 		g_lpszOutput);
-	SendDlgItemMessage(	// °Ñ¹â±ê·Åµ½Êä³öµÄ×îºó±ß
+	SendDlgItemMessage(	// æŠŠå…‰æ ‡æ”¾åˆ°è¾“å‡ºçš„æœ€åè¾¹
 		g_hWndFcr,
 		IDC_OUTPUT,
 		EM_SETSEL,
 		g_nOutputLength,
 		g_nOutputLength);
-	SendDlgItemMessage( // ¹ö¶¯¹ö¶¯Ìõµ½×îºó
+	SendDlgItemMessage( // æ»šåŠ¨æ»šåŠ¨æ¡åˆ°æœ€å
 		g_hWndFcr,
 		IDC_OUTPUT,
 		EM_SCROLLCARET,
@@ -1584,12 +1584,12 @@ void EndInterpretOutput(clock_t tElapse)
 {
 	char buffer[128];
 
-	sprintf(buffer, "\n³ÌĞòÖ´ĞĞÓÃÊ± %.3f Ãë\n", tElapse/1000.0);
+	sprintf(buffer, "\nç¨‹åºæ‰§è¡Œç”¨æ—¶ %.3f ç§’\n", tElapse/1000.0);
 
 	OutputString(buffer);
 	UpdateOutput();
 
-	// ²»ÄÜÊÍ·ÅÄÚ´æÊä³ö»º´æ£¬»¹ĞëÓÃÒÔ±£´æ½á¹û
+	// ä¸èƒ½é‡Šæ”¾å†…å­˜è¾“å‡ºç¼“å­˜ï¼Œè¿˜é¡»ç”¨ä»¥ä¿å­˜ç»“æœ
 }
 
 void IncreaseOutputCapacity(int increment)
@@ -1597,7 +1597,7 @@ void IncreaseOutputCapacity(int increment)
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-// ÊäÈëÊı¾İ
+// è¾“å…¥æ•°æ®
 ///////////////////////////////////////////////////////////////////////////////
 
 BOOL InputChar(char *p)
@@ -1645,7 +1645,7 @@ BOOL InputString(char **p)
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-// Êä³öÊı¾İ
+// è¾“å‡ºæ•°æ®
 ///////////////////////////////////////////////////////////////////////////////
 
 void OutputChar(char c)

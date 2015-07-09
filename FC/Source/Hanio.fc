@@ -14,16 +14,16 @@ void move(int from, int to, int buffer, int n)
 
 void main()
 {
-	output "±¾³ÌÐòÏÔÊ¾n(1¡Ün¡Ü10)²ãhanioËþµÄÒÆ¶¯¹ý³Ì\n";
+	output "æœ¬ç¨‹åºæ˜¾ç¤ºn(1â‰¤nâ‰¤10)å±‚hanioå¡”çš„ç§»åŠ¨è¿‡ç¨‹\n";
 	int n;
 	while(1)
 	{
-		output "ÇëÊäÈënµÄÖµ ";
+		output "è¯·è¾“å…¥nçš„å€¼ ";
 		input n;
 		if(n>=1 && n<=10)
 			break;
-		output "ÊäÈë´íÎó£¡\n";
+		output "è¾“å…¥é”™è¯¯ï¼\n";
 	}
 	move(1,3,2,n);
-	output "\nÒÆ¶¯³É¹¦\n";
+	output "\nç§»åŠ¨æˆåŠŸ\n";
 }

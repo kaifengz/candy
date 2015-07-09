@@ -5,7 +5,7 @@
 #include "FC-define.h"
 
 ///////////////////////////////////////////////////////////////////////////////
-// È«¾Ö±äÁ¿
+// å…¨å±€å˜é‡
 ///////////////////////////////////////////////////////////////////////////////
 
 extern HINSTANCE g_hInstance;
@@ -13,7 +13,7 @@ extern HWND g_hWndFcr;
 
 HWND g_hWndInput;
 
-// ÊäÈë½á¹û
+// è¾“å…¥ç»“æœ
 char g_cResult;
 int g_iResult;
 double g_dResult;
@@ -24,10 +24,10 @@ BOOL g_bSuccess;
 ZIM g_im;
 
 ///////////////////////////////////////////////////////////////////////////////
-// º¯ÊıÔ¤¶¨Òå
+// å‡½æ•°é¢„å®šä¹‰
 ///////////////////////////////////////////////////////////////////////////////
 
-// ÏûÏ¢´¦Àí
+// æ¶ˆæ¯å¤„ç†
 void OnInputOK();
 void OnInputExit();
 void InitInputDialog();
@@ -35,7 +35,7 @@ void InitInputDialog();
 BOOL CallInputDialog(HWND hWndParent, ZIM im, void *p);
 
 ///////////////////////////////////////////////////////////////////////////////
-// ¶Ô»°¿òÖ÷º¯Êı
+// å¯¹è¯æ¡†ä¸»å‡½æ•°
 ///////////////////////////////////////////////////////////////////////////////
 
 BOOL CALLBACK InputDialogProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam)
@@ -66,7 +66,7 @@ BOOL CALLBACK InputDialogProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam)
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-// ÏûÏ¢´¦Àíº¯Êı
+// æ¶ˆæ¯å¤„ç†å‡½æ•°
 ///////////////////////////////////////////////////////////////////////////////
 
 void OnInputOK()
@@ -91,7 +91,7 @@ void OnInputOK()
 			if(i==length)
 				break;
 		}
-		MessageBox(g_hWndInput, "ÇëÊäÈëÒ»¸ö×Ö·û£¡", "FCR", MB_OK|MB_ICONINFORMATION);
+		MessageBox(g_hWndInput, "è¯·è¾“å…¥ä¸€ä¸ªå­—ç¬¦ï¼", "FCR", MB_OK|MB_ICONINFORMATION);
 		SendDlgItemMessage(g_hWndInput, IDC_INPUT, WM_SETFOCUS, 0, 0);
 		SendDlgItemMessage(g_hWndInput, IDC_INPUT, EM_SETSEL, MAKEWPARAM(0,-1), 0);
 		return;
@@ -124,7 +124,7 @@ void OnInputOK()
 				break;
 			}
 		}
-		MessageBox(g_hWndInput, "ÇëÊäÈëÒ»¸öÕûÊı£¡", "FCR", MB_OK|MB_ICONINFORMATION);
+		MessageBox(g_hWndInput, "è¯·è¾“å…¥ä¸€ä¸ªæ•´æ•°ï¼", "FCR", MB_OK|MB_ICONINFORMATION);
 		SendDlgItemMessage(g_hWndInput, IDC_INPUT, WM_SETFOCUS, 0, 0);
 		SendDlgItemMessage(g_hWndInput, IDC_INPUT, EM_SETSEL, MAKEWPARAM(0,-1), 0);
 		return;
@@ -172,7 +172,7 @@ void OnInputOK()
 				break;
 			}
 		}
-		MessageBox(g_hWndInput, "ÇëÊäÈëÒ»¸öÊµÊı£¡", "FCR", MB_OK|MB_ICONINFORMATION);
+		MessageBox(g_hWndInput, "è¯·è¾“å…¥ä¸€ä¸ªå®æ•°ï¼", "FCR", MB_OK|MB_ICONINFORMATION);
 		SendDlgItemMessage(g_hWndInput, IDC_INPUT, WM_SETFOCUS, 0, 0);
 		SendDlgItemMessage(g_hWndInput, IDC_INPUT, EM_SETSEL, MAKEWPARAM(0,-1), 0);
 		return;
@@ -193,7 +193,7 @@ void OnInputExit()
 
 void InitInputDialog()
 {
-	{	// ´°¿Ú¾ÓÖĞ
+	{	// çª—å£å±…ä¸­
 		RECT rcFcr, rcInput;
 
 		GetWindowRect(g_hWndFcr, &rcFcr);
@@ -211,20 +211,20 @@ void InitInputDialog()
 	switch(g_im)
 	{
 	case IM_CHAR:
-		SetDlgItemText(g_hWndInput, IDC_INFORMATION, "ÇëÊäÈëÒ»¸ö×Ö·û£º");
+		SetDlgItemText(g_hWndInput, IDC_INFORMATION, "è¯·è¾“å…¥ä¸€ä¸ªå­—ç¬¦ï¼š");
 		break;
 	case IM_INT:
-		SetDlgItemText(g_hWndInput, IDC_INFORMATION, "ÇëÊäÈëÒ»¸öÕûÊı£º");
+		SetDlgItemText(g_hWndInput, IDC_INFORMATION, "è¯·è¾“å…¥ä¸€ä¸ªæ•´æ•°ï¼š");
 		break;
 	case IM_DOUBLE:
-		SetDlgItemText(g_hWndInput, IDC_INFORMATION, "ÇëÊäÈëÒ»¸öÊµÊı£º");
+		SetDlgItemText(g_hWndInput, IDC_INFORMATION, "è¯·è¾“å…¥ä¸€ä¸ªå®æ•°ï¼š");
 		break;
 	case IM_STRING:
-		SetDlgItemText(g_hWndInput, IDC_INFORMATION, "ÇëÊäÈëÒ»ĞĞ×Ö·û´®£º");
+		SetDlgItemText(g_hWndInput, IDC_INFORMATION, "è¯·è¾“å…¥ä¸€è¡Œå­—ç¬¦ä¸²ï¼š");
 		break;
 	}
 
-	// ÏŞ¶¨ÊäÈë¿òÖÁ¶àÄÜÊäÈë1024¸ö×Ö·û
+	// é™å®šè¾“å…¥æ¡†è‡³å¤šèƒ½è¾“å…¥1024ä¸ªå­—ç¬¦
 	SendDlgItemMessage(g_hWndInput, IDC_INPUT, EM_LIMITTEXT, 1024, 0);
 }
 

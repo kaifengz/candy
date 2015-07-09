@@ -1,5 +1,5 @@
-// �������õݹ鷽�����㲢���Fibonacci���е�ǰ30�
-// ����õ��Ƶķ�����ִ���ٶȽ���ö�
+// 本程序用递归方法计算并输出Fibonacci数列的前30项，
+// 如采用递推的方法，执行速度将快得多
 
 int Fibonacci(int n)
 {
@@ -10,7 +10,7 @@ int Fibonacci(int n)
 
 void main()
 {
-	output "��������㲢���Fibonacci���е�ǰ30��\n";
+	output "本程序计算并输出Fibonacci数列的前30项\n";
 
 	int i=1;
 	while(i<=30)
@@ -20,7 +20,7 @@ void main()
 	}
 }
 
-/*	���õ��Ƶķ���ʵ���磺
+/*	采用递推的方法实现如：
 void main()
 {
 	int i;

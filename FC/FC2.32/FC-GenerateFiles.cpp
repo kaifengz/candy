@@ -18,10 +18,10 @@ void CFCView::GenerateBinaryFile(CString strFile,CString strTitle)
 	ofstream fout(strFile,ios::out|ios::binary);
 
 	char buf[5]="FCR ";
-	buf[3]=char(23);//°æ±¾2.3
-	fout.write(buf,4);//Ğ´ÈëÎÄ¼şÍ·
+	buf[3]=char(23);//ç‰ˆæœ¬2.3
+	fout.write(buf,4);//å†™å…¥æ–‡ä»¶å¤´
 
-	fout.write((char*)(&m_nCode),4);//Ğ´ÈëÖĞ¼ä´úÂë×ÜÌõÊı
+	fout.write((char*)(&m_nCode),4);//å†™å…¥ä¸­é—´ä»£ç æ€»æ¡æ•°
 
 	int i,t;
 	unsigned char ch;
@@ -32,12 +32,12 @@ void CFCView::GenerateBinaryFile(CString strFile,CString strTitle)
 		switch(m_pCode[i].op)
 		{
 		case OP_OUTPUTS:
-		case OP_STRLENS://²Ù×÷ÊıÎª²»¶¨³¤×Ö·û´®
+		case OP_STRLENS://æ“ä½œæ•°ä¸ºä¸å®šé•¿å­—ç¬¦ä¸²
 			t=(int)strlen(m_pCode[i].sd.string);
 			fout.write((char*)(&t),4);
 			fout.write(m_pCode[i].sd.string,t);
 			break;
-		case OP_STRCPYS://´Ó×Ö·û´®¸´ÖÆµ½×Ö·ûÊı×é
+		case OP_STRCPYS://ä»å­—ç¬¦ä¸²å¤åˆ¶åˆ°å­—ç¬¦æ•°ç»„
 			fout.write((char*)(&m_pCode[i].sd.iNumber),4);
 			if(m_pCode[i].sd.string2==NULL)
 			{
@@ -53,14 +53,14 @@ void CFCView::GenerateBinaryFile(CString strFile,CString strTitle)
 			break;
 		case OP_PARAMTRANSA:case OP_PARAMTRANSC:case OP_PARAMTRANSD:case OP_PARAMTRANSI:
 		case OP_NEWARRAYC:case OP_NEWARRAYD:case OP_NEWARRAYI:
-		case OP_STRCMP:case OP_STRCPYCA://Ë«ÕûÊı²Ù×÷ÊıÖ¸Áî
+		case OP_STRCMP:case OP_STRCPYCA://åŒæ•´æ•°æ“ä½œæ•°æŒ‡ä»¤
 			fout.write((char*)(&m_pCode[i].sd.iNumber),4);
 			fout.write((char*)(&m_pCode[i].sd.iNumber2),4);
 			break;
-		case OP_LOADCONSTD://µ¥ÊµÊı²Ù×÷ÊıÖ¸Áî
+		case OP_LOADCONSTD://å•å®æ•°æ“ä½œæ•°æŒ‡ä»¤
 			fout.write((char*)(&m_pCode[i].sd.dNumber),8);
 			break;
-		case OP_LOADCONSTC://µ¥×Ö·û²Ù×÷ÊıÖ¸Áî
+		case OP_LOADCONSTC://å•å­—ç¬¦æ“ä½œæ•°æŒ‡ä»¤
 			fout.write(&m_pCode[i].sd.cNumber,1);
 			break;
 		case OP_C2D:case OP_C2I:
@@ -93,10 +93,10 @@ void CFCView::GenerateBinaryFile(CString strFile,CString strTitle)
 		case OP_MAXC:case OP_MAXD:case OP_MAXI:
 		case OP_MINC:case OP_MIND:case OP_MINI:
 		case OP_SUMC:case OP_SUMD:case OP_SUMI:
-		case OP_UPSORTC:case OP_UPSORTD:case OP_UPSORTI://µ¥ÕûÊı²Ù×÷ÊıÖ¸Áî
+		case OP_UPSORTC:case OP_UPSORTD:case OP_UPSORTI://å•æ•´æ•°æ“ä½œæ•°æŒ‡ä»¤
 			fout.write((char*)(&m_pCode[i].sd.iNumber),4);
 			break;
-		default://ÆäËüÁã²Ù×÷ÊıÖ¸Áî
+		default://å…¶å®ƒé›¶æ“ä½œæ•°æŒ‡ä»¤
 			break;
 		}
 	}
@@ -110,11 +110,11 @@ void CFCView::GenerateTextFile(CString strFile,CString strTitle)
 	tm t;
 	_getsystime(&t);
 	fout.fill('0');
-	fout<<"--  FC¿É½âÊÍÖ´ĞĞÖĞ¼ä´úÂëÎÄ¼ş\n";
-	fout<<"--  FC2.32 ÓÚ "<<1900+t.tm_year<<"Äê"<<setw(2)<<1+t.tm_mon<<"ÔÂ";
-	fout<<setw(2)<<t.tm_mday<<"ÈÕ"<<setw(2)<<t.tm_hour<<':'<<setw(2)<<t.tm_min;
-	fout<<" ±àÒë¡°"<<strTitle<<"¡±Éú³É\n";
-	fout<<"--  °æÈ¨ËùÓĞ Öì¿­·å 2004.02\n";
+	fout<<"--  FCå¯è§£é‡Šæ‰§è¡Œä¸­é—´ä»£ç æ–‡ä»¶\n";
+	fout<<"--  FC2.32 äº "<<1900+t.tm_year<<"å¹´"<<setw(2)<<1+t.tm_mon<<"æœˆ";
+	fout<<setw(2)<<t.tm_mday<<"æ—¥"<<setw(2)<<t.tm_hour<<':'<<setw(2)<<t.tm_min;
+	fout<<" ç¼–è¯‘â€œ"<<strTitle<<"â€ç”Ÿæˆ\n";
+	fout<<"--  ç‰ˆæƒæ‰€æœ‰ æœ±å‡¯å³° 2004.02\n";
 	fout<<"\n";
 #endif
 	fout.fill(' ');
@@ -552,7 +552,7 @@ void CFCView::GenerateTextFile(CString strFile,CString strTitle)
 			fout<<"UPSORTI"<<pCode[i].sd.iNumber;
 			break;
 		default:
-			fout<<"--  Î´Öª²Ù×÷·û£¬ÇëÓë³ÌĞòÌá¹©ÕßÁªÏµ£¡";
+			fout<<"--  æœªçŸ¥æ“ä½œç¬¦ï¼Œè¯·ä¸ç¨‹åºæä¾›è€…è”ç³»ï¼";
 			break;
 		}
 		fout<<'\n';

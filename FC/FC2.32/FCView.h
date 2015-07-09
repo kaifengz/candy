@@ -57,172 +57,172 @@ protected:
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 
-private://ÆäËûº¯Êı/////////////////////////////////////////////////////////////
+private://å…¶ä»–å‡½æ•°/////////////////////////////////////////////////////////////
 	void OnExample(CString,UINT);
-	BOOL SaveResToFile(CString,UINT,LPCSTR);		//°Ñ×ÊÔ´Êä³öµ½ÎÄ¼ş
-	BOOL ReadResToView(CString,UINT,LPCSTR);		//°Ñ×ÊÔ´¶Áµ½±à¼­´°¿Ú
-private://Ñ¡Ïî¶ÁÈ¡Óë´¢´æº¯Êı///////////////////////////////////////////////////
-	void ReadOptions();		//Ñ¡Ïî¶ÁÈ¡
-	void SaveOptions();		//Ñ¡Ïî´¢´æ
-private://¿âº¯Êı°üº¬Óë·ñ±êÖ¾///////////////////////////////////////////////////
-	BOOL m_bIncludeMath;	//ÊÇ·ñ°üº¬ÊıÑ§¿âº¯Êı
-	BOOL m_bIncludeString;	//ÊÇ·ñ°üº¬×Ö·û´®¿âº¯Êı
-	BOOL m_bIncludeArray;	//ÊÇ·ñ°üº¬Êı×é¿âº¯Êı
-private://Éú³ÉÖĞ¼ä´úÂëÎÄ¼ş²ÎÊı/////////////////////////////////////////////////
-	BOOL m_bGenerateBinary;		//ÊÇ·ñÉú³É¶ş½øÖÆ¿É½âÊÍÖ´ĞĞÎÄ¼ş
-	BOOL m_bGenerateText;		//ÊÇ·ñÉú³É¹©ÔÄ¶ÁµÄÎÄ±¾ÎÄ¼ş
-private://Éú³ÉÖĞ¼ä´úÂëÎÄ¼şº¯Êı/////////////////////////////////////////////////
-	void GenerateBinaryFile(CString,CString);		//Éú³É¶ş½øÖÆ¿É½âÊÍÖ´ĞĞÎÄ¼ş
-	void GenerateTextFile(CString,CString);			//Éú³É¹©ÔÄ¶ÁµÄÎÄ±¾ÎÄ¼ş
-	void GenerateExeFile(CString,CString,CString);	//Éú³É¿ÉÖ´ĞĞÎÄ¼ş
-private://±àÒëÑ¡Ïî²ÎÊı/////////////////////////////////////////////////////////
-	BOOL m_bAutoChangeType;			//ÊÇ·ñ×Ô¶¯½øĞĞÇ¿ÖÆÀàĞÍ×ª»»
-	BOOL m_bDisableChangeType;		//ÊÇ·ñ½ûÖ¹ÒşÊ½ÀàĞÍ×ª»»
-	BOOL m_bAllowEmptyStatement;	//ÊÇ·ñÔÊĞí¿ÕÓï¾ä
-	BOOL m_bJumpOptimize;			//ÊÇ·ñÓÅ»¯Ìø×ªÁ´
-private://´Ê·¨·ÖÎö²ÎÊı/////////////////////////////////////////////////////////
-	char m_char;			//´Ê·¨·ÖÎöÈ¡µÃµÄ ×Ö·û
-	int m_iCharCount;		//×Ö·û¼ÆÊı
-	int m_int;				//´Ê·¨·ÖÎöÈ¡µÃµÄ ÕûÊı
-	int m_nSourceLength;	//Ô´´úÂë³¤
-	double m_double;		//´Ê·¨·ÖÎöÈ¡µÃµÄ ÊµÊı
-	CString m_source;		//Ô´´úÂë
-	CString m_ident;		//´Ê·¨·ÖÎöÈ¡µÃµÄ ±êÊ¶·û
-	CString m_string;		//´Ê·¨·ÖÎöÈ¡µÃµÄ ×Ö·û´®
-	CString m_comment;		//´Ê·¨·ÖÎöÈ¡µÃµÄ ×¢ÊÍ
-	ZElement m_element;		//´Ê·¨·ÖÎöÈ¡µÃµÄ µ¥´ÊÀàĞÍ
-private://´Ê·¨·ÖÎöº¯Êı/////////////////////////////////////////////////////////
-	BOOL GetElement(BOOL=FALSE);//´Ê·¨·ÖÎöº¯Êı
-	BOOL GetSysChar();			//»ñÈ¡×ªÒå×Ö·û
-	BOOL GetLibraryFunction();	//»ñÈ¡¿âº¯Êı
-	BOOL GetKeyword();			//»ñÈ¡¹Ø¼ü×Ö
-private://Óï·¨·ÖÎö²ÎÊı/////////////////////////////////////////////////////////
-	int m_iErrorCount;			//Óï·¨ÓïÒå´íÎó¼ÆÊı
-	BOOL m_bIgnoreError;		//ÊÇ·ñ±¨¸æÓï·¨ÓïÒå´íÎó
-	BOOL m_bCompiled;			//ÊÇ·ñ±àÒë³É¹¦
-	ZFunction **m_pFunction;	//Ö¸Ïòº¯ÊıÊı×éµÄÖ¸Õë
-	int m_nFunction;			//µ±Ç°º¯ÊıµÄ¸öÊı
-	int m_nMaxFunction;			//µ±Ç°º¯ÊıÊı×éÔÊĞíµÄ×î´óº¯ÊıÊıÄ¿
-	int m_nCurFunction;			//µ±Ç°´¦ÀíµÄº¯Êı
-	ZCode *m_pCode;				//ÖĞ¼ä´úÂëĞòÁĞ
-	int m_nCode;				//µ±Ç°ÖĞ¼ä´úÂëĞòÁĞµÄ³¤¶È
-	int m_nMaxCode;				//µ±Ç°ÖĞ¼ä´úÂëĞòÁĞÔÊĞíµÄ×î´ó³¤¶È
-	ZIT m_it;					//±êÊ¶·ûÀàĞÍ£¬ÓÃÓÚ±í´ïÊ½µÄÀàĞÍ¼ì²é
-	int m_nBreak;				//breakµÄÌø×ªµØÖ·
-	int m_nContinue;			//continueµÄÌø×ªµØÖ·
-	int m_nTrue;				//Ìõ¼şµÄÕæ³ö¿Ú
-	int m_nFalse;				//Ìõ¼şµÄ¼Ù³ö¿Ú
-	int m_nCase;				//caseÓï¾ä¼ÌĞøµÄÌø×ªÆğµã
-private://Óï·¨·ÖÎöº¯Êı/////////////////////////////////////////////////////////
-	BOOL ErrorReport(ZET et);			//Óï·¨ÓïÒå´íÎó±¨¸æ
-	BOOL ExamUnsolvedFunctions();		//¼ì²éÊÇ·ñÓĞÒıÓÃÁËµÄÈ´Ã»ÓĞÊµÏÖµÄº¯Êı
-	void ClearFunction();				//»ØÊÕº¯Êı¿Õ¼ä
-	void ClearCode();					//»ØÊ×ÖĞ¼ä´úÂë¿Õ¼ä
-	BOOL NewFunction();					//Ìí¼ÓÒ»¸öº¯Êı
-	BOOL NewIdent();					//ÔÚµ±Ç°º¯ÊıÖĞÌí¼ÓÒ»¸ö±äÁ¿
-	BOOL NewParam();					//ÔÚµ±Ç°º¯ÊıÖĞÌí¼ÓÒ»¸ö²ÎÊı
-	BOOL NewCode();						//Ìí¼ÓÒ»¸öÖĞ¼ä´úÂë
-	int GetFunctionIndex(CString);		//»ñÈ¡Ò»¸öº¯ÊıµÄÏÂ±ê
-	int GetIdentAddress(CString);		//»ñÈ¡Ò»¸ö±êÊ¶·ûµÄµØÖ·
-	ZIT GetIdentType(CString);			//»ñÈ¡Ò»¸ö±êÊ¶·ûµÄÀàĞÍ
-	ZIT GetFunctionIdentType(CString);	//»ñÈ¡º¯Êı±êÊ¶·ûµÄÀàĞÍ
-	BOOL GenerateCode(ZOP);				//²úÉúÎŞ²Ù×÷ÊıµÄÖĞ¼ä´úÂë
-	BOOL GenerateCode(ZOP,char);		//²úÉúÒÔ×Ö·ûÎª²Ù×÷ÊıµÄÖĞ¼ä´úÂë
-	BOOL GenerateCode(ZOP,char*);		//²úÉúÒÔ×Ö·ûÖ¸ÕëÎª²Ù×÷ÊıµÄÖĞ¼ä´úÂë
-	BOOL GenerateCode(ZOP,int);			//²úÉúÒÔÕûÊıÎª²Ù×÷ÊıµÄÖĞ¼ä´úÂë
-	BOOL GenerateCode(ZOP,double);		//²úÉúÒÔÊµÊıÎª²Ù×÷ÊıµÄÖĞ¼ä´úÂë
-	BOOL GenerateCode(ZOP,int,int);		//²úÉúÓĞÁ½¸öÕûĞÍÊıÎª²ÎÊıµÄÖĞ¼ä´úÂë
-	BOOL GenerateCode(ZOP,int,char*);	//²úÉúÒÔÒÔÕûÊı¡¢×Ö·ûÖ¸ÕëÎª²Ù×÷ÊıµÄÖĞ¼ä´úÂë
-	BOOL RecycleMemory();				//»ØÊÕ¾Ö²¿±äÁ¿ºÍÊı×éËùÕ¼ÓÃµÄÄÚ´æ
-	BOOL RecycleArrayMemory();			//»ØÊÕËùÓĞÊı×éËùÕ¼ÓÃµÄÄÚ´æ
-	BOOL Compile();						//±àÒëÖ÷º¯Êı
-	BOOL DoFunctionHead();				//´¦Àí º¯ÊıÍ·
-	BOOL DoFunction();					//´¦Àí º¯Êı
-	BOOL DoStatement();					//´¦Àí Óï¾ä
-	BOOL DoDefine();					//´¦Àí ¶¨ÒåÓï¾ä
-	BOOL DoInput();						//´¦Àí ÊäÈëÓï¾ä
-	BOOL DoOutput();					//´¦Àí Êä³öÓï¾ä
-	BOOL DoIf();						//´¦Àí Ñ¡ÔñÓï¾ä
-	BOOL DoSwitch();					//´¦Àí ¿ª¹ØÓï¾ä
-	BOOL DoMultiStatement();			//´¦Àí ¸´ºÏÓï¾ä
-	BOOL DoJump();						//´¦Àí Ìø×ªÓï¾ä
-	BOOL DoBecomes();					//´¦Àí ¸³ÖµÓï¾ä
-	BOOL DoWhile();						//´¦Àí whileÑ­»·
-	BOOL DoCall();						//´¦Àí º¯Êıµ÷ÓÃ
-	BOOL DoDoWhile();					//´¦Àí do-whileÑ­»·
-	BOOL DoExpression();				//´¦Àí ±í´ïÊ½
-	BOOL DoTerm();						//´¦Àí Ïî
-	BOOL DoFactor();					//´¦Àí Òò×Ó
-	BOOL DoSubscript();					//´¦Àí Êı×éÏÂ±ê
-	BOOL DoCondition();					//´¦Àí Ìõ¼ş
-	BOOL DoAndCondition();				//´¦Àí Ìõ¼şÓëÏî
-	BOOL DoSubCondition();				//´¦Àí Ìõ¼ş×ÓÏî
-	BOOL DoCase();						//´¦Àí ¿ª¹ØÓï¾äµÄcase·ÖÖ§
-	BOOL DoDefault();					//´¦Àí ¿ª¹ØÓï¾äµÄdefault·ÖÖ§
-	BOOL DoEndProgram();				//´¦Àí ±àÒëµÄºóÆÚ¹¤×÷
-	void DoOptimize();					//½øĞĞ´úÂëÓÅ»¯¹¤×÷
-	BOOL DoMathFunctionCall();			//´¦Àí ³ıabs,powÍâµÄÊıÑ§¿âº¯Êıµ÷ÓÃ
-	BOOL DoAbsCall();					//´¦Àí absº¯Êıµ÷ÓÃ
-	BOOL DoPowCall();					//´¦Àí powº¯Êıµ÷ÓÃ
-	BOOL DoStrcmpCall();				//´¦Àí strcmpº¯Êıµ÷ÓÃ
-	BOOL DoStrcpyCall();				//´¦Àí strcpyº¯Êıµ÷ÓÃ
-	BOOL DoStrlenCall();				//´¦Àí strlenº¯Êıµ÷ÓÃ
-	BOOL DoStrlwruprCall();				//´¦Àí strlwr,struprº¯Êıµ÷ÓÃ
-	BOOL DoArrayFunctionCall();			//´¦Àí ³ıdownsort,upsortÍâµÄÊı×é¿âº¯Êıµ÷ÓÃ
-	BOOL DoSortCall();					//´¦Àí downsort,upsortº¯Êıµ÷ÓÃ
-private://½âÊÍÖ´ĞĞ²ÎÊı/////////////////////////////////////////////////////////
-	BOOL m_bCalcRuntime;		//ÊÇ·ñÍ³¼ÆÔËĞĞÊ±¼ä
-	BOOL m_bFileOutput;			//ÊÇ·ñÊä³öµ½ÎÄ¼ş
-	BOOL m_bIgnoreCircleNoend;	//ÊÇ·ñºöÂÔ¿ÉÄÜµÄËÀÑ­»·
-	BOOL m_bOutputInput;		//ÊÇ·ñÊäÈë»ØÏÔ
-	CString m_strOutputFile;	//Êä³öÎÄ¼şÃû
-	int m_nPrecision;			//Êä³ö¾«¶È
-	int m_nMemoryApply;			//ÉêÇëµÄĞéÄÚ´æÁ¿
-private://·­ÒëÑ¡Ïî²ÎÊı/////////////////////////////////////////////////////////
-	ofstream m_fout;		//ÎÄ¼şÊä³ö
-	int m_nLevel;			//Ëõ½ø¼¶±ğ
-	BOOL m_bMainFunction;	//ÊÇ·ñÊÇÖ÷º¯Êı
+	BOOL SaveResToFile(CString,UINT,LPCSTR);		//æŠŠèµ„æºè¾“å‡ºåˆ°æ–‡ä»¶
+	BOOL ReadResToView(CString,UINT,LPCSTR);		//æŠŠèµ„æºè¯»åˆ°ç¼–è¾‘çª—å£
+private://é€‰é¡¹è¯»å–ä¸å‚¨å­˜å‡½æ•°///////////////////////////////////////////////////
+	void ReadOptions();		//é€‰é¡¹è¯»å–
+	void SaveOptions();		//é€‰é¡¹å‚¨å­˜
+private://åº“å‡½æ•°åŒ…å«ä¸å¦æ ‡å¿—///////////////////////////////////////////////////
+	BOOL m_bIncludeMath;	//æ˜¯å¦åŒ…å«æ•°å­¦åº“å‡½æ•°
+	BOOL m_bIncludeString;	//æ˜¯å¦åŒ…å«å­—ç¬¦ä¸²åº“å‡½æ•°
+	BOOL m_bIncludeArray;	//æ˜¯å¦åŒ…å«æ•°ç»„åº“å‡½æ•°
+private://ç”Ÿæˆä¸­é—´ä»£ç æ–‡ä»¶å‚æ•°/////////////////////////////////////////////////
+	BOOL m_bGenerateBinary;		//æ˜¯å¦ç”ŸæˆäºŒè¿›åˆ¶å¯è§£é‡Šæ‰§è¡Œæ–‡ä»¶
+	BOOL m_bGenerateText;		//æ˜¯å¦ç”Ÿæˆä¾›é˜…è¯»çš„æ–‡æœ¬æ–‡ä»¶
+private://ç”Ÿæˆä¸­é—´ä»£ç æ–‡ä»¶å‡½æ•°/////////////////////////////////////////////////
+	void GenerateBinaryFile(CString,CString);		//ç”ŸæˆäºŒè¿›åˆ¶å¯è§£é‡Šæ‰§è¡Œæ–‡ä»¶
+	void GenerateTextFile(CString,CString);			//ç”Ÿæˆä¾›é˜…è¯»çš„æ–‡æœ¬æ–‡ä»¶
+	void GenerateExeFile(CString,CString,CString);	//ç”Ÿæˆå¯æ‰§è¡Œæ–‡ä»¶
+private://ç¼–è¯‘é€‰é¡¹å‚æ•°/////////////////////////////////////////////////////////
+	BOOL m_bAutoChangeType;			//æ˜¯å¦è‡ªåŠ¨è¿›è¡Œå¼ºåˆ¶ç±»å‹è½¬æ¢
+	BOOL m_bDisableChangeType;		//æ˜¯å¦ç¦æ­¢éšå¼ç±»å‹è½¬æ¢
+	BOOL m_bAllowEmptyStatement;	//æ˜¯å¦å…è®¸ç©ºè¯­å¥
+	BOOL m_bJumpOptimize;			//æ˜¯å¦ä¼˜åŒ–è·³è½¬é“¾
+private://è¯æ³•åˆ†æå‚æ•°/////////////////////////////////////////////////////////
+	char m_char;			//è¯æ³•åˆ†æå–å¾—çš„ å­—ç¬¦
+	int m_iCharCount;		//å­—ç¬¦è®¡æ•°
+	int m_int;				//è¯æ³•åˆ†æå–å¾—çš„ æ•´æ•°
+	int m_nSourceLength;	//æºä»£ç é•¿
+	double m_double;		//è¯æ³•åˆ†æå–å¾—çš„ å®æ•°
+	CString m_source;		//æºä»£ç 
+	CString m_ident;		//è¯æ³•åˆ†æå–å¾—çš„ æ ‡è¯†ç¬¦
+	CString m_string;		//è¯æ³•åˆ†æå–å¾—çš„ å­—ç¬¦ä¸²
+	CString m_comment;		//è¯æ³•åˆ†æå–å¾—çš„ æ³¨é‡Š
+	ZElement m_element;		//è¯æ³•åˆ†æå–å¾—çš„ å•è¯ç±»å‹
+private://è¯æ³•åˆ†æå‡½æ•°/////////////////////////////////////////////////////////
+	BOOL GetElement(BOOL=FALSE);//è¯æ³•åˆ†æå‡½æ•°
+	BOOL GetSysChar();			//è·å–è½¬ä¹‰å­—ç¬¦
+	BOOL GetLibraryFunction();	//è·å–åº“å‡½æ•°
+	BOOL GetKeyword();			//è·å–å…³é”®å­—
+private://è¯­æ³•åˆ†æå‚æ•°/////////////////////////////////////////////////////////
+	int m_iErrorCount;			//è¯­æ³•è¯­ä¹‰é”™è¯¯è®¡æ•°
+	BOOL m_bIgnoreError;		//æ˜¯å¦æŠ¥å‘Šè¯­æ³•è¯­ä¹‰é”™è¯¯
+	BOOL m_bCompiled;			//æ˜¯å¦ç¼–è¯‘æˆåŠŸ
+	ZFunction **m_pFunction;	//æŒ‡å‘å‡½æ•°æ•°ç»„çš„æŒ‡é’ˆ
+	int m_nFunction;			//å½“å‰å‡½æ•°çš„ä¸ªæ•°
+	int m_nMaxFunction;			//å½“å‰å‡½æ•°æ•°ç»„å…è®¸çš„æœ€å¤§å‡½æ•°æ•°ç›®
+	int m_nCurFunction;			//å½“å‰å¤„ç†çš„å‡½æ•°
+	ZCode *m_pCode;				//ä¸­é—´ä»£ç åºåˆ—
+	int m_nCode;				//å½“å‰ä¸­é—´ä»£ç åºåˆ—çš„é•¿åº¦
+	int m_nMaxCode;				//å½“å‰ä¸­é—´ä»£ç åºåˆ—å…è®¸çš„æœ€å¤§é•¿åº¦
+	ZIT m_it;					//æ ‡è¯†ç¬¦ç±»å‹ï¼Œç”¨äºè¡¨è¾¾å¼çš„ç±»å‹æ£€æŸ¥
+	int m_nBreak;				//breakçš„è·³è½¬åœ°å€
+	int m_nContinue;			//continueçš„è·³è½¬åœ°å€
+	int m_nTrue;				//æ¡ä»¶çš„çœŸå‡ºå£
+	int m_nFalse;				//æ¡ä»¶çš„å‡å‡ºå£
+	int m_nCase;				//caseè¯­å¥ç»§ç»­çš„è·³è½¬èµ·ç‚¹
+private://è¯­æ³•åˆ†æå‡½æ•°/////////////////////////////////////////////////////////
+	BOOL ErrorReport(ZET et);			//è¯­æ³•è¯­ä¹‰é”™è¯¯æŠ¥å‘Š
+	BOOL ExamUnsolvedFunctions();		//æ£€æŸ¥æ˜¯å¦æœ‰å¼•ç”¨äº†çš„å´æ²¡æœ‰å®ç°çš„å‡½æ•°
+	void ClearFunction();				//å›æ”¶å‡½æ•°ç©ºé—´
+	void ClearCode();					//å›é¦–ä¸­é—´ä»£ç ç©ºé—´
+	BOOL NewFunction();					//æ·»åŠ ä¸€ä¸ªå‡½æ•°
+	BOOL NewIdent();					//åœ¨å½“å‰å‡½æ•°ä¸­æ·»åŠ ä¸€ä¸ªå˜é‡
+	BOOL NewParam();					//åœ¨å½“å‰å‡½æ•°ä¸­æ·»åŠ ä¸€ä¸ªå‚æ•°
+	BOOL NewCode();						//æ·»åŠ ä¸€ä¸ªä¸­é—´ä»£ç 
+	int GetFunctionIndex(CString);		//è·å–ä¸€ä¸ªå‡½æ•°çš„ä¸‹æ ‡
+	int GetIdentAddress(CString);		//è·å–ä¸€ä¸ªæ ‡è¯†ç¬¦çš„åœ°å€
+	ZIT GetIdentType(CString);			//è·å–ä¸€ä¸ªæ ‡è¯†ç¬¦çš„ç±»å‹
+	ZIT GetFunctionIdentType(CString);	//è·å–å‡½æ•°æ ‡è¯†ç¬¦çš„ç±»å‹
+	BOOL GenerateCode(ZOP);				//äº§ç”Ÿæ— æ“ä½œæ•°çš„ä¸­é—´ä»£ç 
+	BOOL GenerateCode(ZOP,char);		//äº§ç”Ÿä»¥å­—ç¬¦ä¸ºæ“ä½œæ•°çš„ä¸­é—´ä»£ç 
+	BOOL GenerateCode(ZOP,char*);		//äº§ç”Ÿä»¥å­—ç¬¦æŒ‡é’ˆä¸ºæ“ä½œæ•°çš„ä¸­é—´ä»£ç 
+	BOOL GenerateCode(ZOP,int);			//äº§ç”Ÿä»¥æ•´æ•°ä¸ºæ“ä½œæ•°çš„ä¸­é—´ä»£ç 
+	BOOL GenerateCode(ZOP,double);		//äº§ç”Ÿä»¥å®æ•°ä¸ºæ“ä½œæ•°çš„ä¸­é—´ä»£ç 
+	BOOL GenerateCode(ZOP,int,int);		//äº§ç”Ÿæœ‰ä¸¤ä¸ªæ•´å‹æ•°ä¸ºå‚æ•°çš„ä¸­é—´ä»£ç 
+	BOOL GenerateCode(ZOP,int,char*);	//äº§ç”Ÿä»¥ä»¥æ•´æ•°ã€å­—ç¬¦æŒ‡é’ˆä¸ºæ“ä½œæ•°çš„ä¸­é—´ä»£ç 
+	BOOL RecycleMemory();				//å›æ”¶å±€éƒ¨å˜é‡å’Œæ•°ç»„æ‰€å ç”¨çš„å†…å­˜
+	BOOL RecycleArrayMemory();			//å›æ”¶æ‰€æœ‰æ•°ç»„æ‰€å ç”¨çš„å†…å­˜
+	BOOL Compile();						//ç¼–è¯‘ä¸»å‡½æ•°
+	BOOL DoFunctionHead();				//å¤„ç† å‡½æ•°å¤´
+	BOOL DoFunction();					//å¤„ç† å‡½æ•°
+	BOOL DoStatement();					//å¤„ç† è¯­å¥
+	BOOL DoDefine();					//å¤„ç† å®šä¹‰è¯­å¥
+	BOOL DoInput();						//å¤„ç† è¾“å…¥è¯­å¥
+	BOOL DoOutput();					//å¤„ç† è¾“å‡ºè¯­å¥
+	BOOL DoIf();						//å¤„ç† é€‰æ‹©è¯­å¥
+	BOOL DoSwitch();					//å¤„ç† å¼€å…³è¯­å¥
+	BOOL DoMultiStatement();			//å¤„ç† å¤åˆè¯­å¥
+	BOOL DoJump();						//å¤„ç† è·³è½¬è¯­å¥
+	BOOL DoBecomes();					//å¤„ç† èµ‹å€¼è¯­å¥
+	BOOL DoWhile();						//å¤„ç† whileå¾ªç¯
+	BOOL DoCall();						//å¤„ç† å‡½æ•°è°ƒç”¨
+	BOOL DoDoWhile();					//å¤„ç† do-whileå¾ªç¯
+	BOOL DoExpression();				//å¤„ç† è¡¨è¾¾å¼
+	BOOL DoTerm();						//å¤„ç† é¡¹
+	BOOL DoFactor();					//å¤„ç† å› å­
+	BOOL DoSubscript();					//å¤„ç† æ•°ç»„ä¸‹æ ‡
+	BOOL DoCondition();					//å¤„ç† æ¡ä»¶
+	BOOL DoAndCondition();				//å¤„ç† æ¡ä»¶ä¸é¡¹
+	BOOL DoSubCondition();				//å¤„ç† æ¡ä»¶å­é¡¹
+	BOOL DoCase();						//å¤„ç† å¼€å…³è¯­å¥çš„caseåˆ†æ”¯
+	BOOL DoDefault();					//å¤„ç† å¼€å…³è¯­å¥çš„defaultåˆ†æ”¯
+	BOOL DoEndProgram();				//å¤„ç† ç¼–è¯‘çš„åæœŸå·¥ä½œ
+	void DoOptimize();					//è¿›è¡Œä»£ç ä¼˜åŒ–å·¥ä½œ
+	BOOL DoMathFunctionCall();			//å¤„ç† é™¤abs,powå¤–çš„æ•°å­¦åº“å‡½æ•°è°ƒç”¨
+	BOOL DoAbsCall();					//å¤„ç† abså‡½æ•°è°ƒç”¨
+	BOOL DoPowCall();					//å¤„ç† powå‡½æ•°è°ƒç”¨
+	BOOL DoStrcmpCall();				//å¤„ç† strcmpå‡½æ•°è°ƒç”¨
+	BOOL DoStrcpyCall();				//å¤„ç† strcpyå‡½æ•°è°ƒç”¨
+	BOOL DoStrlenCall();				//å¤„ç† strlenå‡½æ•°è°ƒç”¨
+	BOOL DoStrlwruprCall();				//å¤„ç† strlwr,struprå‡½æ•°è°ƒç”¨
+	BOOL DoArrayFunctionCall();			//å¤„ç† é™¤downsort,upsortå¤–çš„æ•°ç»„åº“å‡½æ•°è°ƒç”¨
+	BOOL DoSortCall();					//å¤„ç† downsort,upsortå‡½æ•°è°ƒç”¨
+private://è§£é‡Šæ‰§è¡Œå‚æ•°/////////////////////////////////////////////////////////
+	BOOL m_bCalcRuntime;		//æ˜¯å¦ç»Ÿè®¡è¿è¡Œæ—¶é—´
+	BOOL m_bFileOutput;			//æ˜¯å¦è¾“å‡ºåˆ°æ–‡ä»¶
+	BOOL m_bIgnoreCircleNoend;	//æ˜¯å¦å¿½ç•¥å¯èƒ½çš„æ­»å¾ªç¯
+	BOOL m_bOutputInput;		//æ˜¯å¦è¾“å…¥å›æ˜¾
+	CString m_strOutputFile;	//è¾“å‡ºæ–‡ä»¶å
+	int m_nPrecision;			//è¾“å‡ºç²¾åº¦
+	int m_nMemoryApply;			//ç”³è¯·çš„è™šå†…å­˜é‡
+private://ç¿»è¯‘é€‰é¡¹å‚æ•°/////////////////////////////////////////////////////////
+	ofstream m_fout;		//æ–‡ä»¶è¾“å‡º
+	int m_nLevel;			//ç¼©è¿›çº§åˆ«
+	BOOL m_bMainFunction;	//æ˜¯å¦æ˜¯ä¸»å‡½æ•°
 
-	int m_iBackChoice;		//Ëõ½ø·½Ê½
-	int m_iBackNumber;		//Ëõ½øÊıÄ¿
-	BOOL m_bKeepComment;	//ÊÇ·ñ±£Áô×¢ÊÍ
-	BOOL m_bEmptyLine;		//ÊÇ·ñº¯Êı¼ä¿ÕĞĞ
-	BOOL m_bInsertSpace;	//ÊÇ·ñÔËËã·ûÇ°ºó¼Ó¿Õ¸ñ
-	BOOL m_bOutPrecision;	//ÊÇ·ñÊä³ö¾«¶È¿ØÖÆ
-	BOOL m_bRunTime;		//ÊÇ·ñÍ³¼ÆÔËĞĞÊ±¼ä
-	BOOL m_bWaitEnd;		//ÊÇ·ñµÈ´ıÓÃ»§ÏìÓ¦½áÊø
-	CString m_strCppFile;	//·­ÒëÄ¿±êÎÄ¼şÃû
-private://·­Òëº¯Êı/////////////////////////////////////////////////////////////
-	BOOL Translate();			//·­ÒëÖ÷º¯Êı
-	void TrsAndCondition();		//·­Òë Ìõ¼şÓëÏî
-	void TrsCondition();		//·­Òë Ìõ¼ş
+	int m_iBackChoice;		//ç¼©è¿›æ–¹å¼
+	int m_iBackNumber;		//ç¼©è¿›æ•°ç›®
+	BOOL m_bKeepComment;	//æ˜¯å¦ä¿ç•™æ³¨é‡Š
+	BOOL m_bEmptyLine;		//æ˜¯å¦å‡½æ•°é—´ç©ºè¡Œ
+	BOOL m_bInsertSpace;	//æ˜¯å¦è¿ç®—ç¬¦å‰ååŠ ç©ºæ ¼
+	BOOL m_bOutPrecision;	//æ˜¯å¦è¾“å‡ºç²¾åº¦æ§åˆ¶
+	BOOL m_bRunTime;		//æ˜¯å¦ç»Ÿè®¡è¿è¡Œæ—¶é—´
+	BOOL m_bWaitEnd;		//æ˜¯å¦ç­‰å¾…ç”¨æˆ·å“åº”ç»“æŸ
+	CString m_strCppFile;	//ç¿»è¯‘ç›®æ ‡æ–‡ä»¶å
+private://ç¿»è¯‘å‡½æ•°/////////////////////////////////////////////////////////////
+	BOOL Translate();			//ç¿»è¯‘ä¸»å‡½æ•°
+	void TrsAndCondition();		//ç¿»è¯‘ æ¡ä»¶ä¸é¡¹
+	void TrsCondition();		//ç¿»è¯‘ æ¡ä»¶
 	void TrsExpression();
 	void TrsDefine();
 	void TrsDoWhile();
 	void TrsFactor();
-	void TrsFunction();			//·­Òë º¯Êı
+	void TrsFunction();			//ç¿»è¯‘ å‡½æ•°
 	void TrsIf();
 	void TrsInput();
 	void TrsJump();
-	void TrsMultiStatement();	//·­Òë ¸´ºÏÓï¾ä
+	void TrsMultiStatement();	//ç¿»è¯‘ å¤åˆè¯­å¥
 	void TrsOutput();
-	void TrsParameter();		//·­Òë º¯Êıµ÷ÓÃµÄ²ÎÊı²¿·Ö
-	void TrsStatement();		//·­Òë Óï¾ä
-	void TrsSubCondition();		//·­Òë Ìõ¼ş×ÓÏî
+	void TrsParameter();		//ç¿»è¯‘ å‡½æ•°è°ƒç”¨çš„å‚æ•°éƒ¨åˆ†
+	void TrsStatement();		//ç¿»è¯‘ è¯­å¥
+	void TrsSubCondition();		//ç¿»è¯‘ æ¡ä»¶å­é¡¹
 	void TrsSwitch();
 	void TrsTerm();
 	void TrsWhile();
 	void OutOperator(char[]);
-	void Indent();				//Ëõ½ø
-	void TrsMathFunctionCall();		//´¦Àí ³ıabs,powÍâµÄÊıÑ§¿âº¯Êıµ÷ÓÃ
-	void TrsAbsCall();				//´¦Àí absº¯Êıµ÷ÓÃ
-	void TrsPowCall();				//´¦Àí powº¯Êıµ÷ÓÃ
-	void TrsStrcmpCall();			//´¦Àí strcmpº¯Êıµ÷ÓÃ
-	void TrsStrcpyCall();			//´¦Àí strcpyº¯Êıµ÷ÓÃ
-	void TrsStrlenCall();			//´¦Àí strlenº¯Êıµ÷ÓÃ
-	void TrsStrlwruprCall();		//´¦Àí strlwr,struprº¯Êıµ÷ÓÃ
-	void TrsArrayFunctionCall();	//´¦Àí ³ıdownsort,upsortÍâµÄÊı×é¿âº¯Êıµ÷ÓÃ
-	void TrsSortCall();				//´¦Àí downsort,upsortº¯Êıµ÷ÓÃ
+	void Indent();				//ç¼©è¿›
+	void TrsMathFunctionCall();		//å¤„ç† é™¤abs,powå¤–çš„æ•°å­¦åº“å‡½æ•°è°ƒç”¨
+	void TrsAbsCall();				//å¤„ç† abså‡½æ•°è°ƒç”¨
+	void TrsPowCall();				//å¤„ç† powå‡½æ•°è°ƒç”¨
+	void TrsStrcmpCall();			//å¤„ç† strcmpå‡½æ•°è°ƒç”¨
+	void TrsStrcpyCall();			//å¤„ç† strcpyå‡½æ•°è°ƒç”¨
+	void TrsStrlenCall();			//å¤„ç† strlenå‡½æ•°è°ƒç”¨
+	void TrsStrlwruprCall();		//å¤„ç† strlwr,struprå‡½æ•°è°ƒç”¨
+	void TrsArrayFunctionCall();	//å¤„ç† é™¤downsort,upsortå¤–çš„æ•°ç»„åº“å‡½æ•°è°ƒç”¨
+	void TrsSortCall();				//å¤„ç† downsort,upsortå‡½æ•°è°ƒç”¨
 };
 
 #ifndef _DEBUG  // debug version in FCView.cpp

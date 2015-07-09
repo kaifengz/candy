@@ -97,7 +97,7 @@ void CFCOptionDlg::OnDefaultOption()
 	m_bDisableChangeType = FALSE;
 	m_bFileOutput = FALSE;
 	m_bGenerateBinary = TRUE;
-#ifdef _DEBUG //debug�汾ȱʡ�����м�����ı��ļ�
+#ifdef _DEBUG //debug版本缺省生成中间代码文本文件
 	m_bGenerateText = TRUE;
 #else
 	m_bGenerateText = FALSE;
@@ -124,7 +124,7 @@ void CFCOptionDlg::OnFileOutput()
 	{
 		CFileDialog dlg(FALSE,"txt","",
 			OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT,
-			"�ı��ļ� (*.txt)|*.txt|�����ļ� (*.*)|*.*||");
+			"文本文件 (*.txt)|*.txt|任意文件 (*.*)|*.*||");
 		if(dlg.DoModal()==IDOK)
 			m_strOutputFile = dlg.GetPathName();
 		else
@@ -162,7 +162,7 @@ void CFCOptionDlg::OnKillfocusMemoryApply()
 	for(int i=m_strMemoryApply.GetLength()-1;i>=0;i--)
 		if(m_strMemoryApply[i]<'0' || m_strMemoryApply>'9')
 		{
-			MessageBox("��������ȷ�������ڴ棡","FC",MB_OK|MB_ICONEXCLAMATION);
+			MessageBox("请填入正确的申请内存！","FC",MB_OK|MB_ICONEXCLAMATION);
 			GetDlgItem(IDC_MEMORY_APPLY)->SetFocus();
 			((CComboBox*)(GetDlgItem(IDC_MEMORY_APPLY)))->SetEditSel(0,-1);
 			return;
@@ -172,7 +172,7 @@ void CFCOptionDlg::OnKillfocusMemoryApply()
 	i=atoi(m_strMemoryApply);
 	if(i==0)
 	{
-		MessageBox("��������ȷ�������ڴ棡","FC",MB_OK|MB_ICONEXCLAMATION);
+		MessageBox("请填入正确的申请内存！","FC",MB_OK|MB_ICONEXCLAMATION);
 		GetDlgItem(IDC_MEMORY_APPLY)->SetFocus();
 		((CComboBox*)(GetDlgItem(IDC_MEMORY_APPLY)))->SetEditSel(0,-1);
 		return;
@@ -181,18 +181,18 @@ void CFCOptionDlg::OnKillfocusMemoryApply()
 	{
 		CString message;
 		if(i<4)
-			message="���������ֵ̫С�������޷�����ִ�У�";
+			message="所填入的数值太小，可能无法解释执行！";
 		else
-			message="���������ֵ̫�󣬿����޷����뵽�㹻���ڴ棡";
-		if(MessageBox(message+"\nҪ������","FC",MB_YESNO|MB_ICONQUESTION)==IDNO)
+			message="所填入的数值太大，可能无法申请到足够的内存！";
+		if(MessageBox(message+"\n要继续吗？","FC",MB_YESNO|MB_ICONQUESTION)==IDNO)
 		{
 			GetDlgItem(IDC_MEMORY_APPLY)->SetFocus();
 			((CComboBox*)(GetDlgItem(IDC_MEMORY_APPLY)))->SetEditSel(0,-1);
 			return;
 		}
 	}
-//	QUESTION: ����������������룬������ֵ��3��֮������������Ի���ġ��ǡ���ť��
-//	��ֵ���Զ���ɡ�32�����������ȥ���룬������֡�0016���Ȳ��淶����ֵ��ʾ
+//	QUESTION: 如果加入下两条代码，填入数值“3”之后，如果按弹出对话框的“是”按钮，
+//	数值会自动变成“32”，但如果舍去代码，将会出现“0016”等不规范的数值表示
 //	m_strMemoryApply.Format("%d",i);
 //	UpdateData(FALSE);
 }
@@ -208,9 +208,9 @@ void CFCOptionDlg::OnIgnoreCircleNoend()
 	UpdateData(TRUE);
 	if(m_bIgnoreCircleNoend)
 	{
-		if(MessageBox("������Կ��ܵ���ѭ��������棬�������ִ��ʱ��������ѭ����ֹͣ��Ӧ��\n\
+		if(MessageBox("如果不对可能的死循环提出警告，程序解释执行时若碰到死循环将停止响应。\n\
 \n\
-ȷ�ϲ��Կ��ܵ���ѭ�����������","FC",MB_YESNO|MB_ICONQUESTION)==IDNO)
+确认不对可能的死循环提出警告吗？","FC",MB_YESNO|MB_ICONQUESTION)==IDNO)
 		{
 			m_bIgnoreCircleNoend=FALSE;
 			UpdateData(FALSE);
