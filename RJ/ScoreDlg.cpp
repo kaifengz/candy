@@ -110,11 +110,11 @@ CString CScoreDlg::GetRankString(const int nScoreTotal[])
 	case 2:	nRankStringID = IDS_RANK_3;	break;
 	case 3:	nRankStringID = IDS_RANK_4;	break;
 	}
-	if(nRank+nSame == PLAYER_NUM) // ·ÖÊý×îµÍ	
+	if(nRank+nSame == PLAYER_NUM) // åˆ†æ•°æœ€ä½Ž	
 	{
 		nRankStringID = IDS_RANK_4;
 	}
-	if(nSame == PLAYER_NUM) // ·ÖÊý¶¼Ò»Ñù
+	if(nSame == PLAYER_NUM) // åˆ†æ•°éƒ½ä¸€æ ·
 	{
 		nRankStringID = IDS_RANK_ALL_THE_SAME;
 	}

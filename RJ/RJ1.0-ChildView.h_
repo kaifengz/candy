@@ -1,4 +1,4 @@
-// ChildView.h : CChildView ÀàµÄ½Ó¿Ú
+// ChildView.h : CChildView ç±»çš„æ¥å£
 //
 
 
@@ -6,23 +6,23 @@
 
 #include "defines.h"
 
-// CChildView ´°¿Ú
+// CChildView çª—å£
 
 class CChildView : public CWnd
 {
-// ¹¹Ôì
+// æ„é€ 
 public:
 	CChildView();
 
-// ÖØĞ´
+// é‡å†™
 protected:
 	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
 
-// ÊµÏÖ
+// å®ç°
 public:
 	virtual ~CChildView();
 
-	// Éú³ÉµÄÏûÏ¢Ó³Éäº¯Êı
+	// ç”Ÿæˆçš„æ¶ˆæ¯æ˜ å°„å‡½æ•°
 protected:
 	afx_msg void OnPaint();
 	DECLARE_MESSAGE_MAP()
@@ -35,13 +35,13 @@ private:
 	};
 	enum ZGameStatus
 	{
-		GS_PRESTART,		// »¹Ã»¿ªÊ¼
-		GS_DISPATCH,		// ·¢ÅÆ
-		GS_CLEAN_UP,		// Íæ¼ÒºÍµçÄÔÕûÀíÅÆ
-		GS_THINKING,		// µÈ´ıÍæ¼Ò»òµçÄÔ³öÅÆ
-		GS_SENDING,			// ³öÅÆ
-		GS_TOKEN_SENDING,	// ´«ËÍÁîÅÆ
-		GS_END,				// ÅÅ¾Ö½áÊø
+		GS_PRESTART,		// è¿˜æ²¡å¼€å§‹
+		GS_DISPATCH,		// å‘ç‰Œ
+		GS_CLEAN_UP,		// ç©å®¶å’Œç”µè„‘æ•´ç†ç‰Œ
+		GS_THINKING,		// ç­‰å¾…ç©å®¶æˆ–ç”µè„‘å‡ºç‰Œ
+		GS_SENDING,			// å‡ºç‰Œ
+		GS_TOKEN_SENDING,	// ä¼ é€ä»¤ç‰Œ
+		GS_END,				// æ’å±€ç»“æŸ
 	};
 private:
 	void InitAll();
@@ -50,34 +50,34 @@ private:
 	void DrawToken(CDC *pDC, int x, int y);
 	void FitCardBitmap(CBitmap *pBmp);
 
-	void Shuffle();						// Ï´ÅÆ
-	void CleanUp();						// ÕûÀíÅÆ
-	int GetCardIndex(CPoint point);		// »ñÈ¡Êó±êµãÏÂµÄÅÆ
-	void SendCard(int iCard);			// Íæ¼Ò»òµçÄÔ³öÅÆ(iCardÎªÅÆÔÚÆäÊÖÖĞµÄË÷Òı)
-	BOOL CheckSend(int iPlayer);		// ¼ì²éÍæ¼Ò»òµçÄÔÊÇ·ñÓĞÅÆ¿É³ö
-	BOOL CanSend(int iCard);			// ¼ì²é¸ÃÅÆÊı·ñ¿É´ò³ö
-	BOOL IsGameOver();					// ¼ì²éÊÇ·ñÒ»¾Ö½áÊø
-	void ProcessGameOver();				// ´¦ÀíÒ»¾Ö½áÊø
-	BOOL TokenClick(CPoint point);		// ¼ì²éµãÊÇ·ñÔÚÁîÅÆÇøÓòÄÚ
-	void GetSendingCardPos(int index);	// »ñÈ¡Õı´ò³öµÄÅÆµÄÆğÊ¼Î»ÖÃ
-	CPoint GetTokenPos(int iPlayer);	// »ñÈ¡ÁîÅÆµÄ×óÉÏ½Ç×ø±ê
+	void Shuffle();						// æ´—ç‰Œ
+	void CleanUp();						// æ•´ç†ç‰Œ
+	int GetCardIndex(CPoint point);		// è·å–é¼ æ ‡ç‚¹ä¸‹çš„ç‰Œ
+	void SendCard(int iCard);			// ç©å®¶æˆ–ç”µè„‘å‡ºç‰Œ(iCardä¸ºç‰Œåœ¨å…¶æ‰‹ä¸­çš„ç´¢å¼•)
+	BOOL CheckSend(int iPlayer);		// æ£€æŸ¥ç©å®¶æˆ–ç”µè„‘æ˜¯å¦æœ‰ç‰Œå¯å‡º
+	BOOL CanSend(int iCard);			// æ£€æŸ¥è¯¥ç‰Œæ•°å¦å¯æ‰“å‡º
+	BOOL IsGameOver();					// æ£€æŸ¥æ˜¯å¦ä¸€å±€ç»“æŸ
+	void ProcessGameOver();				// å¤„ç†ä¸€å±€ç»“æŸ
+	BOOL TokenClick(CPoint point);		// æ£€æŸ¥ç‚¹æ˜¯å¦åœ¨ä»¤ç‰ŒåŒºåŸŸå†…
+	void GetSendingCardPos(int index);	// è·å–æ­£æ‰“å‡ºçš„ç‰Œçš„èµ·å§‹ä½ç½®
+	CPoint GetTokenPos(int iPlayer);	// è·å–ä»¤ç‰Œçš„å·¦ä¸Šè§’åæ ‡
 
-	void CardDispatched();				// ·¢ÅÆ½áÊøºóµÄ´¦Àí
-	void CardCleanUped();				// ÅÆÕûÀí½áÊøºóµÄ´¦Àí
-	void CardSended();					// ³öÅÆ½áÊø£¬¿ªÊ¼ÏÂÒ»Î»µÄ³öÅÆ
-	void TokenSended();					// ÁîÅÆ´«ËÍ½áÊøºóµÄ´¦Àí
+	void CardDispatched();				// å‘ç‰Œç»“æŸåçš„å¤„ç†
+	void CardCleanUped();				// ç‰Œæ•´ç†ç»“æŸåçš„å¤„ç†
+	void CardSended();					// å‡ºç‰Œç»“æŸï¼Œå¼€å§‹ä¸‹ä¸€ä½çš„å‡ºç‰Œ
+	void TokenSended();					// ä»¤ç‰Œä¼ é€ç»“æŸåçš„å¤„ç†
 
-	void Invalidate();					// Ë¢ĞÂÆÁÄ»
+	void Invalidate();					// åˆ·æ–°å±å¹•
 
 private: // AI
-	int ComputerSend();									// µçÄÔÖÇÄÜ
-	int AIRandom(int iPlayer,const BOOL bCanSend[]);	// Ëæ»úÑ¡ÔñÒ»ÕÅ¿ÉÒÔ´ò³öµÄÅÆ(³õ¼¶ÄÑ¶È)
-	int AINormal(int iPlayer,const BOOL bCanSend[]);	// (ÖĞ¼¶ÄÑ¶È)
-	int AIHard(int iPlayer,const BOOL bCanSend[]);		// (¸ß¼¶ÄÑ¶È)
+	int ComputerSend();									// ç”µè„‘æ™ºèƒ½
+	int AIRandom(int iPlayer,const BOOL bCanSend[]);	// éšæœºé€‰æ‹©ä¸€å¼ å¯ä»¥æ‰“å‡ºçš„ç‰Œ(åˆçº§éš¾åº¦)
+	int AINormal(int iPlayer,const BOOL bCanSend[]);	// (ä¸­çº§éš¾åº¦)
+	int AIHard(int iPlayer,const BOOL bCanSend[]);		// (é«˜çº§éš¾åº¦)
 private:
 	BOOL m_bRedraw;
 	CBitmap *m_pBitmap;
-	CRect m_rcClick;	// ½ÓÊÜÊó±êÏûÏ¢µÄ¾ØĞÎ
+	CRect m_rcClick;	// æ¥å—é¼ æ ‡æ¶ˆæ¯çš„çŸ©å½¢
 
 	CBitmap m_bmpCard[CARD_NUM];
 	CBitmap m_bmpCardBack;
@@ -91,13 +91,13 @@ private:
 
 	ZGameStatus m_gs;
 
-	int m_iPopup;		// µ¯³öµÄÅÆ
-	int m_iSpecialShow; // È«ÏÔÊ¾µÄÅÆ
+	int m_iPopup;		// å¼¹å‡ºçš„ç‰Œ
+	int m_iSpecialShow; // å…¨æ˜¾ç¤ºçš„ç‰Œ
 	int m_iTurn;
-	int m_nTimeslice;	// ³öÅÆÖÜÆÚ
+	int m_nTimeslice;	// å‡ºç‰Œå‘¨æœŸ
 
 	BOOL m_bShowAnimal;
-	BOOL m_bPlayerAuto;			// ÊÇ·ñµçÄÔÍĞ¹ÜÍæ¼ÒµÄÅÆ
+	BOOL m_bPlayerAuto;			// æ˜¯å¦ç”µè„‘æ‰˜ç®¡ç©å®¶çš„ç‰Œ
 
 	CPoint m_ptSendingCard[2];
 	int m_nSendingDrawCount;
@@ -107,12 +107,12 @@ private:
 	int m_nTokenSendingCount;
 	BOOL m_bCleanUped;
 
-	int m_nScore[PLAYER_NUM];		// µÃ·Ö
-	int m_nCurScore[PLAYER_NUM];	// µ±Ç°ÅÆ¾ÖµÃ·Ö
+	int m_nScore[PLAYER_NUM];		// å¾—åˆ†
+	int m_nCurScore[PLAYER_NUM];	// å½“å‰ç‰Œå±€å¾—åˆ†
 
 	int m_nAI;
 
-	BOOL m_bShowComputerCard;	// ÊÇ·ñÕıÃæÏÔÊ¾µçÄÔµÄÅÆ
+	BOOL m_bShowComputerCard;	// æ˜¯å¦æ­£é¢æ˜¾ç¤ºç”µè„‘çš„ç‰Œ
 public:
 	afx_msg void OnNewGame();
 	afx_msg void OnRButtonDown(UINT nFlags, CPoint point);

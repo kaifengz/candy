@@ -1,4 +1,4 @@
-// ChildView.cpp : CChildView ÀàµÄÊµÏÖ
+// ChildView.cpp : CChildView ç±»çš„å®ç°
 //
 
 #include "stdafx.h"
@@ -80,7 +80,7 @@ END_MESSAGE_MAP()
 
 
 
-// CChildView ÏûÏ¢´¦Àí³ÌĞò
+// CChildView æ¶ˆæ¯å¤„ç†ç¨‹åº
 
 BOOL CChildView::PreCreateWindow(CREATESTRUCT& cs) 
 {
@@ -100,7 +100,7 @@ BOOL CChildView::PreCreateWindow(CREATESTRUCT& cs)
 
 void CChildView::OnPaint() 
 {
-	CPaintDC dc(this); // ÓÃÓÚ»æÖÆµÄÉè±¸ÉÏÏÂÎÄ
+	CPaintDC dc(this); // ç”¨äºç»˜åˆ¶çš„è®¾å¤‡ä¸Šä¸‹æ–‡
 
 	// save old objects
 	CBrush *pOldBrush = (CBrush *)dc.SelectStockObject(NULL_BRUSH);
@@ -112,7 +112,7 @@ void CChildView::OnPaint()
 	dc.SelectObject(pOldBrush);
 	dc.SelectObject(pOldPen);
 	
-	// ²»ÒªÎª»æÖÆÏûÏ¢¶øµ÷ÓÃ CWnd::OnPaint()
+	// ä¸è¦ä¸ºç»˜åˆ¶æ¶ˆæ¯è€Œè°ƒç”¨ CWnd::OnPaint()
 }
 
 void CChildView::DrawAll(CPaintDC *pDC) 
@@ -227,7 +227,7 @@ void CChildView::DrawAll(CPaintDC *pDC)
 		}
 
 		// token
-		if(m_bShowAnimal && m_gs==GS_TOKEN_SENDING) // ÁîÅÆ´«ËÍÖĞ
+		if(m_bShowAnimal && m_gs==GS_TOKEN_SENDING) // ä»¤ç‰Œä¼ é€ä¸­
 		{
 			int x =
 				(m_ptSendingToken[1].x*m_nTokenSendingCount +
@@ -237,7 +237,7 @@ void CChildView::DrawAll(CPaintDC *pDC)
 				 m_ptSendingToken[0].y*(TOKEN_DRAW_NUM-m_nTokenSendingCount) )/TOKEN_DRAW_NUM;
 			DrawToken(&dcMem, x, y);
 		}
-		else if(m_gs!=GS_PRESTART && m_gs!=GS_END) // Õı³£ÏÔÊ¾ÁîÅÆ
+		else if(m_gs!=GS_PRESTART && m_gs!=GS_END) // æ­£å¸¸æ˜¾ç¤ºä»¤ç‰Œ
 		{
 			CPoint ptToken = GetTokenPos(m_iTurn);
 			DrawToken(&dcMem, ptToken.x, ptToken.y);
@@ -271,7 +271,7 @@ void CChildView::InitAll()
 		LEFT_SOUTH+(CARD_EACH-1)*INTERVAL_H+CARD_WIDTH,
 		TOP_SOUTH+CARD_HEIGHT);
 
-	m_bmpCardSharp.LoadBitmap(IDB_CARD_SHARP);	// ´ËÎ»Í¼±ØĞëÏÈÓÚÆäËûÎ»Í¼µ¼Èë
+	m_bmpCardSharp.LoadBitmap(IDB_CARD_SHARP);	// æ­¤ä½å›¾å¿…é¡»å…ˆäºå…¶ä»–ä½å›¾å¯¼å…¥
 	for(int i=0; i<CARD_NUM; i++)
 	{
 		m_bmpCard[i].LoadBitmap(IDB_CARD01+i);
@@ -339,7 +339,7 @@ void CChildView::CleanUp()
 {
 	for(int i=0; i<PLAYER_NUM; i++)
 	{
-		// ¶ÔÃ¿¸öÈËµÄÅÆ½øĞĞÅÅĞò
+		// å¯¹æ¯ä¸ªäººçš„ç‰Œè¿›è¡Œæ’åº
 		int j,k,t,jm;
 		for(j=0; j<CARD_EACH; j++)
 		{
@@ -390,7 +390,7 @@ void CChildView::OnNewGame()
 
 int CChildView::GetCardIndex(CPoint point)
 {
-	// ÊÇ·ñÔÚµã»÷Çø
+	// æ˜¯å¦åœ¨ç‚¹å‡»åŒº
 	if(!m_rcClick.PtInRect(point))
 		return -1;
 
@@ -461,7 +461,7 @@ void CChildView::OnLButtonDown(UINT nFlags, CPoint point)
 		goto Finish;
 	}
 
-	// µã»÷ÅÆ
+	// ç‚¹å‡»ç‰Œ
 	int index = GetCardIndex(point);
 	if(index>=0)
 	{
@@ -479,7 +479,7 @@ void CChildView::OnLButtonDown(UINT nFlags, CPoint point)
 		}
 	}
 
-	// µã»÷ÁîÅÆ£¬ÌáÊ¾
+	// ç‚¹å‡»ä»¤ç‰Œï¼Œæç¤º
 	if(m_iTurn==ID_SOUTH && TokenClick(point))
 	{
 		OnHint();
@@ -523,7 +523,7 @@ void CChildView::OnLButtonDblClk(UINT nFlags, CPoint point)
 
 void CChildView::SendCard(int index)
 {
-	if(index>=0)// ¸ÃÅÆÄÜ³ö
+	if(index>=0)// è¯¥ç‰Œèƒ½å‡º
 	{
 		GetSendingCardPos(index);
 
@@ -543,7 +543,7 @@ void CChildView::SendCard(int index)
 		}
 		else
 		{
-			int iList = m_iSendingCard/LIST_EACH; // »¨É«
+			int iList = m_iSendingCard/LIST_EACH; // èŠ±è‰²
 			if(m_iSendingCard==m_CardList[iList].first-1)
 				m_CardList[iList].first--;
 			else if(m_iSendingCard==m_CardList[iList].last+1)
@@ -552,7 +552,7 @@ void CChildView::SendCard(int index)
 			CardSended();
 		}
 	}
-	else // ¸Ã·½ÎŞÅÆ¿É³ö
+	else // è¯¥æ–¹æ— ç‰Œå¯å‡º
 	{
 		CardSended();
 	}
@@ -560,12 +560,12 @@ void CChildView::SendCard(int index)
 
 void CChildView::CardSended()
 {
-	if(IsGameOver()) // ³öÅÆºó¸Ã·½Ê¤³ö
+	if(IsGameOver()) // å‡ºç‰Œåè¯¥æ–¹èƒœå‡º
 	{
 		ProcessGameOver();
 		Invalidate();
 
-		if(m_bPlayerAuto) // µçÄÔÍĞ¹Ü
+		if(m_bPlayerAuto) // ç”µè„‘æ‰˜ç®¡
 		{
 			PostMessage(WM_COMMAND, ID_NEW_GAME, 0);
 		}
@@ -575,7 +575,7 @@ void CChildView::CardSended()
 			PostMessage(WM_COMMAND, ID_NEW_GAME, 0);
 		}
 	}
-	else // ¸Ã·½Ã»ÓĞÓ®ÅÆ£¬¼ÌĞø´òÅÆ
+	else // è¯¥æ–¹æ²¡æœ‰èµ¢ç‰Œï¼Œç»§ç»­æ‰“ç‰Œ
 	{
 		if(m_bShowAnimal)
 		{
@@ -600,7 +600,7 @@ void CChildView::OnTimer(UINT nIDEvent)
 	case IDT_SEND_CARD:
 	{
 		KillTimer(nIDEvent);
-		if(!CheckSend(m_iTurn)) // ÎŞÅÆ¿É³ö£¬ÏÂÒ»Î»
+		if(!CheckSend(m_iTurn)) // æ— ç‰Œå¯å‡ºï¼Œä¸‹ä¸€ä½
 			SendCard(-1);
 		else
 			SendCard(ComputerSend());
@@ -611,7 +611,7 @@ void CChildView::OnTimer(UINT nIDEvent)
 		{
 			KillTimer(nIDEvent);
 
-			int iList = m_iSendingCard/LIST_EACH; // »¨É«
+			int iList = m_iSendingCard/LIST_EACH; // èŠ±è‰²
 			if(m_iSendingCard==m_CardList[iList].first-1)
 				m_CardList[iList].first--;
 			else if(m_iSendingCard==m_CardList[iList].last+1)
@@ -709,7 +709,7 @@ void CChildView::ProcessGameOver()
 
 	int send[PLAYER_NUM];
 
-	for(int i=0; i<PLAYER_NUM; i++) // Í³¼ÆÃ¿¸öÈËËù´ò³öµÄÅÆ
+	for(int i=0; i<PLAYER_NUM; i++) // ç»Ÿè®¡æ¯ä¸ªäººæ‰€æ‰“å‡ºçš„ç‰Œ
 	{
 		send[i] = 0;
 		for(int j=0; j<CARD_EACH; j++)
@@ -985,13 +985,13 @@ void CChildView::TokenSended()
 {
 	m_gs = GS_THINKING;
 	m_iTurn = (m_iTurn+1)%4;
-	if(!CheckSend(m_iTurn)) // ÏÂÒ»¼ÒÎŞÅÆ¿É³ö£¬ÈÃÆäµÈ´ıÒ»¶ÎÊ±¼ä
+	if(!CheckSend(m_iTurn)) // ä¸‹ä¸€å®¶æ— ç‰Œå¯å‡ºï¼Œè®©å…¶ç­‰å¾…ä¸€æ®µæ—¶é—´
 	{
 		SetTimer(IDT_SEND_CARD, TIMESLICE_WAIT, NULL);
 	}
-	else // ÏÂÒ»¼ÒÓĞÅÆ¿É³ö
+	else // ä¸‹ä¸€å®¶æœ‰ç‰Œå¯å‡º
 	{
-		// ÂÖµ½Íæ¼ÒÇÒÒÑ¾­ÍĞ¹Ü »ò ÂÖµ½µçÄÔ
+		// è½®åˆ°ç©å®¶ä¸”å·²ç»æ‰˜ç®¡ æˆ– è½®åˆ°ç”µè„‘
 		if((m_iTurn==ID_SOUTH && m_bPlayerAuto) || m_iTurn!=ID_SOUTH)
 			SetTimer(IDT_SEND_CARD, m_nTimeslice, NULL);
 	}
@@ -1042,13 +1042,13 @@ void CChildView::CardCleanUped()
 	CleanUp();
 	Invalidate();
 
-	if(m_bPlayerAuto) // µçÄÔÍĞ¹Ü
+	if(m_bPlayerAuto) // ç”µè„‘æ‰˜ç®¡
 	{
 		SendCard(ComputerSend());
 	}
-	else // ·ÇµçÄÔÍĞ¹Ü
+	else // éç”µè„‘æ‰˜ç®¡
 	{
-		// Èç¹ûÍæ¼ÒÃ»ÓĞÅÆ¿É³ö£¬ÈÃÏÂÒ»Î»³öÅÆ
+		// å¦‚æœç©å®¶æ²¡æœ‰ç‰Œå¯å‡ºï¼Œè®©ä¸‹ä¸€ä½å‡ºç‰Œ
 		if(!CheckSend(ID_SOUTH))
 			SendCard(-1);
 	}

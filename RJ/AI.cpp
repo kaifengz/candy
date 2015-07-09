@@ -29,7 +29,7 @@ int CChildView::ComputerThink()
 
 	vector<int> legal_out;
 
-	{	// �ҳ����Կ��Դ������
+	{	// 找出所以可以打出的牌
 		int iCard;
 		int iSuit;
 		int i;
@@ -38,7 +38,7 @@ int CChildView::ComputerThink()
 		{
 			iCard = m_PlayerCards[m_iCurrentTurn][i].iCard;
 
-			if(VALUE(iCard) == CENTER_CARD) // ���м���ƣ������ߣ�
+			if(VALUE(iCard) == CENTER_CARD) // 是中间的牌（即是七）
 				legal_out.push_back(i);
 			else
 			{
@@ -55,23 +55,23 @@ int CChildView::ComputerThink()
 		ASSERT(legal_out.size() > 0);
 	}
 
-	if(legal_out.size() == 1) // ֻ��һ�ſ��Դ����
+	if(legal_out.size() == 1) // 只有一张可以打出的
 		return legal_out[0];
 
-	// �����м��Ĳ��Զ��Լ������������ȿ����м������ٿ��Ǹ߼�����
+	// 由于中级的策略对自己更有利，故先考虑中级策略再考虑高级策略
 	if(index<0 && (m_ai==AI_HARD || m_ai==AI_NORMAL))
 	{
 		index = AINormal(legal_out);
 	}
 
-	// �߼������Ƕ��м����ԵĲ��䣬�����м������ܹ�ʵ�ֵ�ʱ�򲻶࣬
-	// �ڸ����ʱ����Ҫ�߼�������ʹ�Լ������Ʊ�ø�����
+	// 高级策略是对中级策略的补充，由于中级策略能够实现的时候不多，
+	// 在更多的时候，需要高级策略来使自己的形势变得更有利
 	if(index<0 && m_ai==AI_HARD)
 	{
 		index = AIHard(legal_out);
 	}
 
-	// �ڱ���ѡ�������£�ֻ��������һ������
+	// 在别无选择的情况下，只有随机打出一张牌了
 	if(index < 0)
 	{
 		index = AIEasy(legal_out);
@@ -102,12 +102,12 @@ int CChildView::AIEasy(const vector<int> &legal_out)
 
 int CChildView::AINormal(const vector<int> &legal_out)
 {
-	// �����ܵ�ʹ�Լ������ٿ��Դ�����Ƶ���Ŀ
-	// 1. ���ӵ��ͬ��ɫ��678������7����ʹ�Լ�����һ�ſɴ����
-	// 2. ���ӵ���������ƣ���234�������Ҹ����е�ͷ��β�����Դ�
-	//    ����������ͷ��β����������Լ��ɴ���Ƶ���Ŀ
-	// 3. ����Լ����е�A��K���Դ�������������벻�����ӵ��ֵ�
-	//    �ɴ������Ŀ
+	// 尽可能的使自己不减少可以打出的牌的数目
+	// 1. 如果拥有同花色的678，则打出7可以使自己增加一张可打出牌
+	// 2. 如果拥有连续的牌（如234），并且该序列的头（尾）可以打
+	//    出，则打出该头（尾）不会减少自己可打出牌的数目
+	// 3. 如果自己手中的A或K可以打出，则打出它起码不会增加敌手的
+	//    可打出牌数目
 
 	const int n = legal_out.size();
 	const ZPlayerCards &pc = m_PlayerCards[m_iCurrentTurn];
@@ -184,22 +184,22 @@ int CChildView::AINormal(const vector<int> &legal_out)
 
 int CChildView::AIHard(const vector<int> &legal_out)
 {
-	// ʹ�Լ����Ƹ����״��
+	// 使自己的牌更容易打出
 
-	// �����Լ���ĳһ���Ʋ�����Ļ����Լ�����k������Զ�޷��������
-	// ���Լ�ӵ��146������������6��1��4���޷����������Ƹ��ɵ�
-	// Ȩ��Ϊk���˴�6��Ȩ��Ϊ2��
+	// 假如自己的某一张牌不打出的话则自己将有k张牌永远无法打出（例
+	// 如自己拥有146，则如果不打出6，1和4将无法打出），则称该派的
+	// 权重为k（此处6的权重为2）
 
-	// �ߵ�Ȩ��Ӧ�õ����Լ�ӵ�е�ͬ�ֻ�ɫ�Ƶ���Ŀ
+	// 七的权重应该等于自己拥有的同种花色牌的数目
 
-	// 1. ͳ�����пɴ���Ƶ�Ȩ�أ����Ȩ��������
-	// 2. ���Ȩ��������ֶ��ţ�ѡ��һ�Ŷ��ڵз�Ȩ����С�Ĵ��
+	// 1. 统计所有可打出牌的权重，打出权重最大的牌
+	// 2. 如果权重最大者又多张，选择一张对于敌方权重最小的打出
 
 	const int n = legal_out.size();
 	const ZPlayerCards &pc = m_PlayerCards[m_iCurrentTurn];
 
-	vector<int> weight;		// ����Ȩ��
-	vector<int> weight_v;	// �Ե�Ȩ��
+	vector<int> weight;		// 对自权重
+	vector<int> weight_v;	// 对敌权重
 	weight.resize( n );
 	weight_v.resize( n );
 

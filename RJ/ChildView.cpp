@@ -209,13 +209,13 @@ void CChildView::DrawAll(CDC *pDC)
 	}
 
 	// moving(sending or transfering) card
-	// µ±ÕıÔÚ´«ËÍÅÆµÄÊ±ºò£¬Èç¹ûÓÃ»§Í»È»¹Ø±Õ¶¯»­¹¦ÄÜ£¬m_bAnimal¼´±ä³ÉFALSE£¬µ«´ËÊ±
-	// ½çÃæÉÏÓ¦¸Ã°ÑÅÆ´«ËÍÍê±Ï£¬ËùÒÔ´Ë´¦ÓĞ´Ë¸Ä¶¯
+	// å½“æ­£åœ¨ä¼ é€ç‰Œçš„æ—¶å€™ï¼Œå¦‚æœç”¨æˆ·çªç„¶å…³é—­åŠ¨ç”»åŠŸèƒ½ï¼Œm_bAnimalå³å˜æˆFALSEï¼Œä½†æ­¤æ—¶
+	// ç•Œé¢ä¸Šåº”è¯¥æŠŠç‰Œä¼ é€å®Œæ¯•ï¼Œæ‰€ä»¥æ­¤å¤„æœ‰æ­¤æ”¹åŠ¨
 //	if(m_bAnimal && (m_gs==GS_SENDING_CARD || m_gs==GS_TRANSFER_CARD))
 	if(m_gs==GS_SENDING_CARD || m_gs==GS_TRANSFER_CARD)
 	{
-		// ³öÅÆµÄÊ±ºòÏÔÊ¾ÅÆ
-		// ´«ÅÆµÄÊ±ºòÖ»ÓĞÔÚÍæ¼Ò»òÏÂ¼ÒÄÃÅÆÊ±²ÅÏÔÊ¾ÅÆ£¨ÈôÏÔÊ¾µçÄÔµÄÅÆÔòÒ»Ö±ÏÔÊ¾ÅÆ£©
+		// å‡ºç‰Œçš„æ—¶å€™æ˜¾ç¤ºç‰Œ
+		// ä¼ ç‰Œçš„æ—¶å€™åªæœ‰åœ¨ç©å®¶æˆ–ä¸‹å®¶æ‹¿ç‰Œæ—¶æ‰æ˜¾ç¤ºç‰Œï¼ˆè‹¥æ˜¾ç¤ºç”µè„‘çš„ç‰Œåˆ™ä¸€ç›´æ˜¾ç¤ºç‰Œï¼‰
 		BOOL bShowCard = FALSE;
 
 		if(m_gs==GS_SENDING_CARD)
@@ -290,7 +290,7 @@ void CChildView::FitCardBitmap(CBitmap &bitmap)
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-//	ÓÎÏ·Á÷³Ì¿ØÖÆº¯Êı
+//	æ¸¸æˆæµç¨‹æ§åˆ¶å‡½æ•°
 ///////////////////////////////////////////////////////////////////////////////
 
 void CChildView::NewGame() 
@@ -300,7 +300,7 @@ void CChildView::NewGame()
 	m_iPopup = -1;
 	m_iSpecialShow = -1;
 
-	// Çå³ıÔ­À´¿ÉÄÜµÄ¶¨Ê±Æ÷
+	// æ¸…é™¤åŸæ¥å¯èƒ½çš„å®šæ—¶å™¨
 	KillTimer(IDT_DISPATCH);
 	KillTimer(IDT_CLEAN_UP);
 	KillTimer(IDT_THINKING);
@@ -309,24 +309,24 @@ void CChildView::NewGame()
 	KillTimer(IDT_CARD_SELECT);
 	KillTimer(IDT_CARD_TRANSFER);
 
-	// ³õÊ¼»¯Ëæ»úÊı
+	// åˆå§‹åŒ–éšæœºæ•°
 	srand(GetTickCount());
 
-	// Ï´ÅÆ²¢¼ÆËãÅÆµÄÎ»ÖÃ
+	// æ´—ç‰Œå¹¶è®¡ç®—ç‰Œçš„ä½ç½®
 	Shuffle();
 	CalcCardPos(FALSE);
 
-	// Çå¿ÕÒÑ¾­´ò³öµÄÅÆ
+	// æ¸…ç©ºå·²ç»æ‰“å‡ºçš„ç‰Œ
 	for(int i=0; i<LIST_NUM; i++)
 	{
 		m_CardList[i].first = -1;
 		m_CardList[i].last = -1;
 	}
 
-	// ¸üĞÂ×´Ì¬À¸ÌáÊ¾
+	// æ›´æ–°çŠ¶æ€æ æç¤º
 	UpdateRemainInfo();
 
-	// Æô¶¯ÏÂÒ»²¿¶¯×÷
+	// å¯åŠ¨ä¸‹ä¸€éƒ¨åŠ¨ä½œ
 	if(m_bAnimal)
 	{
 		m_gs = GS_DISPATCH;
@@ -371,12 +371,12 @@ void CChildView::CleanUpOver()
 		m_gs = GS_THINKING;
 		CalcTokenPos();
 
-		// µÈ´ıÍæ¼ÒÊó±êÊäÈë
+		// ç­‰å¾…ç©å®¶é¼ æ ‡è¾“å…¥
 		SetWaitSendInfo();
 	}
 	else
 	{
-		// µçÄÔÏÈ³öÅÆ£¬Æô¶¯Ë¼¿¼¶¨Ê±Æ÷
+		// ç”µè„‘å…ˆå‡ºç‰Œï¼Œå¯åŠ¨æ€è€ƒå®šæ—¶å™¨
 		m_gs = GS_THINKING;
 		CalcTokenPos();
 
@@ -442,14 +442,14 @@ void CChildView::TokenTransferOver()
 	CalcTokenStaticPos();
 	m_iCurrentTurn = (m_iCurrentTurn+1)%PLAYER_NUM;
 
-	if(CardCanOut() > 0) // ÓĞÅÆ¿ÉÒÔ´ò³ö
+	if(CardCanOut() > 0) // æœ‰ç‰Œå¯ä»¥æ‰“å‡º
 	{
 		m_gs = GS_THINKING;
 		CalcTokenPos();
 
 		if(m_iCurrentTurn==ID_PLAYER && !m_bUserAuto)
 		{
-			// µÈ´ıÍæ¼ÒÊó±êÊäÈë
+			// ç­‰å¾…ç©å®¶é¼ æ ‡è¾“å…¥
 			SetWaitSendInfo();
 		}
 		else
@@ -458,21 +458,21 @@ void CChildView::TokenTransferOver()
 			SetWaitSendInfo();
 		}
 	}
-	else // Ã»ÓĞÅÆ¿ÉÒÔ´ò³ö
+	else // æ²¡æœ‰ç‰Œå¯ä»¥æ‰“å‡º
 	{
 		m_gs = GS_SELECT_CARD;
 		CalcTokenPos();
 
-		int dir = (m_iCurrentTurn+PLAYER_NUM-1)%PLAYER_NUM; // ÉÏ¼Ò
+		int dir = (m_iCurrentTurn+PLAYER_NUM-1)%PLAYER_NUM; // ä¸Šå®¶
 
-		// ¸øÉÏ¼ÒÏ´ÅÆ£¬ÒÔ±ãÏÂ¼Ò´ÓÖĞ³éÈ¡Ò»ÕÅÅÆ
+		// ç»™ä¸Šå®¶æ´—ç‰Œï¼Œä»¥ä¾¿ä¸‹å®¶ä»ä¸­æŠ½å–ä¸€å¼ ç‰Œ
 		// must call after CalcTokenPos
 		ShufflePlayerCards(dir);
 		CalcCardPos(dir, FALSE);
 
 		if(m_iCurrentTurn==ID_PLAYER && !m_bUserAuto)
 		{
-			// µÈ´ıÍæ¼ÒÊó±êÊäÈë
+			// ç­‰å¾…ç©å®¶é¼ æ ‡è¾“å…¥
 			SetSelectInfo();
 		}
 		else
@@ -490,9 +490,9 @@ void CChildView::TokenTransferOver()
 
 void CChildView::CardSelectOver()
 {
-	int dir = (m_iCurrentTurn+PLAYER_NUM-1)%PLAYER_NUM;	// ÉÏ¼Ò
+	int dir = (m_iCurrentTurn+PLAYER_NUM-1)%PLAYER_NUM;	// ä¸Šå®¶
 
-	// ¼ÆËã¸ÃÅÆµÄÒÆ¶¯
+	// è®¡ç®—è¯¥ç‰Œçš„ç§»åŠ¨
 	m_iMovingCard = m_PlayerCards[dir][m_iSelectCardIndex].iCard;
 	m_ptMovingCard = m_PlayerCards[dir][m_iSelectCardIndex].pos;
 	m_ptMovingCardSource = m_ptMovingCard;
@@ -514,7 +514,7 @@ void CChildView::CardSelectOver()
 		break;
 	}
 
-	// °Ñ¸ÃÅÆ´ÓÉÏ¼ÒÖĞÈ¥³ıµô
+	// æŠŠè¯¥ç‰Œä»ä¸Šå®¶ä¸­å»é™¤æ‰
 	m_PlayerCards[dir].erase( m_PlayerCards[dir].begin()+m_iSelectCardIndex );
 
 	if(m_bAnimal)
@@ -535,7 +535,7 @@ void CChildView::CardSelectOver()
 
 void CChildView::CardTransferOver()
 {
-	{	// °Ñ³éÈ¡µ½µÄÅÆ¼ÓÈëµ½¸ÃPlayerÅÆÖĞ
+	{	// æŠŠæŠ½å–åˆ°çš„ç‰ŒåŠ å…¥åˆ°è¯¥Playerç‰Œä¸­
 		ZCard card;
 		card.iCard = m_iMovingCard;
 		m_PlayerCards[m_iCurrentTurn].push_back(card);
@@ -652,7 +652,7 @@ void CChildView::OnTimer(UINT nIDEvent)
 		break;
 
 	case IDT_CARD_SELECT:
-		// ÏÂ¼ÒËæ»úµÄ³éÈ¡ÉÏ¼ÒÒ»ÕÅÅÆ
+		// ä¸‹å®¶éšæœºçš„æŠ½å–ä¸Šå®¶ä¸€å¼ ç‰Œ
 		m_iSelectCardIndex =
 			rand()%m_PlayerCards[(m_iCurrentTurn+PLAYER_NUM-1)%PLAYER_NUM].size();
 
@@ -761,8 +761,8 @@ void CChildView::OnScore()
 
 void CChildView::OnAnimal() 
 {
-	// ¹Ø±Õ¶¯»­Ê±Ö»ĞèÒª°Ñ¶¯»­±ê¼ÇÖÃÎªFALSE¼´¿É£¬Á÷³Ì´¦Àíº¯Êı»á×Ô¶¯¸ù¾İ¸Ã±ê¼Ç
-	// ´¦ÀíÁ÷³Ì
+	// å…³é—­åŠ¨ç”»æ—¶åªéœ€è¦æŠŠåŠ¨ç”»æ ‡è®°ç½®ä¸ºFALSEå³å¯ï¼Œæµç¨‹å¤„ç†å‡½æ•°ä¼šè‡ªåŠ¨æ ¹æ®è¯¥æ ‡è®°
+	// å¤„ç†æµç¨‹
 	m_bAnimal = !m_bAnimal;
 }
 
@@ -773,9 +773,9 @@ void CChildView::OnUpdateAnimal(CCmdUI* pCmdUI)
 
 void CChildView::OnHint() 
 {
-	// ÌáÊ¾
-	// ´Óµ±Ç°Î»ÖÃ¿ªÊ¼£¬ËÑË÷ÏÂÒ»ÕÅ¿ÉÒÔ´ò¿ªµÄÅÆ
-	// ÈôÃ»ÓĞ¿É´ò³öµÄÅÆ£¬ÔòÈ¡Ïûµ¯³öµÄÅÆ
+	// æç¤º
+	// ä»å½“å‰ä½ç½®å¼€å§‹ï¼Œæœç´¢ä¸‹ä¸€å¼ å¯ä»¥æ‰“å¼€çš„ç‰Œ
+	// è‹¥æ²¡æœ‰å¯æ‰“å‡ºçš„ç‰Œï¼Œåˆ™å–æ¶ˆå¼¹å‡ºçš„ç‰Œ
 
 	int i;
 	int start;
@@ -1039,11 +1039,11 @@ void CChildView::OnLButtonDown(UINT nFlags, CPoint point)
 
 void CChildView::OnLButtonDblClk(UINT nFlags, CPoint point)
 {
-	if(m_iCurrentTurn==ID_PLAYER && !m_bUserAuto) // ·Ç×Ô¶¯ÇÒÂÖµ½Íæ¼Ò
+	if(m_iCurrentTurn==ID_PLAYER && !m_bUserAuto) // éè‡ªåŠ¨ä¸”è½®åˆ°ç©å®¶
 	{
 		if(m_gs == GS_THINKING)
 		{
-			int index = GetUserCardUnderPoint(point); // Íæ¼ÒµãÑ¡µÄÅÆ
+			int index = GetUserCardUnderPoint(point); // ç©å®¶ç‚¹é€‰çš„ç‰Œ
 
 			ProcessUserSend(index);
 		}
@@ -1230,7 +1230,7 @@ void CChildView::InitProgram()
 		m_CardList[i].last = -1;
 	}
 
-	// ·ÖÊı¸´Áã
+	// åˆ†æ•°å¤é›¶
 	for(int i=0; i<PLAYER_NUM; i++)
 	{
 		m_nScoreTotal[i] = 0;
@@ -1243,13 +1243,13 @@ void CChildView::Shuffle()
 	int iCard[CARD_NUM];
 	int s, d;
 
-	// °ÑÅÆ°´Ë³ĞòÅÅÁĞÆğÀ´
+	// æŠŠç‰ŒæŒ‰é¡ºåºæ’åˆ—èµ·æ¥
 	for(int i=0; i<CARD_NUM; i++)
 	{
 		iCard[i] = i;
 	}
 
-	// Ä£ÄâÏ´ÅÆµÄ¹ı³Ì
+	// æ¨¡æ‹Ÿæ´—ç‰Œçš„è¿‡ç¨‹
 	s = 0;
 	for(int i=0; i<CARD_NUM*4; i++)
 	{
@@ -1259,13 +1259,13 @@ void CChildView::Shuffle()
 	}
 	iCard[s] = 0;
 
-	// °Ñ¸÷¸öPlayerµÄÅÆÇå¿Õ
+	// æŠŠå„ä¸ªPlayerçš„ç‰Œæ¸…ç©º
 	for(int i=0; i<PLAYER_NUM; i++)
 	{
 		m_PlayerCards[i].clear();
 	}
 
-	// °ÑÅÆ·Ö·¢µ½¸÷¸öPlayer
+	// æŠŠç‰Œåˆ†å‘åˆ°å„ä¸ªPlayer
 	ZCard card;
 	for(int i=0; i<CARD_NUM; i++)
 	{
@@ -1505,7 +1505,7 @@ void CChildView::ShufflePlayerCards(int dir)
 	int front = pc.front().iCard;
 	int nCard = pc.size();
 
-	// Ä£ÄâÏ´ÅÆµÄ¹ı³Ì
+	// æ¨¡æ‹Ÿæ´—ç‰Œçš„è¿‡ç¨‹
 	s = 0;
 	for(int i=0; i<nCard*4; i++)
 	{
@@ -1631,7 +1631,7 @@ int CChildView::GetUserCardUnderPoint(CPoint point)
 
 BOOL CChildView::CanSendOut(int iCard)
 {
-	if(VALUE(iCard) == CENTER_CARD) // ÊÇÖĞ¼äµÄÅÆ£¨¼´ÊÇÆß£©
+	if(VALUE(iCard) == CENTER_CARD) // æ˜¯ä¸­é—´çš„ç‰Œï¼ˆå³æ˜¯ä¸ƒï¼‰
 	{
 		return TRUE;
 	}
@@ -1676,17 +1676,17 @@ BOOL CChildView::ProcessUserSend(int index)
 
 	if(CanSendOut(iCard))
 	{
-		// Ñ¡ÖĞµÄÅÆ¿ÉÒÔ´ò³ö
+		// é€‰ä¸­çš„ç‰Œå¯ä»¥æ‰“å‡º
 
 		if(iCard!=FIRST_OUT_CARD && FindPlayerCard(ID_PLAYER, FIRST_OUT_CARD)>=0)
 		{
-			// ÓĞºÚÌÒÆß µ«ÊÇ Ã»ÓĞ´ò³ö
+			// æœ‰é»‘æ¡ƒä¸ƒ ä½†æ˜¯ æ²¡æœ‰æ‰“å‡º
 			SetStatusBarInfo(IDS_MUST_SEND_45);
 			return FALSE;
 		}
 		else
 		{
-			// Õı³£³öÅÆ
+			// æ­£å¸¸å‡ºç‰Œ
 			m_iPopup = -1;
 			m_iSpecialShow = -1;
 
@@ -1697,7 +1697,7 @@ BOOL CChildView::ProcessUserSend(int index)
 	}
 	else
 	{
-		// Ñ¡ÖĞµÄÅÆ²»¿ÉÒÔ´ò³ö
+		// é€‰ä¸­çš„ç‰Œä¸å¯ä»¥æ‰“å‡º
 		SetStatusBarInfo(IDS_CANNOT_SEND_CARD);
 		return FALSE;
 	}
@@ -1725,7 +1725,7 @@ int CChildView::GetUserSelectCard(CPoint point)
 
 BOOL CChildView::ProcessUserSelect(int index)
 {
-	if(index < 0) // Ã»ÓĞÑ¡ÖĞÁËÅÆ
+	if(index < 0) // æ²¡æœ‰é€‰ä¸­äº†ç‰Œ
 		return FALSE;
 
 	m_iPopup = -1;
@@ -1793,7 +1793,7 @@ void CChildView::ProcessGameOver()
 		m_nScoreTotal[i] += m_nScoreCur[i];
 	}
 
-	if(!m_bUserAuto) // ·ÇµçÄÔÍĞ¹Ü
+	if(!m_bUserAuto) // éç”µè„‘æ‰˜ç®¡
 	{
 		OnScore();
 	}

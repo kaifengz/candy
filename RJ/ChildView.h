@@ -63,15 +63,15 @@ protected:
 private:
 	enum ZGameStatus
 	{
-		GS_PRESTART,		// »¹Ã»ÓÐ¿ªÊ¼
-		GS_DISPATCH,		// ·¢ÅÆ
-		GS_CLEAN_UP,		// µçÄÔ¡¢Íæ¼ÒÕûÀíÅÆ
-		GS_THINKING,		// µçÄÔ¡¢Íæ¼ÒË¼¿¼ÖÐ
-		GS_SENDING_CARD,	// ³öÅÆ
-		GS_TRANSFER_TOKEN,	// ´«ËÍÁîÅÆ
-		GS_END,				// ÅÆ¾Ö½áÊø
-		GS_SELECT_CARD,		// ÏÂ¼Ò´ÓÉÏ¼ÒµÄÅÆÖÐÌôÑ¡Ò»ÕÅÅÆ
-		GS_TRANSFER_CARD,	// ÉÏ¼ÒµÄÅÆ´«ËÍÖÁÏÂ¼Ò
+		GS_PRESTART,		// è¿˜æ²¡æœ‰å¼€å§‹
+		GS_DISPATCH,		// å‘ç‰Œ
+		GS_CLEAN_UP,		// ç”µè„‘ã€çŽ©å®¶æ•´ç†ç‰Œ
+		GS_THINKING,		// ç”µè„‘ã€çŽ©å®¶æ€è€ƒä¸­
+		GS_SENDING_CARD,	// å‡ºç‰Œ
+		GS_TRANSFER_TOKEN,	// ä¼ é€ä»¤ç‰Œ
+		GS_END,				// ç‰Œå±€ç»“æŸ
+		GS_SELECT_CARD,		// ä¸‹å®¶ä»Žä¸Šå®¶çš„ç‰Œä¸­æŒ‘é€‰ä¸€å¼ ç‰Œ
+		GS_TRANSFER_CARD,	// ä¸Šå®¶çš„ç‰Œä¼ é€è‡³ä¸‹å®¶
 	};
 
 	enum ZAIDegree
@@ -168,19 +168,19 @@ private:
 	void ProcessGameOver();
 
 	// user special
-	int  GetUserCardUnderPoint(CPoint point);	// Ñ¡ÔñÍæ¼Ò×Ô¼ºµÄÅÆ
-	int  GetUserSelectCard(CPoint point);		// Ñ¡ÔñÉÏ¼ÒµÄÅÆ
-	BOOL ProcessUserSend(int index);			// Íæ¼Ò³öÅÆ
-	BOOL ProcessUserSelect(int index);			// Íæ¼ÒÄÃ×ßÉÏ¼ÒµÄÅÆ
-	BOOL ProcessUserClick(int index);			// Íæ¼ÒµãÑ¡×Ô¼ºµÄÅÆ
+	int  GetUserCardUnderPoint(CPoint point);	// é€‰æ‹©çŽ©å®¶è‡ªå·±çš„ç‰Œ
+	int  GetUserSelectCard(CPoint point);		// é€‰æ‹©ä¸Šå®¶çš„ç‰Œ
+	BOOL ProcessUserSend(int index);			// çŽ©å®¶å‡ºç‰Œ
+	BOOL ProcessUserSelect(int index);			// çŽ©å®¶æ‹¿èµ°ä¸Šå®¶çš„ç‰Œ
+	BOOL ProcessUserClick(int index);			// çŽ©å®¶ç‚¹é€‰è‡ªå·±çš„ç‰Œ
 	void BeginSpecialShow(int index);			// 
 	void EndSpecialShow();						// 
-	BOOL ProcessTokenHint(CPoint point);		// Íæ¼Òµ¥»÷ÁéÅÆÑ°Çó°ïÖú
+	BOOL ProcessTokenHint(CPoint point);		// çŽ©å®¶å•å‡»çµç‰Œå¯»æ±‚å¸®åŠ©
 
 	// AI
-	int  AIFirstOut();								// µÚÒ»ÕÅÅÆ±ØÐë³öºÚÌÒÆß
-	int  AIEasy(const vector<int> &legal_out);		// Ëæ»úµÄ´ò¿ª¿ÉÒÔ´ò³öµÄÅÆ
-	int  AINormal(const vector<int> &legal_out);	// ¾¡¿ÉÄÜµÄ²»¼õÉÙ×Ô¼º¿É´ò³öÅÆµÄÊýÄ¿ºÍ²»Ôö¼ÓµÐÊÖ¿É´ò³öÅÆµÄÊýÄ¿
+	int  AIFirstOut();								// ç¬¬ä¸€å¼ ç‰Œå¿…é¡»å‡ºé»‘æ¡ƒä¸ƒ
+	int  AIEasy(const vector<int> &legal_out);		// éšæœºçš„æ‰“å¼€å¯ä»¥æ‰“å‡ºçš„ç‰Œ
+	int  AINormal(const vector<int> &legal_out);	// å°½å¯èƒ½çš„ä¸å‡å°‘è‡ªå·±å¯æ‰“å‡ºç‰Œçš„æ•°ç›®å’Œä¸å¢žåŠ æ•Œæ‰‹å¯æ‰“å‡ºç‰Œçš„æ•°ç›®
 	int  AIHard(const vector<int> &legal_out);		// 
 
 	// debug
@@ -214,35 +214,35 @@ private:
 	void FitCardBitmap(CBitmap &bitmap);
 
 private:
-	// ³õÊ¼»¯£¬Æô¶¯·¢ÅÆ¶¨Ê±Æ÷£¬Èô¶¯»­¹Ø±ÕÔòÖ±½Óµ÷ÓÃDispathOver
+	// åˆå§‹åŒ–ï¼Œå¯åŠ¨å‘ç‰Œå®šæ—¶å™¨ï¼Œè‹¥åŠ¨ç”»å…³é—­åˆ™ç›´æŽ¥è°ƒç”¨DispathOver
 	void NewGame();
 
-	// ·¢ÅÆ½áÊø£¬Æô¶¯ÕûÀíÅÆ¶¨Ê±Æ÷£¬Èô¶¯»­¹Ø±ÕÔòÕûÀíÅÆ£¨¼´°ÑÅÆÅÅÐò£©
-	// ºóÖ±½Óµ÷ÓÃCleanUpOver
+	// å‘ç‰Œç»“æŸï¼Œå¯åŠ¨æ•´ç†ç‰Œå®šæ—¶å™¨ï¼Œè‹¥åŠ¨ç”»å…³é—­åˆ™æ•´ç†ç‰Œï¼ˆå³æŠŠç‰ŒæŽ’åºï¼‰
+	// åŽç›´æŽ¥è°ƒç”¨CleanUpOver
 	void DispatchOver();
 
-	// ÕûÀíÅÆ½áÊø£¬Ñ°ÕÒÊ×ÏÈ³öÅÆÕß£¬ÔòÆô¶¯Ë¼¿¼¶¨Ê±Æ÷£¨»òµÈ´ýÍæ¼ÒµÄÊó
-	// ±êÊäÈë£©
+	// æ•´ç†ç‰Œç»“æŸï¼Œå¯»æ‰¾é¦–å…ˆå‡ºç‰Œè€…ï¼Œåˆ™å¯åŠ¨æ€è€ƒå®šæ—¶å™¨ï¼ˆæˆ–ç­‰å¾…çŽ©å®¶çš„é¼ 
+	// æ ‡è¾“å…¥ï¼‰
 	void CleanUpOver();
 
-	// Ë¼¿¼½áÊø£¨»òÍæ¼ÒÊó±êÒÑ¾­ÕýÈ·ÊäÈë£©£¬Æô¶¯³öÅÆ¶¨Ê±Æ÷£¬Èô¶¯»­¹Ø
-	// ±ÕÔòÖ±½Óµ÷ÓÃCardSendingOver
+	// æ€è€ƒç»“æŸï¼ˆæˆ–çŽ©å®¶é¼ æ ‡å·²ç»æ­£ç¡®è¾“å…¥ï¼‰ï¼Œå¯åŠ¨å‡ºç‰Œå®šæ—¶å™¨ï¼Œè‹¥åŠ¨ç”»å…³
+	// é—­åˆ™ç›´æŽ¥è°ƒç”¨CardSendingOver
 	void ThinkingOver();
 
-	// ³öÅÆ½áÊø£¬ÅÐ¶ÏÊÇ·ñGameOver£¬ÈôÊÇÔòÆô¶¯·¢ÅÆ¶¨Ê±Æ÷¿ªÊ¼ÏÂÒ»¾Ö£¬
-	// ·ñÔòÆô¶¯´«ËÍÁîÅÆ¶¨Ê±Æ÷£¬Èô¶¯»­¹Ø±ÕÔòÖ±½Óµ÷ÓÃTokenTransferOver
+	// å‡ºç‰Œç»“æŸï¼Œåˆ¤æ–­æ˜¯å¦GameOverï¼Œè‹¥æ˜¯åˆ™å¯åŠ¨å‘ç‰Œå®šæ—¶å™¨å¼€å§‹ä¸‹ä¸€å±€ï¼Œ
+	// å¦åˆ™å¯åŠ¨ä¼ é€ä»¤ç‰Œå®šæ—¶å™¨ï¼Œè‹¥åŠ¨ç”»å…³é—­åˆ™ç›´æŽ¥è°ƒç”¨TokenTransferOver
 	void CardSendingOver();
 
-	// ÁîÅÆ´«ËÍ½áÊø£¬ÈôÕý×¼±¸³öÅÆµÄÕâÒ»¼ÒÓÐÅÆ¿É³ö£¬ÔòÆô¶¯Ë¼¿¼¶¨Ê±Æ÷£»
-	// ÈôÎÞÅÆ¿É³ö£¬ÔòÆô¶¯Ñ¡ÔñÅÆ¶¨Ê±Æ÷£¨»òµÈ´ýÍæ¼ÒµÄÊó±êÊäÈë£©
+	// ä»¤ç‰Œä¼ é€ç»“æŸï¼Œè‹¥æ­£å‡†å¤‡å‡ºç‰Œçš„è¿™ä¸€å®¶æœ‰ç‰Œå¯å‡ºï¼Œåˆ™å¯åŠ¨æ€è€ƒå®šæ—¶å™¨ï¼›
+	// è‹¥æ— ç‰Œå¯å‡ºï¼Œåˆ™å¯åŠ¨é€‰æ‹©ç‰Œå®šæ—¶å™¨ï¼ˆæˆ–ç­‰å¾…çŽ©å®¶çš„é¼ æ ‡è¾“å…¥ï¼‰
 	void TokenTransferOver();
 
-	// µçÄÔÑ¡ÔñÉÏ¼ÒµÄÅÆ½áÊø£¨»òÍæ¼ÒÊó±êÒÑ¾­ÕýÈ·ÊäÈë£©£¬Æô¶¯´«ËÍÅÆ¶¨
-	// Ê±Æ÷
+	// ç”µè„‘é€‰æ‹©ä¸Šå®¶çš„ç‰Œç»“æŸï¼ˆæˆ–çŽ©å®¶é¼ æ ‡å·²ç»æ­£ç¡®è¾“å…¥ï¼‰ï¼Œå¯åŠ¨ä¼ é€ç‰Œå®š
+	// æ—¶å™¨
 	void CardSelectOver();
 
-	// ÅÆ´«ËÍ½áÊø£¬ÅÐ¶ÏÊÇ·ñGameOver£¬ÈôÊÇÔòÆô¶¯·¢ÅÆ¶¨Ê±Æ÷¿ªÊ¼ÏÂÒ»¾Ö£¬
-	// ·ñÔòÆô¶¯´«ËÍÁîÅÆ¶¨Ê±Æ÷£¬Èô¶¯»­¹Ø±ÕÔòÖ±½Óµ÷ÓÃTokenTransferOver
+	// ç‰Œä¼ é€ç»“æŸï¼Œåˆ¤æ–­æ˜¯å¦GameOverï¼Œè‹¥æ˜¯åˆ™å¯åŠ¨å‘ç‰Œå®šæ—¶å™¨å¼€å§‹ä¸‹ä¸€å±€ï¼Œ
+	// å¦åˆ™å¯åŠ¨ä¼ é€ä»¤ç‰Œå®šæ—¶å™¨ï¼Œè‹¥åŠ¨ç”»å…³é—­åˆ™ç›´æŽ¥è°ƒç”¨TokenTransferOver
 	void CardTransferOver();
 };
 

@@ -1,21 +1,21 @@
 #pragma once
 
 ///////////////////////////////////////////////////////////////////////////////
-//// �ͻ���
+//// 客户区
 ///////////////////////////////////////////////////////////////////////////////
 
 #define CLIENT_WIDTH		800
 #define CLIENT_HEIGHT		600
 
 ///////////////////////////////////////////////////////////////////////////////
-//// ֽ��
+//// 纸牌
 ///////////////////////////////////////////////////////////////////////////////
 
-#define CARD_EACH			12		// ÿ����ҵ�����
-#define PLAYER_NUM			4		// ��Ҹ���
+#define CARD_EACH			12		// 每个玩家的牌数
+#define PLAYER_NUM			4		// 万家个数
 
-#define INTERVAL_H			15		// ��ˮƽ���
-#define INTERVAL_V			18		// �ƴ�ֱ���
+#define INTERVAL_H			15		// 牌水平间隔
+#define INTERVAL_V			18		// 牌垂直间隔
 
 #define CARD_WIDTH			71
 #define CARD_HEIGHT			96
@@ -31,8 +31,8 @@
 #define TOP_WEST			TOP_EAST
 #define TOP_SOUTH			(CLIENT_HEIGHT-CARD_HEIGHT-20)
 
-#define LIST_NUM			4		// ��ɫ������
-#define LIST_EACH			13		// ÿ�ֻ�ɫ�Ƶ���Ŀ
+#define LIST_NUM			4		// 花色的种数
+#define LIST_EACH			13		// 每种花色牌的数目
 #define CENTER_CARD			6		// 
 #define CARD_NUM			(LIST_EACH*LIST_NUM)
 
@@ -40,7 +40,7 @@
 #define TOP_LIST			((CLIENT_HEIGHT-(LIST_EACH-1)*INTERVAL_V-CARD_HEIGHT)/2)
 
 ///////////////////////////////////////////////////////////////////////////////
-//// ����
+//// 令牌
 ///////////////////////////////////////////////////////////////////////////////
 
 #define TOKEN_WIDTH			50
@@ -58,34 +58,34 @@
 #define TOP_SOUTH_TOKEN		(TOP_SOUTH+(CARD_HEIGHT-TOKEN_HEIGHT)/2)
 
 ///////////////////////////////////////////////////////////////////////////////
-//// ��ʱ��
+//// 计时器
 ///////////////////////////////////////////////////////////////////////////////
 
-#define IDT_DISPATCH		17333	// ���Ƽ�ʱ��
-#define TIMESLICE_DISPATCH	60		// ���Ƶ��ӳ�ʱ��
+#define IDT_DISPATCH		17333	// 发牌计时器
+#define TIMESLICE_DISPATCH	60		// 发牌的延迟时间
 
-#define IDT_CLEAN_UP		17334	// �����Ƽ�ʱ��id
-#define TIMESLICE_CLEAN_UP	200		// �����Ƶ��ӳ�ʱ��
+#define IDT_CLEAN_UP		17334	// 整理牌计时器id
+#define TIMESLICE_CLEAN_UP	200		// 整理牌的延迟时间
 
-#define IDT_SEND_CARD		17335	// ���Ƽ�ʱ��id
-#define TIMESLICE_LOW		1000	// ����
-#define TIMESLICE_MID		600		// ����
-#define TIMESLICE_HIGH		400		// ����
-#define TIMESLICE_WAIT		100		// ���ƿɳ��ĵȴ�ʱ��
+#define IDT_SEND_CARD		17335	// 出牌计时器id
+#define TIMESLICE_LOW		1000	// 低速
+#define TIMESLICE_MID		600		// 中速
+#define TIMESLICE_HIGH		400		// 高速
+#define TIMESLICE_WAIT		100		// 无牌可出的等待时间
 
-#define IDT_SENDING_DRAW	17336	// ���Ƽ�ʱ��id
-#define TIMESLICE_DRAW		10		// ���Ƶ��ӳ�ʱ��
-#define SENDING_DRAW_NUM	8		// ���ƴ���
+#define IDT_SENDING_DRAW	17336	// 画牌计时器id
+#define TIMESLICE_DRAW		10		// 画牌的延迟时间
+#define SENDING_DRAW_NUM	8		// 画牌次数
 
-#define IDT_TOKEN_SENDING	17337	// �������Ƽ�ʱ��id
-#define TIMESLICE_TOKEN		10		// �����Ƶ��ӳ�ʱ��
-#define TOKEN_DRAW_NUM		8		// �����ƴ���
+#define IDT_TOKEN_SENDING	17337	// 传送令牌计时器id
+#define TIMESLICE_TOKEN		10		// 画令牌的延迟时间
+#define TOKEN_DRAW_NUM		8		// 画令牌次数
 
 ///////////////////////////////////////////////////////////////////////////////
-//// ����
+//// 其它
 ///////////////////////////////////////////////////////////////////////////////
 
-#define APP_TITLE			"����"
+#define APP_TITLE			"接龙"
 
 #define ID_EAST				0
 #define ID_NORTH			1
