@@ -59,13 +59,13 @@ LRESULT WINAPI ScreenSaverProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lP
 
 BOOL WINAPI ScreenSaverConfigureDialog(HWND hWnd,UINT message,WPARAM wParam, LPARAM lParam)
 {
-	// 暂时不需要配置对话框，仅返回FALSE
+	// 鏆傛椂涓嶉渶瑕侀厤缃璇濇锛屼粎杩斿洖FALSE
 	return FALSE;
 }
 
 BOOL WINAPI RegisterDialogClasses(HANDLE hInstance)
 {
-	// 一般不需要，仅返回TRUE 
+	// 涓�鑸笉闇�瑕侊紝浠呰繑鍥濼RUE 
 	return TRUE;
 }
 
@@ -89,7 +89,7 @@ void OnTimer(HWND hWnd, UINT nIDEvent)
 
 	if(nIDEvent == IDT_TIMER)
 	{
-		// Magic被激活或被关闭，重新创建特效
+		// Magic琚縺娲绘垨琚叧闂紝閲嶆柊鍒涘缓鐗规晥
 		if(g_nEnableMagic != nEnableMagic)
 		{
 			nEnableMagic = g_nEnableMagic;

@@ -46,7 +46,7 @@ void CHypocycloridWidget::Initialize(unsigned int left, unsigned int top, unsign
 
 void CHypocycloridWidget::Step()
 {
-	// 圆内螺线（内摆线）曲线参数方程：
+	// 鍦嗗唴铻虹嚎锛堝唴鎽嗙嚎锛夋洸绾垮弬鏁版柟绋嬶細
 	// http://en.wikipedia.org/wiki/Hypocycloid
 	const double R = m_outer_radius;
 	const double r = m_inner_radius;

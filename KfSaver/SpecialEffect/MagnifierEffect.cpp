@@ -35,7 +35,7 @@ const char* CMagnifierEffect::GetEffectName() const
 
 BOOL CMagnifierEffect::Initialize(HDC hDC, BOOL)
 {
-	m_nRadius = random(GetWndHeight()/5, GetWndHeight()/10); // ·Å´ó¾µ°ë¾¶ÔÚÆÁÄ»¸ß¶ÈµÄ1/10µ½1/5¼ä
+	m_nRadius = random(GetWndHeight()/5, GetWndHeight()/10); // æ”¾å¤§é•œåŠå¾„åœ¨å±å¹•é«˜åº¦çš„1/10åˆ°1/5é—´
 
 	m_x = random(GetWndWidth()-m_nRadius, m_nRadius);
 	m_y = random(GetWndHeight()-m_nRadius, m_nRadius);
@@ -50,13 +50,13 @@ BOOL CMagnifierEffect::OnTimer(HDC hDC)
 	if (GetFrameCount() != 0)
 		RandomMove();
 
-	// ¸´ÖÆ×ÀÃæÍ¼Ïñ
+	// å¤åˆ¶æ¡Œé¢å›¾åƒ
 	HDC hDCMem = CreateCompatibleDC(hDC);
 	HBITMAP hOldBmp = (HBITMAP)SelectObject(hDCMem, GetBkgndBmp());
 
 	CopyAndStretch(hDC, hDCMem, m_x - m_nRadius, m_y - m_nRadius, 2 * m_nRadius, 2 * m_nRadius);
 
-	// ½«·Å´óµÄÍ¼ÑùĞŞ¼ô³ÉÔ²ĞÎ
+	// å°†æ”¾å¤§çš„å›¾æ ·ä¿®å‰ªæˆåœ†å½¢
 	HBITMAP hBitmap = CreateCompatibleBitmap(hDCMem,
 		2 * m_nRadius, 2 * m_nRadius);
 	SelectObject(hDCMem, hBitmap);
@@ -72,7 +72,7 @@ BOOL CMagnifierEffect::OnTimer(HDC hDC)
 		0, 0,
 		SRCAND);
 
-	// ÊÍ·Å¶ÔÏó
+	// é‡Šæ”¾å¯¹è±¡
 	SelectObject(hDCMem, hOldPen);
 	SelectObject(hDCMem, hOldBrush);
 	SelectObject(hDCMem, hOldBmp);
@@ -87,13 +87,13 @@ BOOL CMagnifierEffect::MagicHong(HDC hDC)
 	if (GetFrameCount() != 0)
 		RandomMove();
 
-	// ¸´ÖÆ×ÀÃæÍ¼Ïñ
+	// å¤åˆ¶æ¡Œé¢å›¾åƒ
 	HDC hDCMem = CreateCompatibleDC(hDC);
 	HBITMAP hOldBmp = (HBITMAP)SelectObject(hDCMem, GetBkgndBmp());
 
 	CopyAndStretch(hDC, hDCMem, m_x - m_nRadius, m_y - m_nRadius, 2 * m_nRadius, 3 * m_nRadius);
 
-	// ½«·Å´óµÄÍ¼ÑùĞŞ¼ô³ÉĞÄĞÎ
+	// å°†æ”¾å¤§çš„å›¾æ ·ä¿®å‰ªæˆå¿ƒå½¢
 	HBITMAP hBitmap = CreateCompatibleBitmap(hDCMem,
 		2 * m_nRadius, 3 * m_nRadius);
 	SelectObject(hDCMem, hBitmap);
@@ -101,16 +101,16 @@ BOOL CMagnifierEffect::MagicHong(HDC hDC)
 	HPEN hOldPen = (HPEN)SelectObject(hDCMem, GetStockObject(WHITE_PEN));
 	HBRUSH hOldBrush = (HBRUSH)SelectObject(hDCMem, GetStockObject(WHITE_BRUSH));
 
-	{	// »­ĞÄĞÎ
+	{	// ç”»å¿ƒå½¢
 		int r = m_nRadius/2;
 #define HEIGHT	(r*4/3)
 		POINT pt[] = 
 		{
 			{0, HEIGHT},
-			{0,	0},		{r*3/2, 0},	{r*2, HEIGHT},	// ĞÄĞÎµÄ×ó±ßÉÏ²¿·Ö
-			{r*5/2, 0},	{r*4, 0},	{r*4, HEIGHT},	// ĞÄĞÎµÄÓÒ±ßÉÏ²¿·Ö
-			{r*4, r*2},	{r*3, r*3},	{r*2, r*4},		// ĞÄĞÎµÄÓÒ±ßÏÂ²¿·Ö
-			{r, r*3},	{0, r*2},	{0, HEIGHT},	// ĞÄĞÎµÄ×ó±ßÏÂ²¿·Ö
+			{0,	0},		{r*3/2, 0},	{r*2, HEIGHT},	// å¿ƒå½¢çš„å·¦è¾¹ä¸Šéƒ¨åˆ†
+			{r*5/2, 0},	{r*4, 0},	{r*4, HEIGHT},	// å¿ƒå½¢çš„å³è¾¹ä¸Šéƒ¨åˆ†
+			{r*4, r*2},	{r*3, r*3},	{r*2, r*4},		// å¿ƒå½¢çš„å³è¾¹ä¸‹éƒ¨åˆ†
+			{r, r*3},	{0, r*2},	{0, HEIGHT},	// å¿ƒå½¢çš„å·¦è¾¹ä¸‹éƒ¨åˆ†
 		};
 
 		BeginPath(hDCMem);
@@ -124,7 +124,7 @@ BOOL CMagnifierEffect::MagicHong(HDC hDC)
 		2 * m_nRadius, 3 * m_nRadius,
 		hDCMem, 0, 0, SRCAND);
 
-	// ÊÍ·Å¶ÔÏó
+	// é‡Šæ”¾å¯¹è±¡
 	SelectObject(hDCMem, hOldPen);
 	SelectObject(hDCMem, hOldBrush);
 	SelectObject(hDCMem, hOldBmp);

@@ -38,16 +38,16 @@ void	log(const char * szFormat, ...);
 //	Random functions
 ///////////////////////////////////////////////////////////////////////////////
 
-// ·µ»ØÒ»¸öÇø¼ä[min, max)ÖĞµÄËæ»úÊı
+// è¿”å›ä¸€ä¸ªåŒºé—´[min, max)ä¸­çš„éšæœºæ•°
 int           random(int max, int min = 0);
 unsigned int  random(unsigned int max, unsigned int min = 0);
 double        random(double max, double min = 0.0);
 
-// ·µ»ØÒ»¸öËæ»ú²¼¶ûÖµ
+// è¿”å›ä¸€ä¸ªéšæœºå¸ƒå°”å€¼
 BOOL	RandomBoolean();
 
-// Ëæ»ú¼ÓÈ¨Ñ¡Ôñ£¬Ñ¡ÖĞÕßÈ¨Öµ¸´Áã£¬Î´±»Ñ¡ÖĞÕßÈ¨Öµ¼ÓÒ»£»³É¹¦·µ»ØÑ¡ÖĞ
-// ÕßÏÂ±ê£¬·ñÔò·µ»Ø¸ºÊı
+// éšæœºåŠ æƒé€‰æ‹©ï¼Œé€‰ä¸­è€…æƒå€¼å¤é›¶ï¼Œæœªè¢«é€‰ä¸­è€…æƒå€¼åŠ ä¸€ï¼›æˆåŠŸè¿”å›é€‰ä¸­
+// è€…ä¸‹æ ‡ï¼Œå¦åˆ™è¿”å›è´Ÿæ•°
 unsigned int	RandomSelect(unsigned int weight[], unsigned int n);
 unsigned int	RandomSelect(std::vector<unsigned int> &weight);
 

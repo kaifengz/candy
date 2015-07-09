@@ -38,21 +38,21 @@ CBlockAI::~CBlockAI()
 //////////////////////////////////////////////////////////////////////
 /********************************************************************\
 
-	AI���ԣ�
+	AI策略：
 
-	��Ե�ǰ���µķ��飨square���ͼ������ֵķ��飨square2������������ʹ
-	���������������º���������������ܣ�ÿ��С����ĸ߶ȵĺͣ�����ճ�
-	�ȣ�С�����հ��������Լ����壨�˴����嶨��Ϊÿ�������Ҿ�����߶�
-	���ϣ���ĳ��Ȩƽ��������С��
+	针对当前落下的方块（square）和即将出现的方块（square2）进行搜索，使
+	得这两个方块落下后整个场面的总势能（每个小方块的高度的和）和虚空程
+	度（小方块间空白数量）以及势阱（此处势阱定义为每处的左右均比其高二
+	以上）的某加权平均尽可能小。
 
-	ÿ��ִ��AI������һ�������һ�����������ɵ�ǰ������AI���ԣ���
-	�⿼�ǵ�AI�ļ��������Ҫһ��ʱ�䣬����������̼߳��㣬�����Ӱ�쵽
-	����Ч����CPUƵ�ʲ���200Mʱͣ�����󽫱Ƚ����أ���������AI�������£�
-	1.	���жϳ�������Ƿ�ı䣬��δ�ı���ִ��ԭ����
-	2.	����������Ѿ������仯������AI�����߳��Ƿ��Ѿ����У����Ѿ���
-		�У��򷵻ؿգ���ִ���κζ����������߳�û�����У��򴴽�AI������
-		�̣�ͬʱ���ؿգ���ִ���κζ��������˴��������ؿյľ�����־���
-		��ִ���κζ����������Ϸ��齫��Ȼ���䡣
+	每次执行AI将产生一个命令，但一个命令不可能完成当前的整个AI策略，另
+	外考虑到AI的计算可能需要一定时间，如果不另开线程计算，则可能影响到
+	界面效果（CPU频率不足200M时停顿现象将比较严重），故整个AI步骤如下：
+	1.	先判断场面情况是否改变，如未改变则执行原策略
+	2.	若场面情况已经发生变化，则检查AI策略线程是否已经运行，若已经运
+		行，则返回空（不执行任何动作），若线程没有运行，则创建AI策略线
+		程，同时返回空（不执行任何动作）。此处两个返回空的具体表现就是
+		不执行任何动作，界面上方块将自然下落。
 
 \********************************************************************/
 //////////////////////////////////////////////////////////////////////
@@ -109,43 +109,43 @@ BOOL CBlockAI::IsAIThreadCreated()
 
 BOOL CBlockAI::IsSituationChanged()
 {
-	// �����ж��߼���˳��������������ж�������ʱ�������ģ������ǰ����
-	// ���ں�
+	// 各个判断逻辑的顺序基本上是依据判断所花的时间来定的，快得在前，慢
+	// 的在后。
 
 	BOOL bChanged;
 
 	// AI thread need AI member data too, so lock it before use.
 	WaitForSingleObject(m_hSemaDataAccess, INFINITE);
 
-	// �����Ѿ�������ԭ���Կ��Եõ���ȷִ�еĸ߶����ޣ�ֻ�ò������ϣ���������
+	// 方块已经超过了原策略可以得到正确执行的高度下限，只好策略作废，重新再来
 	if(m_y > m_yDest)
 	{
 		bChanged = TRUE;
 		goto l_return;
 	}
 
-	// �·�����ˣ�ԭ��������
+	// 新方块变了，原策略作废
 	if(m_square2 != m_oldSquare2)
 	{
 		bChanged = TRUE;
 		goto l_return;
 	}
 
-	// ������ˣ�ԭ��������
+	// 场面变了，原策略作废
 	if(m_board != m_oldBoard)
 	{
 		bChanged = TRUE;
 		goto l_return;
 	}
 
-	// ������û�䣬�������½��ķ���Ҳ��ԭ����һ������ʲô���ɲ�����ԭ���Ĳ����أ�
+	// 其它都没变，连正在下降的方块也跟原来的一样，有什么理由不继续原来的策略呢？
 	if(m_square == m_oldSquare)
 	{
 		bChanged = FALSE;
 		goto l_return;
 	}
 
-	{	// �����½��ķ���ֻ������ת�˼��£���Ȼ��AIҪ������ת�ģ�����Ȼ����ԭ������
+	{	// 正在下降的方块只不过旋转了几下（当然是AI要求它旋转的），当然继续原策略了
 		CBlockSquare square = m_oldSquare;
 
 		for(int i=0; i<3; i++)
@@ -159,8 +159,8 @@ BOOL CBlockAI::IsSituationChanged()
 		}
 	}
 
-	// ������������û�䣬���������½��ķ�����ˣ���������Ӧ��û�еģ�������Ȼ������
-	// ��˳����Ȼ��
+	// 见鬼，其它都没变，就是正在下降的方块变了，这种事情应该没有的，不过既然发生了
+	// 就顺其自然吧
 //	ASSERT(FALSE);
 	bChanged = TRUE;
 
@@ -191,7 +191,7 @@ ZBA CBlockAI::ExecuteStrategy()
 
 BOOL CBlockAI::CreateAIThread()
 {
-	if(!IsAIThreadCreated()) // ��û�д���AI�̣߳��򴴽�֮
+	if(!IsAIThreadCreated()) // 若没有创建AI线程，则创建之
 	{
 		m_hAIThread = CreateThread(0, 0, AIThread, this, 0, NULL);
 	}
@@ -201,7 +201,7 @@ BOOL CBlockAI::CreateAIThread()
 
 DWORD APIENTRY CBlockAI::AIThread(LPVOID lpParam)
 {
-	// AI�߳�
+	// AI线程
 
 	CBlockAI * const pAI = (CBlockAI *)lpParam;
 
@@ -282,7 +282,7 @@ int CBlockAI::CreateNewStrategy(const CBlockBoard& boardCur,
 	{
 		CBlockSquare square = blockCurrent;
 
-		// ����ת
+		// 先旋转
 		yDestTurn = GetMaxYCanTurn(boardCur, square, xCur, yCur, nTurn);
 		if(yDestTurn < yCur)
 			continue;
@@ -292,7 +292,7 @@ int CBlockAI::CreateNewStrategy(const CBlockBoard& boardCur,
 
 		for(xDest=-3; xDest<BLOCK_BOARD_WIDTH; xDest++)
 		{
-			// ���ƶ�
+			// 再移动
 			yDestMove = GetMaxYCanMove(boardCur, square, xCur, xDest, yCur);
 			if(yDestMove < yCur)
 				continue;
@@ -423,7 +423,7 @@ int CBlockAI::GetBoardDanger(const CBlockBoard& board)
 
 	int x, y;
 
-	// ���� ����Σ��ֵ �Լ� �ն�Σ��ֵ
+	// 计算 势能危险值 以及 空洞危险值
 	for(x=0; x<BLOCK_BOARD_WIDTH; x++)
 	{
 		for(y=0; y<BLOCK_BOARD_HEIGHT && boa[y][x]==0; y++)
@@ -432,15 +432,15 @@ int CBlockAI::GetBoardDanger(const CBlockBoard& board)
 		for(; y<BLOCK_BOARD_HEIGHT; y++)
 		{
 			if(boa[y][x] == 0)
-				// �ն�Σ��ֵ��ֹ��������Ŀն�
+				// 空洞危险值防止产生过多的空洞
 				dSpace += SPACE_DANGER;
 			else
-				// ����Σ��ֵ��ֹ����ѵ�̫��
+				// 势能危险值防止方块堆得太高
 				dCells += (BLOCK_BOARD_HEIGHT-y) * (BLOCK_BOARD_HEIGHT-y);
 		}
 	}
 
-	// ��������Σ��ֵ
+	// 计算势阱危险值
 	int height[BLOCK_BOARD_WIDTH];
 	for(x=0; x<BLOCK_BOARD_WIDTH; x++)
 	{
@@ -468,8 +468,8 @@ int CBlockAI::GetBoardDanger(const CBlockBoard& board)
 
 		if(nLeft >= 2 && nRight >= 2)
 		{
-			// ��n������ ��Σ��ֵ ��ͬ�� n-1.5���ն��������ȿ��Է�ֹ�����ܸߵ�
-			// ���壬�ֿ��Է�ֹ������������
+			// 高n的势阱 的危险值 等同于 n-1.5个空洞，这样既可以防止产生很高的
+			// 势阱，又可以防止随意塞堵势阱
 			dSpace += SPACE_DANGER * (2*min(nLeft, nRight)-3) / 2;
 		}
 	}

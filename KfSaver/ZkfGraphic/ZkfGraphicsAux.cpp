@@ -20,7 +20,7 @@ void CollideAndMove(
 
 	while (time > total_time * 0.000001)
 	{
-		// ÎïÌåÏà»¥Ö®¼äµÄÅö×²
+		// ç‰©ä½“ç›¸äº’ä¹‹é—´çš„ç¢°æ’
 		vector<MEASURE_T> collision_time_i;
 		for (unsigned int i=0; i<objects.size(); i++)
 		{
@@ -36,7 +36,7 @@ void CollideAndMove(
 		const MEASURE_T t_min_i =
 			(min_i>=0 ? collision_time_i[min_i] : INVALID_TIME);
 
-		// ÓëÇøÓò±ß½çµÄÅö×²Ê±¼ä
+		// ä¸åŒºåŸŸè¾¹ç•Œçš„ç¢°æ’æ—¶é—´
 		vector<MEASURE_T> collision_time_b;
 		for (unsigned int i=0; i<objects.size(); i++)
 		{
@@ -50,25 +50,25 @@ void CollideAndMove(
 		if ((t_min_i < 0 || t_min_i >= time) &&
 			(t_min_b < 0 || t_min_b >= time) )
 		{
-			// ÔÚµ±Ç°Ê±¼äÆ¬ÄÚÃ»ÓĞÅö×²
+			// åœ¨å½“å‰æ—¶é—´ç‰‡å†…æ²¡æœ‰ç¢°æ’
 			for (unsigned int i=0; i<objects.size(); i++)
 				objects[i]->ActMoving(time);
 			break;
 		}
 
-		// ·¢ÉúÅö×²µÄÊ±¼ä
+		// å‘ç”Ÿç¢°æ’çš„æ—¶é—´
 		const MEASURE_T t_min =
 			(t_min_i>=0 && t_min_b>=0 ? min(t_min_i, t_min_b) : (t_min_i>=0 ? t_min_i : t_min_b));
 		ASSERT(t_min >= 0); // may not ASSERT(t_min <= total_time), notice the float operation presision issue
 
-		// ÏòÇ°ÒÆ¶¯
+		// å‘å‰ç§»åŠ¨
 		if (t_min > 0)
 		{
 			for (unsigned int i=0; i<objects.size(); i++)
 				objects[i]->ActMoving(t_min);
 		}
 
-		// Ö´ĞĞÅö×²
+		// æ‰§è¡Œç¢°æ’
 		for (unsigned int i=0; i<objects.size(); i++)
 		{
 			for (unsigned int j=i+1; j<objects.size(); j++)

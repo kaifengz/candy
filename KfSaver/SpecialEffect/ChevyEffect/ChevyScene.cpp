@@ -10,11 +10,11 @@ namespace NChevy {
 #define ROBOT_RADIUS(width)     ((width) * 0.02)
 #define BALL_RADIUS(width)      ((width) * 0.012)
 
-#define OBJECT_REBOUND_COEFF	(float(1.25))	// ´ËÖµ´óÓÚÒ»£¬ÒâÎ¶×ÅÁ½¸öÔ²Ïà»¥Åö×²ºó»á¡°»ñµÃ
-												// ¶îÍâµÄÄÜÁ¿¡±´Ó¶ø¿ìËÙÀë¿ª£¬±ÜÃâËûÃÇÕ³ÔÚÒ»Æð
-#define BOUNDARY_REBOUND_COEFF	(float(0.8))	// ´ËÖµÒà¿ÉÒÔ´óÓÚÒ»£¬²»¹ýÎªÁË±ÜÃâ¡°×ãÇò¡±¾­¹ý
-												// Á¬Ðø¼¸´ÎµÄÅö×²±ß½ç¶øÔ½·ÉÔ½¿ì£¬ÈÃ»úÆ÷ÈËÎÞ·¨
-												// ²¶×½£¨ÒòÎª»úÆ÷ÈËÓÐÏÞËÙ£©£¬¹ÊÉèÖÃÂÔÐ¡ÓÚÒ»
+#define OBJECT_REBOUND_COEFF	(float(1.25))	// æ­¤å€¼å¤§äºŽä¸€ï¼Œæ„å‘³ç€ä¸¤ä¸ªåœ†ç›¸äº’ç¢°æ’žåŽä¼šâ€œèŽ·å¾—
+												// é¢å¤–çš„èƒ½é‡â€ä»Žè€Œå¿«é€Ÿç¦»å¼€ï¼Œé¿å…ä»–ä»¬ç²˜åœ¨ä¸€èµ·
+#define BOUNDARY_REBOUND_COEFF	(float(0.8))	// æ­¤å€¼äº¦å¯ä»¥å¤§äºŽä¸€ï¼Œä¸è¿‡ä¸ºäº†é¿å…â€œè¶³çƒâ€ç»è¿‡
+												// è¿žç»­å‡ æ¬¡çš„ç¢°æ’žè¾¹ç•Œè€Œè¶Šé£žè¶Šå¿«ï¼Œè®©æœºå™¨äººæ— æ³•
+												// æ•æ‰ï¼ˆå› ä¸ºæœºå™¨äººæœ‰é™é€Ÿï¼‰ï¼Œæ•…è®¾ç½®ç•¥å°äºŽä¸€
 
 #define ACT_TIME_INTERVAL	((MEASURE_T)1)
 
@@ -67,7 +67,7 @@ BOOL CChevyScene::Act()
 	CollideAndMove(m_objects, m_boundary, ACT_TIME_INTERVAL,
 		OBJECT_REBOUND_COEFF, BOUNDARY_REBOUND_COEFF);
 
-	// ¾àÀëÇò½Ï½üµÄ¼¸¸ö»úÆ÷ÈË½«×·ÖðÇò£¬¶øÆäËûµÄ»úÆ÷ÈËÔÚÖÜÎ§µÈ´ý»ú»á£¨¼´ÂýÂý¼õËÙ£©
+	// è·ç¦»çƒè¾ƒè¿‘çš„å‡ ä¸ªæœºå™¨äººå°†è¿½é€çƒï¼Œè€Œå…¶ä»–çš„æœºå™¨äººåœ¨å‘¨å›´ç­‰å¾…æœºä¼šï¼ˆå³æ…¢æ…¢å‡é€Ÿï¼‰
 	vector<double> distances;
 
 	for (unsigned int i=0; i<m_robots.size(); i++)

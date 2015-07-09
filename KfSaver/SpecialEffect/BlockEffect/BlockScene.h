@@ -30,7 +30,7 @@ private:
 	typedef ZBlockStatus ZBS;
 
 private:		// flow control
-	int			m_iStepCount;	// Ö¡Êı£¬·½¿éÏÂÂäÒ»¸ñ¡¢ÏúÈ¥Èô¸ÉĞĞ¡¢²úÉúĞÂµÄ·½¿é£¬¾ùÎªÒ»Ö¡
+	int			m_iStepCount;	// å¸§æ•°ï¼Œæ–¹å—ä¸‹è½ä¸€æ ¼ã€é”€å»è‹¥å¹²è¡Œã€äº§ç”Ÿæ–°çš„æ–¹å—ï¼Œå‡ä¸ºä¸€å¸§
 	ZBS			m_bs;
 
 private:			// block board datas

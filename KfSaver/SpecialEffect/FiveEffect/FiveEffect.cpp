@@ -28,7 +28,7 @@ REGISTER_EFFECT(CFiveEffect);
 
 #define FIVE_MIN_TOP_MARGIN		20		// 20 pixel
 #define FIVE_MIN_LEFT_MARGIN	20		// 20 pixel
-#define FIVE_GRID_COUNT			15		// нЕвсфЕспй╝нЕ╦Ж╦Явс
+#define FIVE_GRID_COUNT			15		// Д╨■Е╜░Фё▀Ф°┴Е█│Д╨■Д╦╙Ф═╪Е╜░
 
 
 // #define TEST_GAME_INDEX			5
