@@ -106,6 +106,4 @@
 // 如果某玩家不仅没有打出牌，反而比最初的牌还多，则每张牌处以以下的罚分
 #define PUNISH_PER_CARD		13
 
-#define for if(0);else for
-
 #endif // _INCLUDE_DEFINES_H_ZKF_2004_10_02_

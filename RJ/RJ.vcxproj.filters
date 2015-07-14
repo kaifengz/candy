@@ -1,0 +1,252 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{d70156d4-d1b1-4c4a-ac62-d8f7ffe12035}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;rc;def;r;odl;idl;hpj;bat</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{a1922cac-5738-4fd6-919b-b7f8bd60e60b}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{7c0e1f6b-a17a-4f6a-8ea8-361d457f45d6}</UniqueIdentifier>
+      <Extensions>ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="AI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ChildView.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MainFrm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RJ.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ScoreDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StdAfx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="RJ.rc">
+      <Filter>Source Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ChildView.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="defines.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MainFrm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RJ.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StdAfx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\card01.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\card02.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\card03.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\card04.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\card05.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\card06.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\card07.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\card08.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\card09.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\card10.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\card11.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\card12.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\card13.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\card14.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\card15.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\card16.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\card17.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\card18.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\card19.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\card20.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\card21.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\card22.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\card23.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\card24.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\card25.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\card26.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\card27.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\card28.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\card29.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\card30.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\card31.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\card32.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\card33.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\card34.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\card35.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\card36.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\card37.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\card38.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\card39.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\card40.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\card41.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\card42.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\card43.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\card44.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\card45.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\card46.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\card47.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\card48.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\card49.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\card50.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\card51.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\card52.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\CardBack.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\CardShape.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\CardSharp.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\felt.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\RJ.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\token.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\TokenShape.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\TokenSharp.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="res\RJ.rc2">
+      <Filter>Resource Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+</Project>

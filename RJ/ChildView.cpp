@@ -182,13 +182,13 @@ void CChildView::DrawAll(CDC *pDC)
 		// special show card
 		if(m_iSpecialShow >= 0)
 		{
-			ZPlayerCards::iterator iter = &m_PlayerCards[ID_PLAYER][m_iSpecialShow];
+			const ZCard &card = m_PlayerCards[ID_PLAYER][m_iSpecialShow];
 
 			DrawCard(
 				pDC,
-				&m_bmpCard[iter->iCard],
-				iter->pos.x,
-				iter->pos.y);
+				&m_bmpCard[card.iCard],
+				card.pos.x,
+				card.pos.y);
 		}
 	}
 
