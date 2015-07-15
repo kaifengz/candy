@@ -2,6 +2,7 @@
 //
 
 #include "stdafx.h"
+#include "ZkfGraphics.h"
 #include "MagnifierEffect.h"
 #include "EffectRegister.h"
 
@@ -177,8 +178,8 @@ void CMagnifierEffect::RandomMove()
 
 void CMagnifierEffect::CopyAndStretch(HDC hDCDest, HDC hDCSrc, int x, int y, int w, int h)
 {
-	int wf = Round(w / STRETCH_COEFF);
-	int hf = Round(h / STRETCH_COEFF);
+	int wf = RoundToInt(w / STRETCH_COEFF);
+	int hf = RoundToInt(h / STRETCH_COEFF);
 	int xf = x + w / 2 - wf / 2;
 	int yf = y + h / 2 - hf / 2;
 	StretchBlt(hDCDest, x, y, w, h, hDCSrc, xf, yf, wf, hf, SRCCOPY);

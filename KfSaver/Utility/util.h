@@ -54,16 +54,6 @@ unsigned int	RandomSelect(std::vector<unsigned int> &weight);
 
 int gcd(int m, int n);
 
-inline int Round(float f)
-{
-	return (int)round(f);
-}
-
-inline int Round(double d)
-{
-	return (int)round(d);
-}
-
 ///////////////////////////////////////////////////////////////////////////////
 //	Bitmap functions
 ///////////////////////////////////////////////////////////////////////////////

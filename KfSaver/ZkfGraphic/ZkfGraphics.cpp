@@ -730,11 +730,32 @@ MEASURE_T ZBar::GetCollisionTime(const ZMovableCircle &mcircle) const
 	const double y0 = y2 - y1;
 	const double vx0 = vx2 - vx1;
 	const double vy0 = vy2 - vy1;
+	const double d0 = sqrt(sq(x0) + sq(y0));
+	const double v0 = sqrt(sq(vx0) + sq(vy0));
 
-	if (vx0 == 0.0 && vy0 == 0.0)
+	if (v0 == 0.0)
 	{
-		// 若dvx，dvy均为零，则mcircle相对于棒静止
-		// TODO:
+		// 若v0为零，则mcircle相对于棒静止
+		if (d0 >= length / 2)
+			// 若距离大于或者等于length/2，此处视为碰撞不可能发生，下同
+			return WILL_NOT_COLLIDE;
+
+		if (d0 == 0.0)
+			// 已经触碰棒的中点了
+			return 0.0;
+
+		const double ao0 = coord2radian(x0, y0);
+		if (ao0 == ao1)
+			// 已经触碰棒子的某点了
+			return 0.0;
+
+		if (av1 == 0.0)
+			// 棒子没有旋转，不可能发生碰撞
+			return WILL_NOT_COLLIDE;
+		else if (av1 > 0)
+			return radian_distance(ao1, ao0) / av1;
+		else
+			return radian_distance(ao0, ao1) / (-av1);
 	}
 	else
 	{
@@ -748,16 +769,25 @@ MEASURE_T ZBar::GetCollisionTime(const ZMovableCircle &mcircle) const
 		if (dd >= sq(length/2))
 			return WILL_NOT_COLLIDE;
 
+		if (av1 == 0.0)
+		{
+			// 棒子没有旋转
+			// TODO
+			return WILL_NOT_COLLIDE;
+		}
+
 		// 该直线与以原点为中心、棒长为直径的圆（设为圆L）的交点满足方程组：
 		// x = vx0 * t + x0
 		// y = vy0 * t + y0
 		// x^2 + y^2 = r^2      其中r = length/2
 		// 化简可得二次方程：
-		// (vx0^2+vy0^2)*t^2 + 2*(vx0*x0+vy0*y0)*t + (x0^2+y0^2-r^2) = 0
+		// (vx0^2+vy0^2) * t^2 + 2*(vx0*x0+vy0*y0) * t + (x0^2+y0^2-r^2) = 0
+		// 即：
+		// v0^2 * t^2 + 2*(vx0*x0+vy0*y0) * t + (d0^2-r^2) = 0
 		const double r = length / 2;
-		const double a = sq(vx0) + sq(vy0);
+		const double a = sq(v0);
 		const double b = 2 * (vx0 * x0 + vy0 * y0);
-		const double c = sq(x0) + sq(y0) - sq(r);
+		const double c = sq(d0) - sq(r);
 		// 可解得t的两个解为：
 		double t1 = (-b + sqrt(sq(b) - 4*a*c)) / (2*a);
 		double t2 = (-b - sqrt(sq(b) - 4*a*c)) / (2*a);
@@ -776,12 +806,20 @@ MEASURE_T ZBar::GetCollisionTime(const ZMovableCircle &mcircle) const
 		const double cx2 = vx0 * t2 + x0;
 		const double cy2 = vy0 * t2 + y0;
 
-		// 当mcircle运动到C1，C2时，棒的角度为：
+		// 当mcircle运动到C1时，棒的角度以及棒端点的位置为：
 		const double cao1 = ao1 + av * t1;
+		const double dx1 = length / 2.0 * sin(cao1);
+		const double dy1 = length / 2.0 * cos(cao1);
+		const double dx2 = -dx1;
+		const double dy2 = -dy1;
 
 		// 棒从cao1再次转动到C1，C2的时刻为：
-		const double bt1 = radian_distance(cao1, coord2radian(cx1, cy1)) / av1 + t1;
-		const double bt2 = radian_distance(cao1, coord2radian(cx2, cy2)) / av1 + t1;
+		const double bt1 = t1 + (av1 > 0 ?
+			radian_distance(cao1, coord2radian(cx1, cy1)) / av1 :
+			radian_distance(coord2radian(cx1, cy1), cao1) / (-av1));
+		const double bt2 = t1 + (av1 > 0 ?
+			radian_distance(cao1, coord2radian(cx2, cy2)) / av1 :
+			radian_distance(coord2radian(cx2, cy2), cao1) / (-av1));
 
 		// 棒从cao1再次转动到C1，C2时，mcircle的位置（设为F1，F2）为：
 		const double fx1 = vx0 * bt1 + x0;
@@ -799,61 +837,48 @@ MEASURE_T ZBar::GetCollisionTime(const ZMovableCircle &mcircle) const
 		const double cclockwise = cx1 * cy2 - cy1 * cx2;
 		if (cclockwise == 0.0)
 		{
-			// C1到C2这条射线（或其后延线）经过原点，检查究竟是射线本身还是其后延线经过原点
-			if (t1 < 0)
+			// mcircle的位置矢量与速度矢量方向一定相等
+			ASSERT(DecimalEqual(x0 * vy0, y0 * vx0));
+
+			// C1，C2相对原点对称
+			ASSERT(DecimalEqual(cx1 + cx2, 0.0));
+			ASSERT(DecimalEqual(cy1 + cy2, 0.0));
+
+			// bt1和bt2必然相等
+			ASSERT(DecimalEqual(bt1, bt2));
+
+			if (t1 + t2 >= 0)
 			{
-				// 射线后延线经过原点，即，mcircle正沿着圆L的半径往外移动
-				if (f2_out)
-					return WILL_NOT_COLLIDE;
-				return bt2;
+				// mcircle正趋近原点，则必然发生碰撞：或者mcircle撞上原点（想像
+				// mcircle移动得很快而棒子旋转的比较慢），或者mcircle被棒子扫中
+				// （想像mcircle移动的很慢，而棒子旋转的很快）
+
+				// 如果不被棒子扫中，mcircle撞上原点的时刻：
+				const double t0 = (t1 + t2) / 2.0;
+
+				// 最终碰撞时间为两者较小值
+				return min(bt1, t0);
 			}
 			else
 			{
-				// 射线本身经过原点，那么mcircle将与棒的中心碰撞
-				const double tt = r/sqrt(sq(vx0)+sq(vy0));
-				ASSERT (tt > 0.0);
-				return (MEASURE_T)(tt + t1);
+				// mcircle正远离原点
+				ASSERT(f1_out == f2_out);
+				return f1_out ? WILL_NOT_COLLIDE : bt1;
 			}
 		}
-		else if ((cclockwise > 0.0 && av1 > 0.0) || (cclockwise < 0.0 && av1 < 0.0))
+
+		
+		if ((cclockwise > 0.0 && av1 > 0.0) || (cclockwise < 0.0 && av1 < 0.0))
 		{
 			// C1到C2这条射线相对于原点的旋转方向与棒的旋转方向相同
 		}
-		else // if (cclockwise < 0.0)
+		else // if ((cclockwise > 0.0 && av1 < 0.0) || (cclockwise < 0.0 && av1 > 0.0))
 		{
 			// C1到C2这条射线相对于原点的旋转方向与棒的旋转方向相反
 		}
 	}
 
-	//// 假设圆与棒上距中心距离为l的某点于某时刻t相撞，则有：
-	//// x1 + vx1 * t + l * cos(ao + av * t) == x2 + vx2 * t
-	//// y1 + vy1 * t + l * sin(ao + av * t) == y2 + vy2 * t
-	////
-	//// 稍变形后有：
-	//// (x1-x2 + (vx1-vx2) * t)^2 + (y1-y2 + (vy1-vy2) * t)^2 == l^2
-	////
-	//// 设dx=x1-x2, dy=y1-y2, dvx=vx1-vx2, dvy=vy1-vy2
-	//// 再设a=dvx^2+dvy^2, b=2*(dx*dvx+dy*dvy), c=dx^2+dy^2
-	//// 则等式左边可化为：
-	//// a * t^2 + b * t + c
-	////
-	//// 若a大于0，它的最小值为：(4*a*c-b^2)/(4*a)
-	//// 若a等于0，则b亦等于0，则它的最小值就是c
-	//// 如果此值比(length/2)^2大，则碰撞不可能发生
-	//{
-	//	const double dx = x1 - x2;
-	//	const double dy = y1 - y2;
-	//	const double dvx = vx1 - vx2;
-	//	const double dvy = vy1 - vy2;
-	//	const double a = sq(dvx) + sq(dvy);
-	//	const double b = 2 * (dx * dvx + dy + dvy);
-	//	const double c = sq(dx) + sq(dy);
-	//	const double left_min = (a!=0 ? (4*a*c - sq(b)) / (4*a) : c);
-	//	if (left_min >= sq(length)/4)
-	//		return WILL_NOT_COLLIDE;
-	//}
-
-	// TODO:
+	// TODO: unreachable here!!!
 	return 10;
 }
 

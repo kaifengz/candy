@@ -7,7 +7,7 @@
 #include "EffectRegister.h"
 
 // REGISTER_EFFECT(CPurlerEffect);
-REGISTER_EFFECT_FOR_TEST(CPurlerEffect, "2008-05-17");
+REGISTER_EFFECT_FOR_TEST(CPurlerEffect, "2014-12-13");
 
 /*****************************************************************************\
 *

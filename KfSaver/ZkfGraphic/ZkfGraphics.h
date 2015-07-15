@@ -42,7 +42,13 @@ inline T sq(T v) { return v*v; }
 template <typename T>
 int RoundToInt(T v)
 {
-	return v > 0 ? (int)(v + 0.5) : (int)(v - 0.5);
+	return (int)round(v);
+}
+
+template <typename T>
+inline bool DecimalEqual(T v1, T v2, T err = 1e-5)
+{
+	return abs(v1 - v2) < err;
 }
 
 int GetPositiveMinIndex(const std::vector<float> &);
