@@ -19,3 +19,7 @@ mysaver.log
 *.opt
 *.plg
 
+# for OCaml
+constr
+*.cmi
+*.cmo
