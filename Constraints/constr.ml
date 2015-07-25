@@ -89,6 +89,8 @@ exception Unsolveable
 exception Backtrack
 
 let solve (p : problem) : (int * int) list =
+    let solving_logs = false in
+
     let validate_problem () =
         List.iter (fun var ->
             let range =
@@ -168,7 +170,8 @@ let solve (p : problem) : (int * int) list =
     let rec search idx =
         try
             let v = find_variable_next_value idx in
-            log "Try #%d ==> %d\n" idx v;
+            if solving_logs then
+                log "Try #%d ==> %d\n" idx v;
             Hashtbl.replace searched idx v;
             try
                 constrainted searched idx;
@@ -178,7 +181,8 @@ let solve (p : problem) : (int * int) list =
             with Backtrack ->
                 search idx
         with Backtrack ->
-            log "Backtrack #%d\n" idx;
+            if solving_logs then
+                log "Backtrack #%d\n" idx;
             Hashtbl.remove searched idx;
             let prev = idx - 1 in
             if prev < 0 then raise Unsolveable;

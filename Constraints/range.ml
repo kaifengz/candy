@@ -23,23 +23,102 @@ let normalize range =
     match flatten range with
         | Empty | Single _ | Wide _ as range -> range
         | Composed ranges ->
+                (* sorting *)
                 let ranges = List.sort (fun a b ->
                     match a, b with
-                    | Wide (a1, _a2), Wide (b1, _b2) -> a1 - b1
-                    | Single s, Wide (b1, _b2) -> s - b1
-                    | Wide (a1, _a2), Single s -> a1 - s
+                    | Wide (w1, _w2), Wide (w1', _w2') -> w1 - w1'
+                    | Single s, Single s' -> s - s'
+                    | Single s, Wide (w1, w2) | Wide (w1, w2), Single s ->
+                        (* Single goes first if the Single is contained by the Wide *)
+                        if s >= w1 && s <= w2 then -1
+                        else s - w1
                     | _ -> assert false
                 ) ranges in
-                (* TODO: coalesce ranges *)
+                (* coalescing *)
+                let ranges = List.fold_right (fun range acc ->
+                    match acc with
+                    | [] -> [range]
+                    | Single s :: tl ->
+                        begin match range with
+                        | Single s' ->
+                            assert (s' <= s);
+                            if s = s' then acc
+                            else if s - s' = 1 then Wide (s', s) :: tl
+                            else range :: acc
+                        | Wide (w1', w2') ->
+                            assert (w1' <= s);
+                            if s <= w2' then acc
+                            else if s = w2' + 1 then Wide (w1', w2' + 1) :: tl
+                            else range :: acc
+                        | _ -> assert false
+                        end
+                    | Wide (w1, w2) :: tl->
+                        begin match range with
+                        | Single s' ->
+                            assert (s' <= w2);
+                            if s' >= w1 && s' <= w2 then acc
+                            else if s' + 1 = w1 then Wide (s', w2) :: tl
+                            else range :: acc
+                        | Wide (w1', w2') ->
+                            assert (w1' <= w1);
+                            if w2' + 1 >= w1 then Wide (w1', w2) :: tl
+                            else range :: acc
+                        | _ -> assert false
+                        end
+                    | _ -> assert false
+                ) ranges [] in
                 Composed ranges
 
 let union r1 r2 =
-    (* TODO *)
-    Empty
+    normalize (Composed [r1;r2])
 
 let intersect r1 r2 =
-    (* TODO *)
-    Empty
+    let rec intersect_aux r1 r2 acc =
+        match r1, r2 with
+        | [], _ | _, [] -> acc
+        | Single s1 :: tl1, Single s2 :: tl2 ->
+            if s1 = s2 then
+                intersect_aux tl1 tl2 (Single s1 :: acc)
+            else if s1 < s2 then
+                intersect_aux tl1 r2 acc
+            else
+                intersect_aux r1 tl2 acc
+        | (Wide (w1, w2) :: tl as r), (Wide (w1', w2') :: tl' as r') ->
+            if w2 >= w2' then
+                if w1 > w2' then intersect_aux r tl' acc
+                else intersect_aux r tl' (
+                        let max_w1 = if w1 >= w1' then w1 else w1' in
+                        (if max_w1 = w2' then Single max_w1 else Wide (max_w1, w2')) :: acc
+                    )
+            else (* w2 < w2' *)
+                if w1' > w2 then intersect_aux tl r' acc
+                else intersect_aux tl r' (
+                        let max_w1 = if w1 >= w1' then w1 else w1' in
+                        (if max_w1 = w2 then Single max_w1 else Wide (max_w1, w2)) :: acc
+                    )
+        | (Single s :: tl as r), (Wide (w1, w2) :: tl' as r')
+        | (Wide (w1, w2) :: tl' as r'), (Single s :: tl as r) ->
+            if s >= w1 && s <= w2 then
+                intersect_aux tl r' (Single s :: acc)
+            else if s > w2 then
+                intersect_aux r tl' acc
+            else
+                intersect_aux tl r' acc
+        | _ -> assert false
+    in
+    let normalized_list range =
+        match normalize range with
+        | Composed ranges -> ranges
+        | Empty -> []
+        | _ as range -> [range]
+    in
+    let r1 = normalized_list r1 in
+    let r2 = normalized_list r2 in
+    let intersection = intersect_aux r1 r2 [] in
+    match intersection with
+    | [] -> Empty
+    | [r] -> r
+    | _ -> Composed (List.rev intersection)
 
 let rec first_of = function
     | Empty | Composed [] -> raise Not_found
@@ -56,7 +135,7 @@ let next_of range n = match range with
             assert (n >= w1 && n <= w2);
             if n < w2 then n + 1 else raise Not_found
     | Composed ranges ->
-            (* TODO: binary search tree? *)
+            (* FIXME: binary search tree? *)
             let rec aux = function
             | [] -> raise Not_found
             | hd :: tl ->
