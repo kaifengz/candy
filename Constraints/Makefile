@@ -11,5 +11,5 @@ $(TARGET): range.ml constr.ml
 	-rm -f *.cm*
 
 clean:
-	-rm -f constr *.cm*
+	-rm -f $(TARGET) *.cm*
 
