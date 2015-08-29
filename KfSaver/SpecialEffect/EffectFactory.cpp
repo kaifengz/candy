@@ -60,6 +60,11 @@ void CEffectFactory::DeleteEffect(CSpecialEffect *&pEffect)
 	}
 }
 
+void CEffectFactory::LoadConfiguration()
+{
+	EffectRegistry::LoadConfiguration();
+}
+
 #ifdef DEBUG_MODE
 bool CEffectFactory::ToggleTestMode()
 {

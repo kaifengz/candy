@@ -12,6 +12,8 @@ public:
 
 	static void DeleteEffect(CSpecialEffect *&);
 
+	static void LoadConfiguration();
+
 #ifdef DEBUG_MODE
 public:
 	static bool ToggleTestMode();

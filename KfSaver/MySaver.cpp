@@ -79,6 +79,7 @@ static int g_nEnableMagic = 0;
 void InitSaver(HWND hWnd)
 {
 	g_hBmpBkgnd = SaveBkground();
+	CEffectFactory::LoadConfiguration();
 	SetTimer(hWnd, IDT_TIMER, TIMESLICE, NULL);
 }
 

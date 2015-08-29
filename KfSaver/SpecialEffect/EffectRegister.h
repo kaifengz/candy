@@ -3,7 +3,7 @@
 #define _EFFECT_REGISTER_H__INCLUDED__2008_05_17_
 
 #include "SpecialEffect.h"
-#include <vector>
+#include <map>
 
 class EffectRegistry
 {
@@ -13,6 +13,8 @@ public:
 
 	typedef std::vector<CreateEffectFunc> EffectCreators;
 	static const EffectCreators& GetEffectCreators();
+
+	static void LoadConfiguration();
 
 #ifdef DEBUG_MODE
 	static void RegisterEffectForTest(CreateEffectFunc func, const char* name, const char* date);

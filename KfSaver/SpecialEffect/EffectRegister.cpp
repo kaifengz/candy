@@ -2,6 +2,10 @@
 #include "StdAfx.h"
 #include "EffectRegister.h"
 
+#include <memory>
+
+static const char* const SYSTEM_REGISTRY_PATH = "SOFTWARE\\MySaver";
+
 //////////////////////////////////////////////////////////////////////////
 //
 //////////////////////////////////////////////////////////////////////////
@@ -17,24 +21,32 @@ public:
 	typedef EffectRegistry::CreateEffectFunc CreateEffectFunc;
 	typedef EffectRegistry::EffectCreators EffectCreators;
 
-	static void RegisterEffect(
+	void RegisterEffect(
 		CreateEffectFunc func,
 		const char* name);
-	static const EffectCreators& GetEffectCreators();
+	const EffectCreators& GetEffectCreators();
+
+	void LoadConfiguration();
 
 #ifdef DEBUG_MODE
-	static void RegisterEffectForTest(
+	void RegisterEffectForTest(
 		CreateEffectFunc func,
 		const char* name,
 		const char* date);
-	static CreateEffectFunc GetCreatorForTest();
+	CreateEffectFunc GetCreatorForTest();
 #endif
 
-protected:
+public:
 	static EffectRegistryImpl& GetInstance();
 
 protected:
-	EffectCreators m_ceators;
+	void LoadConfigurationFromSystemRegistry();
+	void StoreConfigurationToSystemRegistry();
+
+protected:
+	typedef std::map<std::string, CreateEffectFunc> EffectCreatorMap;
+	EffectCreatorMap m_creator_map;
+	EffectCreators m_creators;
 
 #ifdef DEBUG_MODE
 	CreateEffectFunc m_tester;
@@ -69,15 +81,26 @@ void EffectRegistryImpl::RegisterEffect(
 	ASSERT(func != NULL);
 	ASSERT(name != NULL);
 
-	EffectRegistryImpl &instance = GetInstance();
-	instance.m_ceators.push_back(func);
-
-	LOG("SpecialEffect #%02d: %s", instance.m_ceators.size(), name);
+	m_creator_map[name] = func;
+	LOG("SpecialEffect #%02d: %s", m_creator_map.size(), name);
 }
 
 const EffectRegistryImpl::EffectCreators& EffectRegistryImpl::GetEffectCreators()
 {
-	return GetInstance().m_ceators;
+	return m_creators;
+}
+
+void EffectRegistryImpl::LoadConfiguration()
+{
+	m_creators.clear();
+	LoadConfigurationFromSystemRegistry();
+
+	if (m_creators.empty())
+	{
+		for (auto iter : m_creator_map)
+			m_creators.push_back(iter.second);
+		StoreConfigurationToSystemRegistry();
+	}
 }
 
 #ifdef DEBUG_MODE
@@ -90,30 +113,103 @@ void EffectRegistryImpl::RegisterEffectForTest(
 	ASSERT(name != NULL);
 	ASSERT(date != NULL);
 
-	EffectRegistryImpl &instance = GetInstance();
 	LOG("SpecialEffect [TEST]: %s -- %s", name, date);
 
-	if (instance.m_tester == NULL)
+	if (m_tester == NULL)
 	{
-		instance.m_tester = func;
-		instance.m_tester_date = date;
+		m_tester = func;
+		m_tester_date = date;
 	}
 	else
 	{
-		ASSERT(instance.m_tester_date != NULL);
-		if (strcmp(date, instance.m_tester_date) > 0)
+		ASSERT(m_tester_date != NULL);
+		if (strcmp(date, m_tester_date) > 0)
 		{
-			instance.m_tester = func;
-			instance.m_tester_date = date;
+			m_tester = func;
+			m_tester_date = date;
 		}
 	}
 }
 
 EffectRegistryImpl::CreateEffectFunc EffectRegistryImpl::GetCreatorForTest()
 {
-	return GetInstance().m_tester;
+	return m_tester;
 }
 #endif
+
+void EffectRegistryImpl::LoadConfigurationFromSystemRegistry()
+{
+	HKEY hKey = NULL;
+	if (ERROR_SUCCESS != RegOpenKey(HKEY_CURRENT_USER, SYSTEM_REGISTRY_PATH, &hKey))
+	{
+		LOG("HKEY_CURRENT_USER\\%s could not be opened", SYSTEM_REGISTRY_PATH);
+		return;
+	}
+
+	for (DWORD index = 0; ; ++index)
+	{
+		TCHAR name[128];
+		DWORD name_len = sizeof(name);
+		DWORD type;
+		DWORD enabled;
+		DWORD data_len = sizeof(enabled);
+
+		LONG rc = RegEnumValue(hKey, index, name, &name_len, NULL, &type, (LPBYTE)&enabled, &data_len);
+		if (rc == ERROR_NO_MORE_ITEMS)
+			break;
+		if (rc != ERROR_SUCCESS || type != REG_DWORD)
+			continue;
+
+		name[_countof(name) - 1] = '\0';
+		EffectCreatorMap::const_iterator iter = m_creator_map.find(name);
+		if (iter == m_creator_map.end())
+		{
+			LOG("SpecialEffect %s unknown", name);
+			continue;
+		}
+
+		LOG("SpecialEffect %s is %s", name, enabled ? "enabled" : "disabled");
+		if (enabled)
+			m_creators.push_back(iter->second);
+	}
+
+	RegCloseKey(hKey);
+}
+
+void EffectRegistryImpl::StoreConfigurationToSystemRegistry()
+{
+	LONG rc;
+
+	HKEY hKey = NULL;
+	if (ERROR_SUCCESS != (rc = RegOpenKey(HKEY_CURRENT_USER, SYSTEM_REGISTRY_PATH, &hKey)))
+	{
+		if (rc == ERROR_FILE_NOT_FOUND)
+		{
+			LOG("HKEY_CURRENT_USER\\%s does not exist, create it", SYSTEM_REGISTRY_PATH);
+			if (ERROR_SUCCESS != (rc = RegCreateKey(HKEY_CURRENT_USER, SYSTEM_REGISTRY_PATH, &hKey)))
+			{
+				LOG("HKEY_CURRENT_USER\\%s could not be created: %d 0x%X", rc, rc);
+				return;
+			}
+		}
+		else
+		{
+			LOG("HKEY_CURRENT_USER\\%s could not be opened for adding configurations: %d 0x%X", rc, rc);
+			return;
+		}
+	}
+
+	for (auto iter : m_creator_map)
+	{
+		DWORD enabled = 1;
+		if (ERROR_SUCCESS != (rc = RegSetValueEx(hKey, iter.first.c_str(), 0, REG_DWORD, (LPBYTE)&enabled, sizeof(enabled))))
+		{
+			LOG("HKEY_CURRENT_USER\\%s\\%s = 1 could not be written: %d 0x%X", SYSTEM_REGISTRY_PATH, iter.first.c_str(), rc, rc);
+		}
+	}
+
+	RegCloseKey(hKey);
+}
 
 //////////////////////////////////////////////////////////////////////////
 //
@@ -137,12 +233,17 @@ void EffectRegistry::RegisterEffect(
 		CreateEffectFunc func,
 		const char* name)
 {
-	EffectRegistryImpl::RegisterEffect(func, name);
+	EffectRegistryImpl::GetInstance().RegisterEffect(func, name);
 }
 
 const EffectRegistry::EffectCreators& EffectRegistry::GetEffectCreators()
 {
-	return EffectRegistryImpl::GetEffectCreators();
+	return EffectRegistryImpl::GetInstance().GetEffectCreators();
+}
+
+void EffectRegistry::LoadConfiguration()
+{
+	EffectRegistryImpl::GetInstance().LoadConfiguration();
 }
 
 #ifdef DEBUG_MODE
@@ -151,11 +252,11 @@ void EffectRegistry::RegisterEffectForTest(
 		const char* name,
 		const char* date)
 {
-	EffectRegistryImpl::RegisterEffectForTest(func, name, date);
+	EffectRegistryImpl::GetInstance().RegisterEffectForTest(func, name, date);
 }
 
 EffectRegistry::CreateEffectFunc EffectRegistry::GetCreatorForTest()
 {
-	return EffectRegistryImpl::GetCreatorForTest();
+	return EffectRegistryImpl::GetInstance().GetCreatorForTest();
 }
 #endif
