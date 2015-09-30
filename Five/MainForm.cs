@@ -19,17 +19,19 @@ namespace Five
         }
 
         private ChessBoard board = new ChessBoard();
+        private ChessType userChess = ChessType.None;
         private PlayStatus status = PlayStatus.None;
-        private List<ChessBoard> history = new List<ChessBoard>();
+        private List<Coord> history = new List<Coord>();
         private List<Coord> gameoverReasons = null;
+        private bool disableComputer = false;
 
-        private static readonly Point[] starPoints = new Point[]
+        private static readonly Coord[] starPoints = new Coord[]
         {
-            new Point(3,3),
-            new Point(3,11),
-            new Point(11,3),
-            new Point(11,11),
-            new Point(7,7),
+            new Coord(3,3),
+            new Coord(3,11),
+            new Coord(11,3),
+            new Coord(11,11),
+            new Coord(7,7),
         };
 
         public MainForm()
@@ -56,6 +58,7 @@ namespace Five
             PaintStars(graphics, gridSize, offset_x, offset_y);
             PaintLastMark(graphics, gridSize, offset_x, offset_y);
             PaintGameoverReasons(graphics, gridSize, offset_x, offset_y);
+            PaintEvaluations(graphics, gridSize, offset_x, offset_y);
         }
 
         private void PaintStars(Graphics graphics, float gridSize, float offset_x, float offset_y)
@@ -63,9 +66,9 @@ namespace Five
             using (Brush blackBrush = new SolidBrush(Color.Black))
             {
                 float starSize = gridSize / 6;
-                foreach (Point star in starPoints)
+                foreach (Coord star in starPoints)
                 {
-                    if (board[star.Y][star.X] == ChessType.None)
+                    if (board[star] == ChessType.None)
                     {
                         RectangleF rect = new RectangleF(
                                 offset_x + star.X * gridSize - starSize / 2,
@@ -106,7 +109,7 @@ namespace Five
                                     offset_x + col * gridSize - chessSize / 2,
                                     offset_y + row * gridSize - chessSize / 2,
                                     chessSize, chessSize);
-                            switch (board[row][col])
+                            switch (board.Get(col, row))
                             {
                                 case ChessType.None:
                                     break;
@@ -159,6 +162,35 @@ namespace Five
             }
         }
 
+        private void PaintEvaluations(Graphics graphics, float gridSize, float offset_x, float offset_y)
+        {
+#if EVALUATIONS
+            if (evaluations == null)
+                return;
+
+            using (Brush darkRed = new SolidBrush(Color.DarkRed),
+                         white = new SolidBrush(Color.White))
+            {
+                float textHeight = this.Font.GetHeight(graphics);
+                float textWidth = textHeight * 2;
+                foreach (var evaluation in evaluations)
+                {
+                    Coord coord = evaluation.Item1;
+                    Score score = evaluation.Item2;
+
+                    string text = score.Category == ScoreCategory.Estimated ? score.score.ToString("0.0") :
+                        score.Category == ScoreCategory.Won ? "Win" : "Lost";
+                    RectangleF rect = new RectangleF(
+                            offset_x + coord.X * gridSize - textWidth / 2,
+                            offset_y + coord.Y * gridSize - textHeight / 2,
+                            textWidth, textHeight);
+                    graphics.FillRectangle(white, rect);
+                    graphics.DrawString(text, this.Font, darkRed, rect);
+                }
+            }
+#endif
+        }
+
         protected override void OnResize(EventArgs e)
         {
             base.OnResizeEnd(e);
@@ -180,17 +212,18 @@ namespace Five
             int x = (int)Math.Round((e.X - offset_x) / gridSize);
             int y = (int)Math.Round((e.Y - offset_y) / gridSize);
 
-            history.Add(board.Clone());
-            if (!board.TryPlace(board.NextChess, y, x))
-                history.RemoveAt(history.Count - 1);
-            else
+            if (board.TryPlace(board.NextChess, y, x))
             {
+                history.Add(board.Last);
                 if (board.GameOver)
                     GameOver(true);
                 else
                 {
-                    status = PlayStatus.ComputerThinking;
-                    timer1.Enabled = true;
+                    if (!disableComputer)
+                    {
+                        status = PlayStatus.ComputerThinking;
+                        timer1.Enabled = true;
+                    }
                     Invalidate();
                 }
             }
@@ -198,12 +231,20 @@ namespace Five
 
         private void newGameStripMenuItem_Click(object sender, EventArgs e)
         {
-            board = new ChessBoard();
-            board.Place(ChessType.Black, ChessCrawler.GetOpeningMove(board));
-            if (sender == blackToolStripMenuItem)
-                board.Place(ChessType.White, ChessCrawler.GetOpeningMove(board));
+            userChess = sender == blackToolStripMenuItem ? ChessType.Black : ChessType.White;
 
             history.Clear();
+
+            board = new ChessBoard();
+            board.Place(ChessType.Black, ChessCrawler.GetOpeningMove(board));
+            history.Add(board.Last);
+
+            if (userChess == ChessType.Black)
+            {
+                board.Place(ChessType.White, ChessCrawler.GetOpeningMove(board));
+                history.Add(board.Last);
+            }
+
             gameoverReasons = null;
             status = PlayStatus.WaitingUser;
             Invalidate();
@@ -211,30 +252,59 @@ namespace Five
 
         private void undoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (history.Count > 0)
+            Debug.Assert(history.Count == board.ChessCount);
+
+            if (disableComputer)
             {
-                board = history.Last().Clone();
-                history.RemoveAt(history.Count - 1);
-                gameoverReasons = null;
-                status = PlayStatus.WaitingUser;
-                Invalidate();
+                if (board.ChessCount > 1)
+                {
+                    history.RemoveAt(history.Count - 1);
+                    board.Undo(history[history.Count - 1]);
+                }
             }
+            else
+            {
+                if (userChess == ChessType.Black && board.ChessCount <= 2)
+                    return;
+                else if (userChess == ChessType.White && board.ChessCount <= 1)
+                    return;
+
+                do
+                {
+                    history.RemoveAt(history.Count - 1);
+                    board.Undo(history[history.Count - 1]);
+                }
+                while (board.LastChess == userChess);
+            }
+
+            gameoverReasons = null;
+            status = PlayStatus.WaitingUser;
+            Invalidate();
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (status != PlayStatus.ComputerThinking)
-                return;
             timer1.Enabled = false;
 
+            if (status != PlayStatus.ComputerThinking)
+                return;
+
+            ComputerThink();
+        }
+
+        private void ComputerThink()
+        {
+            Debug.Assert(!disableComputer);
+
             this.Cursor = Cursors.WaitCursor;
-            List<Point> moves = ChessCrawler.GetBestMove(board);
+            List<Coord> moves = ChessCrawler.GetBestMove(board);
             this.Cursor = Cursors.Default;
 
             if (moves != null)
             {
                 Debug.Assert(moves.Count > 0);
                 board.Place(board.NextChess, moves[0].Y, moves[0].X);
+                history.Add(board.Last);
                 if (board.GameOver)
                 {
                     GameOver(false);
@@ -252,11 +322,40 @@ namespace Five
 
             bool userIsBlack = (userMoveLast == (board.LastChess == ChessType.Black));
             bool userWin = (userIsBlack == board.Won);
-            gameoverReasons = ChessEvaluator.GetGameOverReasons(board);
+            gameoverReasons = board.Situation.GetGameOverReasons(board);
 
             status = PlayStatus.None;
             Invalidate();
-            MessageBox.Show(userWin ? "Congratulations, You Win!" : "You Lost!");
+
+            if (!disableComputer)
+            {
+                string message = userWin ? "Congratulations, You Win!" : "You Lost!";
+                MessageBox.Show(message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void exchangeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (status != PlayStatus.WaitingUser)
+                return;
+
+            userChess = ChessBoard.ReverseChess(userChess);
+            if (!disableComputer)
+            {
+                status = PlayStatus.ComputerThinking;
+                timer1.Enabled = true;
+            }
+        }
+
+        private void disableComputerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            disableComputer = !disableComputer;
+            disableComputerToolStripMenuItem.Checked = disableComputer;
         }
     }
 }

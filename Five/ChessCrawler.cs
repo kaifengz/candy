@@ -2,9 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Five
 {
@@ -24,12 +21,22 @@ namespace Five
             public ChessBoard Board;
             public Coord Move;
             public SearchNode Parent;
+            public int Depth;
+
+            public SearchNode(ChessBoard board)
+            {
+                Board = board;
+                Move = new Coord();
+                Parent = null;
+                Depth = 1;
+            }
 
             public SearchNode(ChessBoard board, int x, int y, SearchNode parent)
             {
                 Board = board;
                 Move = new Coord(x, y);
                 Parent = parent;
+                Depth = parent.Depth + 1;
             }
         }
 
@@ -41,13 +48,16 @@ namespace Five
             if (board.ChessCount < 3)
                 return new List<Coord>() { GetOpeningMove(board) };
 
-            SearchNode root = new SearchNode(board, 0, 0, null);
-            SearchNode leaf = MinMaxSearch(root, board.NextChess, 1, null);
-            Debug.Assert(leaf != null);
-
-            if (leaf.Parent == null)
+            SearchNode root = new SearchNode(board);
+            SearchNode leaf = MinMaxSearch(root, board.NextChess, MaxSearchDepth, null);
+            if (leaf == null)
                 return null;
 
+            return LeafNodeToPath(leaf);
+        }
+
+        private static List<Coord> LeafNodeToPath(SearchNode leaf)
+        {
             List<Coord> path = new List<Coord>();
             SearchNode node = leaf;
             do
@@ -65,7 +75,7 @@ namespace Five
             Debug.Assert(board.ChessCount < 3);
 
             int center = (ChessBoard.BoardSize - 1) / 2;
-            if (board.ChessCount == 1)
+            if (board.ChessCount == 0)
                 return new Coord(center, center);
             else
             {
@@ -80,7 +90,7 @@ namespace Five
             }
         }
 
-        protected static SearchNode MinMaxSearch(SearchNode node, ChessType chess, int depth, Score hint)
+        protected static SearchNode MinMaxSearch(SearchNode node, ChessType chess, int maxDepth, Score hint)
         {
             ChessBoard board = node.Board;
             List<SearchNode> children = new List<SearchNode>();
@@ -88,7 +98,7 @@ namespace Five
             {
                 for (int y = 0; y < ChessBoard.BoardSize; ++y)
                 {
-                    if (board[y][x] != ChessType.None)
+                    if (board.Get(x, y) != ChessType.None)
                         continue;
 
                     SearchNode child = new SearchNode(board.Clone(), x, y, node);
@@ -98,9 +108,9 @@ namespace Five
             }
 
             if (children.Count == 0)
-                return node;
+                return null;
 
-            if (depth >= MaxSearchDepth)
+            if (node.Depth >= maxDepth)
             {
                 Utility.Shuffle(children);
                 SortByScore(children, chess);
@@ -122,7 +132,7 @@ namespace Five
 
                 foreach (SearchNode child in children)
                 {
-                    SearchNode leaf = MinMaxSearch(child, ChessBoard.ReverseChess(chess), depth + 1, best?.Board.Score);
+                    SearchNode leaf = MinMaxSearch(child, ChessBoard.ReverseChess(chess), maxDepth, best?.Board.Score);
                     if (chess == ChessType.Black)
                     {
                         if (leaf.Board.Won)
@@ -154,10 +164,18 @@ namespace Five
 
         protected static void SortByScore(List<SearchNode> nodes, ChessType chess)
         {
-            if (chess == ChessType.Black)
-                nodes.Sort((a, b) => b.Board.Score.CompareTo(a.Board.Score));
-            else
-                nodes.Sort((a, b) => a.Board.Score.CompareTo(b.Board.Score));
+            int order_multiplier = chess == ChessType.Black ? -1 : +1;
+            Comparison<SearchNode> compare = delegate (SearchNode a, SearchNode b)
+            {
+                Score aScore = a.Board.Score;
+                Score bScore = b.Board.Score;
+                int cmp = order_multiplier * aScore.CompareTo(bScore);
+                if (cmp != 0)
+                    return cmp;
+                return ((chess == ChessType.Black) == aScore.Dominant) ? a.Depth - b.Depth : b.Depth - a.Depth;
+            };
+
+            nodes.Sort(compare);
         }
 
         protected static void Cutoff(ChessType chess, List<SearchNode> children, Score hint)
@@ -173,26 +191,23 @@ namespace Five
             [TestMethod]
             public void Test_Three()
             {
-                //   6 7 8 9 
-                // 5 . . . .
-                // 6 . b w . w
-                // 7 . B b w
-                // 8 . . . b
-                // 9 .
-                ChessBoard board = new ChessBoard();
-                board.Place(ChessType.Black, 7, 7);
-                board.Place(ChessType.White, 6, 8);
-                board.Place(ChessType.Black, 8, 9);
-                board.Place(ChessType.White, 6, 10);
-                board.Place(ChessType.Black, 7, 8);
-                board.Place(ChessType.White, 7, 9);
-                board.Place(ChessType.Black, 6, 7);
-
+                ChessBoard board = ChessBoard.InitializeFromString(
+                    "bw w\n" +
+                    "Bbw \n" +
+                    "  b \n");
                 List<Coord> moves = ChessCrawler.GetBestMove(board);
                 Assert.IsNotNull(moves);
                 Assert.IsTrue(moves.Count > 0);
                 Assert.IsTrue((moves[0].X == 6 && moves[0].Y == 5) ||
                               (moves[0].X == 10 && moves[0].Y == 9));
+            }
+
+            [TestMethod]
+            [Ignore]
+            public void Test_Performance()
+            {
+                for (int i = 0; i < 10; ++i)
+                    Test_Three();
             }
         }
     }

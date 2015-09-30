@@ -9,100 +9,371 @@ namespace Five
     using Coord = System.Drawing.Point;
     using Offset = System.Drawing.Point;
 
-    class ChessEvaluator
+    public enum PatternType
     {
-        enum PatternType
+        None = 0,
+        Two_S,
+        Two, // 可以进一步细化————比如说该活二的周围有五个还是六个可能的空间，以及该活二是挨着的还是跳开的
+        Three_S,
+        Three,
+        Four_S,
+        Four,
+        Five,
+        ToBeSixOrMore,
+        SixOrMore,
+        Max
+    }
+
+    public enum ForbiddenPointType
+    {
+        None,
+        DoubleThree,
+        DoubleFour,
+        SixOrMore,
+    }
+
+    [DebuggerDisplay("{chess} {start} - {end} {pattern}")]
+    public class Pattern : IComparable
+    {
+        public ChessType chess;
+        public Coord start, end;
+        public PatternType pattern;
+
+        public Pattern(ChessType chess_, Coord start_, Coord end_, PatternType pattern_)
         {
-            None = 0,
-            Two_S,
-            Two, // 可以进一步细化————比如说该活二的周围有五个还是六个可能的空间，以及该活二是挨着的还是跳开的
-            Three_S,
-            Three,
-            Four_S,
-            Four,
-            Five,
-            ToBeSixOrMore,
-            SixOrMore,
-            Max
+            chess = chess_;
+            start = start_;
+            end = end_;
+            pattern = pattern_;
         }
 
-        static readonly int[] patternScore = new int[]
+        public int CompareTo(object obj)
         {
-            0,      // None,
-            3,      // Two_S,
-            10,     // Two,
-            20,     // Three_S,
-            100,    // Three,
-            200,    // Four_S,
-            1000,   // Four,
-            0,      // Five, handled specially
-            -500,   // ToBeSixOrMore, partially handled specially
-            0,      // SixOrMore, handled specially
-        };
+            Pattern a = this, b = (Pattern)obj;
+            if (a.chess != b.chess)
+                return (int)a.chess - (int)b.chess;
+            if (a.start != b.start)
+                return a.start.X != b.start.X ? a.start.X - b.start.X : a.start.Y - b.start.Y;
+            if (a.end != b.end)
+                return a.end.X != b.end.X ? a.end.X - b.end.X : a.end.Y - b.end.Y;
+            return (int)a.pattern - (int)b.pattern;
+        }
 
-        enum ForbiddenPointType
+        public override bool Equals(object obj)
         {
-            None,
-            DoubleThree,
-            DoubleFour,
-            SixOrMore,
-        };
+            return CompareTo(obj) == 0;
+        }
 
-        const float firstHandSuperiority = 1.2f;
-
-        [DebuggerDisplay("{chess} {start} - {end} {pattern}")]
-        struct Pattern : IComparable
+        public override int GetHashCode()
         {
-            public ChessType chess;
-            public Coord start, end;
-            public PatternType pattern;
+            return base.GetHashCode();
+        }
 
-            public Pattern(ChessType chess_, Coord start_, Coord end_, PatternType pattern_)
+        public bool CoverCoord(Coord coord)
+        {
+            if (coord == start)
+                return true;
+
+            int dx1 = start.X - coord.X;
+            int dx2 = coord.X - end.X;
+            int dy1 = start.Y - coord.Y;
+            int dy2 = coord.Y - end.Y;
+
+            bool in_same_line = (dx1 * dy2 == dx2 * dy1);
+            bool x_in_range = (dx1 * dx2 > 0);
+            bool y_in_range = (dy1 * dy2 > 0);
+            return in_same_line && (x_in_range || y_in_range);
+        }
+
+        public bool InSameLine(Coord coord)
+        {
+            int dx1 = start.X - coord.X;
+            int dx2 = coord.X - end.X;
+            int dy1 = start.Y - coord.Y;
+            int dy2 = coord.Y - end.Y;
+
+            bool in_same_line = (dx1 * dy2 == dx2 * dy1);
+            return in_same_line;
+        }
+
+        public IEnumerable<Coord> AllCoord(ChessBoard board)
+        {
+            int ox = Math.Sign(end.X - start.X);
+            int oy = Math.Sign(end.Y - start.Y);
+
+            for (int i = 0; ; ++i)
             {
-                chess = chess_;
-                start = start_;
-                end = end_;
-                pattern = pattern_;
-            }
-
-            public int CompareTo(object obj)
-            {
-                Pattern a = this, b = (Pattern)obj;
-                if (a.chess != b.chess)
-                    return (int)a.chess - (int)b.chess;
-                if (a.start != b.start)
-                    return a.start.X != b.start.X ? a.start.X - b.start.X : a.start.Y - b.start.Y;
-                if (a.end != b.end)
-                    return a.end.X != b.end.X ? a.end.X - b.end.X : a.end.Y - b.end.Y;
-                return (int)a.pattern - (int)b.pattern;
-            }
-
-            public bool CoverCoord(Coord coord)
-            {
-                int dx1 = start.X - coord.X;
-                int dx2 = coord.X - end.X;
-                int dy1 = start.Y - coord.Y;
-                int dy2 = coord.Y - end.Y;
-                bool x_in_range = (dx1 == 0 && dx2 == 0) || (dx1 * dx2 > 0);
-                bool y_in_range = (dy1 == 0 && dy2 == 0) || (dy1 * dy2 > 0);
-                return (x_in_range && y_in_range) || (dx1 == 0 && dy1 == 0);
-            }
-
-            public IEnumerable<Coord> AllCoord()
-            {
-                int ox = Math.Sign(end.X - start.X);
-                int oy = Math.Sign(end.Y - start.Y);
-
-                for (int i = 0; ; ++i)
-                {
-                    Coord coord = new Coord(start.X + ox * i, start.Y + oy * i);
-                    if (coord == end)
-                        break;
+                Coord coord = new Coord(start.X + ox * i, start.Y + oy * i);
+                if (coord == end)
+                    break;
+                if (board[coord] == this.chess)
                     yield return coord;
+            }
+        }
+
+        [TestClass]
+        public class UnitTest
+        {
+            [TestMethod]
+            public void Test_CoverCoord()
+            {
+                Pattern p = new Pattern(ChessType.Black, new Coord(7, 7), new Coord(11, 11), PatternType.Four);
+
+                for (int i = 7; i < 11; ++i)
+                {
+                    Assert.IsTrue(p.CoverCoord(new Coord(i, i)));
+                    Assert.IsFalse(p.CoverCoord(new Coord(i, i + 1)));
+                    Assert.IsFalse(p.CoverCoord(new Coord(i, i - 1)));
+                    Assert.IsFalse(p.CoverCoord(new Coord(i - 1, i)));
+                    Assert.IsFalse(p.CoverCoord(new Coord(i + 1, i)));
+                }
+                Assert.IsFalse(p.CoverCoord(new Coord(6, 6)));
+                Assert.IsFalse(p.CoverCoord(new Coord(11, 11)));
+            }
+
+            [TestMethod]
+            public void Test_InSameLine()
+            {
+                Pattern p = new Pattern(ChessType.Black, new Coord(7, 7), new Coord(11, 11), PatternType.Four);
+
+                for (int i = 7; i < 11; ++i)
+                {
+                    Assert.IsTrue(p.InSameLine(new Coord(i, i)));
+                    Assert.IsFalse(p.InSameLine(new Coord(i, i + 1)));
+                    Assert.IsFalse(p.InSameLine(new Coord(i, i - 1)));
+                    Assert.IsFalse(p.InSameLine(new Coord(i - 1, i)));
+                    Assert.IsFalse(p.InSameLine(new Coord(i + 1, i)));
+                }
+                Assert.IsTrue(p.InSameLine(new Coord(6, 6)));
+                Assert.IsTrue(p.InSameLine(new Coord(11, 11)));
+            }
+        }
+    }
+
+    public class Situation
+    {
+        public IEnumerable<Pattern> BlackPatterns
+        {
+            get
+            {
+                return blacks;
+            }
+        }
+
+        public IEnumerable<Pattern> WhitePatterns
+        {
+            get
+            {
+                return whites;
+            }
+        }
+
+        public ChessType LastChess
+        {
+            get; private set;
+        }
+
+        public ChessType NextChess
+        {
+            get; private set;
+        }
+
+        public bool GameOver
+        {
+            get
+            {
+                return Won || Lost;
+            }
+        }
+
+        public bool Won
+        {
+            get
+            {
+                return blackFive != null && ForbiddenPointType == ForbiddenPointType.None;
+            }
+        }
+
+        public bool Lost
+        {
+            get
+            {
+                return whiteFive != null || ForbiddenPointType != ForbiddenPointType.None;
+            }
+        }
+
+        public ForbiddenPointType ForbiddenPointType
+        {
+            get; private set;
+        }
+
+        public IEnumerable<Pattern> ForbiddenPointInvolvements
+        {
+            get
+            {
+                if (forbiddenPointInvolvements == null)
+                    forbiddenPointInvolvements = new List<Pattern>();
+                return forbiddenPointInvolvements;
+            }
+        }
+
+        public List<Coord> GetGameOverReasons(ChessBoard board)
+        {
+            Debug.Assert(GameOver);
+            if (Won)
+                return blackFive.AllCoord(board).ToList();
+            else
+            {
+                Debug.Assert(Lost);
+                if (whiteFive != null)
+                    return whiteFive.AllCoord(board).ToList();
+                else
+                {
+                    List<Coord> reasons = new List<Coord>();
+                    foreach (Pattern ptn in forbiddenPointInvolvements)
+                        reasons.AddRange(ptn.AllCoord(board));
+                    return reasons;
                 }
             }
         }
 
+        private List<Pattern> blacks = new List<Pattern>();
+        private List<Pattern> whites = new List<Pattern>();
+        private List<Pattern>[] blacksByType = new List<Pattern>[(int)PatternType.Max];
+        private List<Pattern>[] whitesByType = new List<Pattern>[(int)PatternType.Max];
+        private List<Pattern> forbiddenPointInvolvements = null;
+        private Pattern blackFive = null;
+        private Pattern whiteFive = null;
+
+        private static bool[] forbiddenPointRelevant = new bool[(int)PatternType.Max] {
+            // None, Two_S, Two, Three_S, Three, Four_S, Four, Five, ToBeSixOrMore, SixOrMore
+            false, false, false, false, true, true, true, false, false, true,
+        };
+
+        public Situation(IEnumerable<Pattern> patterns, ChessType lastChess, Coord last)
+        {
+            if (lastChess == ChessType.None)
+                return;
+
+            LastChess = lastChess;
+            NextChess = ChessBoard.ReverseChess(lastChess);
+
+            List<Pattern>[] lastInvolvedPatterns = lastChess == ChessType.Black ? new List<Pattern>[(int)PatternType.Max] : null;
+            for (int idx = 0; idx < (int)PatternType.Max; ++idx)
+            {
+                blacksByType[idx] = new List<Pattern>();
+                whitesByType[idx] = new List<Pattern>();
+                if (lastChess == ChessType.Black && forbiddenPointRelevant[idx])
+                    lastInvolvedPatterns[idx] = new List<Pattern>();
+            }
+
+            foreach (Pattern ptn in patterns)
+            {
+                int ptn_idx = (int)ptn.pattern;
+
+                if (ptn.chess == ChessType.Black)
+                {
+                    blacks.Add(ptn);
+                    blacksByType[ptn_idx].Add(ptn);
+                    if (lastChess == ChessType.Black && forbiddenPointRelevant[ptn_idx] && ptn.CoverCoord(last))
+                        lastInvolvedPatterns[ptn_idx].Add(ptn);
+                    if (ptn.pattern == PatternType.Five)
+                        blackFive = ptn;
+                }
+                else
+                {
+                    Debug.Assert(ptn.chess == ChessType.White);
+                    whites.Add(ptn);
+                    whitesByType[ptn_idx].Add(ptn);
+                    if (ptn.pattern == PatternType.Five || ptn.pattern == PatternType.SixOrMore)
+                        whiteFive = ptn;
+                }
+            }
+
+            if (lastChess == ChessType.White)
+            {
+                ForbiddenPointType = ForbiddenPointType.None;
+                forbiddenPointInvolvements = null;
+            }
+            else if (lastInvolvedPatterns[(int)PatternType.Three].Count >= 2)
+            {
+                ForbiddenPointType = ForbiddenPointType.DoubleThree;
+                forbiddenPointInvolvements = lastInvolvedPatterns[(int)PatternType.Three];
+            }
+            else if (lastInvolvedPatterns[(int)PatternType.Four].Count + lastInvolvedPatterns[(int)PatternType.Four_S].Count >= 2)
+            {
+                ForbiddenPointType = ForbiddenPointType.DoubleFour;
+                forbiddenPointInvolvements = new List<Pattern>();
+                forbiddenPointInvolvements.AddRange(lastInvolvedPatterns[(int)PatternType.Four]);
+                forbiddenPointInvolvements.AddRange(lastInvolvedPatterns[(int)PatternType.Four_S]);
+            }
+            else if (lastInvolvedPatterns[(int)PatternType.SixOrMore].Count >= 1)
+            {
+                ForbiddenPointType = ForbiddenPointType.SixOrMore;
+                forbiddenPointInvolvements = lastInvolvedPatterns[(int)PatternType.SixOrMore];
+            }
+            else
+            {
+                ForbiddenPointType = ForbiddenPointType.None;
+                forbiddenPointInvolvements = null;
+            }
+        }
+
+        [TestClass]
+        public class UnitTest
+        {
+            [TestMethod]
+            public void Test_IsForbiddenPoint()
+            {
+                var cases = new List<Tuple<string, bool>>
+                {
+                    // 眠三 + 活三
+                    Tuple.Create("wbBb\n" +
+                                 "w b \n" +
+                                 " wbw\n",
+                                 false),
+                    // 双活三
+                    Tuple.Create(" Bbb\n" +
+                                 "w b \n" +
+                                 "wwwb\n",
+                                 true),
+                    // 四三
+                    Tuple.Create("wBbbb\n" +
+                                 "w b  \n" +
+                                 "wwwb \n",
+                                 false),
+                    // 四四
+                    Tuple.Create("wbbbB\n" +
+                                 " wwb \n" +
+                                 " wbw \n" +
+                                 " bw  \n",
+                                 true),
+                    // 另一种四四
+                    Tuple.Create("wb bBb bw\n" +
+                                 "   www   \n",
+                                 true),
+                    // 长连
+                    Tuple.Create("Bbbbbb", true),
+                    // 三三
+                    Tuple.Create("b   \n" +
+                                 "Bww \n" +
+                                 " bw \n" +
+                                 "b bw\n",
+                                 true),
+                };
+
+                foreach (var c in cases)
+                {
+                    ChessBoard board = ChessBoard.InitializeFromString(c.Item1);
+                    Situation s = SituationAnalyzer.Analyze(board);
+                    Assert.AreEqual(c.Item2, s.ForbiddenPointType != ForbiddenPointType.None);
+                }
+            }
+        }
+    }
+
+    class SituationAnalyzer
+    {
         static readonly Offset[] directions = new Offset[]
         {
             new Offset(-1, -1),
@@ -121,6 +392,37 @@ namespace Five
             new Offset(+1, 0),
             new Offset(+1, -1),
         };
+
+        public static Situation Analyze(ChessBoard board)
+        {
+            return new Situation(GetBoardPatterns(board).ToList(), board.LastChess, board.Last);
+        }
+
+        public static Situation Update(ChessBoard board, Situation situation, IEnumerable<Coord> moves)
+        {
+            List<Pattern> patterns = new List<Pattern>();
+            patterns.AddRange(situation.BlackPatterns);
+            patterns.AddRange(situation.WhitePatterns);
+
+            foreach (Coord move in moves)
+            {
+                List<Pattern> newPatterns = new List<Pattern>();
+                foreach (Pattern ptn in patterns)
+                {
+                    if (!ptn.InSameLine(move))
+                        newPatterns.Add(ptn);
+                }
+
+                foreach (Pattern ptn in GetCoordPatterns(board, move))
+                {
+                    newPatterns.Add(ptn);
+                }
+
+                patterns = newPatterns;
+            }
+
+            return new Situation(patterns, board.LastChess, board.Last);
+        }
 
         static IEnumerable<Pattern> GetBoardPatterns(ChessBoard board)
         {
@@ -165,7 +467,7 @@ namespace Five
                 if (curr.X < 0 || curr.X >= ChessBoard.BoardSize || curr.Y < 0 || curr.Y >= ChessBoard.BoardSize)
                     break;
 
-                ChessType curr_chess = board[curr.Y][curr.X];
+                ChessType curr_chess = board[curr];
                 if (curr_chess == ChessType.None)
                 {
                     if (next_space_start < 0)
@@ -357,129 +659,6 @@ namespace Five
             }
         }
 
-        public static bool IsForbiddenPoint(ChessBoard board, Coord coord)
-        {
-            ChessType chess = board[coord];
-            if (chess != ChessType.Black)
-                // 禁手只针对黑棋
-                return false;
-
-            return IsForbiddenPoint(GetCoordPatterns(board, coord)) != ForbiddenPointType.None;
-        }
-
-        private static ForbiddenPointType IsForbiddenPoint(IEnumerable<Pattern> patterns)
-        {
-            int[] patternCount = new int[(int)PatternType.Max];
-            foreach (var p in patterns)
-            {
-                patternCount[(int)p.pattern]++;
-                ForbiddenPointType type = GetForbiddenPointType(patternCount);
-                if (type != ForbiddenPointType.None)
-                    return type;
-            }
-
-            return ForbiddenPointType.None;
-        }
-
-        private static ForbiddenPointType GetForbiddenPointType(int[] patternCount)
-        {
-            // 同时形成两个以上的活三
-            if (patternCount[(int)PatternType.Three] >= 2)
-                return ForbiddenPointType.DoubleThree;
-
-            // 同时形成两个以上的四
-            if (patternCount[(int)PatternType.Four_S] + patternCount[(int)PatternType.Four] >= 2)
-                return ForbiddenPointType.DoubleFour;
-
-            // 长连
-            if (patternCount[(int)PatternType.SixOrMore] > 0)
-                return ForbiddenPointType.SixOrMore;
-
-            return ForbiddenPointType.None;
-        }
-
-        public static List<Coord> GetGameOverReasons(ChessBoard board)
-        {
-            List<Pattern> patterns = GetCoordPatterns(board, board.Last).ToList();
-
-            if (board.LastChess == ChessType.Black)
-            {
-                List<Pattern> coord_patterns = new List<Pattern>();
-                foreach (Pattern p in patterns)
-                {
-                    if (p.CoverCoord(board.Last))
-                        coord_patterns.Add(p);
-                }
-
-                List<Coord> reasons = new List<Coord>();
-                switch (IsForbiddenPoint(coord_patterns))
-                {
-                    case ForbiddenPointType.DoubleThree:
-                        foreach (Pattern p in coord_patterns)
-                            if (p.pattern == PatternType.Three)
-                                reasons.AddRange(p.AllCoord());
-                        return reasons;
-
-                    case ForbiddenPointType.DoubleFour:
-                        foreach (Pattern p in coord_patterns)
-                            if (p.pattern == PatternType.Four || p.pattern == PatternType.Four_S)
-                                reasons.AddRange(p.AllCoord());
-                        return reasons;
-
-                    case ForbiddenPointType.SixOrMore:
-                        foreach (Pattern p in coord_patterns)
-                            if (p.pattern == PatternType.SixOrMore)
-                                reasons.AddRange(p.AllCoord());
-                        return reasons;
-                }
-            }
-
-            foreach (Pattern p in patterns)
-            {
-                if (p.pattern == PatternType.Five || p.pattern == PatternType.SixOrMore)
-                    return p.AllCoord().ToList();
-            }
-
-            return null;
-        }
-
-        public static Score Evaluate(ChessBoard board)
-        {
-            bool checkForbiddenPoint = (board.LastChess == ChessType.Black);
-            int[] patternCount = new int[(int)PatternType.Max];
-
-            float[] scores = new float[] { 0, 0, 0 };
-            foreach (var ptn in GetBoardPatterns(board))
-            {
-                PatternType pattern = ptn.pattern;
-                Debug.Assert((int)pattern < patternScore.Length);
-
-                if (pattern == PatternType.Five)
-                    return ptn.chess == ChessType.Black ? Score.Won : Score.Lost;
-
-                if (pattern == PatternType.SixOrMore)
-                    return Score.Lost;
-
-                if (pattern == PatternType.ToBeSixOrMore)
-                {
-                    if (ptn.chess == ChessType.White)
-                        pattern = PatternType.Four_S;
-                }
-                scores[(int)ptn.chess] += patternScore[(int)pattern];
-
-                if (checkForbiddenPoint && ptn.CoverCoord(board.Last))
-                {
-                    patternCount[(int)ptn.pattern]++;
-                    if (GetForbiddenPointType(patternCount) != ForbiddenPointType.None)
-                        return Score.Lost;
-                }
-            }
-
-            scores[(int)board.NextChess] *= firstHandSuperiority;
-
-            return new Score(scores[(int)ChessType.Black] - scores[(int)ChessType.White]);
-        }
-
         [TestClass]
         public class UnitTest
         {
@@ -534,8 +713,8 @@ namespace Five
                 foreach (var c in cases)
                 {
                     bool[] ptn = ToBooleanArray(c.Item1);
-                    Assert.AreEqual(c.Item2, ChessEvaluator.GetStrictLinePattern(ptn, 0, ptn.Length, 1, 10));
-                    Assert.AreEqual(c.Item3, ChessEvaluator.GetStrictLinePattern(ptn, 0, ptn.Length, 0, 10));
+                    Assert.AreEqual(c.Item2, SituationAnalyzer.GetStrictLinePattern(ptn, 0, ptn.Length, 1, 10));
+                    Assert.AreEqual(c.Item3, SituationAnalyzer.GetStrictLinePattern(ptn, 0, ptn.Length, 0, 10));
                 }
             }
 
@@ -646,59 +825,13 @@ namespace Five
                     };
                     foreach (var subcase in subcases)
                     {
-                        var results = ChessEvaluator.GetLinePatterns(ptn, 0, ptn.Length, subcase.Item1, 10).ToList();
+                        var results = SituationAnalyzer.GetLinePatterns(ptn, 0, ptn.Length, subcase.Item1, 10).ToList();
                         results.Sort();
                         Assert.AreEqual(subcase.Item2.Count, results.Count);
                         for (int i = 0; i < results.Count; ++i)
                             Assert.AreEqual(subcase.Item2[i], results[i]);
                     }
                 }
-            }
-
-            protected ChessBoard ToChessBoard(string s)
-            {
-                if (s.EndsWith("\n"))
-                    s = s.Substring(0, s.Length - 1);
-
-                Coord origin = new Coord(-1, -1);
-                string[] lines = s.Split('\n');
-                int height = lines.Length;
-                int width = lines[0].Length;
-                Assert.IsTrue(height <= 15 && width <= 15, "too many lines or columns");
-                for (int y = 0; y < height; ++y)
-                {
-                    Assert.AreEqual(width, lines[y].Length, "mixed lengths of lines");
-                    int x = lines[y].IndexOf('B');
-                    if (x >= 0)
-                    {
-                        Assert.IsTrue(origin.X < 0, "More than one origin is found");
-                        origin.X = x;
-                        origin.Y = y;
-                    }
-                }
-                Assert.IsTrue(origin.X >= 0, "The origin is not found");
-                Assert.IsTrue(origin.X <= 7 && origin.X + 8 >= width &&
-                              origin.Y <= 7 && origin.Y + 8 >= height,
-                              "The origin is incorrectly placed");
-
-                ChessBoard board = new ChessBoard();
-                for (int y = 0; y < height; ++y)
-                {
-                    for (int x = 0; x < width; ++x)
-                    {
-                        ChessType chess = ChessType.None;
-                        char c = lines[y][x];
-                        if (c == 'b' || c == 'B')
-                            chess = ChessType.Black;
-                        else if (c == 'w' || c == 'W')
-                            chess = ChessType.White;
-                        else
-                            continue;
-                        board.Place(chess, y + 7 - origin.Y, x + 7 - origin.X, true);
-                    }
-                }
-
-                return board;
             }
 
             [TestMethod]
@@ -718,8 +851,8 @@ namespace Five
                     new Pattern(ChessType.White, new Coord(6, 9), new Coord(8, 9), PatternType.Two),
                 };
 
-                ChessBoard board = ToChessBoard(board_str);
-                var results = ChessEvaluator.GetBoardPatterns(board).ToList();
+                ChessBoard board = ChessBoard.InitializeFromString(board_str);
+                var results = SituationAnalyzer.GetBoardPatterns(board).ToList();
                 results.Sort();
 
                 expected_patterns.Sort();
@@ -727,48 +860,51 @@ namespace Five
                 for (int i = 0; i < results.Count; ++i)
                     Assert.AreEqual(expected_patterns[i], results[i]);
             }
+        }
+    }
 
-            [TestMethod]
-            public void Test_IsForbiddenPoint()
-            {
-                var cases = new List<Tuple<string, bool>>
-                {
-                    // 眠三 + 活三
-                    Tuple.Create("wbBb\n" +
-                                 "w b \n" +
-                                 " wbw\n",
-                                 false),
-                    // 双活三
-                    Tuple.Create(" Bbb\n" +
-                                 "w b \n" +
-                                 "wwwb\n",
-                                 true),
-                    // 四三
-                    Tuple.Create("wBbbb\n" +
-                                 "w b  \n" +
-                                 "wwwb \n",
-                                 false),
-                    // 四四
-                    Tuple.Create("wbbbB\n" +
-                                 " wwb \n" +
-                                 " wbw \n" +
-                                 " bw  \n",
-                                 true),
-                    // 另一种四四
-                    Tuple.Create("wb bBb bw\n" +
-                                 "   www   \n",
-                                 true),
-                    // 长连
-                    Tuple.Create("Bbbbbb", true),
-                };
+    public class ScoreEstimator
+    {
+        static readonly int[] patternScore = new int[]
+        {
+            0,      // None,
+            3,      // Two_S,
+            10,     // Two,
+            20,     // Three_S,
+            100,    // Three,
+            200,    // Four_S,
+            1000,   // Four,
+            0,      // Five, handled specially
+            -500,   // ToBeSixOrMore, partially handled specially
+            0,      // SixOrMore, handled specially
+        };
 
-                foreach (var c in cases)
-                {
-                    ChessBoard board = ToChessBoard(c.Item1);
-                    bool is_forbidden_point = ChessEvaluator.IsForbiddenPoint(board, new Coord(7, 7));
-                    Assert.AreEqual(c.Item2, is_forbidden_point);
-                }
-            }
+        const float firstHandSuperiority = 1.2f;
+
+        public static Score Estimate(Situation situation)
+        {
+            if (situation.Won)
+                return Score.Won;
+            if (situation.Lost)
+                return Score.Lost;
+
+            float blackScore = SumPatternScores(situation.BlackPatterns);
+            float whiteScore = SumPatternScores(situation.WhitePatterns);
+
+            if (situation.NextChess == ChessType.Black)
+                blackScore *= firstHandSuperiority;
+            else
+                whiteScore *= firstHandSuperiority;
+
+            return new Score(blackScore - whiteScore);
+        }
+
+        private static float SumPatternScores(IEnumerable<Pattern> patterns)
+        {
+            float score = 0;
+            foreach (Pattern ptn in patterns)
+                score += patternScore[(int)ptn.pattern];
+            return score;
         }
     }
 }

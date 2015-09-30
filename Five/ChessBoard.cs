@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Diagnostics;
+using System.Collections.Generic;
 
 namespace Five
 {
@@ -14,15 +15,14 @@ namespace Five
 
         private ChessType[][] rows;
         private int chessCount;
+        private Situation situation;
         private Score score;
         private Coord last;
+        private List<Coord> movesAfterAnalyzedSituation;
 
-        public ChessType[] this[int row]
+        public ChessType Get(int x, int y)
         {
-            get
-            {
-                return rows[row];
-            }
+            return rows[y][x];
         }
 
         public ChessType this[Coord coord]
@@ -60,8 +60,11 @@ namespace Five
             for (int row = 0; row < BoardSize; ++row)
                 rows[row] = new ChessType[BoardSize];
             chessCount = 0;
+            situation = null;
             score = null;
             last = new Coord();
+            if (movesAfterAnalyzedSituation != null)
+                movesAfterAnalyzedSituation.Clear();
         }
 
         public void Place(ChessType chess, Coord coord, bool dont_validate_order = false)
@@ -87,6 +90,43 @@ namespace Five
             chessCount++;
             score = null;
             last = new Coord(column, row);
+            if (movesAfterAnalyzedSituation == null)
+                movesAfterAnalyzedSituation = new List<Coord>();
+            movesAfterAnalyzedSituation.Add(last);
+            return true;
+        }
+
+        public bool Undo(Coord new_last)
+        {
+            if (chessCount <= 0)
+                return false;
+
+            Debug.Assert(!last.IsEmpty && this[last] != ChessType.None);
+            if (chessCount > 1)
+            {
+                if (new_last.IsEmpty || this[new_last] != reversedChess[(int)this[last]])
+                    return false;
+            }
+            else
+            {
+                if (!new_last.IsEmpty)
+                    return false;
+            }
+
+            if (movesAfterAnalyzedSituation != null && movesAfterAnalyzedSituation.Count > 0)
+            {
+                Debug.Assert(movesAfterAnalyzedSituation[movesAfterAnalyzedSituation.Count - 1] == last);
+                movesAfterAnalyzedSituation.RemoveAt(movesAfterAnalyzedSituation.Count - 1);
+            }
+            else
+            {
+                situation = null;
+            }
+
+            rows[last.Y][last.X] = ChessType.None;
+            last = new_last;
+            chessCount--;
+            score = null;
             return true;
         }
 
@@ -99,9 +139,26 @@ namespace Five
                     cloned.rows[y][x] = rows[y][x];
             }
             cloned.chessCount = chessCount;
+            cloned.situation = situation;
+            cloned.movesAfterAnalyzedSituation = new List<Coord>(movesAfterAnalyzedSituation);
             cloned.score = score;
             cloned.last = last;
             return cloned;
+        }
+
+        public Situation Situation
+        {
+            get
+            {
+                if (situation == null)
+                    situation = SituationAnalyzer.Analyze(this);
+                else if (movesAfterAnalyzedSituation != null && movesAfterAnalyzedSituation.Count > 0)
+                {
+                    situation = SituationAnalyzer.Update(this, situation, movesAfterAnalyzedSituation);
+                    movesAfterAnalyzedSituation.Clear();
+                }
+                return situation;
+            }
         }
 
         public Score Score
@@ -109,7 +166,7 @@ namespace Five
             get
             {
                 if (score == null)
-                    score = ChessEvaluator.Evaluate(this);
+                    score = ScoreEstimator.Estimate(Situation);
                 return score;
             }
         }
@@ -160,12 +217,52 @@ namespace Five
             return reversedChess[(int)chess];
         }
 
-        public void InitializeForTest()
+        public static ChessBoard InitializeFromString(string s, Coord? last = null)
         {
-            ResetBoard();
-            Place(ChessType.Black, 7, 7);
-            Place(ChessType.White, 6, 8);
-            Place(ChessType.Black, 8, 9);
+            if (s.EndsWith("\n"))
+                s = s.Substring(0, s.Length - 1);
+
+            Coord origin = new Coord(-1, -1);
+            string[] lines = s.Split('\n');
+            int height = lines.Length;
+            int width = lines[0].Length;
+            Debug.Assert(height <= 15 && width <= 15, "too many lines or columns");
+            for (int y = 0; y < height; ++y)
+            {
+                Debug.Assert(width == lines[y].Length, "mixed lengths of lines");
+                int x = lines[y].IndexOf('B');
+                if (x >= 0)
+                {
+                    Debug.Assert(origin.X < 0, "More than one origin is found");
+                    origin.X = x;
+                    origin.Y = y;
+                }
+            }
+            Debug.Assert(origin.X >= 0, "The origin is not found");
+            Debug.Assert(origin.X <= 7 && origin.X + 8 >= width &&
+                         origin.Y <= 7 && origin.Y + 8 >= height,
+                         "The origin is incorrectly placed");
+
+            ChessBoard board = new ChessBoard();
+            for (int y = 0; y < height; ++y)
+            {
+                for (int x = 0; x < width; ++x)
+                {
+                    ChessType chess = ChessType.None;
+                    char c = lines[y][x];
+                    if (c == 'b' || c == 'B')
+                        chess = ChessType.Black;
+                    else if (c == 'w' || c == 'W')
+                        chess = ChessType.White;
+                    else
+                        continue;
+                    board.Place(chess, y + 7 - origin.Y, x + 7 - origin.X, true);
+                }
+            }
+
+            // force the center be the last move for the testing purpose
+            board.last = last ?? new Coord(7, 7);
+            return board;
         }
     }
 
@@ -191,7 +288,7 @@ namespace Five
     public class Score : IComparable
     {
         public ScoreCategory Category { get; private set; }
-        float score = 0;
+        public float score { get; private set; }
 
         public static readonly Score Won = new Score(0, ScoreCategory.Won);
         public static readonly Score Lost = new Score(0, ScoreCategory.Lost);
@@ -225,6 +322,15 @@ namespace Five
 
             Debug.Assert(false);
             return 0;
+        }
+
+        public bool Dominant
+        {
+            get
+            {
+                return Category == ScoreCategory.Won ||
+                       (Category == ScoreCategory.Estimated && score >= 0.0);
+            }
         }
 
         public static bool operator <(Score a, Score b)
