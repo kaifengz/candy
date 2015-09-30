@@ -27,8 +27,7 @@ BOOL CPurlerBar::Initialize(double x, double y,
 	return TRUE;
 }
 
-BOOL CPurlerBar::Draw(HDC hDC, int xDrawOffset, int yDrawOffset,
-		int nScreenWidth, int nScreenHeight) const
+BOOL CPurlerBar::Draw(HDC hDC, int xDrawOffset, int yDrawOffset, RECT screen) const
 {
 	const double x = xDrawOffset + this->barycenter.x;
 	const double y = yDrawOffset + this->barycenter.y;
@@ -57,21 +56,21 @@ BOOL CPurlerBar::Draw(HDC hDC, int xDrawOffset, int yDrawOffset,
 
 	BeginPath(hDC);
 	MoveToEx(hDC,
-		X_SPACE_TO_SCREEN(RoundToInt(x_vertex_1), nScreenWidth),
-		Y_SPACE_TO_SCREEN(RoundToInt(y_vertex_1), nScreenHeight),
+		X_SPACE_TO_SCREEN(RoundToInt(x_vertex_1), screen),
+		Y_SPACE_TO_SCREEN(RoundToInt(y_vertex_1), screen),
 		NULL);
 	LineTo(hDC,
-		X_SPACE_TO_SCREEN(RoundToInt(x_vertex_2), nScreenWidth),
-		Y_SPACE_TO_SCREEN(RoundToInt(y_vertex_2), nScreenHeight));
+		X_SPACE_TO_SCREEN(RoundToInt(x_vertex_2), screen),
+		Y_SPACE_TO_SCREEN(RoundToInt(y_vertex_2), screen));
 	LineTo(hDC,
-		X_SPACE_TO_SCREEN(RoundToInt(x_vertex_3), nScreenWidth),
-		Y_SPACE_TO_SCREEN(RoundToInt(y_vertex_3), nScreenHeight));
+		X_SPACE_TO_SCREEN(RoundToInt(x_vertex_3), screen),
+		Y_SPACE_TO_SCREEN(RoundToInt(y_vertex_3), screen));
 	LineTo(hDC,
-		X_SPACE_TO_SCREEN(RoundToInt(x_vertex_4), nScreenWidth),
-		Y_SPACE_TO_SCREEN(RoundToInt(y_vertex_4), nScreenHeight));
+		X_SPACE_TO_SCREEN(RoundToInt(x_vertex_4), screen),
+		Y_SPACE_TO_SCREEN(RoundToInt(y_vertex_4), screen));
 	LineTo(hDC,
-		X_SPACE_TO_SCREEN(RoundToInt(x_vertex_1), nScreenWidth),
-		Y_SPACE_TO_SCREEN(RoundToInt(y_vertex_1), nScreenHeight));
+		X_SPACE_TO_SCREEN(RoundToInt(x_vertex_1), screen),
+		Y_SPACE_TO_SCREEN(RoundToInt(y_vertex_1), screen));
 	EndPath(hDC);
 	FillPath(hDC);
 
@@ -100,16 +99,15 @@ CPurlerNail::CPurlerNail(double x, double y, double radius, double mass, COLORRE
 	this->color = color;
 }
 
-BOOL CPurlerNail::Draw(HDC hDC, int xDrawOffset, int yDrawOffset,
-		int nScreenWidth, int nScreenHeight) const
+BOOL CPurlerNail::Draw(HDC hDC, int xDrawOffset, int yDrawOffset, RECT screen) const
 {
 	const double x = xDrawOffset + this->barycenter.x;
 	const double y = yDrawOffset + this->barycenter.y;
 
 	if (x + this->radius <= 0 ||
-		x - this->radius >= nScreenWidth ||
+		x - this->radius >= screen.right - screen.left ||
 		y + this->radius <= 0 ||
-		y - this->radius >= nScreenHeight)
+		y - this->radius >= screen.bottom - screen.top)
 	{
 		// out of screen, does not need to draw
 		return TRUE;
@@ -121,10 +119,10 @@ BOOL CPurlerNail::Draw(HDC hDC, int xDrawOffset, int yDrawOffset,
 	HPEN hOldPen = (HPEN)SelectObject(hDC, hPen);
 
 	Ellipse(hDC,
-		X_SPACE_TO_SCREEN(RoundToInt(x - radius), nScreenWidth),
-		Y_SPACE_TO_SCREEN(RoundToInt(y - radius), nScreenHeight),
-		X_SPACE_TO_SCREEN(RoundToInt(x + radius), nScreenWidth),
-		Y_SPACE_TO_SCREEN(RoundToInt(y + radius), nScreenHeight));
+		X_SPACE_TO_SCREEN(RoundToInt(x - radius), screen),
+		Y_SPACE_TO_SCREEN(RoundToInt(y - radius), screen),
+		X_SPACE_TO_SCREEN(RoundToInt(x + radius), screen),
+		Y_SPACE_TO_SCREEN(RoundToInt(y + radius), screen));
 
 	SelectObject(hDC, hOldPen);
 	SelectObject(hDC, hOldBrush);
@@ -152,20 +150,19 @@ void CPurlerBoundary::Initialize(double width, double height, COLORREF color)
 	this->color = color;
 }
 
-BOOL CPurlerBoundary::Draw(HDC hDC, int xDrawOffset, int yDrawOffset,
-		int nScreenWidth, int nScreenHeight) const
+BOOL CPurlerBoundary::Draw(HDC hDC, int xDrawOffset, int yDrawOffset, RECT screen) const
 {
-	const int xLeft = RoundToInt(xDrawOffset + this->left);
-	const int xRight = RoundToInt(xDrawOffset + this->right);
+	const int xLeft = screen.left + RoundToInt(xDrawOffset + this->left);
+	const int xRight = screen.left + RoundToInt(xDrawOffset + this->right);
 
 	HPEN hPen = CreatePen(PS_SOLID, 1, this->color);
 	HPEN hOldPen = (HPEN)SelectObject(hDC, hPen);
 
-	MoveToEx(hDC, xLeft, 0, NULL);
-	LineTo(hDC, xLeft, nScreenHeight);
+	MoveToEx(hDC, xLeft, screen.top, NULL);
+	LineTo(hDC, xLeft, screen.bottom);
 
-	MoveToEx(hDC, xRight, 0, NULL);
-	LineTo(hDC, xRight, nScreenHeight);
+	MoveToEx(hDC, xRight, screen.top, NULL);
+	LineTo(hDC, xRight, screen.bottom);
 
 	SelectObject(hDC, hOldPen);
 	DeleteObject(hPen);

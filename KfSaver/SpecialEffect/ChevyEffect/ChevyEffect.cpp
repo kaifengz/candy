@@ -55,7 +55,7 @@ const char* CChevyEffect::GetEffectName() const
 
 BOOL CChevyEffect::Initialize(HDC hDC, BOOL)
 {
-	return m_pScene->Initialize(GetWndWidth(), GetWndHeight());
+	return m_pScene->Initialize(GetClientArea());
 }
 
 BOOL CChevyEffect::OnTimer(HDC hDC)

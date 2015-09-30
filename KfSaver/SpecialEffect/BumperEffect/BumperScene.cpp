@@ -40,12 +40,14 @@ CBumperScene::~CBumperScene()
 		delete m_right_ai;
 }
 
-BOOL CBumperScene::Initialize(int width, int height)
+BOOL CBumperScene::Initialize(const RECT rect)
 {
-	m_boundary.Initialize(0.0, 0.0,
-		(MEASURE_D)width, (MEASURE_D)height);
-	m_width = width;
-	m_height = height;
+	const int width = rect.right - rect.left;
+	const int height = rect.bottom - rect.top;
+
+	m_rect = rect;
+	m_boundary.Initialize((MEASURE_D)rect.left, (MEASURE_D)rect.top,
+		(MEASURE_D)rect.right, (MEASURE_D)rect.bottom);
 	m_gate_height = RoundToInt(height * BUMPER_GATE_HEIGHT_RATE);
 
 	const int robot_size = RoundToInt(min(width, height) * BUMPER_ROBOT_SIZE);
@@ -57,11 +59,11 @@ BOOL CBumperScene::Initialize(int width, int height)
 		CBumperRobots &robots = (left ? m_lefts : m_rights);
 		robots.resize(BUMPER_ROBOTS_PER_TEAM);
 
-		const int x = (left ? robot_size * 2 : width - robot_size * 2);
+		const int x = (left ? rect.left + robot_size * 2 : rect.right - robot_size * 2);
 		const COLORREF color = (left ? BUMPER_LEFT_COLOR : BUMPER_RIGHT_COLOR);
 		for (int i=0; i<BUMPER_ROBOTS_PER_TEAM; ++i)
 		{
-			const int y = RoundToInt(height * (2*i+1) / 2.0 / BUMPER_ROBOTS_PER_TEAM);
+			const int y = rect.top + RoundToInt(height * (2*i+1) / 2.0 / BUMPER_ROBOTS_PER_TEAM);
 
 			CBumperRobot &robot = robots[i];
 			m_objects.push_back(&robot);
@@ -73,8 +75,7 @@ BOOL CBumperScene::Initialize(int width, int height)
 	}
 
 	// init ball
-	m_ball.barycenter.x = width/2;
-	m_ball.barycenter.y = height/2;
+	m_ball.barycenter = m_boundary.GetCenter();
 	m_ball.radius = RoundToInt(min(width, height) * BUMPER_BALL_SIZE);
 	m_objects.push_back(&m_ball);
 
@@ -103,18 +104,21 @@ BOOL CBumperScene::Draw(HDC hDC)
 	HPEN hOldPen = (HPEN)SelectObject(hDC, hPen);
 	HBRUSH hOldBrush = (HBRUSH)SelectObject(hDC, GetStockObject(NULL_BRUSH));
 
+	const int center_x = (m_rect.left + m_rect.right) / 2;
+	const int center_y = (m_rect.top + m_rect.bottom) / 2;
+
 	// draw center line
-	MoveToEx(hDC, m_width/2, 0, NULL);
-	LineTo(hDC, m_width/2, m_height);
+	MoveToEx(hDC, center_x, m_rect.top, NULL);
+	LineTo(hDC, center_x, m_rect.bottom);
 
 	// draw center circle
 	const int center_circle_radius =
-		RoundToInt(min(m_width, m_height) * BUMPER_CENTER_CIRCLE_RADIUS);
+		RoundToInt(min(m_rect.right - m_rect.left, m_rect.bottom - m_rect.top) * BUMPER_CENTER_CIRCLE_RADIUS);
 	Ellipse(hDC,
-		m_width/2 - center_circle_radius,
-		m_height/2 - center_circle_radius,
-		m_width/2 + center_circle_radius,
-		m_height/2 + center_circle_radius);
+		center_x - center_circle_radius,
+		center_y - center_circle_radius,
+		center_x + center_circle_radius,
+		center_y + center_circle_radius);
 
 	SelectObject(hDC, hOldBrush);
 	SelectObject(hDC, hOldPen);

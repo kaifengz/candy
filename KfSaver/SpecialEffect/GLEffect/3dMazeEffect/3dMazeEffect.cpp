@@ -157,8 +157,8 @@ void C3dMazeEffect::DrawMazeGaps(HDC hDC)
 	HPEN hPen = CreatePen(PS_SOLID, 1, MAZE_GRID_COLOR);
 	HPEN hOldPen = (HPEN)SelectObject(hDC, hPen);
 
-	const int xOffset = GetWndWidth() - m_pMaze->GetMazeSize()*MAZE_GRID_SIZE -1;
-	const int yOffset = 0;
+	const int xOffset = GetClientArea().right - m_pMaze->GetMazeSize()*MAZE_GRID_SIZE -1;
+	const int yOffset = GetClientArea().top;
 
 	// horizontal gaps
 	for(i=0; i<m_pMaze->GetMazeSize()+1; i++)
@@ -233,8 +233,8 @@ void C3dMazeEffect::DrawCurrentPos(HDC hDC)
 
 	if(m_pAI->GetCurrentPos(x, y, dir))
 	{
-		const int xOffset = GetWndWidth() - m_pMaze->GetMazeSize()*MAZE_GRID_SIZE -1;
-		const int yOffset = 0;
+		const int xOffset = GetClientArea().right - m_pMaze->GetMazeSize()*MAZE_GRID_SIZE -1;
+		const int yOffset = GetClientArea().top;
 
 		HPEN hPen = CreatePen(PS_SOLID, 2, MAZE_CUR_POS_ARROW_COLOR);
 		HPEN hOldPen = (HPEN)SelectObject(hDC, hPen);
@@ -343,7 +343,10 @@ BOOL C3dMazeEffect::InitScene(HDC hDC)
 	}
 
 	{	// reshape
-		glViewport(0, 0, GetWndWidth(), GetWndHeight());
+		const RECT &client = GetClientArea();
+		const RECT &wnd = GetWindowArea();
+		glViewport(client.left, wnd.bottom - client.bottom,
+			client.right - client.left, client.bottom - client.top);
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
 		glFrustum(-1.0, 1.0, -1.0,

@@ -12,7 +12,7 @@ public:
 	CChevyScene() {}
 
 public:
-	BOOL Initialize(int nWidth, int nHeight);
+	BOOL Initialize(const RECT rect);
 	BOOL Act();
 	BOOL Draw(HDC hDC);
 

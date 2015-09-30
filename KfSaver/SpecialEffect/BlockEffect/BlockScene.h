@@ -16,7 +16,7 @@ public:
 
 	BOOL Initialize(HDC);
 	BOOL OnTimer();
-	BOOL Draw(HDC, int width, int height);
+	BOOL Draw(HDC, const RECT rect);
 
 
 private:
@@ -44,7 +44,7 @@ private:		//
 	HBITMAP		m_hBmp[1+BLOCK_MAX_COLOR];
 
 private:		// 
-	void		DrawBoard(HDC, int width, int height);
+	void		DrawBoard(HDC, const RECT rect);
 
 	void		LoadImages(HDC);
 	void		ReleaseImages();

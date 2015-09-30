@@ -52,12 +52,16 @@ const char* CSnakeEffect::GetEffectName() const
 
 BOOL CSnakeEffect::Initialize(HDC hDC, BOOL)
 {
+	const RECT &rect = GetClientArea();
+	const int width = rect.right - rect.left;
+	const int height = rect.bottom - rect.top;
+
 	{	// map size
 		for (int i=0; ; ++i)
 		{
 			m_nWidth = random(MAX_WIDTH, MIN_WIDTH);
-			m_nSquareSize = GetWndWidth() / m_nWidth;
-			m_nHeight = GetWndHeight() / m_nSquareSize;
+			m_nSquareSize = width / m_nWidth;
+			m_nHeight = height / m_nSquareSize;
 			if (m_nHeight >= MIN_HEIGHT && m_nHeight < MAX_HEIGHT)
 				break;
 
@@ -70,8 +74,8 @@ BOOL CSnakeEffect::Initialize(HDC hDC, BOOL)
 		}
 		LOG("Width %d, height %d; Okay!", m_nWidth, m_nHeight);
 
-		m_xMargin = (GetWndWidth() - m_nWidth*m_nSquareSize) / 2;
-		m_yMargin = (GetWndHeight() - m_nHeight*m_nSquareSize) / 2;
+		m_xMargin = (rect.left + rect.right - m_nWidth*m_nSquareSize) / 2;
+		m_yMargin = (rect.top + rect.bottom - m_nHeight*m_nSquareSize) / 2;
 	}
 
 	{	// start position

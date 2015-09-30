@@ -86,14 +86,15 @@ void CHypocycloidEffect::NewWidget()
 	widget.dying = widget.dead - HYPOCYCLOID_DYING_LASTED;
 	widget.color = HYPOCYCLOID_RANDOM_COLOR();
 
-	const unsigned int width = GetWndWidth();
-	const unsigned int height = GetWndHeight();
+	const RECT &rect = GetClientArea();
+	const unsigned int width = rect.right - rect.left;
+	const unsigned int height = rect.bottom - rect.top;
 	const unsigned int max_size = min(width, height);
 	for (int i=0; i<HYPOCYCLOID_NEW_WIDGET_MAX_TRY; ++i)
 	{
 		const unsigned int size = RoundToInt(random(max_size*HYPOCYCLOID_MAX_SIZE, max_size*HYPOCYCLOID_MIN_SIZE));
-		const unsigned int left = random(width - size);
-		const unsigned int top  = random(height - size);
+		const unsigned int left = rect.left + random(width - size);
+		const unsigned int top  = rect.top + random(height - size);
 		bool overlap = false;
 		for (unsigned int j = 0; j<m_widgets.size(); ++j)
 		{

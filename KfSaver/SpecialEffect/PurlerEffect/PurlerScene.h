@@ -12,7 +12,7 @@ public:
 	CPurlerScene() {}
 
 public:
-	BOOL Initialize(int nWidth, int nHeight);
+	BOOL Initialize(const RECT rect);
 	BOOL Act();
 	BOOL Draw(HDC hDC) const;
 	BOOL IsEnd() const;
@@ -24,7 +24,7 @@ protected:
 	MEASURE_T ActMoving(MEASURE_T total);
 
 private:
-	int m_nWidth, m_nHeight;
+	RECT m_rect;
 
 	CPurlerBar m_bar;
 

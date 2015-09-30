@@ -20,7 +20,7 @@ public:
 
 	bool Draw(HDC) const;
 
-	bool OutOfRange(int width, int height, bool bAllOut) const;
+	bool OutOfRange(const RECT &rect, bool bAllOut) const;
 	bool IsTooNear(const C3BodyStar& another, double distance) const;
 
 protected:
@@ -32,7 +32,7 @@ class C3BodyScene
 public:
 	C3BodyScene();
 
-	bool Initialize(int nWidth, int nHeight);
+	bool Initialize(const RECT rect);
 	bool Act();
 	bool Draw(HDC) const;
 
@@ -51,7 +51,7 @@ protected:
 	typedef vector<C3BodyStar> StarList;
 	StarList m_stars;
 
-	int m_width, m_height;
+	RECT m_rect;
 };
 
 } // namespace N3Body

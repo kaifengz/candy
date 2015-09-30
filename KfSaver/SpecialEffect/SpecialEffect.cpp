@@ -15,8 +15,9 @@ CSpecialEffect::CSpecialEffect(HWND hWnd, HBITMAP hBmpBkgnd, DWORD dwEffectStyle
 	m_dwEffectStyle(dwEffectStyle)
 {
 	GetClientRect(m_hWnd, &m_rcWnd);
-	m_nWndWidth	= m_rcWnd.right - m_rcWnd.left;
-	m_nWndHeight	= m_rcWnd.bottom - m_rcWnd.top;
+
+	RECT primary = GetPrimaryMonitor();
+	IntersectRect(&m_rcClientArea, &primary, &m_rcWnd);
 
 	m_hBmpScreen = NULL;
 	m_uFrameCount = 0;
@@ -68,7 +69,10 @@ void CSpecialEffect::CopyOldScreen()
 	HBITMAP hOldBmp = (HBITMAP)SelectObject(hDCMem, m_hBmpScreen);
 
 	BitBlt(hDC,
-		m_rcWnd.left, m_rcWnd.top, m_nWndWidth, m_nWndHeight,
+		m_rcWnd.left,
+		m_rcWnd.top,
+		m_rcWnd.right - m_rcWnd.left,
+		m_rcWnd.bottom - m_rcWnd.top,
 		hDCMem, 0, 0, SRCCOPY);
 
 	SelectObject(hDCMem, hOldBmp);
@@ -85,7 +89,9 @@ BOOL CSpecialEffect::DrawNewScreen(BOOL bMagic)
 
 	if(m_hBmpScreen == NULL)
 	{
-		m_hBmpScreen = CreateCompatibleBitmap(hDC, m_nWndWidth, m_nWndHeight);
+		m_hBmpScreen = CreateCompatibleBitmap(hDC,
+			m_rcWnd.right - m_rcWnd.left,
+			m_rcWnd.bottom - m_rcWnd.top);
 		bFillBackgnd = TRUE;
 	}
 
@@ -97,8 +103,8 @@ BOOL CSpecialEffect::DrawNewScreen(BOOL bMagic)
 	HPEN hOldPen = (HPEN)SelectObject(hDCMem, GetStockObject(BLACK_PEN));
 	HBRUSH hOldBrush = (HBRUSH)SelectObject(hDCMem, GetStockObject(BLACK_BRUSH));
 
-	if(bFillBackgnd || ((m_dwEffectStyle & ES_FILL_BACKGROUND) != 0) )
-		Rectangle(hDCMem, m_rcWnd.left, m_rcWnd.top, m_nWndWidth, m_nWndHeight);
+	if (bFillBackgnd || ((m_dwEffectStyle & ES_FILL_BACKGROUND) != 0))
+		Rectangle(hDCMem, m_rcWnd.left, m_rcWnd.top, m_rcWnd.right, m_rcWnd.bottom);
 
     BOOL bInitializeFail = FALSE;
     if(m_uFrameCount == 0)
@@ -120,7 +126,10 @@ BOOL CSpecialEffect::DrawNewScreen(BOOL bMagic)
 		// TODO: something strange here: without BitBlt, 3dMazeEffect and
 		// SnakeEffect still can show their drawing. I don't know why.
 		BitBlt(hDC,
-			m_rcWnd.left, m_rcWnd.top, m_nWndWidth, m_nWndHeight,
+			m_rcWnd.left,
+			m_rcWnd.top,
+			m_rcWnd.right - m_rcWnd.left,
+			m_rcWnd.bottom - m_rcWnd.top,
 			hDCMem, 0, 0, SRCCOPY);
     }
 
@@ -149,19 +158,19 @@ HBITMAP CSpecialEffect::GetBkgndBmp() const
     return m_hBmpBkgnd;
 }
 
-int CSpecialEffect::GetWndWidth() const
-{
-    return m_nWndWidth;
-}
-
-int CSpecialEffect::GetWndHeight() const
-{
-    return m_nWndHeight;
-}
-
 DWORD CSpecialEffect::GetElapsedTime() const
 {
     return GetTickCount() - m_tFirstFrame;
+}
+
+const RECT& CSpecialEffect::GetClientArea() const
+{
+	return m_rcClientArea;
+}
+
+const RECT& CSpecialEffect::GetWindowArea() const
+{
+	return m_rcWnd;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -203,5 +212,34 @@ void CSpecialEffect::DrawFPS(HDC hDC)
 
 	SIZE size;
 	GetTextExtentPoint32(hDC, buff, len, &size);
-	TextOut(hDC, GetWndWidth()-size.cx, 0, buff, (int)strlen(buff));
+	TextOut(hDC, m_rcClientArea.right - size.cx, 0, buff, (int)strlen(buff));
+}
+
+RECT CSpecialEffect::GetPrimaryMonitor()
+{
+	POINT origin;
+	origin.x = origin.y = 0;
+
+	HMONITOR hPrimary = MonitorFromPoint(origin, 0);
+
+	MONITORINFO info;
+	info.cbSize = sizeof(info);
+	GetMonitorInfo(hPrimary, &info);
+
+	POINT lt, br;
+	lt.x = info.rcMonitor.left;
+	lt.y = info.rcMonitor.top;
+	br.x = info.rcMonitor.right;
+	br.y = info.rcMonitor.bottom;
+
+	ScreenToClient(m_hWnd, &lt);
+	ScreenToClient(m_hWnd, &br);
+
+	RECT primary;
+	primary.left = lt.x;
+	primary.top = lt.y;
+	primary.right = br.x;
+	primary.bottom = br.y;
+
+	return primary;
 }

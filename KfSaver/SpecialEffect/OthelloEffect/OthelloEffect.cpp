@@ -103,12 +103,13 @@ BOOL COthelloEffect::OnTimer(HDC hDC)
 
 void COthelloEffect::DrawBoard(HDC hDC)
 {
-	const int wnd_width  = GetWndWidth();
-	const int wnd_height = GetWndHeight();
+	const RECT &rect     = GetClientArea();
+	const int wnd_width  = rect.right - rect.left;
+	const int wnd_height = rect.bottom - rect.top;
 	const int cell_count = NOthello::COthelloBoard::SIZE;
 	const int cell_size  = min(wnd_width, wnd_height) / (cell_count + 1);
-	const int offset_x   = (wnd_width  - cell_size * cell_count) / 2;
-	const int offset_y   = (wnd_height - cell_size * cell_count) / 2;
+	const int offset_x   = (rect.left + rect.right - cell_size * cell_count) / 2;
+	const int offset_y   = (rect.top + rect.bottom - cell_size * cell_count) / 2;
 
 	HPEN hGridPen  = CreatePen(PS_SOLID, 1, OTHELLO_GRID_COLOR);
 	HPEN hWhitePen = CreatePen(PS_SOLID, 1, OTHELLO_WHITE_COLOR);

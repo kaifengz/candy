@@ -39,9 +39,10 @@ protected:
     UINT    GetFrameCount()  const;
     HWND    GetWndHandle()   const;
     HBITMAP GetBkgndBmp()    const;
-    int     GetWndWidth()    const;
-    int     GetWndHeight()   const;
     DWORD   GetElapsedTime() const;
+
+	const RECT& GetClientArea() const;
+	const RECT& GetWindowArea() const;
 
 protected:
 	void			IncreaseFrameCount();
@@ -53,11 +54,15 @@ private:
 	virtual BOOL	DrawNewScreen(BOOL bMagic);
 	virtual void	CopyOldScreen();
 
+	RECT            GetPrimaryMonitor();
+
 private:
 	const HWND		m_hWnd;
 	const HBITMAP	m_hBmpBkgnd;
-	int				m_nWndWidth;
-	int				m_nWndHeight;
+
+	// equals to the size of the primary monitor regardless
+	// whether there are multiple monitors
+	RECT            m_rcClientArea;
 
 	const DWORD		m_dwEffectStyle;
 

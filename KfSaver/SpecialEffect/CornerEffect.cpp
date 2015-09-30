@@ -36,12 +36,14 @@ const char* CCornerEffect::GetEffectName() const
 
 BOOL CCornerEffect::Initialize(HDC hDC, BOOL)
 {
+	const RECT &rect = GetClientArea();
+
 	{	// copy background bitmap
 		HDC hDCTmp = CreateCompatibleDC(hDC);
 		HBITMAP hOldBmp = (HBITMAP)SelectObject(hDCTmp, GetBkgndBmp());
 
-		BitBlt(hDC, 0, 0, GetWndWidth(), GetWndHeight(),
-			hDCTmp, 0, 0, SRCCOPY);
+		BitBlt(hDC, rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top,
+			hDCTmp, rect.left, rect.top, SRCCOPY);
 
 		SelectObject(hDCTmp, hOldBmp);
 		DeleteDC(hDCTmp);
@@ -50,8 +52,8 @@ BOOL CCornerEffect::Initialize(HDC hDC, BOOL)
 	{	// init position
 		for(int i=0; i<MAX_VERTEX_NUM; i++)
 		{
-			m_quad[0].pt[i].x = random(GetWndWidth());
-			m_quad[0].pt[i].y = random(GetWndHeight());
+			m_quad[0].pt[i].x = random(rect.left, rect.right);
+			m_quad[0].pt[i].y = random(rect.top, rect.bottom);
 		}
 	}
 
@@ -133,6 +135,8 @@ void CCornerEffect::DrawQuads(HDC hDC, COLORREF color)
 
 void CCornerEffect::QuadStep()
 {
+	const RECT &rect = GetClientArea();
+
 	int i, j;
 
 	for(i=MAX_QUAD_NUM-1; i>0; i--)
@@ -145,9 +149,9 @@ void CCornerEffect::QuadStep()
 		m_quad[0].pt[j].x += m_vx[j];
 		m_quad[0].pt[j].y += m_vy[j];
 
-		if(m_quad[0].pt[j].x < 0)
+		if(m_quad[0].pt[j].x < rect.left)
 		{
-			m_quad[0].pt[j].x = 0;
+			m_quad[0].pt[j].x = rect.left;
 
 			m_vx[j] = random(MAX_VELOCITY, MIN_VELOCITY);
 			m_vy[j] = random(MAX_VELOCITY, MIN_VELOCITY);
@@ -155,9 +159,9 @@ void CCornerEffect::QuadStep()
 				m_vy[j] = -m_vy[j];
 		}
 
-		if(m_quad[0].pt[j].x >= GetWndWidth())
+		if(m_quad[0].pt[j].x >= rect.right)
 		{
-			m_quad[0].pt[j].x = GetWndWidth() - 1;
+			m_quad[0].pt[j].x = rect.right - 1;
 
 			m_vx[j] = - random(MAX_VELOCITY, MIN_VELOCITY);
 			m_vy[j] = random(MAX_VELOCITY, MIN_VELOCITY);
@@ -165,9 +169,9 @@ void CCornerEffect::QuadStep()
 				m_vy[j] = -m_vy[j];
 		}
 
-		if(m_quad[0].pt[j].y < 0)
+		if(m_quad[0].pt[j].y < rect.top)
 		{
-			m_quad[0].pt[j].y = 0;
+			m_quad[0].pt[j].y = rect.top;
 
 			m_vx[j] = random(MAX_VELOCITY, MIN_VELOCITY);
 			if(RandomBoolean())
@@ -175,9 +179,9 @@ void CCornerEffect::QuadStep()
 			m_vy[j] = random(MAX_VELOCITY, MIN_VELOCITY);
 		}
 
-		if(m_quad[0].pt[j].y >= GetWndHeight())
+		if(m_quad[0].pt[j].y >= rect.bottom)
 		{
-			m_quad[0].pt[j].y = GetWndHeight() - 1;
+			m_quad[0].pt[j].y = rect.bottom - 1;
 
 			m_vx[j] = random(MAX_VELOCITY, MIN_VELOCITY);
 			if(RandomBoolean())

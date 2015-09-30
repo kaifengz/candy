@@ -70,12 +70,14 @@ BOOL CFiveEffect::Initialize(HDC hDC, BOOL)
 	}
 
 	{	// calc window grid parameters
-		const unsigned int cx = GetWndWidth();
-		const unsigned int cy = GetWndHeight();
+		const RECT &rc = GetClientArea();
+
+		const unsigned int cx = rc.right - rc.left;
+		const unsigned int cy = rc.bottom - rc.top;
 
 		m_nGridSize = (min(cx, cy) - 2 * FIVE_MIN_LEFT_MARGIN) / FIVE_GRID_COUNT;
-		m_xMargin = (cx - m_nGridSize * FIVE_GRID_COUNT) / 2;
-		m_yMargin = (cy - m_nGridSize * FIVE_GRID_COUNT) / 2;
+		m_xMargin = rc.left + (cx - m_nGridSize * FIVE_GRID_COUNT) / 2;
+		m_yMargin = rc.top + (cy - m_nGridSize * FIVE_GRID_COUNT) / 2;
 	}
 
 	return TRUE;

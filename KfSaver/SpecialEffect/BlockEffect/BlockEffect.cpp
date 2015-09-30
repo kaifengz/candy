@@ -42,7 +42,7 @@ BOOL CBlockEffect::OnTimer(HDC hDC)
 {
 	if(! m_pScene->OnTimer())
 		return FALSE;
-	if(! m_pScene->Draw(hDC, GetWndWidth(), GetWndHeight()))
+	if(! m_pScene->Draw(hDC, GetClientArea()))
 		return FALSE;
 	return TRUE;
 }

@@ -29,8 +29,8 @@ typedef double MEASURE_M;	// the measurement of mass, may be "float" or "double"
 
 #define PI		  3.141592653589793
 
-#define X_SPACE_TO_SCREEN(x, w) (x)
-#define Y_SPACE_TO_SCREEN(y, h) ((h)-(y))
+#define X_SPACE_TO_SCREEN(x, screen) ((x) + (screen).left)
+#define Y_SPACE_TO_SCREEN(y, screen) ((screen.bottom) - (y))
 
 //////////////////////////////////////////////////////////////////////////
 //  utilities

@@ -37,14 +37,14 @@ namespace NChevy {
 //  
 //////////////////////////////////////////////////////////////////////////
 
-BOOL CChevyScene::Initialize(int nWidth, int nHeight)
+BOOL CChevyScene::Initialize(const RECT rect)
 {
-	m_boundary.Initialize(0.0, 0.0,
-		(MEASURE_D)nWidth, (MEASURE_D)nHeight);
+	m_boundary.Initialize((MEASURE_D)rect.left, (MEASURE_D)rect.top,
+		(MEASURE_D)rect.right, (MEASURE_D)rect.bottom);
 
 	// place BALL in the center of the region
 	m_ball.barycenter = m_boundary.GetCenter();
-	m_ball.radius = BALL_RADIUS(nWidth);
+	m_ball.radius = BALL_RADIUS(rect.right - rect.left);
 
 	// place un-overlapped robots
 	m_robots.clear();

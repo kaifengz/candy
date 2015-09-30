@@ -45,16 +45,17 @@ static const COLORREF g_nail_colors[] = {
 //  
 //////////////////////////////////////////////////////////////////////////
 
-BOOL CPurlerScene::Initialize(int nWidth, int nHeight)
+BOOL CPurlerScene::Initialize(const RECT rect)
 {
-	m_nWidth = nWidth;
-	m_nHeight = nHeight;
+	m_rect = rect;
 
-	const int nBoundaryWidth = RoundToInt(m_nWidth*PURLER_BOUNDARY_WIDTH_RATE);
-	const int nBoundaryHeight = RoundToInt(m_nHeight*PURLER_BOUNDARY_HEIGHT_RATE);
+	const int width = rect.right - rect.left;
+	const int height = rect.bottom - rect.top;
+	const int nBoundaryWidth = RoundToInt(width * PURLER_BOUNDARY_WIDTH_RATE);
+	const int nBoundaryHeight = RoundToInt(height * PURLER_BOUNDARY_HEIGHT_RATE);
 
 	m_boundary.Initialize(nBoundaryWidth, nBoundaryHeight, PURLER_BOUNDARY_COLOR);
-	m_bar.Initialize(nBoundaryWidth/2.0, nBoundaryHeight-m_nHeight*(1-PURLER_BAR_CENTER_Y),
+	m_bar.Initialize(nBoundaryWidth / 2.0, nBoundaryHeight - height*(1 - PURLER_BAR_CENTER_Y),
 		nBoundaryWidth*PURLER_BAR_LENGTH_RATE, PURLER_BAR_THICKNESS,
 		PURLER_BAR_MASS, PURLER_BAR_COLOR);
 	// TODO: remove these lines of test code
@@ -148,24 +149,27 @@ MEASURE_T CPurlerScene::ActMoving(MEASURE_T total)
 
 BOOL CPurlerScene::Draw(HDC hDC) const
 {
+	const int width = m_rect.right - m_rect.left;
+	const int height = m_rect.bottom - m_rect.top;
+
 	const int xDrawOffset =
-		RoundToInt((m_nWidth - m_boundary.Width()) / 2);
+		RoundToInt((width - m_boundary.Width()) / 2);
 	const int yDrawOffset =
-		RoundToInt(m_nHeight*PURLER_BAR_CENTER_Y - m_bar.barycenter.y);
+		RoundToInt(height*PURLER_BAR_CENTER_Y - m_bar.barycenter.y);
 
 	for(NailList::const_iterator iter = m_nails.begin();
 		iter != m_nails.end();
 		++iter)
 	{
 		const CPurlerNail &nail = *iter;
-		if (!nail.Draw(hDC, xDrawOffset, yDrawOffset, m_nWidth, m_nHeight))
+		if (!nail.Draw(hDC, xDrawOffset, yDrawOffset, m_rect))
 			return FALSE;
 	}
 
-	if (!m_boundary.Draw(hDC, xDrawOffset, yDrawOffset, m_nWidth, m_nHeight))
+	if (!m_boundary.Draw(hDC, xDrawOffset, yDrawOffset, m_rect))
 		return FALSE;
 
-	if (!m_bar.Draw(hDC, xDrawOffset, yDrawOffset, m_nWidth, m_nHeight))
+	if (!m_bar.Draw(hDC, xDrawOffset, yDrawOffset, m_rect))
 		return FALSE;
 
 	return TRUE;
@@ -173,10 +177,12 @@ BOOL CPurlerScene::Draw(HDC hDC) const
 
 BOOL CPurlerScene::IsEnd() const
 {
-	const int yDrawOffset =
-		RoundToInt(m_nHeight*PURLER_BAR_CENTER_Y - m_bar.barycenter.y);
+	const int height = m_rect.bottom - m_rect.top;
 
-	if (RoundToInt(yDrawOffset + m_boundary.Height()) < m_nHeight)
+	const int yDrawOffset =
+		RoundToInt(height*PURLER_BAR_CENTER_Y - m_bar.barycenter.y);
+
+	if (RoundToInt(yDrawOffset + m_boundary.Height()) < height)
 		return TRUE;
 	return FALSE;
 }

@@ -35,10 +35,13 @@ const char* CMagnifierEffect::GetEffectName() const
 
 BOOL CMagnifierEffect::Initialize(HDC hDC, BOOL)
 {
-	m_nRadius = random(GetWndHeight()/5, GetWndHeight()/10); // 放大镜半径在屏幕高度的1/10到1/5间
+	const RECT &rect = GetClientArea();
+	const int height = rect.bottom - rect.top;
 
-	m_x = random(GetWndWidth()-m_nRadius, m_nRadius);
-	m_y = random(GetWndHeight()-m_nRadius, m_nRadius);
+	m_nRadius = random(height/5, height/10); // 放大镜半径在屏幕高度的1/10到1/5间
+
+	m_x = random(rect.right - m_nRadius, rect.left + m_nRadius);
+	m_y = random(rect.bottom - m_nRadius, rect.top + m_nRadius);
 	m_vx = random(MAX_VELOCITY+1, -MAX_VELOCITY);
 	m_vy = random(MAX_VELOCITY+1, -MAX_VELOCITY);
 
@@ -136,6 +139,8 @@ BOOL CMagnifierEffect::MagicHong(HDC hDC)
 
 void CMagnifierEffect::RandomMove()
 {
+	const RECT &rect = GetClientArea();
+
 	m_vx += random(2, -1);
 	m_vy += random(2, -1);
 
@@ -152,25 +157,25 @@ void CMagnifierEffect::RandomMove()
 	m_x += m_vx;
 	m_y += m_vy;
 
-	if (m_x < m_nRadius)
+	if (m_x < rect.left + m_nRadius)
 	{
-		m_x = m_nRadius;
+		m_x = rect.left + m_nRadius;
 		m_vx = 0;
 	}
-	else if (m_x > GetWndWidth() - m_nRadius)
+	else if (m_x > rect.right - m_nRadius)
 	{
-		m_x = GetWndWidth() - m_nRadius;
+		m_x = rect.right - m_nRadius;
 		m_vx = 0;
 	}
 
-	if (m_y < m_nRadius)
+	if (m_y < rect.top + m_nRadius)
 	{
-		m_y = m_nRadius;
+		m_y = rect.top + m_nRadius;
 		m_vy = 0;
 	}
-	else if (m_y > GetWndHeight() - m_nRadius)
+	else if (m_y > rect.bottom - m_nRadius)
 	{
-		m_y = GetWndHeight() - m_nRadius;
+		m_y = rect.bottom - m_nRadius;
 		m_vy = 0;
 	}
 }

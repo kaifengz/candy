@@ -35,7 +35,7 @@ const char* C3BodyEffect::GetEffectName() const
 
 BOOL C3BodyEffect::Initialize(HDC, BOOL)
 {
-	if(m_pScene->Initialize(GetWndWidth(), GetWndHeight()))
+	if(m_pScene->Initialize(GetClientArea()))
 		return TRUE;
 	else
 		return FALSE;

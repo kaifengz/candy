@@ -35,7 +35,7 @@ const char* CBumperEffect::GetEffectName() const
 
 BOOL CBumperEffect::Initialize(HDC hDC, BOOL)
 {
-	return m_pScene->Initialize(GetWndWidth(), GetWndHeight());
+	return m_pScene->Initialize(GetClientArea());
 }
 
 BOOL CBumperEffect::OnTimer(HDC hDC)

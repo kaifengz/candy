@@ -179,9 +179,9 @@ BOOL CBlockScene::OnTimer()
 	return (m_iStepCount <= BLOCK_MAX_FRAME_NUM);
 }
 
-BOOL CBlockScene::Draw(HDC hDC, int width, int height)
+BOOL CBlockScene::Draw(HDC hDC, const RECT rect)
 {
-	DrawBoard(hDC, width, height);
+	DrawBoard(hDC, rect);
 	return TRUE;
 }
 
@@ -189,10 +189,10 @@ BOOL CBlockScene::Draw(HDC hDC, int width, int height)
 //
 //////////////////////////////////////////////////////////////////////
 
-void CBlockScene::DrawBoard(HDC hDC, int width, int height)
+void CBlockScene::DrawBoard(HDC hDC, const RECT rect)
 {
-	const int xBoard = (width - BLOCK_BOARD_WIDTH*BLOCK_SQUARE_SIZE)/2;
-	const int yBoard = (height - BLOCK_BOARD_HEIGHT*BLOCK_SQUARE_SIZE)/2;
+	const int xBoard = (rect.left + rect.right - BLOCK_BOARD_WIDTH*BLOCK_SQUARE_SIZE)/2;
+	const int yBoard = (rect.top + rect.bottom - BLOCK_BOARD_HEIGHT*BLOCK_SQUARE_SIZE)/2;
 	const int xSquare = xBoard + m_x * BLOCK_SQUARE_SIZE;
 	const int ySquare = yBoard + m_y * BLOCK_SQUARE_SIZE;
 	const int xSquare2 = xBoard + BLOCK_BOARD_WIDTH*BLOCK_SQUARE_SIZE + BLOCK_SQUARE_SIZE;

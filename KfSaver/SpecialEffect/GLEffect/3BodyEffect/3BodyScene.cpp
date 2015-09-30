@@ -89,12 +89,12 @@ bool C3BodyStar::Draw(HDC hDC) const
 	return (bRet ? true : false);
 }
 
-bool C3BodyStar::OutOfRange(int width, int height, bool bAllOut) const
+bool C3BodyStar::OutOfRange(const RECT &rect, bool bAllOut) const
 {
-	const double left = (bAllOut ? (0 - radius) : (0 + radius));
-	const double right = (bAllOut ? (width + radius) : (width - radius));
-	const double top = (bAllOut ? (0 - radius) : (0 + radius));
-	const double bottom = (bAllOut ? (height + radius) : (height - radius));
+	const double left = (bAllOut ? (rect.left - radius) : (rect.left + radius));
+	const double right = (bAllOut ? (rect.right + radius) : (rect.right - radius));
+	const double top = (bAllOut ? (rect.top - radius) : (rect.top + radius));
+	const double bottom = (bAllOut ? (rect.bottom + radius) : (rect.bottom - radius));
 
 	return (barycenter.x<left || barycenter.x>=right ||
 		barycenter.y<top || barycenter.y>=bottom);
@@ -115,10 +115,9 @@ C3BodyScene::C3BodyScene()
 {
 }
 
-bool C3BodyScene::Initialize(int nWidth, int nHeight)
+bool C3BodyScene::Initialize(const RECT rect)
 {
-	m_width = nWidth;
-	m_height = nHeight;
+	m_rect = rect;
 
 	for(int i=0; i<STAR_NUMBER; i++)
 	{
@@ -133,8 +132,8 @@ bool C3BodyScene::AddRandomStar()
 {
 	for(int i=0; i<NEW_STAR_TRY_NUMBER; i++)
 	{
-		const double x = random(0, m_width);
-		const double y = random(0, m_height);
+		const double x = random(m_rect.left, m_rect.right);
+		const double y = random(m_rect.top, m_rect.bottom);
 		const double r = random(NEW_STAR_SIZE-NEW_STAR_SIZE_ERR, 
 								NEW_STAR_SIZE+NEW_STAR_SIZE_ERR+1);
 		const double m = r*r*r*MASS_SIZE_COEFF;
@@ -148,7 +147,7 @@ bool C3BodyScene::AddRandomStar()
 			++iter)
 		{
 			if( star.IsTooNear(*iter, INIT_MIN_DISTANCE) ||
-				star.OutOfRange(m_width, m_height, false) )
+				star.OutOfRange(m_rect, false) )
 			{
 				bAppropriate = true;
 				break;
@@ -237,7 +236,7 @@ bool C3BodyScene::SceneEnd() const
 		++iter)
 	{
 		const C3BodyStar &star = (*iter);
-		if(star.OutOfRange(m_width, m_height, true))
+		if(star.OutOfRange(m_rect, true))
 			nOutCount++;
 	}
 

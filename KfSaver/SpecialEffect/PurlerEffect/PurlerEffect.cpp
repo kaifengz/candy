@@ -52,7 +52,7 @@ const char* CPurlerEffect::GetEffectName() const
 
 BOOL CPurlerEffect::Initialize(HDC hDC, BOOL)
 {
-	return m_pScene->Initialize(GetWndWidth(), GetWndHeight());
+	return m_pScene->Initialize(GetClientArea());
 }
 
 BOOL CPurlerEffect::OnTimer(HDC hDC)

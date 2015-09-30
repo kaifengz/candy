@@ -21,7 +21,7 @@ public:
 		double length, double dummy_thickness,
 		double mass, COLORREF color);
 	BOOL Draw(HDC hDC, int xDrawOffset, int yDrawOffset,
-		int nScreenWidth, int nScreenHeight) const;
+		RECT screen) const;
 
 private:
 	COLORREF color;
@@ -35,7 +35,7 @@ public:
 
 public:
 	BOOL Draw(HDC hDC, int xDrawOffset, int yDrawOffset,
-		int nScreenWidth, int nScreenHeight) const;
+		RECT screen) const;
 	BOOL Stop();
 
 private:
@@ -49,7 +49,7 @@ public:
 public:
 	void Initialize(double width, double height, COLORREF color);
 	BOOL Draw(HDC hDC, int xDrawOffset, int yDrawOffset,
-		int nScreenWidth, int nScreenHeight) const;
+		RECT screen) const;
 
 private:
 	COLORREF color;

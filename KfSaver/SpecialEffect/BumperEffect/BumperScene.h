@@ -13,7 +13,7 @@ public:
 	CBumperScene();
 	~CBumperScene();
 
-	BOOL Initialize(int width, int height);
+	BOOL Initialize(const RECT rect);
 	BOOL Act();
 	BOOL Draw(HDC);
 	DWORD GetTimeslice() const;
@@ -30,7 +30,7 @@ protected:
 	BOOL DrawObject(HDC, const CBumperObject &, COLORREF);
 
 private:
-	int m_width, m_height;
+	RECT m_rect;
 	int m_gate_height;
 	ZBoundary m_boundary;
 
