@@ -13,13 +13,10 @@ public:
 
 	typedef std::vector<CreateEffectFunc> EffectCreators;
 	static const EffectCreators& GetEffectCreators();
+	static const EffectCreators& GetConfiguredEffectCreators();
 
-	static void LoadConfiguration();
-
-#ifdef DEBUG_MODE
 	static void RegisterEffectForTest(CreateEffectFunc func, const char* name, const char* date);
 	static CreateEffectFunc GetCreatorForTest();
-#endif
 };
 
 //////////////////////////////////////////////////////////////////////////
@@ -52,8 +49,6 @@ public:
 //
 //////////////////////////////////////////////////////////////////////////
 
-#ifdef DEBUG_MODE
-
 class EffectAutoRegisterForTest
 {
 public:
@@ -71,9 +66,5 @@ public:
 		SpecialEffectCreator<class_name>, \
 		#class_name, \
 		date)
-
-#else // DEBUG_MODE
-#define REGISTER_EFFECT_FOR_TEST(class_name, date)
-#endif
 
 #endif // _EFFECT_REGISTER_H__INCLUDED__2008_05_17_

@@ -79,7 +79,7 @@ static int g_nEnableMagic = 0;
 void InitSaver(HWND hWnd)
 {
 	g_hBmpBkgnd = SaveBkground();
-	CEffectFactory::LoadConfiguration();
+	CEffectFactory::Initialize();
 	SetTimer(hWnd, IDT_TIMER, TIMESLICE, NULL);
 }
 
@@ -175,10 +175,20 @@ BOOL IsMagicKey(char cKey)
 #ifdef DEBUG_MODE
 	if (cKey == '0')
 	{
-		CEffectFactory::ToggleTestMode();
+		++g_nEnableMagic;
 		return TRUE;
 	}
+	else if (cKey >= '1' && cKey <= '9')
+#else
+	if (g_nEnableMagic > 0 && cKey >= '1' && cKey <= '9')
 #endif
+	{
+		if (CEffectFactory::SetCreationStrategy((ZEffectCreationStrategy)(cKey - '1')))
+		{
+			++g_nEnableMagic;
+			return TRUE;
+		}
+	}
 
 	return FALSE;
 }

@@ -25,21 +25,19 @@ public:
 		CreateEffectFunc func,
 		const char* name);
 	const EffectCreators& GetEffectCreators();
+	const EffectCreators& GetConfiguredEffectCreators();
 
-	void LoadConfiguration();
-
-#ifdef DEBUG_MODE
 	void RegisterEffectForTest(
 		CreateEffectFunc func,
 		const char* name,
 		const char* date);
 	CreateEffectFunc GetCreatorForTest();
-#endif
 
 public:
 	static EffectRegistryImpl& GetInstance();
 
 protected:
+	void LoadConfiguration();
 	void LoadConfigurationFromSystemRegistry();
 	void StoreConfigurationToSystemRegistry();
 
@@ -47,11 +45,10 @@ protected:
 	typedef std::map<std::string, CreateEffectFunc> EffectCreatorMap;
 	EffectCreatorMap m_creator_map;
 	EffectCreators m_creators;
+	EffectCreators m_configured_creators;
 
-#ifdef DEBUG_MODE
 	CreateEffectFunc m_tester;
 	const char* m_tester_date;
-#endif
 };
 
 //////////////////////////////////////////////////////////////////////////
@@ -60,10 +57,8 @@ protected:
 
 EffectRegistryImpl::EffectRegistryImpl()
 {
-#ifdef DEBUG_MODE
 	m_tester = NULL;
 	m_tester_date = NULL;
-#endif
 }
 
 EffectRegistryImpl::~EffectRegistryImpl()
@@ -82,6 +77,7 @@ void EffectRegistryImpl::RegisterEffect(
 	ASSERT(name != NULL);
 
 	m_creator_map[name] = func;
+	m_creators.push_back(func);
 	LOG("SpecialEffect #%02d: %s", m_creator_map.size(), name);
 }
 
@@ -90,20 +86,24 @@ const EffectRegistryImpl::EffectCreators& EffectRegistryImpl::GetEffectCreators(
 	return m_creators;
 }
 
+const EffectRegistryImpl::EffectCreators& EffectRegistryImpl::GetConfiguredEffectCreators()
+{
+	LoadConfiguration();
+	return m_configured_creators;
+}
+
 void EffectRegistryImpl::LoadConfiguration()
 {
-	m_creators.clear();
+	m_configured_creators.clear();
 	LoadConfigurationFromSystemRegistry();
 
-	if (m_creators.empty())
+	if (m_configured_creators.empty())
 	{
-		for (auto iter : m_creator_map)
-			m_creators.push_back(iter.second);
+		m_configured_creators = m_creators;
 		StoreConfigurationToSystemRegistry();
 	}
 }
 
-#ifdef DEBUG_MODE
 void EffectRegistryImpl::RegisterEffectForTest(
 	CreateEffectFunc func,
 	const char* name,
@@ -135,7 +135,6 @@ EffectRegistryImpl::CreateEffectFunc EffectRegistryImpl::GetCreatorForTest()
 {
 	return m_tester;
 }
-#endif
 
 void EffectRegistryImpl::LoadConfigurationFromSystemRegistry()
 {
@@ -170,7 +169,7 @@ void EffectRegistryImpl::LoadConfigurationFromSystemRegistry()
 
 		LOG("SpecialEffect %s is %s", name, enabled ? "enabled" : "disabled");
 		if (enabled)
-			m_creators.push_back(iter->second);
+			m_configured_creators.push_back(iter->second);
 	}
 
 	RegCloseKey(hKey);
@@ -241,12 +240,11 @@ const EffectRegistry::EffectCreators& EffectRegistry::GetEffectCreators()
 	return EffectRegistryImpl::GetInstance().GetEffectCreators();
 }
 
-void EffectRegistry::LoadConfiguration()
+const EffectRegistry::EffectCreators& EffectRegistry::GetConfiguredEffectCreators()
 {
-	EffectRegistryImpl::GetInstance().LoadConfiguration();
+	return EffectRegistryImpl::GetInstance().GetConfiguredEffectCreators();
 }
 
-#ifdef DEBUG_MODE
 void EffectRegistry::RegisterEffectForTest(
 		CreateEffectFunc func,
 		const char* name,
@@ -259,4 +257,3 @@ EffectRegistry::CreateEffectFunc EffectRegistry::GetCreatorForTest()
 {
 	return EffectRegistryImpl::GetInstance().GetCreatorForTest();
 }
-#endif
