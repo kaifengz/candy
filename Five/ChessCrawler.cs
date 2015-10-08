@@ -16,7 +16,7 @@ namespace Five
 #endif
 
         [DebuggerDisplay("{Move} {Board.Score.Category} {Board.Score.score}")]
-        protected class SearchNode
+        protected class SearchNode : IComparable
         {
             public ChessBoard Board;
             public Coord Move;
@@ -37,6 +37,25 @@ namespace Five
                 Move = new Coord(x, y);
                 Parent = parent;
                 Depth = parent.Depth + 1;
+            }
+
+            // return negative values if this is better than other for black
+            public int CompareTo(object obj)
+            {
+                SearchNode other = (SearchNode)obj;
+                if (Board.Score != other.Board.Score)
+                    return -Board.Score.CompareTo(other.Board.Score);
+                return (Board.Score.Dominant ? +1 : -1) * (Depth - other.Depth);
+            }
+
+            public bool BetterForBlack(SearchNode other)
+            {
+                return CompareTo(other) < 0;
+            }
+
+            public bool BetterForWhite(SearchNode other)
+            {
+                return CompareTo(other) > 0;
             }
         }
 
@@ -90,7 +109,7 @@ namespace Five
             }
         }
 
-        protected static SearchNode MinMaxSearch(SearchNode node, ChessType chess, int maxDepth, Score hint)
+        protected static SearchNode MinMaxSearch(SearchNode node, ChessType chess, int maxDepth, SearchNode hint)
         {
             ChessBoard board = node.Board;
             List<SearchNode> children = new List<SearchNode>();
@@ -132,15 +151,15 @@ namespace Five
 
                 foreach (SearchNode child in children)
                 {
-                    SearchNode leaf = MinMaxSearch(child, ChessBoard.ReverseChess(chess), maxDepth, best?.Board.Score);
+                    SearchNode leaf = MinMaxSearch(child, ChessBoard.ReverseChess(chess), maxDepth, best);
                     if (chess == ChessType.Black)
                     {
                         if (leaf.Board.Won)
                             return leaf;
-                        if (best == null || best.Board.Score < leaf.Board.Score)
+                        if (best == null || leaf.BetterForBlack(best))
                         {
                             best = leaf;
-                            if (hint != null && best.Board.Score > hint)
+                            if (hint != null && best.BetterForBlack(hint))
                                 return best;
                         }
                     }
@@ -149,10 +168,10 @@ namespace Five
                         Debug.Assert(chess == ChessType.White);
                         if (leaf.Board.Lost)
                             return leaf;
-                        if (best == null || best.Board.Score > leaf.Board.Score)
+                        if (best == null || leaf.BetterForWhite(best))
                         {
                             best = leaf;
-                            if (hint != null && best.Board.Score < hint)
+                            if (hint != null && best.BetterForWhite(hint))
                                 return best;
                         }
                     }
@@ -164,21 +183,12 @@ namespace Five
 
         protected static void SortByScore(List<SearchNode> nodes, ChessType chess)
         {
-            int order_multiplier = chess == ChessType.Black ? -1 : +1;
-            Comparison<SearchNode> compare = delegate (SearchNode a, SearchNode b)
-            {
-                Score aScore = a.Board.Score;
-                Score bScore = b.Board.Score;
-                int cmp = order_multiplier * aScore.CompareTo(bScore);
-                if (cmp != 0)
-                    return cmp;
-                return ((chess == ChessType.Black) == aScore.Dominant) ? a.Depth - b.Depth : b.Depth - a.Depth;
-            };
-
-            nodes.Sort(compare);
+            nodes.Sort();
+            if (chess == ChessType.White)
+                nodes.Reverse();
         }
 
-        protected static void Cutoff(ChessType chess, List<SearchNode> children, Score hint)
+        protected static void Cutoff(ChessType chess, List<SearchNode> children, SearchNode hint)
         {
             // TODO:
             if (children.Count > 10)
@@ -195,11 +205,26 @@ namespace Five
                     "bw w\n" +
                     "Bbw \n" +
                     "  b \n");
-                List<Coord> moves = ChessCrawler.GetBestMove(board);
+                List<Coord> moves = GetBestMove(board);
                 Assert.IsNotNull(moves);
                 Assert.IsTrue(moves.Count > 0);
                 Assert.IsTrue((moves[0].X == 6 && moves[0].Y == 5) ||
                               (moves[0].X == 10 && moves[0].Y == 9));
+            }
+
+            [TestMethod]
+            public void Test_SearchDepthAffinity()
+            {
+                ChessBoard board = ChessBoard.InitializeFromString(
+                    "    B  \n" +
+                    "   bwb \n" +
+                    "w b  wb\n" +
+                    " bw    \n" +
+                    "w      \n");
+                List<Coord> moves = GetBestMove(board);
+                Assert.IsNotNull(moves);
+                Assert.IsTrue(moves.Count > 0);
+                Assert.IsTrue(moves[0].X == 8 && moves[0].Y == 6);
             }
 
             [TestMethod]

@@ -151,7 +151,11 @@ namespace Five
             get
             {
                 if (situation == null)
+                {
                     situation = SituationAnalyzer.Analyze(this);
+                    if (movesAfterAnalyzedSituation != null)
+                        movesAfterAnalyzedSituation.Clear();
+                }
                 else if (movesAfterAnalyzedSituation != null && movesAfterAnalyzedSituation.Count > 0)
                 {
                     situation = SituationAnalyzer.Update(this, situation, movesAfterAnalyzedSituation);

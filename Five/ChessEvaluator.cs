@@ -413,7 +413,7 @@ namespace Five
                         newPatterns.Add(ptn);
                 }
 
-                foreach (Pattern ptn in GetCoordPatterns(board, move))
+                foreach (Pattern ptn in GetCoordPatterns(board, move, false))
                 {
                     newPatterns.Add(ptn);
                 }
@@ -634,7 +634,7 @@ namespace Five
             }
         }
 
-        static IEnumerable<Pattern> GetCoordPatterns(ChessBoard board, Coord coord)
+        static IEnumerable<Pattern> GetCoordPatterns(ChessBoard board, Coord coord, bool coverCoord = true)
         {
             ChessType chess = board[coord];
             if (chess == ChessType.None)
@@ -653,7 +653,7 @@ namespace Five
 
                 foreach (var p in GetDirectionPatterns(board, start, dir))
                 {
-                    if (p.chess == chess && p.CoverCoord(coord))
+                    if (!coverCoord || (p.chess == chess && p.CoverCoord(coord)))
                         yield return p;
                 }
             }
@@ -859,6 +859,21 @@ namespace Five
                 Assert.AreEqual(expected_patterns.Count, results.Count);
                 for (int i = 0; i < results.Count; ++i)
                     Assert.AreEqual(expected_patterns[i], results[i]);
+            }
+
+            [TestMethod]
+            public void Test_UpdateSituation()
+            {
+                ChessBoard board = ChessBoard.InitializeFromString(
+                    "    B  \n" +
+                    "   bwb \n" +
+                    "w b  wb\n" +
+                    " bw    \n" +
+                    "w      \n");
+                Situation s1 = board.Situation;
+                board.Place(ChessType.White, 6, 6);
+                Situation s2 = board.Situation;
+                Assert.AreEqual(2, s2.BlackPatterns.ToList().Count);
             }
         }
     }
