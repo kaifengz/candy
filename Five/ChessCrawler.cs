@@ -45,7 +45,14 @@ namespace Five
                 SearchNode other = (SearchNode)obj;
                 if (Board.Score != other.Board.Score)
                     return -Board.Score.CompareTo(other.Board.Score);
-                return (Board.Score.Dominant ? +1 : -1) * (Depth - other.Depth);
+                if (Depth != other.Depth)
+                    return (Board.Score.Dominant ? +1 : -1) * (Depth - other.Depth);
+                if (Parent != null)
+                {
+                    Debug.Assert(other.Parent != null);
+                    return Parent.CompareTo(other.Parent);
+                }
+                return 0;
             }
 
             public bool BetterForBlack(SearchNode other)
@@ -199,7 +206,7 @@ namespace Five
         public class UnitTest
         {
             [TestMethod]
-            public void Test_Three()
+            public void Test_ResistThree()
             {
                 ChessBoard board = ChessBoard.InitializeFromString(
                     "bw w\n" +
@@ -213,7 +220,7 @@ namespace Five
             }
 
             [TestMethod]
-            public void Test_SearchDepthAffinity()
+            public void Test_ResistFourThree()
             {
                 ChessBoard board = ChessBoard.InitializeFromString(
                     "    B  \n" +
@@ -228,11 +235,43 @@ namespace Five
             }
 
             [TestMethod]
+            public void Test_ResistFour()
+            {
+                ChessBoard board = ChessBoard.InitializeFromString(
+                    "    B\n" +
+                    " w b \n" +
+                    "  b w\n" +
+                    " bw  \n");
+                List<Coord> moves = GetBestMove(board);
+                Assert.IsNotNull(moves);
+                Assert.IsTrue(moves.Count > 0);
+                Assert.IsTrue((moves[0].X == 8 && moves[0].Y == 6) ||
+                              (moves[0].X == 3 && moves[0].Y == 11));
+            }
+
+            [TestMethod]
+            public void Test_ResistDoubleThree()
+            {
+                ChessBoard board = ChessBoard.InitializeFromString(
+                    " bW \n" +
+                    "bwwb\n" +
+                    "wbw \n" +
+                    "b   \n");
+                List<Coord> moves = GetBestMove(board);
+                Assert.IsNotNull(moves);
+                Assert.IsTrue(moves.Count > 0);
+                Assert.IsTrue((moves[0].X == 7 && moves[0].Y == 6) ||
+                              (moves[0].X == 8 && moves[0].Y == 6) ||
+                              (moves[0].X == 7 && moves[0].Y == 10) ||
+                              (moves[0].X == 4 && moves[0].Y == 10));
+            }
+
+            [TestMethod]
             [Ignore]
             public void Test_Performance()
             {
                 for (int i = 0; i < 10; ++i)
-                    Test_Three();
+                    Test_ResistThree();
             }
         }
     }

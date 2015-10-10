@@ -349,11 +349,13 @@ namespace Five
                                  " bw  \n",
                                  true),
                     // 另一种四四
-                    Tuple.Create("wb bBb bw\n" +
-                                 "   www   \n",
+                    Tuple.Create("wb bBb b\n" +
+                                 "   www  \n",
                                  true),
                     // 长连
-                    Tuple.Create("Bbbbbb", true),
+                    Tuple.Create("bbbBbb\n" +
+                                 "www ww\n",
+                                 true),
                     // 三三
                     Tuple.Create("b   \n" +
                                  "Bww \n" +
@@ -838,9 +840,10 @@ namespace Five
             public void Test_GetBoardPatterns()
             {
                 string board_str =
-                    "wBbb\n" +
-                    "w b \n" +
-                    "ww  \n";
+                    " wBbb\n" +
+                    " w b \n" +
+                    " ww  \n" +
+                    "b    \n";
                 var expected_patterns = new List<Pattern> {
                     new Pattern(ChessType.Black, new Coord(7, 7), new Coord(10, 7), PatternType.Three_S),
                     new Pattern(ChessType.Black, new Coord(7, 7), new Coord(9, 9), PatternType.Two),

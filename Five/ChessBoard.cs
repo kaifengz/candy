@@ -101,17 +101,9 @@ namespace Five
             if (chessCount <= 0)
                 return false;
 
-            Debug.Assert(!last.IsEmpty && this[last] != ChessType.None);
-            if (chessCount > 1)
-            {
-                if (new_last.IsEmpty || this[new_last] != reversedChess[(int)this[last]])
-                    return false;
-            }
-            else
-            {
-                if (!new_last.IsEmpty)
-                    return false;
-            }
+            Debug.Assert(this[last] != ChessType.None);
+            if (chessCount > 1 && this[new_last] != reversedChess[(int)this[last]])
+                return false;
 
             if (movesAfterAnalyzedSituation != null && movesAfterAnalyzedSituation.Count > 0)
             {
@@ -179,7 +171,7 @@ namespace Five
         {
             get
             {
-                return this.Score.Category == ScoreCategory.Won;
+                return Situation.Won;
             }
         }
 
@@ -187,7 +179,7 @@ namespace Five
         {
             get
             {
-                return this.Score.Category == ScoreCategory.Lost;
+                return Situation.Lost;
             }
         }
 
@@ -195,8 +187,7 @@ namespace Five
         {
             get
             {
-                return this.Score.Category == ScoreCategory.Won ||
-                       this.Score.Category == ScoreCategory.Lost;
+                return Situation.GameOver;
             }
         }
 
@@ -212,7 +203,11 @@ namespace Five
         {
             get
             {
-                return last.IsEmpty ? ChessType.None : this[last];
+                if (chessCount == 0)
+                    return ChessType.None;
+
+                Debug.Assert(this[last] != ChessType.None);
+                return this[last];
             }
         }
 
@@ -241,6 +236,13 @@ namespace Five
                     origin.X = x;
                     origin.Y = y;
                 }
+                x = lines[y].IndexOf('W');
+                if (x >= 0)
+                {
+                    Debug.Assert(origin.X < 0, "More than one origin is found");
+                    origin.X = x;
+                    origin.Y = y;
+                }
             }
             Debug.Assert(origin.X >= 0, "The origin is not found");
             Debug.Assert(origin.X <= 7 && origin.X + 8 >= width &&
@@ -248,6 +250,8 @@ namespace Five
                          "The origin is incorrectly placed");
 
             ChessBoard board = new ChessBoard();
+            int blacks = 0;
+            int whites = 0;
             for (int y = 0; y < height; ++y)
             {
                 for (int x = 0; x < width; ++x)
@@ -255,9 +259,15 @@ namespace Five
                     ChessType chess = ChessType.None;
                     char c = lines[y][x];
                     if (c == 'b' || c == 'B')
+                    {
+                        ++blacks;
                         chess = ChessType.Black;
+                    }
                     else if (c == 'w' || c == 'W')
+                    {
+                        ++whites;
                         chess = ChessType.White;
+                    }
                     else
                         continue;
                     board.Place(chess, y + 7 - origin.Y, x + 7 - origin.X, true);
@@ -266,6 +276,11 @@ namespace Five
 
             // force the center be the last move for the testing purpose
             board.last = last ?? new Coord(7, 7);
+            Debug.Assert(board.LastChess != ChessType.None);
+            if (board.LastChess == ChessType.Black)
+                Debug.Assert(blacks == whites + 1);
+            else
+                Debug.Assert(blacks == whites);
             return board;
         }
     }

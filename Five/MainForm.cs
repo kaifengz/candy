@@ -129,7 +129,7 @@ namespace Five
 
         private void PaintLastMark(Graphics graphics, float gridSize, float offset_x, float offset_y)
         {
-            if (!board.Last.IsEmpty)
+            if (board.ChessCount > 0)
             {
                 float markSize = gridSize / 2;
                 using (Pen greenPen = new Pen(Color.DarkGreen, 2))
