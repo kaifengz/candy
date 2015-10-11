@@ -195,19 +195,33 @@ namespace Five
         {
             { PatternType.Three, new PatternType[] { PatternType.Three, PatternType.Three_S } },
         };
-        private static readonly Dictionary<PatternType, PatternType[]> blackHitbackPatterns = null;  // TODO
-        private static readonly Dictionary<PatternType, PatternType[]> whiteHitbackPatterns = null;  // TODO
+        private static readonly Dictionary<PatternType, PatternType[]> blackHitbackPatterns;
+        private static readonly Dictionary<PatternType, PatternType[]> whiteHitbackPatterns;
 
-        protected static SearchNode SearchForContinualAttack(SearchNode node, ChessType attacker)
+        static ChessCrawler()
+        {
+            blackHitbackPatterns = new Dictionary<PatternType, PatternType[]>(hitBackPatterns);
+            whiteHitbackPatterns = new Dictionary<PatternType, PatternType[]>(hitBackPatterns);
+            foreach (PatternType ptnType in blackWinningPatterns)
+                blackHitbackPatterns[ptnType] = new PatternType[0];
+            foreach (PatternType ptnType in whiteWinningPatterns)
+                whiteHitbackPatterns[ptnType] = new PatternType[0];
+        }
+
+        protected static SearchNode SearchForContinuousAttack(
+                Dictionary<ChessBoard, SearchNode> visited_boards,
+                SearchNode node,
+                ChessType attacker)
         {
             Debug.Assert(attacker == ChessType.Black || attacker == ChessType.White);
 
             ChessBoard board = node.Board;
-            if (board.GameOver)
-                return board.ThisChessWin(attacker) ? node : null;
-
             Situation situation = board.Situation;
             ChessType defenser = ChessBoard.ReverseChess(attacker);
+            Debug.Assert(!board.GameOver);
+
+            if (visited_boards.ContainsKey(board))
+                return visited_boards[board];
 
             List<Pattern>[] attackerPatterns = attacker == ChessType.Black ? situation.BlackPatternsByType : situation.WhitePatternsByType;
             List<Pattern>[] defenserPatterns = attacker != ChessType.Black ? situation.BlackPatternsByType : situation.WhitePatternsByType;
@@ -245,27 +259,36 @@ namespace Five
             }
 
             possible_moves = new List<Coord>(Utility.Dedup(possible_moves));
-            SearchNode best_if_fail = null;
+            SearchNode best = null;
             foreach (Coord move in possible_moves)
             {
                 SearchNode child = new SearchNode(board.Clone(), move.X, move.Y, node);
-                child.Board.Place(attacker, move.Y, move.X);
-                SearchNode leaf = SearchForContinualAttack(child, attacker);
+                child.Board.Place(board.NextChess, move.Y, move.X);
+                SearchNode leaf = child.Board.ThisChessWin(attacker) ? child :
+                                  child.Board.ThisChessWin(defenser) ? null :
+                                  SearchForContinuousAttack(visited_boards, child, attacker);
                 if (attacker == board.NextChess)
                 {
                     if (leaf != null)
-                        return leaf;
+                    {
+                        best = leaf;
+                        break;
+                    }
                 }
                 else
                 {
                     if (leaf == null)
-                        return null;
-                    if (best_if_fail == null || best_if_fail.Depth < leaf.Depth)
-                        best_if_fail = leaf;
+                    {
+                        best = null;
+                        break;
+                    }
+                    if (best == null || best.Depth < leaf.Depth)
+                        best = leaf;
                 }
             }
 
-            return best_if_fail;
+            visited_boards[board] = best;
+            return best;
         }
 
         protected static void SortByScore(List<SearchNode> nodes, ChessType chess)
@@ -277,7 +300,7 @@ namespace Five
 
         protected static void Cutoff(ChessType chess, List<SearchNode> children, SearchNode hint)
         {
-            // TODO:
+            // TODO: ChessCrawler.Cutoff
             if (children.Count > 10)
                 children.RemoveRange(10, children.Count - 10);
         }
@@ -344,6 +367,33 @@ namespace Five
                               (moves[0].X == 8 && moves[0].Y == 6) ||
                               (moves[0].X == 7 && moves[0].Y == 10) ||
                               (moves[0].X == 4 && moves[0].Y == 10));
+            }
+
+            [TestMethod]
+            //[Ignore]  // works but way too slow
+            public void Test_SearchForContinuousAttack()
+            {
+                // a game that black could win with 10 continuous fours
+                //string board_string =
+                //    "    wb   \n" +
+                //    "   bww   \n" +
+                //    " w wBwb b\n" +
+                //    "  bb wwbw\n" +
+                //    "w wbwb bw\n" +
+                //    " b wb b  \n" +
+                //    "  bwb  w \n";
+                //ChessBoard board = ChessBoard.InitializeFromString(board_string, new Coord(4, 7));
+                // a game that black could win with 3 continuous threes/fours
+                string board_string =
+                    "wwwb   \n" +
+                    " B wb  \n" +
+                    " wbbbbw\n" +
+                    "    b w\n" +
+                    "    w  \n";
+                ChessBoard board = ChessBoard.InitializeFromString(board_string, new Coord(10, 10));
+                Dictionary<ChessBoard, SearchNode> visited_board = new Dictionary<ChessBoard, SearchNode>();
+                SearchNode final = SearchForContinuousAttack(visited_board, new SearchNode(board), ChessType.Black);
+                Assert.IsNotNull(final);
             }
 
             [TestMethod]

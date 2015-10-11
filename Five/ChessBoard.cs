@@ -25,6 +25,11 @@ namespace Five
             return rows[y][x];
         }
 
+        public static bool IsValidCoord(Coord coord)
+        {
+            return coord.X >= 0 && coord.X < BoardSize && coord.Y >= 0 && coord.Y < BoardSize;
+        }
+
         public ChessType this[Coord coord]
         {
             get
@@ -226,6 +231,16 @@ namespace Five
             return reversedChess[(int)chess];
         }
 
+        public override bool Equals(object obj)
+        {
+            return rows.Equals(((ChessBoard)obj).rows);
+        }
+
+        public override int GetHashCode()
+        {
+            return rows.GetHashCode();
+        }
+
         public static ChessBoard InitializeFromString(string s, Coord? last = null)
         {
             if (s.EndsWith("\n"))
@@ -292,6 +307,24 @@ namespace Five
             else
                 Debug.Assert(blacks == whites);
             return board;
+        }
+
+        public string StringForTroubleshooting
+        {
+            get
+            {
+                List<char> s = new List<char>();
+                for (int y = 0; y < BoardSize; ++y)
+                {
+                    for (int x = 0; x < BoardSize; ++x)
+                    {
+                        ChessType c = rows[y][x];
+                        s.Add(c == ChessType.None ? ' ' : c == ChessType.Black ? 'b' : 'w');
+                    }
+                    s.Add('\n');
+                }
+                return string.Concat(s);
+            }
         }
     }
 

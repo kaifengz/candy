@@ -113,8 +113,57 @@ namespace Five
 
         public IEnumerable<Coord> GetComplements(ChessBoard board)
         {
-            // TODO: Pattern.GetAttackPoints
-            yield break;
+            int dx = end.X - start.X;
+            int dy = end.Y - start.Y;
+            int ox = Math.Sign(dx);
+            int oy = Math.Sign(dy);
+            Debug.Assert(dx == 0 || dy == 0 || Math.Abs(dx) == Math.Abs(dy));
+            Debug.Assert(dx != 0 || dy != 0);
+
+            int length = Math.Max(Math.Abs(dx), Math.Abs(dy));
+            int count;
+            if (pattern == PatternType.Two)
+                count = 2;
+            else if (pattern == PatternType.Three || pattern == PatternType.Three_S)
+                count = 3;
+            else if (pattern == PatternType.Four || pattern == PatternType.Four_S)
+                count = 4;
+            else if (pattern == PatternType.ToBeSixOrMore)
+                count = length - 1;
+            else
+                yield break;
+
+            Debug.Assert(board[start] != ChessType.None);
+            Debug.Assert(board.Get(start.X + ox * (length - 1), start.Y + oy * (length - 1)) != ChessType.None);
+            if (count < length)
+            {
+                for (int i = 1; i < length - 1; ++i)
+                {
+                    Coord coord = new Coord(start.X + ox * i, start.Y + oy * i);
+                    if (board[coord] == ChessType.None)
+                        yield return coord;
+                }
+            }
+
+            if (count <= 4)
+            {
+                int look_out = Math.Min(2 - (length - count), 5 - count);
+                Debug.Assert(look_out >= 0 && look_out <= 2);
+                for (int i = 1; i <= look_out; ++i)
+                {
+                    Coord coord = new Coord(start.X - ox * i, start.Y - oy * i);
+                    if (!ChessBoard.IsValidCoord(coord) || board[coord] != ChessType.None)
+                        break;
+                    yield return coord;
+                }
+                for (int i = 0; i < look_out; ++i)
+                {
+                    Coord coord = new Coord(end.X + ox * i, end.Y + oy * i);
+                    if (!ChessBoard.IsValidCoord(coord) || board[coord] != ChessType.None)
+                        break;
+                    yield return coord;
+                }
+            }
         }
 
         [TestClass]
@@ -488,7 +537,7 @@ namespace Five
             for (; ; ++pos)
             {
                 Coord curr = new Coord(start.X + dir.X * pos, start.Y + dir.Y * pos);
-                if (curr.X < 0 || curr.X >= ChessBoard.BoardSize || curr.Y < 0 || curr.Y >= ChessBoard.BoardSize)
+                if (!ChessBoard.IsValidCoord(curr))
                     break;
 
                 ChessType curr_chess = board[curr];
@@ -670,7 +719,7 @@ namespace Five
                 while (true)
                 {
                     Coord tmp = new Coord(start.X - dir.X, start.Y - dir.Y);
-                    if (tmp.X < 0 || tmp.X >= ChessBoard.BoardSize || tmp.Y < 0 || tmp.Y >= ChessBoard.BoardSize)
+                    if (!ChessBoard.IsValidCoord(tmp))
                         break;
                     start = tmp;
                 }
