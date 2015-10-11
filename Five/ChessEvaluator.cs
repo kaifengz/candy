@@ -111,6 +111,12 @@ namespace Five
             }
         }
 
+        public IEnumerable<Coord> GetComplements(ChessBoard board)
+        {
+            // TODO: Pattern.GetAttackPoints
+            yield break;
+        }
+
         [TestClass]
         public class UnitTest
         {
@@ -152,7 +158,7 @@ namespace Five
 
     public class Situation
     {
-        public IEnumerable<Pattern> BlackPatterns
+        public List<Pattern> BlackPatterns
         {
             get
             {
@@ -160,11 +166,27 @@ namespace Five
             }
         }
 
-        public IEnumerable<Pattern> WhitePatterns
+        public List<Pattern> WhitePatterns
         {
             get
             {
                 return whites;
+            }
+        }
+
+        public List<Pattern>[] BlackPatternsByType
+        {
+            get
+            {
+                return blacksByType;
+            }
+        }
+
+        public List<Pattern>[] WhitePatternsByType
+        {
+            get
+            {
+                return whitesByType;
             }
         }
 

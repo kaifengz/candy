@@ -183,6 +183,16 @@ namespace Five
             }
         }
 
+        public bool ThisChessWin(ChessType chess)
+        {
+            return chess == ChessType.Black ? Won : Lost;
+        }
+
+        public bool ThisChessLost(ChessType chess)
+        {
+            return chess == ChessType.White ? Won : Lost;
+        }
+
         public bool GameOver
         {
             get

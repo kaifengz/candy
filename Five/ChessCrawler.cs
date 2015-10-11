@@ -188,6 +188,86 @@ namespace Five
             }
         }
 
+        private static readonly PatternType[] blackWinningPatterns = new PatternType[] { PatternType.Four, PatternType.Four_S };
+        private static readonly PatternType[] whiteWinningPatterns = new PatternType[] { PatternType.Four, PatternType.Four_S, PatternType.ToBeSixOrMore };
+        private static readonly PatternType[] attackingPatterns = new PatternType[] { PatternType.Three, PatternType.Three_S, PatternType.Two };
+        private static readonly Dictionary<PatternType, PatternType[]> hitBackPatterns = new Dictionary<PatternType, PatternType[]>
+        {
+            { PatternType.Three, new PatternType[] { PatternType.Three, PatternType.Three_S } },
+        };
+        private static readonly Dictionary<PatternType, PatternType[]> blackHitbackPatterns = null;  // TODO
+        private static readonly Dictionary<PatternType, PatternType[]> whiteHitbackPatterns = null;  // TODO
+
+        protected static SearchNode SearchForContinualAttack(SearchNode node, ChessType attacker)
+        {
+            Debug.Assert(attacker == ChessType.Black || attacker == ChessType.White);
+
+            ChessBoard board = node.Board;
+            if (board.GameOver)
+                return board.ThisChessWin(attacker) ? node : null;
+
+            Situation situation = board.Situation;
+            ChessType defenser = ChessBoard.ReverseChess(attacker);
+
+            List<Pattern>[] attackerPatterns = attacker == ChessType.Black ? situation.BlackPatternsByType : situation.WhitePatternsByType;
+            List<Pattern>[] defenserPatterns = attacker != ChessType.Black ? situation.BlackPatternsByType : situation.WhitePatternsByType;
+
+            List<Coord> possible_moves = new List<Coord>();
+
+            if (attacker == board.NextChess)
+            {
+                // moves to win
+                foreach (PatternType ptnType in (attacker == ChessType.Black ? blackWinningPatterns : whiteWinningPatterns))
+                    foreach (Pattern ptn in attackerPatterns[(int)ptnType])
+                        possible_moves.AddRange(ptn.GetComplements(board));
+
+                // moves to attack
+                foreach (PatternType ptnType in attackingPatterns)
+                    foreach (Pattern ptn in attackerPatterns[(int)ptnType])
+                        possible_moves.AddRange(ptn.GetComplements(board));
+            }
+            else
+            {
+                // moves to win
+                foreach (PatternType ptnType in (defenser == ChessType.Black ? blackWinningPatterns : whiteWinningPatterns))
+                    foreach (Pattern ptn in defenserPatterns[(int)ptnType])
+                        possible_moves.AddRange(ptn.GetComplements(board));
+
+                // moves to defense or hit back
+                foreach (var hitBack in (attacker == ChessType.Black ? blackHitbackPatterns : whiteHitbackPatterns))
+                    foreach (Pattern ptn in attackerPatterns[(int)hitBack.Key])
+                    {
+                        possible_moves.AddRange(ptn.GetComplements(board));
+                        foreach (PatternType hitBackPtnType in hitBack.Value)
+                            foreach (Pattern hitBackPtn in defenserPatterns[(int)hitBackPtnType])
+                                possible_moves.AddRange(hitBackPtn.GetComplements(board));
+                    }
+            }
+
+            possible_moves = new List<Coord>(Utility.Dedup(possible_moves));
+            SearchNode best_if_fail = null;
+            foreach (Coord move in possible_moves)
+            {
+                SearchNode child = new SearchNode(board.Clone(), move.X, move.Y, node);
+                child.Board.Place(attacker, move.Y, move.X);
+                SearchNode leaf = SearchForContinualAttack(child, attacker);
+                if (attacker == board.NextChess)
+                {
+                    if (leaf != null)
+                        return leaf;
+                }
+                else
+                {
+                    if (leaf == null)
+                        return null;
+                    if (best_if_fail == null || best_if_fail.Depth < leaf.Depth)
+                        best_if_fail = leaf;
+                }
+            }
+
+            return best_if_fail;
+        }
+
         protected static void SortByScore(List<SearchNode> nodes, ChessType chess)
         {
             nodes.Sort();

@@ -30,6 +30,19 @@ namespace Five
             }
         }
 
+        public static IEnumerable<T> Dedup<T>(IEnumerable<T> items)
+        {
+            HashSet<T> occurs = new HashSet<T>();
+            foreach (T item in items)
+            {
+                if (!occurs.Contains(item))
+                {
+                    occurs.Add(item);
+                    yield return item;
+                }
+            }
+        }
+
         [TestClass]
         public class UnitTest
         {
