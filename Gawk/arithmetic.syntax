@@ -1,0 +1,24 @@
+[token]
+plus = \+
+minus = -
+multiply = \*
+divide = /
+modulo = %
+l_parenthesis = \(
+r_parenthesis = \)
+
+[value]
+integer = \d+
+float = \d+\.\d*|\.\d+
+
+[space]
+space = \s+
+
+[syntax]
+expression = term | expression:left (plus | minus):operator term:right
+term = item | term:left (multiply | divide | modulo):operator item:right
+item = number | l_parenthesis expression r_parenthesis
+number = integer | float
+
+[root]
+root = expression
