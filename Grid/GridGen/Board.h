@@ -1,10 +1,11 @@
 #pragma once
 
-#include <assert.h>
 #include <vector>
 #include <utility>
 
 typedef unsigned int uint;
+
+void verify(bool condition);
 
 class Board
 {
@@ -91,6 +92,11 @@ public:
 		default:			return Cell::None;
 		}
 	}
+
+protected:
+	uint PerformAttacking(uint x, uint y);
+
+	bool PerformAttacking(uint x0, uint y0, uint dx, uint dy, uint self, uint max);
 
 private:
 	Cell m_cells[HEIGHT][WIDTH];

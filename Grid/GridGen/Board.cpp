@@ -71,10 +71,39 @@ void Board::Expand(
 					child.m_cells[y][x] = Cell::None;
 					child.m_cells[y2][x2] = m_nextMove;
 					child.m_nextMove = childNextMove;
+					child.PerformAttacking(x2, y2);
 				}
 			}
 		}
 	}
+}
+
+uint Board::PerformAttacking(uint x, uint y)
+{
+	Cell self = Reverse(m_nextMove);
+	verify(m_cells[y][x] == self);
+
+	uint killed = 0;
+
+	if (PerformAttacking(0, y, 1, 0, x, WIDTH))
+	{
+		++killed;
+	}
+
+	if (PerformAttacking(x, 0, 0, 1, y, HEIGHT))
+	{
+		++killed;
+	}
+
+	return killed;
+}
+
+bool PerformAttacking(uint x0, uint y0, uint dx, uint dy, uint self, uint max)
+{
+	verify(self >= 0 && self < max);
+
+	// TODO
+	return false;
 }
 
 uint Board::Encode() const
