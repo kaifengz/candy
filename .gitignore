@@ -1,6 +1,7 @@
 *.suo
 bin/
 obj/
+.vs/
 
 # For KfSaver
 Debug/
