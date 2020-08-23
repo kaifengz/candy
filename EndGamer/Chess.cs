@@ -88,11 +88,11 @@ namespace endgamer
         }
     }
 
-    class ChessPiece_King : ChessPiece
+    class ChessPiece_General : ChessPiece
     {
         public override string Name { get { return Color == ChessPieceColor.Red ? "帅" : "将"; } }
 
-        public ChessPiece_King(ChessPieceColor color)
+        public ChessPiece_General(ChessPieceColor color)
             : base(color)
         {
         }
@@ -127,7 +127,7 @@ namespace endgamer
             return false;
         }
 
-        public bool AttackableToKing(ChessBoard board, Position origin, Position dest)
+        public bool AttackableToGeneral(ChessBoard board, Position origin, Position dest)
         {
             if (dest.X != origin.X)
                 return false;
@@ -156,7 +156,7 @@ namespace endgamer
         public override bool IsValidPosition(int x, int y)
         {
             int y_offset = (Color == ChessPieceColor.Red ? 1 : 8);
-            return x >= 4 && x <= 6 && y >= y_offset && y <= y_offset + 2 && (x + y) % 2 == 1;
+            return x >= 4 && x <= 6 && y >= y_offset && y <= y_offset + 2 && (x + y - y_offset) % 2 == 0;
         }
 
         public override IEnumerable<Position> GetPossibleMovement(ChessBoard board, Position origin)
@@ -199,7 +199,7 @@ namespace endgamer
         public override bool IsValidPosition(int x, int y)
         {
             int y_offset = (Color == ChessPieceColor.Red ? 1 : 6);
-            return x % 2 == 1 && y % 2 == 1 && (x + y) % 4 == 0 && y >= y_offset && y <= y_offset + 4;
+            return x % 2 == 1 && y >= y_offset && y <= y_offset + 4 && (y - y_offset) % 2 == 0 && (x + y - y_offset) % 4 == 3;
         }
 
         public override IEnumerable<Position> GetPossibleMovement(ChessBoard board, Position origin)
@@ -246,7 +246,7 @@ namespace endgamer
             Debug.Assert((origin.X + origin.Y) % 4 == 0);
             Debug.Assert(origin.Y >= y_offset && origin.Y <= y_offset + 4);
 
-            if (dest.Y >= y_offset && dest.Y <= y_offset+4)
+            if (dest.Y >= y_offset && dest.Y <= y_offset + 4)
                 return Math.Abs(origin.X - dest.X) == 2 && Math.Abs(origin.Y - dest.Y) == 2;
             return false;
         }
@@ -287,19 +287,19 @@ namespace endgamer
         {
             foreach (Forward forward in forwards)
             {
-                int x = origin.X+forward.TX;
-                int y = origin.Y+forward.TY;
+                int x = origin.X + forward.TX;
+                int y = origin.Y + forward.TY;
                 if (board.IsValidPosition(x, y) && board.GetPiece(origin.X + forward.OX, origin.Y + forward.OY) == null)
                     yield return new Position(x, y);
             }
         }
     }
 
-    class ChessPiece_Rock : ChessPiece
+    class ChessPiece_Chariot : ChessPiece
     {
-        public override string Name { get { return "车"; } }
+        public override string Name { get { return "車"; } }
 
-        public ChessPiece_Rock(ChessPieceColor color)
+        public ChessPiece_Chariot(ChessPieceColor color)
             : base(color)
         {
         }
@@ -328,7 +328,7 @@ namespace endgamer
 
             int dx = Math.Sign(dest.X - origin.X);
             int dy = Math.Sign(dest.Y - origin.Y);
-            for (int i=1; ;++i)
+            for (int i = 1; ; ++i)
             {
                 int x = origin.X + dx * i;
                 int y = origin.Y + dy * i;
@@ -342,7 +342,7 @@ namespace endgamer
 
     class ChessPiece_Cannon : ChessPiece
     {
-        public override string Name { get { return "砲"; } }
+        public override string Name { get { return Color == ChessPieceColor.Red ? "炮" : "砲"; } }
 
         public ChessPiece_Cannon(ChessPieceColor color)
             : base(color)
@@ -404,11 +404,11 @@ namespace endgamer
         }
     }
 
-    class ChessPiece_Pawn : ChessPiece
+    class ChessPiece_Soldier : ChessPiece
     {
         public override string Name { get { return Color == ChessPieceColor.Red ? "兵" : "卒"; } }
 
-        public ChessPiece_Pawn(ChessPieceColor color)
+        public ChessPiece_Soldier(ChessPieceColor color)
             : base(color)
         {
         }
@@ -453,8 +453,8 @@ namespace endgamer
                 new_board.blacks[kv.Key] = kv.Value;
             foreach (var kv in reds)
                 new_board.reds[kv.Key] = kv.Value;
-            new_board.kings[0] = kings[0];
-            new_board.kings[1] = kings[1];
+            new_board.generals[0] = generals[0];
+            new_board.generals[1] = generals[1];
             return new_board;
         }
 
@@ -462,39 +462,39 @@ namespace endgamer
         {
             ClearBoard();
 
-            SetPiece(1, 1, new ChessPiece_Rock(ChessPieceColor.Red));
+            SetPiece(1, 1, new ChessPiece_Chariot(ChessPieceColor.Red));
             SetPiece(2, 1, new ChessPiece_Knight(ChessPieceColor.Red));
             SetPiece(3, 1, new ChessPiece_Minister(ChessPieceColor.Red));
             SetPiece(4, 1, new ChessPiece_Guard(ChessPieceColor.Red));
-            SetPiece(5, 1, new ChessPiece_King(ChessPieceColor.Red));
+            SetPiece(5, 1, new ChessPiece_General(ChessPieceColor.Red));
             SetPiece(6, 1, new ChessPiece_Guard(ChessPieceColor.Red));
             SetPiece(7, 1, new ChessPiece_Minister(ChessPieceColor.Red));
             SetPiece(8, 1, new ChessPiece_Knight(ChessPieceColor.Red));
-            SetPiece(9, 1, new ChessPiece_Rock(ChessPieceColor.Red));
+            SetPiece(9, 1, new ChessPiece_Chariot(ChessPieceColor.Red));
             SetPiece(2, 3, new ChessPiece_Cannon(ChessPieceColor.Red));
             SetPiece(8, 3, new ChessPiece_Cannon(ChessPieceColor.Red));
-            SetPiece(1, 4, new ChessPiece_Pawn(ChessPieceColor.Red));
-            SetPiece(3, 4, new ChessPiece_Pawn(ChessPieceColor.Red));
-            SetPiece(5, 4, new ChessPiece_Pawn(ChessPieceColor.Red));
-            SetPiece(7, 4, new ChessPiece_Pawn(ChessPieceColor.Red));
-            SetPiece(9, 4, new ChessPiece_Pawn(ChessPieceColor.Red));
+            SetPiece(1, 4, new ChessPiece_Soldier(ChessPieceColor.Red));
+            SetPiece(3, 4, new ChessPiece_Soldier(ChessPieceColor.Red));
+            SetPiece(5, 4, new ChessPiece_Soldier(ChessPieceColor.Red));
+            SetPiece(7, 4, new ChessPiece_Soldier(ChessPieceColor.Red));
+            SetPiece(9, 4, new ChessPiece_Soldier(ChessPieceColor.Red));
 
-            SetPiece(1, 10, new ChessPiece_Rock(ChessPieceColor.Black));
+            SetPiece(1, 10, new ChessPiece_Chariot(ChessPieceColor.Black));
             SetPiece(2, 10, new ChessPiece_Knight(ChessPieceColor.Black));
             SetPiece(3, 10, new ChessPiece_Minister(ChessPieceColor.Black));
             SetPiece(4, 10, new ChessPiece_Guard(ChessPieceColor.Black));
-            SetPiece(5, 10, new ChessPiece_King(ChessPieceColor.Black));
+            SetPiece(5, 10, new ChessPiece_General(ChessPieceColor.Black));
             SetPiece(6, 10, new ChessPiece_Guard(ChessPieceColor.Black));
             SetPiece(7, 10, new ChessPiece_Minister(ChessPieceColor.Black));
             SetPiece(8, 10, new ChessPiece_Knight(ChessPieceColor.Black));
-            SetPiece(9, 10, new ChessPiece_Rock(ChessPieceColor.Black));
+            SetPiece(9, 10, new ChessPiece_Chariot(ChessPieceColor.Black));
             SetPiece(2, 8, new ChessPiece_Cannon(ChessPieceColor.Black));
             SetPiece(8, 8, new ChessPiece_Cannon(ChessPieceColor.Black));
-            SetPiece(1, 7, new ChessPiece_Pawn(ChessPieceColor.Black));
-            SetPiece(3, 7, new ChessPiece_Pawn(ChessPieceColor.Black));
-            SetPiece(5, 7, new ChessPiece_Pawn(ChessPieceColor.Black));
-            SetPiece(7, 7, new ChessPiece_Pawn(ChessPieceColor.Black));
-            SetPiece(9, 7, new ChessPiece_Pawn(ChessPieceColor.Black));
+            SetPiece(1, 7, new ChessPiece_Soldier(ChessPieceColor.Black));
+            SetPiece(3, 7, new ChessPiece_Soldier(ChessPieceColor.Black));
+            SetPiece(5, 7, new ChessPiece_Soldier(ChessPieceColor.Black));
+            SetPiece(7, 7, new ChessPiece_Soldier(ChessPieceColor.Black));
+            SetPiece(9, 7, new ChessPiece_Soldier(ChessPieceColor.Black));
         }
 
         public void ClearBoard()
@@ -543,10 +543,10 @@ namespace endgamer
             pieces[index] = piece;
             (piece.Color == ChessPieceColor.Black ? blacks : reds)[index] = piece;
 
-            if (piece is ChessPiece_King)
+            if (piece is ChessPiece_General)
             {
-                Debug.Assert(kings[(int)piece.Color] == -1);
-                kings[(int)piece.Color] = index;
+                Debug.Assert(generals[(int)piece.Color] == -1);
+                generals[(int)piece.Color] = index;
             }
         }
 
@@ -575,8 +575,8 @@ namespace endgamer
                 Debug.Assert(ctpieces[to_index] == target);
                 ctpieces.Remove(to_index);
 
-                if (target is ChessPiece_King)
-                    kings[(int)target.Color] = -1;
+                if (target is ChessPiece_General)
+                    generals[(int)target.Color] = -1;
             }
 
             int from_index = PositionToIndex(from);
@@ -591,8 +591,8 @@ namespace endgamer
             pieces[to_index] = piece;
             cpieces[to_index] = piece;
 
-            if (piece is ChessPiece_King)
-                kings[(int)piece.Color] = to_index;
+            if (piece is ChessPiece_General)
+                generals[(int)piece.Color] = to_index;
             return true;
         }
 
@@ -609,16 +609,16 @@ namespace endgamer
         public bool IsCheckmateAgainst(ChessPieceColor color, ChessPieceColor in_turn)
         {
             ChessPieceColor attacker_color = (ChessPieceColor)(1 - (int)color);
-            int king_pos_index = kings[(int)color];
-            Position king_pos = new Position(king_pos_index % 9 + 1, king_pos_index / 9 + 1);
+            int general_pos_index = generals[(int)color];
+            Position general_pos = new Position(general_pos_index % 9 + 1, general_pos_index / 9 + 1);
 
             foreach (Tuple<Position, ChessPiece> tup in Pieces(attacker_color))
             {
                 Position pos = tup.Item1;
                 ChessPiece piece = tup.Item2;
-                if (piece.Attackable(this, pos, king_pos))
+                if (piece.Attackable(this, pos, general_pos))
                     return true;
-                if (piece is ChessPiece_King && color != in_turn && ((ChessPiece_King)piece).AttackableToKing(this, pos, king_pos))
+                if (piece is ChessPiece_General && color != in_turn && ((ChessPiece_General)piece).AttackableToGeneral(this, pos, general_pos))
                     return true;
             }
 
@@ -638,6 +638,6 @@ namespace endgamer
         private ChessPiece[] pieces;
         private Dictionary<int, ChessPiece> blacks;
         private Dictionary<int, ChessPiece> reds;
-        private int[] kings = new int[2] { -1, -1 };
+        private int[] generals = new int[2] { -1, -1 };
     }
 }

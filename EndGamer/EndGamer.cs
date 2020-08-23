@@ -18,7 +18,9 @@ namespace endgamer
             InitializeComponent();
             this.DoubleBuffered = true;
 
-            board = ChessSolver.init_test();
+            //board = ChessSolver.init_test();
+            board = new ChessBoard();
+            board.InitBoard();
         }
 
         protected override void OnResize(EventArgs e)
@@ -84,7 +86,7 @@ namespace endgamer
             int x0 = (width - n * 8) / 2;
             int y0 = (height - n * 9) / 2;
 
-            using (Font font = new Font(this.Font.Name, n/2, GraphicsUnit.Pixel))
+            using (Font font = new Font(this.Font.Name, n * 2 / 5, GraphicsUnit.Pixel))
             {
                 int s = (int)(font.Size / 2) + 3;
                 using (Brush rbrush = new SolidBrush(Color.Red),
@@ -99,15 +101,18 @@ namespace endgamer
                             Position pos = v.Item1;
                             ChessPiece piece = v.Item2;
 
-                            Rectangle rect = new Rectangle(
+                            Rectangle rectInner = new Rectangle(
                                 x0 + n * (pos.X - 1) - s, y0 + n * (10 - pos.Y) - s,
                                 s * 2, s * 2);
+                            Rectangle rectOuter = new Rectangle(
+                                rectInner.X - 3, rectInner.Y - 3,
+                                rectInner.Width + 6, rectInner.Height + 6);
 
-                            graphics.FillEllipse(brush, rect);
-                            graphics.DrawEllipse(piece.Color == ChessPieceColor.Red ? rpen : bpen, rect);
+                            graphics.FillEllipse(brush, rectOuter);
+                            graphics.DrawEllipse(piece.Color == ChessPieceColor.Red ? rpen : bpen, rectOuter);
                             graphics.DrawString(piece.Name, font,
                                 piece.Color == ChessPieceColor.Red ? rbrush : bbrush,
-                                rect);
+                                rectInner);
                         }
                     }
                 }

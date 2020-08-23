@@ -26,28 +26,28 @@ namespace endgamer
 
             //board.SetPiece(9, 7, new ChessPiece_Cannon(ChessPieceColor.Red));
             //board.SetPiece(9, 6, new ChessPiece_Cannon(ChessPieceColor.Red));
-            //board.SetPiece(9, 5, new ChessPiece_Rock(ChessPieceColor.Red));
-            //board.SetPiece(8, 5, new ChessPiece_Rock(ChessPieceColor.Red));
-            //board.SetPiece(4, 1, new ChessPiece_King(ChessPieceColor.Red));
-            //board.SetPiece(4, 9, new ChessPiece_Pawn(ChessPieceColor.Red));
-            //board.SetPiece(5, 9, new ChessPiece_Pawn(ChessPieceColor.Red));
+            //board.SetPiece(9, 5, new ChessPiece_Chariot(ChessPieceColor.Red));
+            //board.SetPiece(8, 5, new ChessPiece_Chariot(ChessPieceColor.Red));
+            //board.SetPiece(4, 1, new ChessPiece_General(ChessPieceColor.Red));
+            //board.SetPiece(4, 9, new ChessPiece_Soldier(ChessPieceColor.Red));
+            //board.SetPiece(5, 9, new ChessPiece_Soldier(ChessPieceColor.Red));
 
             //board.SetPiece(5, 10, new ChessPiece_Cannon(ChessPieceColor.Black));
-            //board.SetPiece(6, 10, new ChessPiece_King(ChessPieceColor.Black));
-            //board.SetPiece(6, 8, new ChessPiece_Rock(ChessPieceColor.Black));
-            //board.SetPiece(4, 3, new ChessPiece_Pawn(ChessPieceColor.Black));
-            //board.SetPiece(5, 2, new ChessPiece_Pawn(ChessPieceColor.Black));
+            //board.SetPiece(6, 10, new ChessPiece_General(ChessPieceColor.Black));
+            //board.SetPiece(6, 8, new ChessPiece_Chariot(ChessPieceColor.Black));
+            //board.SetPiece(4, 3, new ChessPiece_Soldier(ChessPieceColor.Black));
+            //board.SetPiece(5, 2, new ChessPiece_Soldier(ChessPieceColor.Black));
 
             // TODO:
-            board.SetPiece(5, 1, new ChessPiece_King(ChessPieceColor.Red));
-            board.SetPiece(4, 8, new ChessPiece_Pawn(ChessPieceColor.Red));
-            board.SetPiece(4, 9, new ChessPiece_Pawn(ChessPieceColor.Red));
-            board.SetPiece(4, 10, new ChessPiece_Pawn(ChessPieceColor.Red));
-            //board.SetPiece(5, 9, new ChessPiece_Pawn(ChessPieceColor.Red));
-            //board.SetPiece(6, 8, new ChessPiece_Pawn(ChessPieceColor.Red));
+            board.SetPiece(5, 1, new ChessPiece_General(ChessPieceColor.Red));
+            board.SetPiece(4, 8, new ChessPiece_Soldier(ChessPieceColor.Red));
+            board.SetPiece(4, 9, new ChessPiece_Soldier(ChessPieceColor.Red));
+            board.SetPiece(4, 10, new ChessPiece_Soldier(ChessPieceColor.Red));
+            //board.SetPiece(5, 9, new ChessPiece_Soldier(ChessPieceColor.Red));
+            //board.SetPiece(6, 8, new ChessPiece_Soldier(ChessPieceColor.Red));
 
-            board.SetPiece(6, 10, new ChessPiece_King(ChessPieceColor.Black));
-            board.SetPiece(1, 1, new ChessPiece_Pawn(ChessPieceColor.Black));
+            board.SetPiece(6, 10, new ChessPiece_General(ChessPieceColor.Black));
+            board.SetPiece(1, 1, new ChessPiece_Soldier(ChessPieceColor.Black));
 
             return board;
         }
